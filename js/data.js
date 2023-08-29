@@ -7,7 +7,7 @@ const dataNameSpace = {
     indicator2: "",
     language: "EN",
     dataset: "nrg_ind_eff",
-    chartId: "",
+    chartId: "chart_1",
     chartOpt: "mainChart",
     indicator_type:"",
     indicator2_type:"",

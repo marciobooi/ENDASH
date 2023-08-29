@@ -10,20 +10,18 @@ function endash(d = null) {
 //         });
 // }, 100);
 
-	const charts = Object.keys(codesDataset)
 
-    for (let i = 0; i < charts.length; i++) {
-        const chartToLoad = charts[i];
+        
 
-        REF.chartId = chartToLoad
-        REF.dataset = codesDataset[chartToLoad].dataset;
-        REF.unit = codesDataset[chartToLoad].unit;
-        REF.indicator = codesDataset[chartToLoad].indicator;
-        REF.indicator2 = codesDataset[chartToLoad].indicator2;
-        containerId = codesDataset[chartToLoad].container;
-        REF.indicator_type = codesDataset[chartToLoad].indicator_type;
-        REF.indicator2_type = codesDataset[chartToLoad].indicator2_type;
-        REF.title = codesDataset[chartToLoad].title;
+   
+        REF.dataset = codesDataset[REF.chartId].dataset;
+        REF.unit = codesDataset[REF.chartId].unit;
+        REF.indicator = codesDataset[REF.chartId].indicator;
+        REF.indicator2 = codesDataset[REF.chartId].indicator2;
+        containerId = codesDataset[REF.chartId].container;
+        REF.indicator_type = codesDataset[REF.chartId].indicator_type;
+        REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
+        REF.title = codesDataset[REF.chartId].title;
 
         const type = "spline"
 
@@ -36,7 +34,7 @@ function endash(d = null) {
         const yAxisTitle = 'kilograms of oil equivalent'
         const categories = d.Dimension("time").id;
   
-        buildChart(i, categories, containerId, yAxisTitle, type);  
+        buildChart(categories, containerId, yAxisTitle, type);  
 
         } else {           
     
@@ -51,7 +49,7 @@ function endash(d = null) {
     
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
 
-             buildChart(i, categories, containerId, yAxisTitle, type);  
+             buildChart(categories, containerId, yAxisTitle, type);  
    
        
         }
@@ -66,12 +64,12 @@ function endash(d = null) {
     //         });
     // }, 500);
 
-    }
+    
 }
 
 
 
-function buildChart(i, categories, containerId, yAxisTitle, type) {
+function buildChart(categories, containerId, yAxisTitle, type) {
 
     const xAxis = REF.chartOpt === "compareChart"
         ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
@@ -197,7 +195,7 @@ function compareCountries() {
 
     chartSeries = [];
 
-    const i = ""
+ 
 
     if(REF.chartOpt === "compareChart") {
 
@@ -214,7 +212,7 @@ function compareCountries() {
         
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
         
-            buildChart(i, categories, REF.chartId, yAxisTitle, type);
+            buildChart(categories, REF.chartId, yAxisTitle, type);
 
             REF.chartOpt = "mainChart"
         } else {          
@@ -241,7 +239,7 @@ function compareCountries() {
 
         const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
 
-         buildChart(i, categories, REF.chartId, yAxisTitle, type);  
+         buildChart(categories, REF.chartId, yAxisTitle, type);  
 
         REF.chartOpt = "compareChart"
     }

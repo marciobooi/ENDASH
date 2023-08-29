@@ -17,6 +17,27 @@ class ChartContainer {
     document.addEventListener('keydown', this.handleKeyDown);
 
     this.initializeItemClickListeners();
+
+    this.intersectionObserver = new IntersectionObserver(this.handleIntersection.bind(this), {
+      root: null, // Use the viewport as the root
+      threshold: 0.2, // Percentage of visibility required to trigger
+    });
+
+    this.chartItems.forEach(item => {
+      this.intersectionObserver.observe(item);
+    });
+  }
+
+  handleIntersection(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const chartItem = entry.target;
+        REF.chartId = chartItem.id
+        endash()
+        // // Unobserve the element to avoid duplicate loading
+        this.intersectionObserver.unobserve(chartItem);
+      }
+    });
   }
 
   createTarget(targetSelector) {
