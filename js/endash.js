@@ -180,8 +180,6 @@ function chartEightCalculation(d) {
 
 function compareCountries() {
 
- log(REF)
-
     // REF.chartId = chartToLoad
     REF.dataset = codesDataset[REF.chartId].dataset;
     REF.unit = codesDataset[REF.chartId].unit;

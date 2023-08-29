@@ -347,47 +347,17 @@ function credits() {
   return chartCredits
 }
 
-// function chartApiCall() {
-//   let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
-//   url += "format=JSON";
-//   url += "&lang=" + REF.language;
+var cache = {};
 
-//   switch (REF.chartId) {
-//     case "lineChart":
-//       url += (REF.component == 1? REF.nrg_prc.map(prc => "&nrg_prc=" + prc).join("") : REF.taxs.map(tax => "&tax=" + tax).join(""));
-//       url += (!REF.component ? "&product=" + REF.product + "&unit=" + REF.unit : "");
-//       url += "&nrg_cons=" + REF.consoms;
-//       url += "&currency=" + REF.currency;
-//       url += "&geo=" + REF.chartGeo;
-//       break;
-//     case "pieChart":
-//       url += (REF.component == 1 ? REF.nrg_prc.map(prc => "&nrg_prc=" + prc).join("") : "&unit=" + REF.unit);
-//       url += "&currency=" + REF.currency;
-//       url += "&time=" + REF.time;
-//       url += "&geo=" + REF.chartGeo;
-//       url += "&nrg_cons=" + REF.consoms;
-//       break;
-//     case "barChart":
-//       url += (REF.component == 1 ? REF.nrg_prc.map(prc => "&nrg_prc=" + prc).join("") : "&product=" + REF.product + "&unit=" + REF.unit);
-//       url += "&currency=" + REF.currency;
-//       url += "&time=" + REF.time;
-//       url += "&geo=" + REF.chartGeo;
-//       break;  
-//     default:
-//       url += REF.geos.map(geo => "&geo=" + geo).join("");
-//       url += "&currency=" + REF.currency;
-//       url += "&time=" + REF.time;
-//       url += "&nrg_cons=" + REF.consoms;
-//       url += (REF.component == 1 ? REF.nrg_prc.map(prc => "&nrg_prc=" + prc).join("") : "&product=" + REF.product + "&unit=" + REF.unit);
-//       break;
-//   }
+function addToCache(query, d) {
+  if (!cache[query]) {
+    cache[query] = [];
+  }
+  
+  cache[query].push(d);
+}
 
-
-//   const d = JSONstat(url).Dataset(0);
-//   return d;
-// }
-
-function chartApiCall() {
+function chartApiCall(query) {
 
 
   const indicator_type = `&${REF.indicator_type}=`
@@ -436,21 +406,33 @@ function chartApiCall() {
 
   }
 
-  const request = new XMLHttpRequest();
-  request.open("GET", url, false); // Setting the third parameter to 'false' makes it synchronous
-  request.send();
+  if (cache[url] && cache[url].length > 0) {
+    d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);
+    return d;
+  } else {
+   
 
-  if (request.status === 500 || request.status === 503) {
-    // submitFormDown();
+    const request = new XMLHttpRequest();
+    request.open("GET", url, false); // Setting the third parameter to 'false' makes it synchronous
+    request.send();
+  
+    if (request.status === 500 || request.status === 503) {
+      // submitFormDown();
+    }
+  
+    if (request.status !== 200) {
+      // submitFormDown();
+    }
+  
+    const data = JSON.parse(request.responseText);
+    const d = JSONstat(data).Dataset(0);
+
+    addToCache(url, d);
+    
+    return d;
   }
 
-  if (request.status !== 200) {
-    // submitFormDown();
-  }
 
-  const data = JSON.parse(request.responseText);
-  const d = JSONstat(data).Dataset(0);
-  return d;
 }
 
 function startLoadingAnimation() {
