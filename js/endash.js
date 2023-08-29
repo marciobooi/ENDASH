@@ -2,13 +2,13 @@
 function endash(d = null) {
 
    
-// setTimeout(() => {
-//         Highcharts.charts.forEach(chart => {
-//             if (chart) {
-//                 chart.showLoading();
-//             }
-//         });
-// }, 100);
+setTimeout(() => {
+        Highcharts.charts.forEach(chart => {
+            if (chart) {
+                chart.showLoading();
+            }
+        });
+}, 100);
 
 
         
@@ -55,14 +55,14 @@ function endash(d = null) {
         }
 
 
-    //     setTimeout(() => {
-    //         Highcharts.charts.forEach(chart => {
-    //             log(chart.index, i)
-    //             if (chart.index == i) {                   
-    //                 chart.hideLoading();
-    //             }
-    //         });
-    // }, 500);
+        setTimeout(() => {
+            Highcharts.charts.forEach(chart => {
+                if (chart) {
+                             
+                    chart.hideLoading();
+                }
+            });
+    }, 500);
 
     
 }
