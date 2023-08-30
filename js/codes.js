@@ -202,6 +202,8 @@ codesDataset = {
 	"chart_8": {
 		"dataset":'demo_pjan',
 		"title": "chart_8",
+		"indicator": [],
+		"indicator2": '',
 		"unit": "KGOE",
 		"container": "highchartsContainer_8",	
 	},

@@ -71,6 +71,10 @@ setTimeout(() => {
 
 function buildChart(categories, containerId, yAxisTitle, type) {
 
+    if (containerId === undefined) {
+        containerId = codesDataset[REF.chartId].container;
+      }
+
     const xAxis = REF.chartOpt === "compareChart"
         ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
         : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
@@ -132,30 +136,31 @@ function handleData(d, series ) {
 
 }
 
-function chartEightCalculation(d) {
+function chartEightCalculation() {
     urlChartEightOne = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_bal_c?";
     urlChartEightOne += "format=JSON";
     urlChartEightOne += "&lang=" + REF.language;
     urlChartEightOne += "&siec=TOTAL&unit=KTOE&nrg_bal=FC_OTH_HH_E";
-
-
-    urlChartEightOne += "&geo=" + REF.geos;
-
+    if(REF.chartOpt === "compareChart") {
+        for (let i = 0; i < defaultGeos.length; i++) urlChartEightOne += "&geo=" + defaultGeos[i];
+    } else {
+        urlChartEightOne += "&geo=" + REF.geos;
+    }
 
     d = JSONstat(urlChartEightOne).Dataset(0);
 
     year = d.Dimension("time").id;
-    chartEightyears = year;
+    geo = d.Dimension("geo").id;
+
+    log(geo)
 
     urlChartEightTwo = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_pjan?";
     urlChartEightTwo += "format=JSON";
     urlChartEightTwo += "&lang=" + REF.language;
     urlChartEightTwo += "&age=TOTAL&sex=T";
 
-    urlChartEightTwo += "&geo=" + REF.geos;
-
-    for (let i = 0; i < year.length; i++)
-        urlChartEightTwo += "&time=" + year[i];
+    for (let i = 0; i < year.length; i++) urlChartEightTwo += "&time=" + year[i];
+    for (let i = 0; i < geo.length; i++) urlChartEightTwo += "&geo=" + geo[i];
 
     c = JSONstat(urlChartEightTwo).Dataset(0);
 
@@ -180,6 +185,8 @@ function chartEightCalculation(d) {
 
 function compareCountries() {
 
+    log(REF.chartId)
+
     // REF.chartId = chartToLoad
     REF.dataset = codesDataset[REF.chartId].dataset;
     REF.unit = codesDataset[REF.chartId].unit;
@@ -201,7 +208,7 @@ function compareCountries() {
 
             const type = "column"   
 
-            d = chartApiCall();
+            REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();                    
         
             const series = d.Dimension("geo").id;
             const categories = d.Dimension("geo").id;  
@@ -210,7 +217,7 @@ function compareCountries() {
         
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
         
-            buildChart(categories, REF.chartId, yAxisTitle, type);
+            buildChart(categories, REF.containerId, yAxisTitle, type);
 
             REF.chartOpt = "mainChart"
         } else {          
@@ -227,19 +234,35 @@ function compareCountries() {
     } else {
 
         const type = "spline"
+
+
+
+        if(REF.dataset == "demo_pjan") {            
+           
+            d = chartEightCalculation(d);      
       
-        d = chartApiCall();
+            const yAxisTitle = 'kilograms of oil equivalent'
+            const categories = d.Dimension("time").id;
+      
+            buildChart(categories, containerId, yAxisTitle, type);  
+
+            REF.chartOpt = "compareChart"
+        } else {
+            d = chartApiCall();
     
-        const series = d.Dimension("time").id;
-        const categories = d.Dimension("time").id;               
+            const series = d.Dimension("time").id;
+            const categories = d.Dimension("time").id;               
+        
+            handleData(d, series);     
     
-        handleData(d, series);     
+            const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
+    
+             buildChart(categories, REF.containerId, yAxisTitle, type);  
+    
+            REF.chartOpt = "compareChart"
+        }
+      
 
-        const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
-
-         buildChart(categories, REF.chartId, yAxisTitle, type);  
-
-        REF.chartOpt = "compareChart"
     }
     
 }
