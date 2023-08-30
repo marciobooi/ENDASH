@@ -37,7 +37,7 @@ function createPieChart() {
       },
   } 
   
-  const fullChart = $(window).width() > 700;
+  const fullChart = $(window).width() > 1300;
 
   const legendBig = {
       align: 'right',
