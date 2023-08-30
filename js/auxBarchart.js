@@ -14,7 +14,7 @@ function createBarChart() {
 
   const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
 
-  // buildChart(categories, REF.containerId, yAxisTitle, type);
+
 
 
 

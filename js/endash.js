@@ -120,6 +120,7 @@ function handleData(d, series ) {
         chartSeries.push({name: d.label, data:d.value})
 
     } else {
+
         for (let item in indicator) {
             data = [];
             for (let j = 0; j < series.length; j++) {
@@ -152,8 +153,6 @@ function chartEightCalculation() {
     year = d.Dimension("time").id;
     geo = d.Dimension("geo").id;
 
-    log(geo)
-
     urlChartEightTwo = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_pjan?";
     urlChartEightTwo += "format=JSON";
     urlChartEightTwo += "&lang=" + REF.language;
@@ -185,9 +184,6 @@ function chartEightCalculation() {
 
 function compareCountries() {
 
-    log(REF.chartOpt)
-    log(REF.chartType)
-
     // REF.chartId = chartToLoad
     REF.dataset = codesDataset[REF.chartId].dataset;
     REF.unit = codesDataset[REF.chartId].unit;
@@ -200,7 +196,6 @@ function compareCountries() {
 
 
     chartSeries = [];
-
  
 
     if(REF.chartOpt === "compareChart") {
@@ -217,9 +212,6 @@ function compareCountries() {
             REF.chartOpt = "mainChart"
 
         }
-
-
-
 
     } else {
 

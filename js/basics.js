@@ -342,29 +342,7 @@ switch (REF.chartType) {
     break;
 }
 
-
-
 titleElement.text(title)
-
-
-
-
-
-
-  // const title = languageNameSpace.labels[REF.title] 
-  // const compareTitle = `${languageNameSpace.labels[REF.title] } all countries ${REF.year}`
-
-  // const containerTitle = REF.dataset == "demo_pjan" ? titleElement.text('Final energy consumption in households per capita') : titleElement.text(title)
-
-  // const chartTitle = REF.dataset == "demo_pjan" ? 'Final energy consumption in households per capita' : title
-
-  // REF.chartOpt === "compareChart"? titleElement.text(compareTitle) : containerTitle
-
-
-  // const highchartsTitle = REF.chartOpt === "compareChart" ? compareTitle : chartTitle;
-
-  // log(REF.chartType)
-
   return title;
  
 }
@@ -423,12 +401,15 @@ function chartApiCall(query) {
     if(REF.chartType === "barChart") {
       url += "&unit=" + REF.unit; 
       if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
+      if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
       for (let i = 0; i < geos.length; i++) url += "&geo=" + geos[i]; 
       url += "&time=" + REF.year; 
   
       break;
     } else {
+      log(REF)
       if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
+      if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
       url += "&unit=" + REF.unit; 
       url += "&time=" + REF.year;
       url += "&geo=" + REF.geos;
