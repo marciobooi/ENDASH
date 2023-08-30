@@ -71,6 +71,7 @@
 
 
   <link href="css/bootstrap/bootstrap@5.3.0.css" rel="stylesheet">
+  <link href="css/jquery-ui/jquery-ui.css" rel="stylesheet">
   <link href="css/newStiles/main.css" rel="stylesheet">
   <link href="css/newStiles/nav.css" rel="stylesheet">
   <link href="css/newStiles/subnavbar.css" rel="stylesheet">
@@ -130,6 +131,7 @@
     <script defer type="text/javascript" src="js/domComponents/chartObject.js"></script>
     <script defer type="text/javascript" src="js/domComponents/btns.js"></script>
     <script defer type="text/javascript" src="js/domComponents/chartContainer.js"></script>
+    <script defer type="text/javascript" src="js/domComponents/timeline.js"></script>
     <script src="js/createComponents.js"></script>
     <script src="js/populateCountries.js"></script>
     <script src="js/populateFuels.js"></script>
@@ -191,26 +193,15 @@
       </div>
     </div>
   </div>
- 
 
-  <div id="chartSliderContainer">
-    <div id="chartSlider" class="ui-corner-all ui-slider ui-slider-horizontal ui-widget ui-widget-content" role="slider" aria-valuenow="2022" aria-valuemin="2011" aria-valuemax="2022" style="background: rgb(38, 68, 168);">
-      <div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min" style="width: 18.1818%;">
-      </div>
-      <span tabindex="0" class="ui-slider-handle sliderHandle ui-state-default" aria-valuenow="2013" style="left: 18.1818%;"><div id="sliderTimePeriod">
-        <span>2013</span>
-      </div>
-    </span>
-  </div>
-  </div>
-
+  <div id="timelineContainer"></div>
 
   <script src="js/bootstrap/bootstrap@5.3.0.js"></script>
   <script src="js/external/intro7.0.1.js"></script>
 
 
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+  <script src="js/external/jquery-ui.js"></script>
  
 
 
@@ -219,52 +210,6 @@
     $( document ).ready(function() {        
     initenprices()    
     hideForIframe()
-
-
-
-    $(function() {
-  // Initialize the slider
-  $("#chartSlider").slider({
-    range: "min",
-    value: 2022, // Initial selected year
-    min: 2011,   // Minimum year
-    max: 2022,   // Maximum year,
-
-    // Update the year display and slider range when the slider value changes
-    slide: function(event, ui) {
-      $("#sliderTimePeriod span").text(ui.value);
-      $("#chartSlider").attr("aria-valuenow", ui.value); // Update the aria-valuenow attribute
-
-      // Update the slider range width
-      const rangeWidth = ((ui.value - 2011) / (2022 - 2011)) * 100;
-      $(".ui-slider-range").css("width", rangeWidth + "%");
-    },
-
-    // Update REF.year when the slider slide action completes
-    stop: function(event, ui) {
-      REF.chartOpt = "compareChart";
-      REF.year = ui.value;
-      compareCountries();
-    },
-
-    // Add animation when the slider changes value
-    animate: "slow" // You can adjust the animation speed ("fast", "slow", or a specific duration in milliseconds)
-  });
-
-  // Set initial year value
-  const currentValue = $("#chartSlider").slider("value");
-  $("#chartSlider").attr("aria-valuenow", currentValue);
-  $("#sliderTimePeriod span").text(currentValue);
-
-  // Initialize the slider range width
-  const initialRangeWidth = ((currentValue - 2011) / (2022 - 2011)) * 100;
-  $(".ui-slider-range").css("width", initialRangeWidth + "%");
-});
-
-
-
-
-
 
     }); 
 </script>

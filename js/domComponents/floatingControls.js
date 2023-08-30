@@ -57,20 +57,36 @@ class FloatingChartControls {
 
 
       switchElement.addEventListener('click', () => {
-        
-        switchElement.value = switchElement.value === 'true' ? false : true;
-
+        // Toggle the value of the switchElement
+        switchElement.value = switchElement.value === 'true' ? 'false' : 'true';
+    
         const percentageButton = this.chartControls.querySelector('#togglePercentage');
         const agregatesButton = this.chartControls.querySelector('#Agregates');
-        percentageButton.style.display = switchElement.value == 'false' ? '' : 'none';
-        agregatesButton.style.display = switchElement.value == 'false' ? '' : 'none';
-        REF.chartOpt === "compareChart"
-        REF.chartType = "barChart"
-        REF.percentage = 0        
-         
+        percentageButton.style.display = switchElement.value === 'false' ? '' : 'none';
+        agregatesButton.style.display = switchElement.value === 'false' ? '' : 'none';
+        
+        REF.chartOpt = 'compareChart'; // Updated assignment
+        REF.chartType = 'barChart';
+        REF.percentage = 0;
+    
+        if (switchElement.value === 'false') {
+            // Add the Timeline instance to the DOM
+            const timelineContainer = document.getElementById('timelineContainer');
+            const timeline = new Timeline(timelineContainer);
+            // Save the timeline instance to access it later for removal
+            this.timeline = timeline;
+        } else {
+            console.log('here');
+            // Remove the Timeline instance from the DOM
+            if (this.timeline) {
+                this.timeline.removeFromDOM();
+                this.timeline = null;
+            }
+        }
+        
         compareCountries();
-
-      });
+    });
+    
     });
   }
 
