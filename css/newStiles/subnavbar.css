@@ -12,12 +12,6 @@
     justify-content: center;
 }
 
-#title, #subtitle {
-    font-size: .8em;
-    color: var(--main-color);
-    line-height: 10px;
-}
-
 ul.dropdown-menu {
     max-width: 19rem;
     padding-top: 0;

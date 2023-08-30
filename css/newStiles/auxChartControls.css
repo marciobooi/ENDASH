@@ -1,5 +1,9 @@
+#chartControls {
+    padding: 0.8rem;
+}
+
 .title, .subtitle {
-    font-size: .8em;
+    font-size: 1.2em;
     color: var(--main-color);
-    line-height: 10px;
+    line-height: 1.2rem;
 }
