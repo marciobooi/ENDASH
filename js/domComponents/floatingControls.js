@@ -17,9 +17,9 @@ class FloatingChartControls {
       
       <div>  
         <ul id="floatingMenu">   
-        <li class="nav-item px-1" id="togglePercentage" role="none" style="display:${REF.detail == 1 ? "" : "none"}"></li>
+        <li class="nav-item px-1" id="togglePercentage" role="none" style="display:none"></li>
         <li class="nav-item px-1" id="Agregates" role="none" style="display:none"></li>			  
-          <li class="nav-item px-1" id="toggleTable" role="none"></li>
+        <li class="nav-item px-1" id="toggleTable" role="none"></li>
         </ul>
       </div>`;
 
@@ -38,10 +38,6 @@ class FloatingChartControls {
 
           switchElement.value = switchElement.value === 'true' ? false : true;
 
-          const percentageButton = this.chartControls.querySelector('#togglePercentage');
-          const agregatesButton = this.chartControls.querySelector('#Agregates');
-          percentageButton.style.display = switchElement.value == 'false' ? '' : 'none';
-          agregatesButton.style.display = switchElement.value == 'false' ? '' : 'none';
           REF.chartType = switchElement.value == 'false' ? "barChart" : '';
           REF.percentage = 0        
           
@@ -63,7 +59,9 @@ class FloatingChartControls {
         }
            
           compareCountries();
-          
+          const button = document.querySelector("#pieChart");
+          button.removeAttribute("disabled");
+          showHideBarChartOptions();
         }
       });
 
@@ -73,14 +71,9 @@ class FloatingChartControls {
       switchElement.addEventListener('click', () => {
 
         switchElement.value = switchElement.value === 'true' ? false : true;
-
-        const percentageButton = this.chartControls.querySelector('#togglePercentage');
-        const agregatesButton = this.chartControls.querySelector('#Agregates');
-        percentageButton.style.display = switchElement.value == 'false' ? '' : 'none';
-        agregatesButton.style.display = switchElement.value == 'false' ? '' : 'none';
         switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "mainChart"
         switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
-        REF.percentage = 0        
+        REF.percentage = 0     
 
         if (switchElement.value === 'false') {
           // Add the Timeline instance to the DOM
@@ -88,20 +81,30 @@ class FloatingChartControls {
           const timeline = new Timeline(timelineContainer);
           // Save the timeline instance to access it later for removal
           this.timeline = timeline;
+
+          const button = document.querySelector("#pieChart");
+          button.removeAttribute("disabled");
+          showHideBarChartOptions();
+
       } else {
           // Remove the Timeline instance from the DOM
           if (this.timeline) {
               this.timeline.removeFromDOM();
               this.timeline = null;
           }
-      }
-         
+          const button = document.querySelector("#pieChart");
+          button.setAttribute("disabled", "");
+          showHideBarChartOptions();
+
+
+          $('#togglePercentage').css('display', 'none')
+          $('#Agregates').css('display', 'none')
+
+
+
+      }         
+    
         compareCountries();
-
-
-
-
-
 
     });
     

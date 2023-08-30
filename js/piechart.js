@@ -2,6 +2,8 @@ function createPieChart() {
   startLoadingAnimation()
   REF.chartType = "pieChart";
 
+  showHideBarChartOptions()
+
   REF.dataset = codesDataset[REF.chartId].dataset;
   REF.unit = codesDataset[REF.chartId].unit;
   REF.indicator = codesDataset[REF.chartId].indicator;

@@ -95,6 +95,23 @@ function exportTable() {
   window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('.highcharts-data-table').html()));
 }
 
+function showHideBarChartOptions() {
+  console.log(REF.chartType);
+  if (REF.chartType === "pieChart") {
+      console.log(true);
+      $("#togglePercentage, #Agregates").css('display', 'none');
+  } else {
+      console.log(false);
+      $("#togglePercentage, #Agregates").css('display', '');
+  }
+}
+
+
+
+
+
+
+
 
 
 function addAuxiliarBarGraphOptions() {
@@ -407,7 +424,6 @@ function chartApiCall(query) {
   
       break;
     } else {
-      log(REF)
       if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
       if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
       url += "&unit=" + REF.unit; 

@@ -1,9 +1,9 @@
 function createBarChart() {
   startLoadingAnimation()
 
-
-
   const type = "column"   
+
+  showHideBarChartOptions()
 
   REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();                    
 

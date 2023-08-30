@@ -82,8 +82,8 @@ class ChartControls {
 
 	    // Create the button instances
 		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "true");
-		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "false");
-		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "false");
+		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "true");
+		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "true");
 		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], "Print chart", "false");
 		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
 		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart data", "false");
@@ -105,14 +105,15 @@ class ChartControls {
 		  disableChatOptionsBtn(this.value);
 		  REF.chartType = "barChart";
 		  REF.chartOpt = "compareChart"
-		  log(REF)
 		  compareCountries();
+		  showHideBarChartOptions();
 		});
 		pieChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chartType = "pieChart";
 		  REF.chartOpt = "compareChart"
 		  compareCountries();
+		  showHideBarChartOptions();
 		});
 		lineChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
@@ -156,6 +157,8 @@ class ChartControls {
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
 			barChart.setDisabled(true);
+			pieChart.setDisabled(true);
+			lineChart.setDisabled(true);
 	}
   
 	removeFromDOM() {
