@@ -29,6 +29,13 @@ body {
   color: #333;
 }
 
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /* #page {
   min-height: 85vh;
 } */
@@ -134,7 +141,7 @@ body {
 
 .expand {   
     max-width: 97vw;
-    height: 75vh;    
+    height: 70vh;    
 }
 
 .containerNav {
@@ -155,8 +162,8 @@ body {
 }
 
 .highchartsContainerExpand {
-  width: 95vw;
-  height: 63vh;
+  width: auto;
+  height: 60vh;
   margin: 0 auto;
 }
 

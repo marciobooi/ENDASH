@@ -131,6 +131,7 @@ function removeAuxiliarBarGraphOptions() {
         if (chart) {
             chart.reflow();
         }
+
     });
 
 
@@ -139,6 +140,8 @@ function removeAuxiliarBarGraphOptions() {
 
   const FloatingControls = new FloatingChartControls();
   FloatingControls.removeFromDOM();
+
+  $('#chartSlider').remove();
 }
 
 function showMenuSwitch() {

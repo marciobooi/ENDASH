@@ -47,6 +47,20 @@ class FloatingChartControls {
           
           REF.chartOpt === "compareChart"
           REF.chartType = "barChart"
+
+          if (switchElement.value === 'false') {
+            // Add the Timeline instance to the DOM
+            const timelineContainer = document.getElementById('timelineContainer');
+            const timeline = new Timeline(timelineContainer);
+            // Save the timeline instance to access it later for removal
+            this.timeline = timeline;
+        } else {
+            // Remove the Timeline instance from the DOM
+            if (this.timeline) {
+                this.timeline.removeFromDOM();
+                this.timeline = null;
+            }
+        }
            
           compareCountries();
           
@@ -76,7 +90,6 @@ class FloatingChartControls {
             // Save the timeline instance to access it later for removal
             this.timeline = timeline;
         } else {
-            console.log('here');
             // Remove the Timeline instance from the DOM
             if (this.timeline) {
                 this.timeline.removeFromDOM();
