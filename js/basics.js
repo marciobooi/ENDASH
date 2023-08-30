@@ -142,6 +142,7 @@ function removeAuxiliarBarGraphOptions() {
   FloatingControls.removeFromDOM();
 
   $('#chartSlider').remove();
+  $(".containerNav").css('visibility', 'initial')
 }
 
 function showMenuSwitch() {
@@ -197,8 +198,6 @@ function sortArrayByProtocolOrder(arr) {
   } else {
     barproto = [];
     bardata = barproto;
-
-    log(bardata);
 
     const geosProto = REF.geos.filter(geop => geop !== "all"); // Ignore "all" in REF.geos
 
@@ -323,20 +322,50 @@ function tooltipTable(points) {
 
 function getTitle() {
 
+
   const titleElement = $(`#${containerId}`).prev();
-  const title = languageNameSpace.labels[REF.title] 
-  const compareTitle = `${languageNameSpace.labels[REF.title] } all countries ${REF.year}`
+  let title
 
-  const containerTitle = REF.dataset == "demo_pjan" ? titleElement.text('Final energy consumption in households per capita') : titleElement.text(title)
+switch (REF.chartType) {
+  case "barChart":
+    title = `${languageNameSpace.labels[REF.title] } - all countries - ${REF.year}`
+    $("#title").html(`${languageNameSpace.labels[REF.title] } - all countries - ${REF.year}`)
+    break;
+  case "pieChart":
+    title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
+    $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`)
+    break;
 
-  const chartTitle = REF.dataset == "demo_pjan" ? 'Final energy consumption in households per capita' : title
+  default:
+      title = `${languageNameSpace.labels[REF.title] }`   
+      $("#title").html(`${languageNameSpace.labels[REF.title] }`)   
+    break;
+}
 
-  REF.chartOpt === "compareChart"? titleElement.text(compareTitle) : containerTitle
 
 
-  const highchartsTitle = REF.chartOpt === "compareChart" ? compareTitle : chartTitle;
+titleElement.text(title)
 
-  return highchartsTitle;
+
+
+
+
+
+  // const title = languageNameSpace.labels[REF.title] 
+  // const compareTitle = `${languageNameSpace.labels[REF.title] } all countries ${REF.year}`
+
+  // const containerTitle = REF.dataset == "demo_pjan" ? titleElement.text('Final energy consumption in households per capita') : titleElement.text(title)
+
+  // const chartTitle = REF.dataset == "demo_pjan" ? 'Final energy consumption in households per capita' : title
+
+  // REF.chartOpt === "compareChart"? titleElement.text(compareTitle) : containerTitle
+
+
+  // const highchartsTitle = REF.chartOpt === "compareChart" ? compareTitle : chartTitle;
+
+  // log(REF.chartType)
+
+  return title;
  
 }
 

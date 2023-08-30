@@ -154,22 +154,23 @@ class ChartContainer {
 
       REF.chartId = chartContainer.id    
       
-      if(!$(chartContainer).hasClass('expand')){
+      if(!$(chartContainer).hasClass('expand')){       
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
         chartContainer.classList.add('expand');
         chartContainer.setAttribute('aria-expanded', 'true');
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         REF.compare = true
-
-        Highcharts.charts.forEach(chart => {
+        $(".containerNav").css('visibility', 'hidden')
+              Highcharts.charts.forEach(chart => {
           if (chart) {
               chart.reflow();
           }
-      
       });
+
       addAuxiliarBarGraphOptions()
       compareCountries()
+      document.querySelector("#title").innerHTML = languageNameSpace.labels[REF.title];
       } 
     
     }

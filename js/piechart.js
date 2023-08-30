@@ -13,11 +13,6 @@ function createPieChart() {
 
 
   piechartdata()
- 
-  const chartTitle = getTitle()
-
- 
-
   
   const seriesOpt = {
     innerSize: "75%",
@@ -52,7 +47,7 @@ function createPieChart() {
   const chartOptions = {
     containerId: containerId,
     type: "pie",
-    title: chartTitle,
+    title: getTitle(),
     subtitle: null,
     xAxis: null,
     yAxisFormat: "",

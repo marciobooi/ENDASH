@@ -16,7 +16,7 @@ function createBarChart() {
 
   // buildChart(categories, REF.containerId, yAxisTitle, type);
 
-  const chartTitle = getTitle()
+
 
 
   const fullChart = $(window).width() > 1300;

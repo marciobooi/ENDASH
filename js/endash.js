@@ -8,9 +8,7 @@ setTimeout(() => {
                 chart.showLoading();
             }
         });
-}, 100);
-
-
+}, 100);   
         
 
    
@@ -109,6 +107,8 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const chart = new Chart(chartOptions);
 
     chart.createChart();
+
+    $("#title").html('')   
 }
 
 function handleData(d, series ) {
