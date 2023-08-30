@@ -185,7 +185,8 @@ function chartEightCalculation() {
 
 function compareCountries() {
 
-    log(REF.chartId)
+    log(REF.chartOpt)
+    log(REF.chartType)
 
     // REF.chartId = chartToLoad
     REF.dataset = codesDataset[REF.chartId].dataset;
@@ -206,18 +207,7 @@ function compareCountries() {
 
         if(REF.chartType === "barChart") {
 
-            const type = "column"   
-
-            REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();                    
-        
-            const series = d.Dimension("geo").id;
-            const categories = d.Dimension("geo").id;  
-        
-            handleData(d, series);   
-        
-            const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
-        
-            buildChart(categories, REF.containerId, yAxisTitle, type);
+            createBarChart()
 
             REF.chartOpt = "mainChart"
         } else {          
@@ -236,7 +226,6 @@ function compareCountries() {
         const type = "spline"
 
 
-
         if(REF.dataset == "demo_pjan") {            
            
             d = chartEightCalculation(d);      
@@ -247,7 +236,9 @@ function compareCountries() {
             buildChart(categories, containerId, yAxisTitle, type);  
 
             REF.chartOpt = "compareChart"
+            
         } else {
+
             d = chartApiCall();
     
             const series = d.Dimension("time").id;

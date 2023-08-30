@@ -45,8 +45,8 @@ class FloatingChartControls {
           REF.chartType = switchElement.value == 'false' ? "barChart" : '';
           REF.percentage = 0        
           
-          REF.chartOpt === "compareChart"
-          REF.chartType = "barChart"
+          switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "mainChart"
+          switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
 
           if (switchElement.value === 'false') {
             // Add the Timeline instance to the DOM
@@ -71,33 +71,38 @@ class FloatingChartControls {
 
 
       switchElement.addEventListener('click', () => {
-        // Toggle the value of the switchElement
-        switchElement.value = switchElement.value === 'true' ? 'false' : 'true';
-    
+
+        switchElement.value = switchElement.value === 'true' ? false : true;
+
         const percentageButton = this.chartControls.querySelector('#togglePercentage');
         const agregatesButton = this.chartControls.querySelector('#Agregates');
-        percentageButton.style.display = switchElement.value === 'false' ? '' : 'none';
-        agregatesButton.style.display = switchElement.value === 'false' ? '' : 'none';
-        
-        REF.chartOpt = 'compareChart'; // Updated assignment
-        REF.chartType = 'barChart';
-        REF.percentage = 0;
-    
+        percentageButton.style.display = switchElement.value == 'false' ? '' : 'none';
+        agregatesButton.style.display = switchElement.value == 'false' ? '' : 'none';
+        switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "mainChart"
+        switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
+        REF.percentage = 0        
+
         if (switchElement.value === 'false') {
-            // Add the Timeline instance to the DOM
-            const timelineContainer = document.getElementById('timelineContainer');
-            const timeline = new Timeline(timelineContainer);
-            // Save the timeline instance to access it later for removal
-            this.timeline = timeline;
-        } else {
-            // Remove the Timeline instance from the DOM
-            if (this.timeline) {
-                this.timeline.removeFromDOM();
-                this.timeline = null;
-            }
-        }
-        
+          // Add the Timeline instance to the DOM
+          const timelineContainer = document.getElementById('timelineContainer');
+          const timeline = new Timeline(timelineContainer);
+          // Save the timeline instance to access it later for removal
+          this.timeline = timeline;
+      } else {
+          // Remove the Timeline instance from the DOM
+          if (this.timeline) {
+              this.timeline.removeFromDOM();
+              this.timeline = null;
+          }
+      }
+         
         compareCountries();
+
+
+
+
+
+
     });
     
     });

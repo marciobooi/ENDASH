@@ -50,7 +50,7 @@ function createPieChart() {
   }
 
   const chartOptions = {
-    containerId: REF.chartId,
+    containerId: containerId,
     type: "pie",
     title: chartTitle,
     subtitle: null,
@@ -76,6 +76,8 @@ function createPieChart() {
   const chart = new Chart(chartOptions);
   chart.createChart();
   stopLoadingAnimation()
+
+  REF.chartOpt = "compareChart"
 
 }
 
