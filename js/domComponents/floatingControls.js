@@ -56,6 +56,14 @@ class FloatingChartControls {
                 this.timeline.removeFromDOM();
                 this.timeline = null;
             }
+
+            const button = document.querySelector("#pieChart");
+            button.setAttribute("disabled", "");
+            showHideBarChartOptions();
+  
+  
+            $('#togglePercentage').css('display', 'none')
+            $('#Agregates').css('display', 'none')
         }
            
           compareCountries();
@@ -96,12 +104,8 @@ class FloatingChartControls {
           button.setAttribute("disabled", "");
           showHideBarChartOptions();
 
-
           $('#togglePercentage').css('display', 'none')
           $('#Agregates').css('display', 'none')
-
-
-
       }         
     
         compareCountries();
