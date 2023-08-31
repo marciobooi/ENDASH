@@ -77,6 +77,8 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
         : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
 
+        title = getTitle()
+
     const chartOptions = {
         containerId: containerId,
         type: type,
@@ -107,8 +109,6 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const chart = new Chart(chartOptions);
 
     chart.createChart();
-
-    $("#title").html('')   
 }
 
 function handleData(d, series ) {

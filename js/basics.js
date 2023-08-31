@@ -96,12 +96,9 @@ function exportTable() {
 }
 
 function showHideBarChartOptions() {
-  console.log(REF.chartType);
   if (REF.chartType === "pieChart") {
-      console.log(true);
       $("#togglePercentage, #Agregates").css('display', 'none');
   } else {
-      console.log(false);
       $("#togglePercentage, #Agregates").css('display', '');
   }
 }
@@ -339,23 +336,22 @@ function tooltipTable(points) {
 
 function getTitle() {
 
-
   const titleElement = $(`#${containerId}`).prev();
   let title
 
 switch (REF.chartType) {
   case "barChart":
     title = `${languageNameSpace.labels[REF.title] } - all countries - ${REF.year}`
-    $("#title").html(`${languageNameSpace.labels[REF.title] } - all countries - ${REF.year}`)
+    $("#title").html(title)
     break;
   case "pieChart":
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
-    $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`)
+    $("#title").html(title)
     break;
 
   default:
       title = `${languageNameSpace.labels[REF.title] }`   
-      $("#title").html(`${languageNameSpace.labels[REF.title] }`)   
+      $("#title").html(title)
     break;
 }
 

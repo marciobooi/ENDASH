@@ -84,8 +84,6 @@ function piechartdata() {
 
   d = chartApiCall();
 
-  log(d)
-
   for (i = 0; i < REF.indicator.length; i++) {
     if (d.value[i] != null) {
         piedata.push([
