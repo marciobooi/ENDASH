@@ -117,14 +117,13 @@ class FloatingChartControls {
 
   toggleChartPercentage() {
     REF.percentage = REF.percentage == 0 ? 1 : 0;
-    const i = ""
-    
+        
     const categories = defaultGeos.map(geo => languageNameSpace.labels[geo]);
     const containerId = codesDataset[REF.chartId].container;
     const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit] 
     const type = "column"
 
-    buildChart(i, categories, containerId, yAxisTitle, type)
+    buildChart(categories, containerId, yAxisTitle, type);  
   }
 
   toggleChartAgregates() {
