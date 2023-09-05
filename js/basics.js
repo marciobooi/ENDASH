@@ -295,7 +295,6 @@ function tooltipTable(points) {
     sortedPoints.forEach(function (point) {
       const color = point.series.color;
       const value = point.y.toFixed(decimals); // Limit decimals to three places
-      log(value)
       const category = point.series.name;
     
       html += `<tr>
