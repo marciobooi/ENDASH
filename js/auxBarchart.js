@@ -10,14 +10,10 @@ function createBarChart() {
   const series = d.Dimension("geo").id;
   const categories = d.Dimension("geo").id;  
 
+
   handleData(d, series);   
 
   const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
-
-
-
-
-
 
   const fullChart = $(window).width() > 1300;
 
@@ -35,6 +31,12 @@ function createBarChart() {
   ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
   : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
 
+
+  const tooltipFormatter = function() {
+    return tooltipTable(this.points) ;
+  };
+
+
   const chartOptions = {
     containerId: containerId,
     type: type,
@@ -43,14 +45,15 @@ function createBarChart() {
     xAxis: xAxis,
     yAxisFormat: '{value:.2f}',
     yAxisTitle:  yAxisTitle,
-    tooltipFormatter: '',
-    creditsText: '',
+    tooltipFormatter: tooltipFormatter,
+    creditsText: credits(),
     creditsHref: "",
     series: chartSeries,
     colors: colors,
     legend: fullChart? legendBig : legendSmall,
     columnOptions: {
         stacking: REF.percentage == 0 ? "normal" : "percent",
+        connectNulls: true,
         events: {
           mouseOver: function () {
             var point = this;

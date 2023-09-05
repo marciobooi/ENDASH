@@ -55,8 +55,7 @@ setTimeout(() => {
 
         setTimeout(() => {
             Highcharts.charts.forEach(chart => {
-                if (chart) {
-                             
+                if (chart) {                             
                     chart.hideLoading();
                 }
             });
@@ -77,12 +76,12 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
         : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
 
-        title = getTitle()
+     const title = getTitle()
 
     const chartOptions = {
         containerId: containerId,
         type: type,
-        title: getTitle(),
+        title: title,
         subtitle: null,
         xAxis: xAxis,
         yAxisFormat: '{value:.2f}',
@@ -124,7 +123,8 @@ function handleData(d, series ) {
         for (let item in indicator) {
             data = [];
             for (let j = 0; j < series.length; j++) {
-                data.push(d.value[0]);
+                const value = d.value[0];
+                data.push(value === null ? 0 : value);
                 d.value.shift();
             }
             newObj = {

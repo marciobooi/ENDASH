@@ -48,7 +48,7 @@ class Chart {
           formatter: this.tooltipFormatter,
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
-          useHTML: true,         
+          useHTML: true,    
           padding: 5,
           backgroundColor: "rgba(255,255,255,0.9)",   
         },
