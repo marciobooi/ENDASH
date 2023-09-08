@@ -15,7 +15,8 @@ const dataNameSpace = {
     compare: false,
     year: "2021",
     percentage:0,
-    chartType: ""
+    chartType: "",
+    chartCreated: false,
   },
   setRefURL() {
     const url = new URL(window.location.href);

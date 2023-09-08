@@ -19,7 +19,7 @@ class Chart {
     }
   
     createChart() {
-      Highcharts.chart(this.containerId, {
+      var chart = Highcharts.chart(this.containerId, {
         chart: {
           type: this.type,
           plotBackgroundColor: null,
@@ -86,6 +86,9 @@ class Chart {
           }
       }
       }); // end of chart object
+
+
+      return chart
 
     } // end of chart function
     

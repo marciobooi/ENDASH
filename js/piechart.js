@@ -1,3 +1,5 @@
+let pieChart; // Declare the chart variable
+
 function createPieChart() {
   startLoadingAnimation()
   REF.chartType = "pieChart";
@@ -12,7 +14,6 @@ function createPieChart() {
   REF.indicator_type = codesDataset[REF.chartId].indicator_type;
   REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
   REF.title = codesDataset[REF.chartId].title;
-
 
   piechartdata()
   
@@ -46,6 +47,7 @@ function createPieChart() {
       layout: 'horizontal'
   }
 
+
   const chartOptions = {
     containerId: containerId,
     type: "pie",
@@ -56,12 +58,10 @@ function createPieChart() {
     tooltipFormatter: "",
     creditsText: credits(),
     creditsHref: "",
-    series: [
-      {
-        data: piedata.reverse(),
-        name: languageNameSpace.labels["S_" + REF.currency] +"/" +languageNameSpace.labels["S_" + REF.unit],
-      },
-    ],
+      series: [{
+      name: 'Categories',
+      data: piedata
+    }],
     colors: colors,
     legend: fullChart? legendBig : legendSmall,
     pieOptions: pieOpt,
@@ -70,14 +70,13 @@ function createPieChart() {
   
   };
   
-  const chart = new Chart(chartOptions);
-  chart.createChart();
+  const customChart = new Chart(chartOptions);
+  pieChart = customChart.createChart();
+
+  REF.chartCreated = true;
   stopLoadingAnimation()
-
   REF.chartOpt = "compareChart"
-
 }
-
 
 function piechartdata() {
   piedata = [];
@@ -86,11 +85,17 @@ function piechartdata() {
 
   for (i = 0; i < REF.indicator.length; i++) {
     if (d.value[i] != null) {
-        piedata.push([
-          d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
-          d.value[i]
-        ]);
+        piedata.push(
+          [d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
+            d.value[i]]
+        );
       
     }
   }
+
+  if(REF.chartCreated === true){
+    pieChart.series[0].setData(piedata);
+  }
+  
+
 }

@@ -40,7 +40,12 @@ class Timeline {
             stop: (event, ui) => {
                 REF.chartOpt = "compareChart";
                 REF.year = ui.value;
-                compareCountries();
+                if(REF.chartCreated === true) {
+                    piechartdata()
+                } else {
+                    compareCountries();
+                }
+                
             },
             animate: "slow"
         });

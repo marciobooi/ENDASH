@@ -90,6 +90,8 @@ class FloatingChartControls {
           // Save the timeline instance to access it later for removal
           this.timeline = timeline;
 
+          REF.chartCreated = false
+
           const button = document.querySelector("#pieChart");
           button.removeAttribute("disabled");
           showHideBarChartOptions();

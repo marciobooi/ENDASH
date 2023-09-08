@@ -188,6 +188,7 @@ class SubNavbar {
   
           this.closeChartMenuBtn.addEventListener('click', () => {
               this.toggleChartOptionsMenu();
+              REF.chartCreated = false
           });
   
   
