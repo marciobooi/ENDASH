@@ -146,13 +146,19 @@ class ChartContainer {
   handleItemClick(i) {
     // Toggle chartContainer visibility
     this.toggleChartContainer(i);
+    log(i)
   }
 
   toggleChartContainer(i) {
+    log(i)
     
       const chartContainer = i;
 
+
+
       REF.chartId = chartContainer.id    
+      log(chartContainer.id)
+      log(REF.chartId)
       
       if(!$(chartContainer).hasClass('expand')){       
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
@@ -238,11 +244,13 @@ class ChartContainer {
           }
         }
       } else if (event.key === 'Enter') {
+        log('here')
         event.preventDefault(); 
         if (this.selectedIndex >= 0) {
           this.selectedChartItem = this.chartItems[this.selectedIndex];
         }
-        this.toggleChartContainer(this.selectedChartItem);
+        this.handleItemClick(this.selectedChartItem)
+        // this.toggleChartContainer(this.selectedChartItem);
       }
     }
 
