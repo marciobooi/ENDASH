@@ -120,13 +120,13 @@ class ChartControls {
 		  createLineChart();
 		});
 		createprintChart.setClickHandler(function() {
-		  printChart();
+			exportHandling(this.id);
 		});
 		downloadChart.setClickHandler(function() {
-		  exportPngChart();
+		  exportHandling(this.id);
 		});
 		downloadExcel.setClickHandler(function() {
-		  exportXlsChart();
+			exportHandling(this.id);
 		});
 		embebedeChart.setClickHandler(function() {
 			exportIframe();

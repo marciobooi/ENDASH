@@ -146,19 +146,15 @@ class ChartContainer {
   handleItemClick(i) {
     // Toggle chartContainer visibility
     this.toggleChartContainer(i);
-    log(i)
   }
 
   toggleChartContainer(i) {
-    log(i)
     
       const chartContainer = i;
 
 
 
       REF.chartId = chartContainer.id    
-      log(chartContainer.id)
-      log(REF.chartId)
       
       if(!$(chartContainer).hasClass('expand')){       
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
