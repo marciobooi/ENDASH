@@ -173,6 +173,10 @@ function removeAuxiliarBarGraphOptions() {
   REF.chartOpt = "mainChart"
   compareCountries()
   REF.chartOpt = "mainChart"
+  REF.chartType =  ""
+
+  getTitle()
+
 
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");
@@ -184,7 +188,7 @@ function removeAuxiliarBarGraphOptions() {
       Highcharts.charts.forEach(chart => {
         if (chart) {
           chart.update({ legend: legendHide }, true); 
-            // chart.reflow();
+            chart.reflow();
         }
 
     });
@@ -399,7 +403,7 @@ switch (REF.chartType) {
 
   default:
       title = `${languageNameSpace.labels[REF.title] }`   
-      $("#title").html(title)
+      $("#title").html('')
     break;
 }
 
