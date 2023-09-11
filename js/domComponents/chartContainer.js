@@ -152,8 +152,6 @@ class ChartContainer {
     
       const chartContainer = i;
 
-
-
       REF.chartId = chartContainer.id    
       
       if(!$(chartContainer).hasClass('expand')){       
@@ -163,6 +161,7 @@ class ChartContainer {
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         REF.compare = true
+
         $(".containerNav").css('visibility', 'hidden')
               Highcharts.charts.forEach(chart => {
           if (chart) {

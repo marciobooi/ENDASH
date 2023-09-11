@@ -14,6 +14,9 @@ var legendSmall = {
       align: 'center',
       verticalAlign: 'bottom',
 }
+var legendHide = {     
+  enabled: false
+}
 
 function updateLegend(chart) {
   if ($(window).width() > 1100) {
@@ -180,7 +183,8 @@ function removeAuxiliarBarGraphOptions() {
       parentContainer.find( ".highchartsContainerExpand" ).removeClass('highchartsContainerExpand')
       Highcharts.charts.forEach(chart => {
         if (chart) {
-            chart.reflow();
+          chart.update({ legend: legendHide }, true); 
+            // chart.reflow();
         }
 
     });

@@ -91,7 +91,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         creditsHref: "",
         series: chartSeries,
         colors: colors,
-        legend: { enabled: false },
+        legend: {},
         columnOptions: {
             stacking: REF.percentage == 0 ? "normal" : "percent",
             events: {
@@ -105,9 +105,14 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         seriesOptions: { cursor: "pointer" }
     };
 
-    const chart = new Chart(chartOptions);
+    const customChart = new Chart(chartOptions);
+    mainChart = customChart.createChart();
 
-    chart.createChart();
+    if($( "#"+REF.chartId ).hasClass( "expand" )){
+        mainChart.update({ legend: legendSmall }, true);        
+    } else {
+        mainChart.update({ legend: legendHide }, true);   
+    }  
 }
 
 function handleData(d, series ) {
@@ -240,7 +245,8 @@ function compareCountries() {
     
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
     
-             buildChart(categories, REF.containerId, yAxisTitle, type);  
+            buildChart(categories, REF.containerId, yAxisTitle, type);  
+            
     
             REF.chartOpt = "compareChart"
         }
