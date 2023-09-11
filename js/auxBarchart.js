@@ -15,17 +15,6 @@ function createBarChart() {
 
   const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
 
-  const fullChart = $(window).width() > 1300;
-
-  const legendBig = {
-      align: 'right',
-      verticalAlign: 'middle',
-      layout: 'vertical'
-  };
-  
-  const legendSmall = {     
-      layout: 'horizontal'
-  }
 
   const xAxis = REF.chartOpt === "compareChart"
   ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
@@ -50,7 +39,7 @@ function createBarChart() {
     creditsHref: "",
     series: chartSeries,
     colors: colors,
-    legend: fullChart? legendBig : legendSmall,
+    legend: {},
     columnOptions: {
         stacking: REF.percentage == 0 ? "normal" : "percent",
         connectNulls: true,
@@ -65,12 +54,15 @@ function createBarChart() {
     seriesOptions: { cursor: "pointer" }
 };
 
-const chart = new Chart(chartOptions);
 
-chart.createChart();
+const customChart = new Chart(chartOptions);
+barChart = customChart.createChart();
 
+updateLegend(barChart);     
 
-
+$(window).on('resize', function () {
+  updateLegend(barChart);
+});
 
     
 

@@ -18,10 +18,8 @@ var legendSmall = {
 function updateLegend(chart) {
   if ($(window).width() > 1100) {
     chart.update({ legend: legendBig }, true); // true for redraw
-    log('legendBig')
   } else {
     chart.update({ legend: legendSmall }, true); // true for redraw
-    log('legendSmall')
   }
   chart.redraw()
 }
