@@ -1,7 +1,7 @@
 const dataNameSpace = {
   version: "1",
   ref: {
-    geos: "EU27_2020",    
+    geos: "BE",    
     unit: "KWH",
     indicator: "",
     indicator2: "",

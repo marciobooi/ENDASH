@@ -324,7 +324,7 @@ codesDataset = {
 		"indicator_type": "indic_nrgm",	
 		"indicator2": ["E7000"],
 		"indicator2_type": "siec",	
-		"unit": "KTOE",	
+		"unit": "PC",	
 		"container": "highchartsContainer_20",	
 	},
 	"chart_21": {

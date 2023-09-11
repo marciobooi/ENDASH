@@ -8,8 +8,7 @@ setTimeout(() => {
                 chart.showLoading();
             }
         });
-}, 100);   
-        
+}, 100);           
 
    
         REF.dataset = codesDataset[REF.chartId].dataset;
@@ -34,7 +33,7 @@ setTimeout(() => {
   
         buildChart(categories, containerId, yAxisTitle, type);  
 
-        } else {           
+        } else {       
     
             d = chartApiCall();
     
@@ -47,11 +46,9 @@ setTimeout(() => {
     
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
 
-             buildChart(categories, containerId, yAxisTitle, type);  
-   
+             buildChart(categories, containerId, yAxisTitle, type);     
        
         }
-
 
         setTimeout(() => {
             Highcharts.charts.forEach(chart => {
@@ -59,9 +56,7 @@ setTimeout(() => {
                     chart.hideLoading();
                 }
             });
-    }, 500);
-
-    
+    }, 500);    
 }
 
 
@@ -77,6 +72,8 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
 
      const title = getTitle()
+
+     log(chartSeries)
 
     const chartOptions = {
         containerId: containerId,
