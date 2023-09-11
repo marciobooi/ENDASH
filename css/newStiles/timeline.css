@@ -1,15 +1,15 @@
 
 
 #chartSliderContainer {
-    height: 16px;
-    width: 75%;
-    bottom: 0;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 24px;
-    margin-bottom: 12px;
-  }
+  /* height: 16px; */
+  width: 75%;
+  bottom: 0;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 24px; */
+  /* margin-bottom: 12px; */
+}
   
   
   #chartSlider {

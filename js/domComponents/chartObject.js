@@ -85,7 +85,7 @@ class Chart {
               }
           }
       }
-      }); // end of chart object
+    }); // end of chart object
 
 
       return chart

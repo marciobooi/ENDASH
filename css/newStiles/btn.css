@@ -31,7 +31,6 @@ span.iconText {
 #chartBtns {
     display: flex;
     justify-content: flex-end;
-    margin-right: 0.8rem;
 }
 
 li > button {
