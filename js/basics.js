@@ -2,6 +2,32 @@ var log = console.log.bind(console);
 
 var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
 
+
+var legendBig = {
+  align: 'right',
+  verticalAlign: 'middle',
+  layout: 'vertical'
+};
+
+var legendSmall = {     
+      layout: 'horizontal',
+      align: 'center',
+      verticalAlign: 'bottom',
+}
+
+function updateLegend(chart) {
+  if ($(window).width() > 1100) {
+    chart.update({ legend: legendBig }, true); // true for redraw
+    log('legendBig')
+  } else {
+    chart.update({ legend: legendSmall }, true); // true for redraw
+    log('legendSmall')
+  }
+  chart.redraw()
+}
+
+
+
 formMessage = (/The endash tool is down since:     (.*)/)
 
 // function to openMeta link when press the link btn

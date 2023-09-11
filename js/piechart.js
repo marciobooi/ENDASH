@@ -34,18 +34,6 @@ function createPieChart() {
         format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + REF.unit
       },
   } 
-  
-  const fullChart = $(window).width() > 1300;
-
-  const legendBig = {
-      align: 'right',
-      verticalAlign: 'middle',
-      layout: 'vertical'
-  };
-  
-  const legendSmall = {     
-      layout: 'horizontal'
-  }
 
 
   const chartOptions = {
@@ -63,7 +51,7 @@ function createPieChart() {
       data: piedata
     }],
     colors: colors,
-    legend: fullChart? legendBig : legendSmall,
+    legend: {},
     pieOptions: pieOpt,
     columnOptions: null,
     seriesOptions: seriesOpt,
@@ -74,6 +62,13 @@ function createPieChart() {
   pieChart = customChart.createChart();
 
   REF.chartCreated = true;
+
+  updateLegend(pieChart);     
+  
+  $(window).on('resize', function () {
+    updateLegend(pieChart);
+  });
+
   stopLoadingAnimation()
   REF.chartOpt = "compareChart"
 }
