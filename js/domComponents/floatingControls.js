@@ -57,8 +57,10 @@ class FloatingChartControls {
                 this.timeline = null;
             }
 
-            const button = document.querySelector("#pieChart");
-            button.setAttribute("disabled", "");
+            const pieButton = document.querySelector("#pieChart");
+            const barButton = document.querySelector("#barChart");
+            pieButton.setAttribute("disabled", "");
+            barButton.setAttribute("disabled", "");
             showHideBarChartOptions();
   
   
@@ -102,8 +104,10 @@ class FloatingChartControls {
               this.timeline.removeFromDOM();
               this.timeline = null;
           }
-          const button = document.querySelector("#pieChart");
-          button.setAttribute("disabled", "");
+          const pieButton = document.querySelector("#pieChart");
+          const barButton = document.querySelector("#barChart");
+          pieButton.setAttribute("disabled", "");
+          barButton.setAttribute("disabled", "");
           showHideBarChartOptions();
 
           $('#togglePercentage').css('display', 'none')
