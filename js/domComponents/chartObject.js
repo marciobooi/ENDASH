@@ -25,7 +25,7 @@ class Chart {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
-          animation: false
+          animation: false,
         },
         title: {
           text: this.title,

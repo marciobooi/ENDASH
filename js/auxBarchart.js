@@ -58,10 +58,10 @@ function createBarChart() {
 const customChart = new Chart(chartOptions);
 barChart = customChart.createChart();
 
-updateLegend(barChart);     
+changeLegendPisition(barChart);     
 
 $(window).on('resize', function () {
-  updateLegend(barChart);
+  changeLegendPisition(barChart);
 });
 
     

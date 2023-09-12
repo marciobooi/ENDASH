@@ -73,8 +73,6 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
      const title = getTitle()
 
-     log(chartSeries)
-
     const chartOptions = {
         containerId: containerId,
         type: type,

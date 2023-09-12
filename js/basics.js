@@ -18,13 +18,22 @@ var legendHide = {
   enabled: false
 }
 
-function updateLegend(chart) {
-  if ($(window).width() > 1100) {
-    chart.update({ legend: legendBig }, true); // true for redraw
-  } else {
-    chart.update({ legend: legendSmall }, true); // true for redraw
-  }
-  chart.redraw()
+function changeLegendPisition() {
+
+  openChart = codesDataset[REF.chartId].container;
+
+    Highcharts.charts.forEach(chart => {
+      if (chart) {
+        if(chart.renderTo.id === openChart) {
+            if ($(window).width() > 1100) {
+              chart.update({ legend: legendBig }, true); // true for redraw
+            } else {
+              chart.update({ legend: legendSmall }, true); // true for redraw
+            }
+            chart.redraw()
+        }        
+      }
+  });
 }
 
 

@@ -268,3 +268,6 @@ main {
   outline: none;
 }
 
+tr > td:nth-child(2) {
+  text-align: right;
+}

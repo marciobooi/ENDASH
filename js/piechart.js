@@ -35,8 +35,7 @@ function createPieChart() {
       },
   } 
 
-
-  const chartOptions = {
+   const chartOptions = {
     containerId: containerId,
     type: "pie",
     title: getTitle(),
@@ -62,11 +61,11 @@ function createPieChart() {
   pieChart = customChart.createChart();
 
   REF.chartCreated = true;
-
-  updateLegend(pieChart);     
   
+  changeLegendPisition(pieChart);     
+
   $(window).on('resize', function () {
-    updateLegend(pieChart);
+    changeLegendPisition(pieChart);
   });
 
   stopLoadingAnimation()
