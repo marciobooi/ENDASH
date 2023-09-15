@@ -412,7 +412,7 @@ switch (REF.chartType) {
 
   default:
       title = `${languageNameSpace.labels[REF.title] }`   
-      $("#title").html('')
+      $("#title").html(languageNameSpace.labels[REF.geos])
     break;
 }
 
@@ -441,6 +441,7 @@ function addToCache(query, d) {
   cache[query].push(d);
 }
 
+
 function chartApiCall(query) {
 
 
@@ -454,7 +455,6 @@ function chartApiCall(query) {
 
   switch (REF.chartOpt) {
     case "mainChart":
-   
       url += "&unit=" + REF.unit; 
       url += "&geo=" + REF.geos;  
       if(REF.indicator.length > 0) {
@@ -487,12 +487,10 @@ function chartApiCall(query) {
       url += "&time=" + REF.year;
       url += "&geo=" + REF.geos;
       break;
-    }
-    
-
+    }  
   }
 
-  if (cache[url] && cache[url].length > 0) {
+  if (cache[url] && cache[url].length > 0) {  
     d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);
     return d;
   } else {

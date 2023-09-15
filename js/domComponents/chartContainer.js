@@ -8,13 +8,13 @@ class ChartContainer {
 
     this.firstSelectedIndex = -1;
 
-    this.target.setAttribute('role', 'listbox');
+    // this.target.setAttribute('role', 'listbox');
 
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+    // this.handleKeyDown = this.handleKeyDown.bind(this);
 
     this.toggleChartContainer = this.toggleChartContainer.bind(this);
 
-    document.addEventListener('keydown', this.handleKeyDown);
+    // document.addEventListener('keydown', this.handleKeyDown);
 
     this.initializeItemClickListeners();
 
@@ -191,65 +191,65 @@ class ChartContainer {
     }
   }
 
-  handleKeyDown(event) {
-    if ($('.expand').length > 0) {
-     return
-    } else {
-      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-        event.preventDefault();
+  // handleKeyDown(event) {
+  //   if ($('.expand').length > 0) {
+  //    return
+  //   } else {
+  //     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+  //       event.preventDefault();
     
-        // Calculate the new index based on the arrow key
-        const newIndex = event.key === 'ArrowUp' ? this.selectedIndex - 1 : this.selectedIndex + 1;
+  //       // Calculate the new index based on the arrow key
+  //       const newIndex = event.key === 'ArrowUp' ? this.selectedIndex - 1 : this.selectedIndex + 1;
     
-        // Ensure the new index is within bounds
-        if (newIndex >= 0 && newIndex < this.chartItems.length) {
-          // Remove selection from the previous item
-          if (this.selectedIndex >= 0) {
-            this.chartItems[this.selectedIndex].classList.remove('selected');
-          }
+  //       // Ensure the new index is within bounds
+  //       if (newIndex >= 0 && newIndex < this.chartItems.length) {
+  //         // Remove selection from the previous item
+  //         if (this.selectedIndex >= 0) {
+  //           this.chartItems[this.selectedIndex].classList.remove('selected');
+  //         }
     
-          // Update the selected index and add selection to the new item
-          this.selectedIndex = newIndex;
-          this.chartItems[this.selectedIndex].classList.add('selected');
-          this.chartItems[this.selectedIndex].focus();
-        }
-      } else if (event.key === ' ') {
+  //         // Update the selected index and add selection to the new item
+  //         this.selectedIndex = newIndex;
+  //         this.chartItems[this.selectedIndex].classList.add('selected');
+  //         this.chartItems[this.selectedIndex].focus();
+  //       }
+  //     } else if (event.key === ' ') {
    
-        event.preventDefault();
-        if (this.firstSelectedIndex === -1) {
-          // First Enter key press: Store the first selected item
-          if (this.selectedIndex !== -1) {
-            this.firstSelectedIndex = this.selectedIndex;
-            this.chartItems[this.selectedIndex].classList.add('first-selected');
-            this.chartItems[this.selectedIndex].setAttribute('tabindex', '0');
+  //       event.preventDefault();
+  //       if (this.firstSelectedIndex === -1) {
+  //         // First Enter key press: Store the first selected item
+  //         if (this.selectedIndex !== -1) {
+  //           this.firstSelectedIndex = this.selectedIndex;
+  //           this.chartItems[this.selectedIndex].classList.add('first-selected');
+  //           this.chartItems[this.selectedIndex].setAttribute('tabindex', '0');
   
-          }
-        } else {
-          // Second Enter key press: Swap the first and second selected items
-          if (this.selectedIndex !== -1 && this.selectedIndex !== this.firstSelectedIndex) {
-            this.swapChartItems(this.firstSelectedIndex, this.selectedIndex);
-            this.chartItems[this.firstSelectedIndex].classList.remove('first-selected');
-            this.firstSelectedIndex = -1;  
+  //         }
+  //       } else {
+  //         // Second Enter key press: Swap the first and second selected items
+  //         if (this.selectedIndex !== -1 && this.selectedIndex !== this.firstSelectedIndex) {
+  //           this.swapChartItems(this.firstSelectedIndex, this.selectedIndex);
+  //           this.chartItems[this.firstSelectedIndex].classList.remove('first-selected');
+  //           this.firstSelectedIndex = -1;  
   
-            // Remove the 'selected' class from both items after swap
-            this.chartItems[this.selectedIndex].classList.remove('selected');
-            this.chartItems[this.selectedIndex].blur();
-            $(this.target).find('.chartContainer').removeClass("selected");
+  //           // Remove the 'selected' class from both items after swap
+  //           this.chartItems[this.selectedIndex].classList.remove('selected');
+  //           this.chartItems[this.selectedIndex].blur();
+  //           $(this.target).find('.chartContainer').removeClass("selected");
   
-          }
-        }
-      } else if (event.key === 'Enter') {
-        log('here')
-        event.preventDefault(); 
-        if (this.selectedIndex >= 0) {
-          this.selectedChartItem = this.chartItems[this.selectedIndex];
-        }
-        this.handleItemClick(this.selectedChartItem)
-        // this.toggleChartContainer(this.selectedChartItem);
-      }
-    }
+  //         }
+  //       }
+  //     } else if (event.key === 'Enter') {
+  //       log('here')
+  //       event.preventDefault(); 
+  //       if (this.selectedIndex >= 0) {
+  //         this.selectedChartItem = this.chartItems[this.selectedIndex];
+  //       }
+  //       this.handleItemClick(this.selectedChartItem)
+  //       // this.toggleChartContainer(this.selectedChartItem);
+  //     }
+  //   }
 
-  } 
+  // } 
 
 
   addToDOM(targetElementSelector) {

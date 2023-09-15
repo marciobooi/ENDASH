@@ -116,3 +116,21 @@ background-color: var(--tool-1) !important;
     align-items: center;
     border-radius: 0.4rem !important;
 }
+
+
+.dropdown-menu.show {
+    display: block;
+    right: 0;
+}
+
+.invisible {
+    visibility: hidden !important;
+}
+
+
+#dropdown-geo-list {
+    height: auto;
+    max-height: 48vh;
+    overflow-x: hidden;
+    width: auto;
+}
