@@ -219,6 +219,8 @@ function removeAuxiliarBarGraphOptions() {
 
   getTitle()
 
+  menuSwitch
+  $('#menuSwitch').remove();
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");
   parentContainer.attr('aria-expanded', 'false');

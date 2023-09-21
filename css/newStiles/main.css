@@ -147,6 +147,11 @@ main {
 .expand {   
     max-width: 97vw;
     height: 70vh;    
+    box-shadow: initial;
+}
+
+.expand.flex-item:hover {
+  box-shadow: initial;
 }
 
 .containerNav {
