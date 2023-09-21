@@ -40,8 +40,14 @@ class Chart {
           // },
           title: {
             enabled: true,
-            text: this.yAxisTitle,            
+            text: this.yAxisTitle,         
+            style: {             
+              wordWrap:'break-word',
+              step:1,
+              width : "200px"
+            }   
           },
+
         },
         colors: this.colors,
         tooltip: {

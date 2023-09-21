@@ -272,3 +272,8 @@ main {
 tr > td:nth-child(2) {
   text-align: right;
 }
+
+
+.highcharts-yaxis {
+  width: 2rem !important;
+}
