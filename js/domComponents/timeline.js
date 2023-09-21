@@ -41,7 +41,11 @@ class Timeline {
                 REF.chartOpt = "compareChart";
                 REF.year = ui.value;
                 if(REF.chartCreated === true) {
-                    piechartdata()
+                    if(REF.chartType === "barChart") {
+                        createBarChart()
+                    } else {
+                        piechartdata()
+                    }                    
                 } else {
                     compareCountries();
                 }

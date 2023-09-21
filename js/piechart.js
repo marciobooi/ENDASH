@@ -17,6 +17,7 @@ function createPieChart() {
 
   piechartdata()
   
+  
   const seriesOpt = {
     innerSize: "75%",
     showInLegend: true,
@@ -69,7 +70,7 @@ function createPieChart() {
   });
 
   stopLoadingAnimation()
-  REF.chartOpt = "compareChart"
+
 }
 
 function piechartdata() {

@@ -145,7 +145,7 @@ function exportTable() {
 }
 
 function showHideBarChartOptions() {
-  if (REF.chartType === "pieChart") {
+  if (REF.chartType !== "barChart") {
       $("#togglePercentage, #Agregates").css('display', 'none');
   } else {
       $("#togglePercentage, #Agregates").css('display', '');
@@ -153,6 +153,42 @@ function showHideBarChartOptions() {
 }
 
 
+function showHideTimeLine() {
+  const timelineContainer = document.getElementById('timelineContainer');
+
+  // Check if a timeline instance exists
+  if (this.timeline) {
+    // Remove the existing timeline
+    this.timeline.removeFromDOM();
+    this.timeline = null;
+  }
+
+  if (REF.chartType === 'barChart' || REF.chartType === 'pieChart') {
+    // Create and add the Timeline instance to the DOM
+    this.timeline = new Timeline(timelineContainer);
+
+    // Display the timeline
+    this.timeline.addToDOM();
+
+    // Show specific chart options
+    showChartOptions();
+  } else {
+    // Hide specific chart options
+    hideChartOptions();
+  }
+}
+
+function showChartOptions() {
+  // Show chart-specific options
+  $('#togglePercentage').css('display', 'block');
+  $('#Agregates').css('display', 'block');
+}
+
+function hideChartOptions() {
+  // Hide chart-specific options
+  $('#togglePercentage').css('display', 'none');
+  $('#Agregates').css('display', 'none');
+}
 
 
 
@@ -177,11 +213,10 @@ function removeAuxiliarBarGraphOptions() {
     defaultGeos = defaultGeos.concat(query);
   } 
 
-  $("#switchCompare").prop("checked", false);
-  REF.compare = false
-  REF.chartOpt = "mainChart"
+
+ 
   compareCountries()
-  REF.chartOpt = "mainChart"
+ 
   REF.chartType =  ""
 
   getTitle()
@@ -206,21 +241,21 @@ function removeAuxiliarBarGraphOptions() {
   const auxiliarBarGraphOptions = new ChartControls();
   auxiliarBarGraphOptions.removeFromDOM("#subnavbar-container");
 
-  const FloatingControls = new FloatingChartControls();
-  FloatingControls.removeFromDOM();
+  // const FloatingControls = new FloatingChartControls();
+  // FloatingControls.removeFromDOM();
 
-  $('#chartSlider').remove();
+  // $('#chartSlider').remove();
   $(".containerNav").css('visibility', 'initial')
 }
 
-function showMenuSwitch() {
-  $("#menuSwitch > div:nth-child(1)").css('display', "block") 
-  $('#ChartOrder').css('display', "initial") 
-}
-function hideMenuSwitch() {
-  $("#menuSwitch > div:nth-child(1)").css('display', "none") 
-  $('#ChartOrder').css('display', "none") 
-}
+// function showMenuSwitch() {
+//   $("#menuSwitch > div:nth-child(1)").css('display', "block") 
+//   $('#ChartOrder').css('display', "initial") 
+// }
+// function hideMenuSwitch() {
+//   $("#menuSwitch > div:nth-child(1)").css('display', "none") 
+//   $('#ChartOrder').css('display', "none") 
+// }
 
 function sortArrayAlphabetically() {
   if (REF.detail == 1) {
@@ -298,7 +333,7 @@ function chartNormalTooltip(points) {
   const value = Highcharts.numberFormat(points[0].y, 4);
   const unit = `${languageNameSpace.labels["S_" + REF.currency]}/${languageNameSpace.labels["S_" + REF.unit]}`;
   const na = languageNameSpace.labels['FLAG_NA'];
-  const title = REF.chartId==="mainChart" ?  points[0].key : points[0].x
+  const title = REF.chartId==="lineChart" ?  points[0].key : points[0].x
   return this.y == 0 ? `<b>${title}<br>Total: <b>${na}</b>` : `<b>${title}<br>Total: <b>${value}</b> ${unit}`;
 }
 
@@ -453,8 +488,10 @@ function chartApiCall(query) {
   url += "format=JSON";
   url += "&lang=" + REF.language;
 
-  switch (REF.chartOpt) {
-    case "mainChart":
+
+
+  switch (REF.chartType) {
+    case "lineChart":
       url += "&unit=" + REF.unit; 
       url += "&geo=" + REF.geos;  
       if(REF.indicator.length > 0) {
@@ -469,25 +506,30 @@ function chartApiCall(query) {
         url += "&plants=ELC"
       }
       break;
-    default:    
-    
 
-    if(REF.chartType === "barChart") {
-      url += "&unit=" + REF.unit; 
+ case "barChart":
+  url += "&unit=" + REF.unit; 
       if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
       if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
       for (let i = 0; i < geos.length; i++) url += "&geo=" + geos[i]; 
       url += "&time=" + REF.year; 
+
+  break
+
+
+  case "pieChart":
+    if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
+    if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
+    url += "&unit=" + REF.unit; 
+    url += "&time=" + REF.year;
+    url += "&geo=" + REF.geos;
   
-      break;
-    } else {
-      if(REF.indicator.length > 0) { for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i]}
-      if(REF.indicator2.length > 0) {for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];}
-      url += "&unit=" + REF.unit; 
-      url += "&time=" + REF.year;
-      url += "&geo=" + REF.geos;
-      break;
-    }  
+    break
+
+
+
+  
+ 
   }
 
   if (cache[url] && cache[url].length > 0) {  
@@ -557,7 +599,7 @@ return iconHTML;
 
 function chartToDisplay(d) { 
 
-  if(REF.chartId == "mainChart") {
+  if(REF.chartId == "lineChart") {
     endash(d)  
   }
   if(REF.chartId == "pieChart") {

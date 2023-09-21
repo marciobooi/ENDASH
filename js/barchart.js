@@ -10,15 +10,16 @@ function createBarChart() {
   const series = d.Dimension("geo").id;
   const categories = d.Dimension("geo").id;  
 
-
   handleData(d, series);   
 
   const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
 
 
-  const xAxis = REF.chartOpt === "compareChart"
-  ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
-  : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
+  // const xAxis = REF.chartOpt === "compareChart"
+  // ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
+  // : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
+
+  const xAxis = { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
 
 
   const tooltipFormatter = function() {

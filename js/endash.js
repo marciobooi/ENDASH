@@ -19,6 +19,7 @@ setTimeout(() => {
         REF.indicator_type = codesDataset[REF.chartId].indicator_type;
         REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
         REF.title = codesDataset[REF.chartId].title;
+        REF.chartType = "lineChart"
 
         const type = "spline"
 
@@ -67,9 +68,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         containerId = codesDataset[REF.chartId].container;
       }
 
-    const xAxis = REF.chartOpt === "compareChart"
-        ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
-        : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
+    const xAxis = { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} }
 
      const title = getTitle()
 
@@ -101,12 +100,12 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     };
 
     const customChart = new Chart(chartOptions);
-    mainChart = customChart.createChart();
+    lineChart = customChart.createChart();
 
     if($( "#"+REF.chartId ).hasClass( "expand" )){
-        mainChart.update({ legend: legendSmall }, true);        
+        lineChart.update({ legend: legendSmall }, true);        
     } else {
-        mainChart.update({ legend: legendHide }, true);   
+        lineChart.update({ legend: legendHide }, true);   
     }  
 }
 
@@ -196,24 +195,17 @@ function compareCountries() {
 
 
     chartSeries = [];
- 
 
-    if(REF.chartOpt === "compareChart") {
 
-        if(REF.chartType === "barChart") {
-
+    switch (REF.chartType) {
+        case "barChart":
             createBarChart()
-
-            REF.chartOpt = "mainChart"
-        } else {          
-
+            break;
+        case "pieChart":
             createPieChart ()
+            break; 
+        default:
 
-            REF.chartOpt = "mainChart"
-
-        }
-
-    } else {
 
         const type = "spline"
 
@@ -227,7 +219,7 @@ function compareCountries() {
       
             buildChart(categories, containerId, yAxisTitle, type);  
 
-            REF.chartOpt = "compareChart"
+            // REF.chartOpt = "compareChart"
             
         } else {
 
@@ -243,10 +235,14 @@ function compareCountries() {
             buildChart(categories, REF.containerId, yAxisTitle, type);  
             
     
-            REF.chartOpt = "compareChart"
+            // REF.chartOpt = "compareChart"
         }
-      
 
+
+            break;
     }
+ 
+
+
     
 }

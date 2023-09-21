@@ -8,12 +8,12 @@ class FloatingChartControls {
     this.chartControls.id = 'menuSwitch';
 
     this.chartControls.innerHTML = `
-      <div>
+      <!-- <div>
         <div class="form-check form-switch form-check-reverse">
           <input class="form-check-input focus-ring" type="checkbox" value="${REF.compare == 'true' ? false : true}" role="switch" id="switchCompare" ${REF.compare == true ? '' : 'checked'}>
           <label class="form-check-label" for="switchCompare">${languageNameSpace.labels['compare']}</label>
         </div>
-      </div>
+      </div> -->
       
       <div>  
         <ul id="floatingMenu">   
@@ -27,98 +27,98 @@ class FloatingChartControls {
 
 
     // Get all the switch elements
-    const switchElements = this.chartControls.querySelectorAll('[role="switch"]');
+    // const switchElements = this.chartControls.querySelectorAll('[role="switch"]');
 
     // Add event listeners for keyboard navigation
-    switchElements.forEach(switchElement => {
-      switchElement.addEventListener('keyup', e => {
-        if (e.keyCode === 13 || e.keyCode === 32) {
-          // Prevent scrolling when the spacebar or enter key is pressed
-          e.preventDefault();
+    // switchElements.forEach(switchElement => {
+    //   switchElement.addEventListener('keyup', e => {
+    //     if (e.keyCode === 13 || e.keyCode === 32) {
+    //       // Prevent scrolling when the spacebar or enter key is pressed
+    //       e.preventDefault();
 
-          switchElement.value = switchElement.value === 'true' ? false : true;
+    //       switchElement.value = switchElement.value === 'true' ? false : true;
 
-          REF.chartType = switchElement.value == 'false' ? "barChart" : '';
-          REF.percentage = 0        
+    //       REF.chartType = switchElement.value == 'false' ? "barChart" : '';
+    //       REF.percentage = 0        
           
-          switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "mainChart"
-          switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
+    //       switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "lineChart"
+    //       switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
 
-          if (switchElement.value === 'false') {
-            // Add the Timeline instance to the DOM
-            const timelineContainer = document.getElementById('timelineContainer');
-            const timeline = new Timeline(timelineContainer);
-            // Save the timeline instance to access it later for removal
-            this.timeline = timeline;
-        } else {
-            // Remove the Timeline instance from the DOM
-            if (this.timeline) {
-                this.timeline.removeFromDOM();
-                this.timeline = null;
-            }
+    //       if (switchElement.value === 'false') {
+    //         // Add the Timeline instance to the DOM
+    //         const timelineContainer = document.getElementById('timelineContainer');
+    //         const timeline = new Timeline(timelineContainer);
+    //         // Save the timeline instance to access it later for removal
+    //         this.timeline = timeline;
+    //     } else {
+    //         // Remove the Timeline instance from the DOM
+    //         if (this.timeline) {
+    //             this.timeline.removeFromDOM();
+    //             this.timeline = null;
+    //         }
 
-            const pieButton = document.querySelector("#pieChart");
-            const barButton = document.querySelector("#barChart");
-            pieButton.setAttribute("disabled", "");
-            barButton.setAttribute("disabled", "");
-            showHideBarChartOptions();
+    //         const pieButton = document.querySelector("#pieChart");
+    //         const barButton = document.querySelector("#barChart");
+    //         pieButton.setAttribute("disabled", "");
+    //         barButton.setAttribute("disabled", "");
+    //         showHideBarChartOptions();
   
   
-            $('#togglePercentage').css('display', 'none')
-            $('#Agregates').css('display', 'none')
-        }
+    //         $('#togglePercentage').css('display', 'none')
+    //         $('#Agregates').css('display', 'none')
+    //     }
            
-          compareCountries();
-          const button = document.querySelector("#pieChart");
-          button.removeAttribute("disabled");
-          showHideBarChartOptions();
-        }
-      });
+    //       compareCountries();
+    //       const button = document.querySelector("#pieChart");
+    //       button.removeAttribute("disabled");
+    //       showHideBarChartOptions();
+    //     }
+    //   });
 
       
 
 
-      switchElement.addEventListener('click', () => {
+    //   switchElement.addEventListener('click', () => {
 
-        switchElement.value = switchElement.value === 'true' ? false : true;
-        switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "mainChart"
-        switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
-        REF.percentage = 0     
+    //     switchElement.value = switchElement.value === 'true' ? false : true;
+    //     switchElement.value == 'false' ? REF.chartOpt = "compareChart" : REF.chartOpt = "lineChart"
+    //     switchElement.value == 'false' ? REF.chartType = 'barChart' : REF.chartType = ""
+    //     REF.percentage = 0     
 
-        if (switchElement.value === 'false') {
-          // Add the Timeline instance to the DOM
-          const timelineContainer = document.getElementById('timelineContainer');
-          const timeline = new Timeline(timelineContainer);
-          // Save the timeline instance to access it later for removal
-          this.timeline = timeline;
+    //     if (switchElement.value === 'false') {
+    //       // Add the Timeline instance to the DOM
+    //       const timelineContainer = document.getElementById('timelineContainer');
+    //       const timeline = new Timeline(timelineContainer);
+    //       // Save the timeline instance to access it later for removal
+    //       this.timeline = timeline;
 
-          REF.chartCreated = false
+    //       REF.chartCreated = false
 
-          const button = document.querySelector("#pieChart");
-          button.removeAttribute("disabled");
-          showHideBarChartOptions();
+    //       const button = document.querySelector("#pieChart");
+    //       button.removeAttribute("disabled");
+    //       showHideBarChartOptions();
 
-      } else {
-          // Remove the Timeline instance from the DOM
-          if (this.timeline) {
-              this.timeline.removeFromDOM();
-              this.timeline = null;
-          }
-          const pieButton = document.querySelector("#pieChart");
-          const barButton = document.querySelector("#barChart");
-          pieButton.setAttribute("disabled", "");
-          barButton.setAttribute("disabled", "");
-          showHideBarChartOptions();
+    //   } else {
+    //       // Remove the Timeline instance from the DOM
+    //       if (this.timeline) {
+    //           this.timeline.removeFromDOM();
+    //           this.timeline = null;
+    //       }
+    //       const pieButton = document.querySelector("#pieChart");
+    //       const barButton = document.querySelector("#barChart");
+    //       pieButton.setAttribute("disabled", "");
+    //       barButton.setAttribute("disabled", "");
+    //       showHideBarChartOptions();
 
-          $('#togglePercentage').css('display', 'none')
-          $('#Agregates').css('display', 'none')
-      }         
+    //       $('#togglePercentage').css('display', 'none')
+    //       $('#Agregates').css('display', 'none')
+    //   }         
     
-        compareCountries();
+    //     compareCountries();
 
-    });
+    // });
     
-    });
+    // });
   }
 
   toggleChartPercentage() {
