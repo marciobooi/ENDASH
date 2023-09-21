@@ -8,15 +8,16 @@ const dataNameSpace = {
     language: "EN",
     dataset: "nrg_ind_eff",
     chartId: "chart_1",
-    chartOpt: "lineChart",
+    // chartOpt: "lineChart",
     indicator_type:"",
     indicator2_type:"",
     title:"",
     compare: false,
     year: "2021",
-    percentage:0,
-    chartType: "",
+    percentage: 0,
+    chartType: "lineChart",
     chartCreated: false,
+    chartExpanded: false
   },
   setRefURL() {
     const url = new URL(window.location.href);

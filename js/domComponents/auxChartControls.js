@@ -182,7 +182,7 @@ class ChartControls {
 		}
 	  }
 	  $("#menuToolbar").toggle();
-	  showMenuSwitch();
+	//   showMenuSwitch();
 	  REF.compare = false
 	}
   }

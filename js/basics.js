@@ -212,15 +212,12 @@ function removeAuxiliarBarGraphOptions() {
   if (!hasQuery) {
     defaultGeos = defaultGeos.concat(query);
   } 
-
-
- 
+  REF.chartType =  "lineChart"
+  REF.percentage = 0
+  REF.chartExpanded = false
   compareCountries()
- 
-  REF.chartType =  ""
 
   getTitle()
-
 
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");

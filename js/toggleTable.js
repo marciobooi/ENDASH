@@ -21,7 +21,7 @@ function closeTable() {
   $("table").hide();
   $('#'+chartId).show();
 
-    showMenuSwitch();
+    // showMenuSwitch();
  
 
 }

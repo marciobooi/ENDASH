@@ -152,6 +152,8 @@ class ChartContainer {
     
       const chartContainer = i;
 
+      REF.chartExpanded = true
+
       REF.chartId = chartContainer.id    
       
       if(!$(chartContainer).hasClass('expand')){       

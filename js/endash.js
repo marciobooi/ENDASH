@@ -68,7 +68,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         containerId = codesDataset[REF.chartId].container;
       }
 
-    const xAxis = { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} }
+    const xAxis = { categories: categories, labels: REF.chartExpanded == true ? {step: 0} : {step: 10} }
 
      const title = getTitle()
 
