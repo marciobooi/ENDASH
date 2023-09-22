@@ -7,11 +7,10 @@ const chartId = codesDataset[REF.chartId].container
     const chart = $('#'+chartId).highcharts();
     if (chart) {
       chart.viewData();
-
-      // Change the text of table highcharts-data-table-0 header summary to "Data Table"
+   
       $("table").removeAttr("summary");
-      hideMenuSwitch()
-      $("#ChartOrder").hide();  
+      hideChartMenuOptions()
+     
     }
   }, 100);
 }
@@ -21,7 +20,7 @@ function closeTable() {
   $("table").hide();
   $('#'+chartId).show();
 
-    // showMenuSwitch();
+    showChartMenuOptions();
  
 
 }

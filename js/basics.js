@@ -219,7 +219,7 @@ function removeAuxiliarBarGraphOptions() {
 
   getTitle()
 
-  menuSwitch
+  closeTable()
   $('#menuSwitch').remove();
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");
@@ -247,14 +247,17 @@ function removeAuxiliarBarGraphOptions() {
   $(".containerNav").css('visibility', 'initial')
 }
 
-// function showMenuSwitch() {
-//   $("#menuSwitch > div:nth-child(1)").css('display', "block") 
-//   $('#ChartOrder').css('display', "initial") 
-// }
-// function hideMenuSwitch() {
-//   $("#menuSwitch > div:nth-child(1)").css('display', "none") 
-//   $('#ChartOrder').css('display', "none") 
-// }
+function showChartMenuOptions() {
+  $('#tb-togle-percentage').css('display', "initial") 
+  $('#toggleAgregates').css('display', "initial") 
+  $('#timelineContainer').css('display', "initial") 
+}
+function hideChartMenuOptions() {
+
+  $('#timelineContainer').css('display', "none") 
+  $('#togglePercentage').css('display', "none") 
+  $('#Agregates').css('display', "none") 
+}
 
 function sortArrayAlphabetically() {
   if (REF.detail == 1) {

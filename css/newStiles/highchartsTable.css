@@ -1,6 +1,12 @@
 .highcharts-data-table {
-    height: 77vh;
+    height: 74vh;
     overflow: auto;
+    /* margin-top: -67px; */
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    margin: 1rem;
+    width: 98vw;
 }
 
 .highcharts-data-table table {
@@ -10,7 +16,7 @@
     min-width: 100%;
     margin-top: 10px;
     font-family: sans-serif;
-    font-size: 0.9em;
+    font-size: 0.4em;
 }
 .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
     border: 1px solid silver;
@@ -47,4 +53,12 @@ tbody, td, tfoot, th, thead, tr {
 
 .table > :not(caption) > * > * {
     padding: 0.2rem 0.2rem;
+}
+
+tbody > tr > th.highcharts-text {
+    font-size: 0.9em;
+}
+
+td.highcharts-number {
+    text-align: end;
 }

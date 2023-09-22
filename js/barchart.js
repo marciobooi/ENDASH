@@ -52,7 +52,64 @@ function createBarChart() {
           }
         }
       },
-    seriesOptions: { cursor: "pointer" }
+      seriesOptions: {
+        cursor: "pointer",
+        point: {
+          events: {
+            click: function () {
+              const point = this;
+              const series = point.series;
+              const chart = series.chart;
+          
+              // Check if we've already stored original colors in the chart object
+              if (!chart.originalColors) {
+                  chart.originalColors = {};
+          
+                  // Store the original colors of each series' data points when the chart is initially rendered
+                  chart.series.forEach((s) => {
+                      chart.originalColors[s.name] = {};
+                      s.data.forEach((p) => {
+                          chart.originalColors[s.name][p.index] = p.color;
+                      });
+                  });
+              }
+          
+              // Find the index of the clicked point within its stack
+              const stackIndex = series.data.indexOf(point);
+          
+              // Toggle or restore the color of the corresponding points in each series
+              chart.series.forEach((s) => {
+                  s.data.forEach((p, index) => {
+                      if (index === stackIndex) {
+                          // Check the current color of the point
+                          if (p.color === 'lightgray') {
+                              // Restore the original color
+                              p.update({ color: chart.originalColors[s.name][index] });
+                          } else {
+                              // Toggle the color to lightgray
+                              p.update({ color: 'lightgray' });
+                          }
+                      }
+                  });
+              });
+          },
+          mouseOver: function () {
+            var point = this;
+            var color = point.color;
+           log(color)
+
+           if (color === 'lightgray') {
+            // Disable the tooltip by setting enabled to false
+            return false;
+        }
+
+
+          }
+          
+          
+          },
+        },
+      }
 };
 
 
