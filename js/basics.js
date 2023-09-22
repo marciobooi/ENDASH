@@ -448,7 +448,8 @@ switch (REF.chartType) {
     break;
 
   default:
-      title = `${languageNameSpace.labels[REF.title] }`   
+    log('here')
+      title = `${languageNameSpace.labels[REF.title]}`   
       $("#title").html(languageNameSpace.labels[REF.geos])
     break;
 }

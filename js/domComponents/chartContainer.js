@@ -173,7 +173,7 @@ class ChartContainer {
 
       addAuxiliarBarGraphOptions()
       compareCountries()
-      document.querySelector("#title").innerHTML = languageNameSpace.labels[REF.title];
+      document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
       } 
     
     }
