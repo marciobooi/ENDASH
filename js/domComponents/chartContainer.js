@@ -162,14 +162,14 @@ class ChartContainer {
         chartContainer.setAttribute('aria-expanded', 'true');
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
-        REF.compare = true
+        // REF.compare = true
 
         $(".containerNav").css('visibility', 'hidden')
-              Highcharts.charts.forEach(chart => {
+        Highcharts.charts.forEach(chart => {
           if (chart) {
               chart.reflow();
           }
-      });
+        });
 
       addAuxiliarBarGraphOptions()
       compareCountries()

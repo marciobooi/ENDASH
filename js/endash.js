@@ -70,6 +70,9 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
     const xAxis = { categories: categories, labels: REF.chartExpanded == true ? {step: 0} : {step: 10} }
 
+    const seriesOptions = { cursor: "pointer",  marker:REF.chartExpanded == true ? {enabled:true} : {enabled:false} }
+    
+
      const title = getTitle()
 
     const chartOptions = {
@@ -96,14 +99,14 @@ function buildChart(categories, containerId, yAxisTitle, type) {
               }
             }
           },
-        seriesOptions: { cursor: "pointer" }
+        seriesOptions: seriesOptions
     };
 
     const customChart = new Chart(chartOptions);
     lineChart = customChart.createChart();
 
     if($( "#"+REF.chartId ).hasClass( "expand" )){
-        lineChart.update({ legend: legendSmall }, true);        
+        lineChart.update({ legend: legendSmall }, true);      
     } else {
         lineChart.update({ legend: legendHide }, true);   
     }  
