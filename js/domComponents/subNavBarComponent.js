@@ -28,14 +28,17 @@ class SubNavbar {
                   <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
               </li>
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-                    <i class="fas fa-info"></i>
+                  <button class="btn btn-primary min-with--nav" onclick="tutorial()" title="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">
+                  <i class="fas fa-book-open"></i>
                   </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+
+
+
+                  <!-- <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
                     <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
                     <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
                     <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-                  </ul>
+                  </ul> -->
                 </li>
               </ul>
           </div>`;
