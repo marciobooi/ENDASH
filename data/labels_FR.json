@@ -346,7 +346,6 @@
   "COOKIECOMPLETEonlyTechnical": "N\u2019accepter que les cookies essentiels",
   "COOKIECOMPLETE": "Vos pr\u00e9f\u00e9rences en mati\u00e8re de cookies ont \u00e9t\u00e9 sauvegard\u00e9es. Pour modifier vos pr\u00e9f\u00e9rences \u00e0 tout moment, consultez notre <a href=\"//ec.europa.eu/info/cookies_fr\" target=\"_blank\">politique sur les cookies</a> ou cliquez sur le lien dans le pied de page.",
 
-  "header-title-label": "Prix de l'énergie",
   "MAINMENU": "Menu principal",
   "COUNTRY": "Pays",
   "FUEL": "Carburant",
@@ -360,7 +359,32 @@
   "TOOLS": "Outils",
   "DB": "Accès à la base de données",
   "%": "en pourcentage",
-  "TOGGLEAGREGATES": "Basculer les agrégats"
+  "TOGGLEAGREGATES": "Basculer les agrégats",
+
+  "chart_1": "Efficacité énergétique",
+	"chart_2": "Part de l'énergie provenant de sources renouvelables",
+	"chart_3": "Intensité des émissions de gaz à effet de serre de la consommation d'énergie",
+	"chart_4": "Intensité énergétique",
+	"chart_5": "Productivité énergétique",
+	"chart_6": "Dépendance aux importations d'énergie",
+	"chart_7": "Part des combustibles fossiles dans l'énergie brute disponible",
+	"chart_8": "Consommation d'énergie finale dans les ménages par habitant",
+	"chart_9": "Consommation d'énergie finale par produit",
+	"chart_10": "Consommation d'énergie finale par secteur",
+	"chart_11": "Consommation finale d'énergie désagrégée dans les ménages - quantités",
+	"chart_12": "Consommation d'énergie finale dans les transports par type de carburant",
+	"chart_13": "Consommation d'énergie finale dans le transport routier par type de carburant",
+	"chart_14": "Consommation d'énergie finale dans les services par type de carburant",
+	"chart_15": "Consommation d'énergie finale dans l'industrie par type de carburant",
+	"chart_16": "Consommation finale non énergétique par type de carburant",
+	"chart_17": "Production brute et nette d'électricité et de chaleur dérivée par type d'installation et opérateur",
+	"chart_18": "Production brute d'électricité et de chaleur dérivée de combustibles fossiles par type d'installation et opérateur",
+	"chart_19": "Population incapable de maintenir correctement la chaleur à la maison en fonction du statut de pauvreté",
+	"chart_20": "Part de marché du plus grand producteur sur le marché de l'électricité",
+	"chart_21": "Énergie brute disponible par produit",
+	"chart_22": "Approvisionnement total en énergie par produit",
+	"compare": "Comparer les pays",
+	"header-title-label": "Tableau de bord de l'énergie"
  
 
 

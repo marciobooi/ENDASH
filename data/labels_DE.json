@@ -340,7 +340,6 @@
   "COOKIECOMPLETEonlyTechnical": "Nur unbedingt notwendige Cookies akzeptieren",
   "COOKIECOMPLETE": "Ihre Cookie-Pr\u00e4ferenzen wurden gespeichert. Sie k\u00f6nnen sie jederzeit \u00e4ndern. Informieren Sie sich \u00fcber unsere <a href=\"//ec.europa.eu/info/cookies_de\" target=\"_blank\">Cookie-Politik</a> oder klicken Sie auf den Link in der Fu\u00dfzeile.",
 
-  "header-title-label": "Energiepreise",
   "MAINMENU": "Menü",
   "COUNTRY": "Land",
   "FUEL": "Kraftstoff",
@@ -354,7 +353,32 @@
   "TOOLS": "Werkzeuge",
   "DB": "Zugriff auf Datensatz",
   "%": "in Prozent",
-  "TOGGLEAGREGATES": "Aggregierte Daten umschalten"
+  "TOGGLEAGREGATES": "Aggregierte Daten umschalten",
+
+  "chart_1": "Energieeffizienz",
+	"chart_2": "Anteil erneuerbarer Energiequellen",
+	"chart_3": "Treibhausgasemissionsintensität des Energieverbrauchs",
+	"chart_4": "Energieintensität",
+	"chart_5": "Energieproduktivität",
+	"chart_6": "Abhängigkeit von Energieimporten",
+	"chart_7": "Anteil fossiler Brennstoffe an der verfügbaren Bruttoenergie",
+	"chart_8": "Endenergieverbrauch in Haushalten pro Kopf",
+	"chart_9": "Endenergieverbrauch nach Produkt",
+	"chart_10": "Endenergieverbrauch nach Sektor",
+	"chart_11": "Aufgeschlüsselter Endenergieverbrauch in Haushalten - Mengen",
+	"chart_12": "Endenergieverbrauch im Verkehr nach Art des Kraftstoffs",
+	"chart_13": "Endenergieverbrauch im Straßenverkehr nach Art des Kraftstoffs",
+	"chart_14": "Endenergieverbrauch in Dienstleistungen nach Art des Kraftstoffs",
+	"chart_15": "Endenergieverbrauch in der Industrie nach Art des Kraftstoffs",
+	"chart_16": "Endenergieverbrauch außerhalb des Energiebereichs nach Art des Kraftstoffs",
+	"chart_17": "Brutto- und Nettoerzeugung von Strom und abgeleiteter Wärme nach Anlagentyp und Betreiber",
+	"chart_18": "Bruttoerzeugung von Strom und abgeleiteter Wärme aus Brennstoffen nach Anlagentyp und Betreiber",
+	"chart_19": "Bevölkerung, die nicht in der Lage ist, ihr Zuhause ausreichend zu beheizen, nach Armutsstatus",
+	"chart_20": "Marktanteil des größten Erzeugers auf dem Strommarkt",
+	"chart_21": "Bruttoverfügbare Energie nach Produkt",
+	"chart_22": "Gesamte Energieversorgung nach Produkt",
+	"compare": "Länder vergleichen",
+	"header-title-label": "Energie-Dashboard"
  
 
 }
