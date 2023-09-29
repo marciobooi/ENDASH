@@ -173,6 +173,8 @@ class SubNavbar {
 
               REF.geos = selectedGeo
 
+              dataNameSpace.setRefURL()
+
               removeComponents()
               buildComponents()
               endash();
