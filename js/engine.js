@@ -24,6 +24,7 @@ function initenprices(d = null) {
   + "<div>"
   + "</div>"
 
+  dataNameSpace.getRefURL();
   endash()
 
 

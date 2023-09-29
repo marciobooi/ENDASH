@@ -36,32 +36,20 @@ const dataNameSpace = {
       return vars;
     };
   
-    const refURL = getUrlVars();
-  
+    const refURL = getUrlVars();  
     Object.entries(this.ref).forEach(([ref, value]) => {
       if (refURL[ref] !== undefined) {
         this.ref[ref] = refURL[ref];
       }
-    });
-  
-    if (refURL.taxs !== undefined) {
-      this.ref.taxs = refURL.taxs.split(",");
-    }
-  
-    if (refURL.nrg_prc !== undefined) {
-      this.ref.nrg_prc = refURL.nrg_prc.split(",");
-    }
+    });    
     if (refURL.percentage) {
       this.ref.percentage = parseFloat(refURL.percentage);
-    }
-  
-    if (refURL.geos !== undefined) {
-      if (refURL.geos.includes('all')) {
-        this.ref.geos = "";
-      } else {
-        this.ref.geos = refURL.geos.split(",");
-      }
-    }
+    }  
+    
+    if (refURL.geos) {
+      this.ref.geos = refURL.geos.toUpperCase();
+    }  
+    
   },  
   changeUrl(title, url) {
     if (typeof history.pushState !== "undefined") {
