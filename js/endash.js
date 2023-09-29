@@ -18,7 +18,7 @@ setTimeout(() => {
 
         const type = "spline"
 
-        chartSeries = [];
+       
 
         if(REF.dataset == "demo_pjan") {            
            
@@ -112,6 +112,8 @@ function handleData(d, series ) {
     const indicator_type = REF.indicator_type
     const indicator = REF.indicator;    
 
+    chartSeries = []
+
     if(REF.dataset === "nrg_ind_ep"|| REF.dataset === "nrg_ind_ffgae") {
 
         chartSeries.push({name: d.label, data:d.value})
@@ -185,10 +187,6 @@ function compareCountries() {
 
     // REF.chartId = chartToLoad
     updateREFFromCodesDataset(REF.chartId);
-
-
-    chartSeries = [];
-
 
     switch (REF.chartType) {
         case "barChart":
@@ -273,8 +271,6 @@ function compareLineChart(indicator) {
         };
         chartSeries.push(newObj);
     }
-
-    log(chartSeries)
 
     const yAxisTitle = d.__tree__.dimension.unit.category.label[codesDataset[REF.chartId].unit]    
 

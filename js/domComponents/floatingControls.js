@@ -122,14 +122,15 @@ class FloatingChartControls {
   }
 
   toggleChartPercentage() {
+    log(REF.percentage)
     REF.percentage = REF.percentage == 0 ? 1 : 0;
         
-    const categories = defaultGeos.map(geo => languageNameSpace.labels[geo]);
-    const containerId = codesDataset[REF.chartId].container;
-    const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit] 
-    const type = "column"
+    // const categories = defaultGeos.map(geo => languageNameSpace.labels[geo]);
+    // const containerId = codesDataset[REF.chartId].container;
+    // const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit] 
+    // const type = "column"
 
-    buildChart(categories, containerId, yAxisTitle, type);  
+    createBarChart();  
   }
 
   toggleChartAgregates() {

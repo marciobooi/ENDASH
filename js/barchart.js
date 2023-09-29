@@ -4,6 +4,7 @@ function createBarChart() {
   const type = "column"   
 
   showHideBarChartOptions()
+  updateREFFromCodesDataset(REF.chartId);
 
   REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();                    
 
