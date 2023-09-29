@@ -11,15 +11,9 @@ setTimeout(() => {
 }, 100);           
 
    
-        REF.dataset = codesDataset[REF.chartId].dataset;
-        REF.unit = codesDataset[REF.chartId].unit;
-        REF.indicator = codesDataset[REF.chartId].indicator;
-        REF.indicator2 = codesDataset[REF.chartId].indicator2;
-        containerId = codesDataset[REF.chartId].container;
-        REF.indicator_type = codesDataset[REF.chartId].indicator_type;
-        REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
-        REF.title = codesDataset[REF.chartId].title;
-        REF.meta = codesDataset[REF.chartId].meta;
+
+        updateREFFromCodesDataset(REF.chartId);
+
         REF.chartType = "lineChart"
 
         const type = "spline"
@@ -190,15 +184,7 @@ function chartEightCalculation() {
 function compareCountries() {
 
     // REF.chartId = chartToLoad
-    REF.dataset = codesDataset[REF.chartId].dataset;
-    REF.unit = codesDataset[REF.chartId].unit;
-    REF.indicator = codesDataset[REF.chartId].indicator;
-    REF.indicator2 = codesDataset[REF.chartId].indicator2;
-    containerId = codesDataset[REF.chartId].container;
-    REF.indicator_type = codesDataset[REF.chartId].indicator_type;
-    REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
-    REF.title = codesDataset[REF.chartId].title;
-    REF.meta = codesDataset[REF.chartId].meta;
+    updateREFFromCodesDataset(REF.chartId);
 
 
     chartSeries = [];

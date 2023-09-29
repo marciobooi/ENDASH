@@ -628,6 +628,33 @@ function chartToDisplay(d) {
 }
 
 
+function updateREFFromCodesDataset(chartId) {
+  const chartData = codesDataset[chartId] || {}; 
+
+  const {
+    dataset,
+    unit,
+    indicator,
+    indicator2,
+    container: containerNumber,
+    indicator_type,
+    indicator2_type,
+    title,
+    meta
+  } = chartData;
+
+
+  REF.dataset = dataset;
+  REF.unit = unit;
+  REF.indicator = indicator;
+  REF.indicator2 = indicator2;
+  containerId = containerNumber; 
+  REF.indicator_type = indicator_type;
+  REF.indicator2_type = indicator2_type;
+  REF.title = title;
+  REF.meta = meta;
+}
+
 
 
 

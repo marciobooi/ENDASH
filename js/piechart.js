@@ -6,14 +6,7 @@ function createPieChart() {
 
   showHideBarChartOptions()
 
-  REF.dataset = codesDataset[REF.chartId].dataset;
-  REF.unit = codesDataset[REF.chartId].unit;
-  REF.indicator = codesDataset[REF.chartId].indicator;
-  REF.indicator2 = codesDataset[REF.chartId].indicator2;
-  containerId = codesDataset[REF.chartId].container;
-  REF.indicator_type = codesDataset[REF.chartId].indicator_type;
-  REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
-  REF.title = codesDataset[REF.chartId].title;
+  updateREFFromCodesDataset(REF.chartId);
 
   piechartdata()
   
@@ -77,19 +70,35 @@ function piechartdata() {
 
   d = chartApiCall();
 
-  for (i = 0; i < REF.indicator.length; i++) {
+  if(REF.indicator.length == 0) {
+
+  for (i = 0; i < 1; i++) {
     if (d.value[i] != null) {
         piedata.push(
-          [d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
+          [d.__tree__.label,
             d.value[i]]
         );
       
     }
   }
 
+  } else {
+
+    for (i = 0; i < REF.indicator.length; i++) {
+      if (d.value[i] != null) {
+          piedata.push(
+            [d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
+              d.value[i]]
+          );
+        
+      }
+    }
+
+  }
+
   if(REF.chartCreated === true){
     pieChart.series[0].setData(piedata);
-  }
-  
+  }  
 
 }
+
