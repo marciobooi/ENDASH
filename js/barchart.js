@@ -96,8 +96,6 @@ function createBarChart() {
           mouseOver: function () {
             var point = this;
             var color = point.color;
-           log(color)
-
            if (color === 'lightgray') {
             // Disable the tooltip by setting enabled to false
             return false;

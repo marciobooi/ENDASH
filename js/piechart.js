@@ -17,7 +17,6 @@ function createPieChart() {
 
   piechartdata()
   
-  
   const seriesOpt = {
     innerSize: "75%",
     showInLegend: true,

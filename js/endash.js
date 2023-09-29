@@ -70,8 +70,18 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
     const xAxis = { categories: categories, labels: REF.chartExpanded == true ? {step: 0} : {step: 10} }
 
-    const seriesOptions = { cursor: "pointer",  marker:REF.chartExpanded == true ? {enabled:true} : {enabled:false} }
-    
+    const seriesOptions = { cursor: "pointer",  marker:REF.chartExpanded == true ? {enabled:true} : {enabled:false},
+    // point: {
+    //     events: {
+    //       click: function () {
+    //         const point = this;
+    //         const series = point.series;
+    //         indicator = series.userOptions.indicator           
+    //         compareLineChart(indicator)
+    //       }
+    //     }
+    // }
+}    
 
      const title = getTitle()
 
@@ -89,16 +99,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         series: chartSeries,
         colors: colors,
         legend: {},
-        columnOptions: {
-            stacking: REF.percentage == 0 ? "normal" : "percent",
-            events: {
-              mouseOver: function () {
-                var point = this;
-                var color = point.color;
-                $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
-              }
-            }
-          },
+
         seriesOptions: seriesOptions
     };
 
@@ -132,6 +133,7 @@ function handleData(d, series ) {
             newObj = {
                 name: d.__tree__.dimension[indicator_type].category.label[indicator[item]],
                 data: data,
+                indicator: indicator[item]
             };
             chartSeries.push(newObj);
         }
@@ -208,10 +210,7 @@ function compareCountries() {
             createPieChart ()
             break; 
         default:
-
-
         const type = "spline"
-
 
         if(REF.dataset == "demo_pjan") {            
            
@@ -221,8 +220,6 @@ function compareCountries() {
             const categories = d.Dimension("time").id;
       
             buildChart(categories, containerId, yAxisTitle, type);  
-
-            // REF.chartOpt = "compareChart"
             
         } else {
 
@@ -236,9 +233,6 @@ function compareCountries() {
             const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
     
             buildChart(categories, REF.containerId, yAxisTitle, type);  
-            
-    
-            // REF.chartOpt = "compareChart"
         }
 
 
@@ -246,6 +240,57 @@ function compareCountries() {
     }
  
 
+
+    
+}
+
+
+// function to display all countries but its disabled for now
+function compareLineChart(indicator) {
+    log(indicator)
+
+    const type = "spline"
+
+    const indicator_type = `&${REF.indicator_type}=`
+
+    REF.dataset = codesDataset[REF.chartId].dataset;
+    containerId = codesDataset[REF.chartId].container;
+
+
+    let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
+    url += "format=JSON";
+    url += "&lang=" + REF.language;
+    url += "&unit=" + codesDataset[REF.chartId].unit; 
+    url += indicator_type + indicator
+    for (let i = 0; i < defaultGeos.length; i++) url += "&geo=" + defaultGeos[i]; 
+
+    d = JSONstat(url).Dataset(0);
+
+    log(d)
+
+    
+    const series = d.Dimension("time").id;
+    const categories = d.Dimension("time").id;               
+
+    for (let item in defaultGeos) {
+        data = [];
+        for (let j = 0; j < series.length; j++) {
+            const value = d.value[0];
+            data.push(value === null ? 0 : value);
+            d.value.shift();
+        }
+        newObj = {
+            name: defaultGeos[item],
+            data: data,          
+        };
+        chartSeries.push(newObj);
+    }
+
+    log(chartSeries)
+
+    const yAxisTitle = d.__tree__.dimension.unit.category.label[codesDataset[REF.chartId].unit]    
+
+    buildChart(categories, REF.containerId, yAxisTitle, type);  
 
     
 }
