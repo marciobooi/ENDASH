@@ -114,6 +114,7 @@ class ChartControls {
 		barChart.setClickHandler(function() {
 		  disableChatOptionsBtn(this.value);
 		  REF.chartType = "barChart";
+		  dataNameSpace.setRefURL()
 		//   REF.chartOpt = "compareChart"
 		  showHideTimeLine()
 		  compareCountries();
@@ -123,6 +124,7 @@ class ChartControls {
 		  disableChatOptionsBtn(this.value);
 		  REF.chartType = "pieChart";
 		  REF.chartCreated = false;
+		  dataNameSpace.setRefURL()
 		//   REF.chartOpt = "compareChart"
 		  showHideTimeLine()
 		  compareCountries();
@@ -131,6 +133,7 @@ class ChartControls {
 		lineChart.setClickHandler(function() {
 			disableChatOptionsBtn(this.value);
 			REF.chartType = "lineChart";
+			dataNameSpace.setRefURL()
 		  //   REF.chartOpt = "compareChart"
 		    showHideTimeLine()
 			showHideBarChartOptions();

@@ -122,8 +122,9 @@ class FloatingChartControls {
   }
 
   toggleChartPercentage() {
-    log(REF.percentage)
     REF.percentage = REF.percentage == 0 ? 1 : 0;
+
+    dataNameSpace.setRefURL()
         
     // const categories = defaultGeos.map(geo => languageNameSpace.labels[geo]);
     // const containerId = codesDataset[REF.chartId].container;
@@ -149,6 +150,9 @@ class FloatingChartControls {
         defaultGeos = defaultGeos.concat(query);
         toggleAgregates.innerHTML = agregateIcon();
       }
+
+      dataNameSpace.setRefURL()
+
       compareCountries();
     }
 
