@@ -42,13 +42,15 @@ formMessage = (/The endash tool is down since:     (.*)/)
 
 // function to openMeta link when press the link btn
 function openMeta() {
-  		var metadata = "";
-		if(REF.products == "4100") {
-			metadata = "nrg_pc_202";
-		} else {
-			metadata = "nrg_pc_204";
-		}
-  window.open("https://ec.europa.eu/eurostat/cache/metadata/"+REF.language+"/"+metadata+"_sims.htm");	
+
+  window.open("https://ec.europa.eu/eurostat/cache/metadata/en/"+REF.dataset+"_esmsip2.htm");	
+  
+}
+// function to dataset link when press the link btn
+
+function openDataset() {
+  window.open("https://ec.europa.eu/eurostat/databrowser/view/"+REF.dataset+"/default/table?lang="+REF.language+"");	
+  
 }
 
  orderByPiles = (countriesAndValues, x, y) => {

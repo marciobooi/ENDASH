@@ -24,6 +24,16 @@ class ChartControls {
 				  <li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 				  <li class="nav-item button px-1" id="embebedChart" role="none"></li>
+				  <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                    <i class="fas fa-info"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+                    <!-- <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button> -->
+                    <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
+                    <button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
+                  </ul>
+                </li>
 				  <li class="nav-item button px-1" id="closeChart" role="none"></li>
 				</ul>
 			  </div>

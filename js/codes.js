@@ -137,7 +137,8 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "MTOE",	
 		"container": "highchartsContainer_1",		
-		"optionUrl": ""
+		"optionUrl": "",
+		"meta": ""
 	},
 	"chart_2": {
 		"dataset":'nrg_ind_ren',
@@ -147,7 +148,8 @@ codesDataset = {
 		"indicator2": '',
 		"indicator2_type": "",	
 		"unit": "PC",	
-		"container": "highchartsContainer_2",			
+		"container": "highchartsContainer_2",	,
+		"meta": "nrg_ind_share"		
 	},
 	"chart_3": {
 		"dataset":'env_air_gge',
@@ -157,7 +159,8 @@ codesDataset = {
 		"indicator2": '',
 		"indicator2_type": "",	
 		"unit": "THS_T",	
-		"container": "highchartsContainer_3",			
+		"container": "highchartsContainer_3",	
+		"meta": ""		
 	},
 	"chart_4": {
 		"dataset":'nrg_ind_ei',
