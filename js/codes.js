@@ -138,7 +138,7 @@ codesDataset = {
 		"unit": "MTOE",	
 		"container": "highchartsContainer_1",		
 		"optionUrl": "",
-		"meta": ""
+		"meta": "nrg_ind_eff"
 	},
 	"chart_2": {
 		"dataset":'nrg_ind_ren',
@@ -148,7 +148,7 @@ codesDataset = {
 		"indicator2": '',
 		"indicator2_type": "",	
 		"unit": "PC",	
-		"container": "highchartsContainer_2",	,
+		"container": "highchartsContainer_2",
 		"meta": "nrg_ind_share"		
 	},
 	"chart_3": {
@@ -160,7 +160,7 @@ codesDataset = {
 		"indicator2_type": "",	
 		"unit": "THS_T",	
 		"container": "highchartsContainer_3",	
-		"meta": ""		
+		"meta": "env_air_gge"		
 	},
 	"chart_4": {
 		"dataset":'nrg_ind_ei',
@@ -170,7 +170,8 @@ codesDataset = {
 		"indicator2": '',
 		"indicator2_type": "",
 		"unit": "KGOE_TEUR",	
-		"container": "highchartsContainer_4",	
+		"container": "highchartsContainer_4",
+		"meta": "nrg_ind_ei"		
 	},
 	"chart_5": {
 		"dataset":'nrg_ind_ep',
@@ -181,6 +182,7 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "EUR_KGOE",	
 		"container": "highchartsContainer_5",
+		"meta": "nrg_ind_ep"		
 	},
 	"chart_6": {
 		"dataset":'nrg_ind_id',
@@ -191,6 +193,7 @@ codesDataset = {
 		"indicator2_type": "",	
 		"unit": "PC",	
 		"container": "highchartsContainer_6",
+		"meta": "nrg_ind_id"		
 	},
 	"chart_7": {
 		"dataset":'nrg_ind_ffgae',
@@ -201,6 +204,7 @@ codesDataset = {
 		"indicator2_type": "",	
 		"unit": "PC",	
 		"container": "highchartsContainer_7",	
+		"meta": "nrg_ind_ffgae"		
 	},
 	"chart_8": {
 		"dataset":'demo_pjan',
@@ -209,6 +213,7 @@ codesDataset = {
 		"indicator2": '',
 		"unit": "KGOE",
 		"container": "highchartsContainer_8",	
+		"meta": "demo_pop"		
 	},
 	"chart_9": {
 		"dataset":'nrg_bal_s',
@@ -219,6 +224,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_9",
+		"meta": "nrg_bal"		
 	},
 	"chart_10": {
 		"dataset":'nrg_bal_s',
@@ -229,6 +235,7 @@ codesDataset = {
 		"indicator2_type": "siec",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_10",	
+		"meta": "nrg_bal"		
 	},
 	"chart_11": {
 		"dataset":'nrg_d_hhq',
@@ -239,6 +246,7 @@ codesDataset = {
 		"indicator2_type": "siec",	
 		"unit": "TJ",	
 		"container": "highchartsContainer_11",	
+		"meta": "nrg_quant"		
 	},
 	"chart_12": {
 		"dataset":'nrg_bal_c',
@@ -249,6 +257,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",
 		"unit": "KTOE",	
 		"container": "highchartsContainer_12",	
+		"meta": "nrg_bal"		
 	},
 	"chart_13": {
 		"dataset":'nrg_bal_c',
@@ -259,6 +268,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_13",	
+		"meta": "nrg_bal"		
 	},
 	"chart_14": {
 		"dataset":'nrg_bal_s',
@@ -269,6 +279,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_14",	
+		"meta": "nrg_bal"		
 	},
 	"chart_15": {
 		"dataset":'nrg_bal_s',
@@ -279,6 +290,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_15",	
+		"meta": "nrg_bal"		
 	},
 	"chart_16": {
 		"dataset":'nrg_bal_s',
@@ -289,6 +301,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_16",	
+		"meta": "nrg_bal"		
 	},
 	"chart_17": {
 		"dataset":'nrg_ind_peh',
@@ -299,6 +312,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "GWH",	
 		"container": "highchartsContainer_17",	
+		"meta": "nrg_quant"		
 	},
 	"chart_18": {
 		"dataset":'nrg_ind_pehcf',
@@ -309,6 +323,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "GWH",	
 		"container": "highchartsContainer_18",	
+		"meta": "nrg_quant"		
 	},
 	"chart_19": {
 		"dataset":'ilc_mdes01',
@@ -319,6 +334,7 @@ codesDataset = {
 		"indicator2_type": "incgrp",	
 		"unit": "PC",	
 		"container": "highchartsContainer_19",	
+		"meta": "ilc_sieusilc"		
 	},
 	"chart_20": {
 		"dataset":'NRG_IND_MARKET',
@@ -329,6 +345,7 @@ codesDataset = {
 		"indicator2_type": "siec",	
 		"unit": "PC",	
 		"container": "highchartsContainer_20",	
+		"meta": "NONE"		
 	},
 	"chart_21": {
 		"dataset":'nrg_bal_s',
@@ -339,6 +356,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_21",	
+		"meta": "nrg_bal"		
 	},
 	"chart_22": {
 		"dataset":'nrg_bal_s',
@@ -349,6 +367,7 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_22",	
+		"meta": "nrg_bal"		
 	},
 
 

@@ -40,17 +40,26 @@ function changeLegendPisition() {
 
 formMessage = (/The endash tool is down since:     (.*)/)
 
-// function to openMeta link when press the link btn
 function openMeta() {
+  const eurostatBaseUrl = "https://ec.europa.eu/eurostat/cache/metadata/en/";
 
-  window.open("https://ec.europa.eu/eurostat/cache/metadata/en/"+REF.dataset+"_esmsip2.htm");	
-  
+  if (REF.meta === "ilc_sieusilc") {
+    window.location.href = eurostatBaseUrl + "ilc_sieusilc.htm";
+  } else if (REF.meta === "NONE") {
+    alert(languageNameSpace.labels['ERROR1']);
+  } else {
+    window.location.href = eurostatBaseUrl + REF.meta + "_esmsip2.htm";
+  }
 }
-// function to dataset link when press the link btn
+
+
 
 function openDataset() {
-  window.open("https://ec.europa.eu/eurostat/databrowser/view/"+REF.dataset+"/default/table?lang="+REF.language+"");	
-  
+  const eurostatBaseUrl = "https://ec.europa.eu/eurostat/databrowser/view/";
+
+  const url = `${eurostatBaseUrl}${REF.dataset}/default/table?lang=${REF.language}`;
+
+  window.location.href = url;
 }
 
  orderByPiles = (countriesAndValues, x, y) => {

@@ -19,6 +19,7 @@ setTimeout(() => {
         REF.indicator_type = codesDataset[REF.chartId].indicator_type;
         REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
         REF.title = codesDataset[REF.chartId].title;
+        REF.meta = codesDataset[REF.chartId].meta;
         REF.chartType = "lineChart"
 
         const type = "spline"
@@ -197,6 +198,7 @@ function compareCountries() {
     REF.indicator_type = codesDataset[REF.chartId].indicator_type;
     REF.indicator2_type = codesDataset[REF.chartId].indicator2_type;
     REF.title = codesDataset[REF.chartId].title;
+    REF.meta = codesDataset[REF.chartId].meta;
 
 
     chartSeries = [];
