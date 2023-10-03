@@ -27,7 +27,7 @@ function copyUrl() {
     tempInput.setAttribute("type", "text");
 
     // Create a text node with the iframe code and append it to the tempInput
-    var iframeCode = '<iframe style="position= absolute; top= 0; left= 0; width= 100%; height= 100%; border= 0;" src="'+ currentUrl +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+    var iframeCode = '<iframe frameborder="0" scrolling="yes" seamless="seamless" style="display:block; width:100%; height:100vh;" src="'+ currentUrl +'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     tempInput.appendChild(document.createTextNode(iframeCode));
 
     document.body.appendChild(tempInput);
@@ -61,6 +61,8 @@ function hideForIframe() {
     url.searchParams.forEach((value, key) => {
       params[key] = value;
     });
+
+    startLoadingAnimation()
 
     REF.chartId= url.searchParams.get("chartId");
 
@@ -105,6 +107,14 @@ function hideForIframe() {
 
     document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`        
     document.querySelector("#menuToolbar> div > .col-4").style.display = 'none'
-    document.querySelector("#lang-section").style.display = 'none'       
+    document.querySelector("#lang-section").style.display = 'none'  
+    
+    Highcharts.charts.forEach(chart => {
+        if (chart) {
+            chart.reflow();
+        }
+    });
+
+    stopLoadingAnimation()
      
 }
