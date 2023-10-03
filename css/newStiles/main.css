@@ -181,15 +181,15 @@ main {
 
 .highcharts-loading {
   opacity: 1!important;
-      position: absolute;
+      /* position: absolute; */
     background-color: rgb(255, 255, 255);
    
     text-align: center;
     z-index: 10;
     left: 0rem!important;
     top: 0rem!important;
-    width: 26rem!important;
-    height: 14rem!important;
+    width: 100%!important;
+    height: 100%!important;
 }
 .highcharts-loading-inner {
   display: block;

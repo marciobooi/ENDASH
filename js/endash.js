@@ -1,59 +1,30 @@
 
 function endash(d = null) {
 
-   
-setTimeout(() => {
-        Highcharts.charts.forEach(chart => {
-            if (chart) {
-                chart.showLoading();
-            }
-        });
-}, 100);           
+  updateREFFromCodesDataset(REF.chartId);
 
-   
+  REF.chartType = "lineChart";
 
-        updateREFFromCodesDataset(REF.chartId);
+  const type = "spline";
 
-        REF.chartType = "lineChart"
+  if (REF.dataset === "demo_pjan") {
+    d = chartEightCalculation(d);
+    const yAxisTitle = 'kilograms of oil equivalent';
+    const categories = d.Dimension("time").id;
+    buildChart(categories, containerId, yAxisTitle, type);
+  } else {
+    d = chartApiCall();
+    const series = d.Dimension("time").id;
+    const categories = d.Dimension("time").id;
 
-        const type = "spline"
+    handleData(d, series);
+    const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
 
-       
+    buildChart(categories, containerId, yAxisTitle, type);
+  }
 
-        if(REF.dataset == "demo_pjan") {            
-           
-        d = chartEightCalculation(d);      
-  
-        const yAxisTitle = 'kilograms of oil equivalent'
-        const categories = d.Dimension("time").id;
-  
-        buildChart(categories, containerId, yAxisTitle, type);  
-
-        } else {       
-    
-            d = chartApiCall();
-    
-            // const indicator_type = REF.indicator_type
-        
-            const series = d.Dimension("time").id;
-            const categories = d.Dimension("time").id;               
-        
-            handleData(d, series);     
-    
-            const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]    
-
-             buildChart(categories, containerId, yAxisTitle, type);     
-       
-        }
-
-        setTimeout(() => {
-            Highcharts.charts.forEach(chart => {
-                if (chart) {                             
-                    chart.hideLoading();
-                }
-            });
-    }, 500);    
 }
+
 
 
 

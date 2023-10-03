@@ -26,6 +26,15 @@ class Chart {
           plotBorderWidth: null,
           plotShadow: false,
           animation: false,
+           events: {
+            load() {
+              const chart = this;
+              chart.showLoading();
+              setTimeout(function() {
+                chart.hideLoading();
+              }, 800);
+            }
+          }
         },
         title: {
           text: this.title,
