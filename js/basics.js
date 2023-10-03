@@ -62,63 +62,63 @@ function openDataset() {
   window.location.href = url;
 }
 
- orderByPiles = (countriesAndValues, x, y) => {
-  const categories = Object.values(x).map(country => languageNameSpace.labels[country]);
-  const fuelTypes = Object.values(y).map(fuel => languageNameSpace.labels[fuel]);
+//  orderByPiles = (countriesAndValues, x, y) => {
+//   const categories = Object.values(x).map(country => languageNameSpace.labels[country]);
+//   const fuelTypes = Object.values(y).map(fuel => languageNameSpace.labels[fuel]);
 
-  const mySeries = fuelTypes.map((fuel, i) => ({
-    name: fuel,
-    data: countriesAndValues[i].data.map(element => element)
-  }));
+//   const mySeries = fuelTypes.map((fuel, i) => ({
+//     name: fuel,
+//     data: countriesAndValues[i].data.map(element => element)
+//   }));
 
-  const categoriesAndPiles = categories.map((name, index) => ({
-    name,
-    piles: mySeries.map(serie => ({
-      name: serie.name,
-      value: serie.data[index]
-    }))
-  }));
+//   const categoriesAndPiles = categories.map((name, index) => ({
+//     name,
+//     piles: mySeries.map(serie => ({
+//       name: serie.name,
+//       value: serie.data[index]
+//     }))
+//   }));
 
-  categoriesAndPiles.sort((a, b) => {
-    const sumA = a.piles.reduce((sum, pile) => sum + pile.value, 0);
-    const sumB = b.piles.reduce((sum, pile) => sum + pile.value, 0);
-    return sumB - sumA;
-  });
+//   categoriesAndPiles.sort((a, b) => {
+//     const sumA = a.piles.reduce((sum, pile) => sum + pile.value, 0);
+//     const sumB = b.piles.reduce((sum, pile) => sum + pile.value, 0);
+//     return sumB - sumA;
+//   });
 
-  const myXAxis = categoriesAndPiles.map(category => category.name);
+//   const myXAxis = categoriesAndPiles.map(category => category.name);
 
-  mySeries.forEach(serie => {
-    serie.data = categoriesAndPiles.map(category => category.piles.find(pile => pile.name == serie.name).value);
-  });
+//   mySeries.forEach(serie => {
+//     serie.data = categoriesAndPiles.map(category => category.piles.find(pile => pile.name == serie.name).value);
+//   });
 
-  return {
-    myXAxis,
-    mySeries
-  };
-};
+//   return {
+//     myXAxis,
+//     mySeries
+//   };
+// };
 
 
- makeOrderedSeries = (categoriesAndStacks) => {
-  const ordSeries = [];
+//  makeOrderedSeries = (categoriesAndStacks) => {
+//   const ordSeries = [];
 
-  bardata = REF.chartId == "lineChart" ? linedata : bardata;
+//   bardata = REF.chartId == "lineChart" ? linedata : bardata;
 
-  for (let i = 0; i < categoriesAndStacks[0].y.length; i++) {
-    const temp = categoriesAndStacks.map(category => category.y[i]);
-    ordSeries.push({
-      index: bardata[i].index,
-      name: bardata[i].name,
-      legendIndex: bardata[i].legendIndex,
-      id: bardata[i].id,
-      data: temp
-    });
-  }
+//   for (let i = 0; i < categoriesAndStacks[0].y.length; i++) {
+//     const temp = categoriesAndStacks.map(category => category.y[i]);
+//     ordSeries.push({
+//       index: bardata[i].index,
+//       name: bardata[i].name,
+//       legendIndex: bardata[i].legendIndex,
+//       id: bardata[i].id,
+//       data: temp
+//     });
+//   }
 
-  const [temp] = ordSeries.splice(1, 1);
-  ordSeries.push(temp);
+//   const [temp] = ordSeries.splice(1, 1);
+//   ordSeries.push(temp);
 
-  return ordSeries;
-};
+//   return ordSeries;
+// };
 
 
 
@@ -270,75 +270,75 @@ function hideChartMenuOptions() {
   $('#Agregates').css('display', "none") 
 }
 
-function sortArrayAlphabetically() {
-  if (REF.detail == 1) {
-    categoriesAndStacks.sort((a, b) => a.x.localeCompare(b.x));
-  } else {
-    bardata.sort((a, b) => a.name.localeCompare(b.name, undefined, { ignorePunctuation: true, sensitivity: 'base' }));
-  }
-}
+// function sortArrayAlphabetically() {
+//   if (REF.detail == 1) {
+//     categoriesAndStacks.sort((a, b) => a.x.localeCompare(b.x));
+//   } else {
+//     bardata.sort((a, b) => a.name.localeCompare(b.name, undefined, { ignorePunctuation: true, sensitivity: 'base' }));
+//   }
+// }
 
-function sortArrayByAscValues(arr) {
-  if (REF.detail == 1) {
-    arr.sort((a, b) => {
-      const sumA = a.y.reduce((acc, val) => acc + val, 0);
-      const sumB = b.y.reduce((acc, val) => acc + val, 0);
-      return sumA - sumB;
-    });
-  } else {
-    arr.sort((a, b) => a.y % 2 - b.y % 2 || a.y - b.y);
-  }
-}
+// function sortArrayByAscValues(arr) {
+//   if (REF.detail == 1) {
+//     arr.sort((a, b) => {
+//       const sumA = a.y.reduce((acc, val) => acc + val, 0);
+//       const sumB = b.y.reduce((acc, val) => acc + val, 0);
+//       return sumA - sumB;
+//     });
+//   } else {
+//     arr.sort((a, b) => a.y % 2 - b.y % 2 || a.y - b.y);
+//   }
+// }
 
-function sortArrayByDescValues(arr) {
-  if (REF.detail == 1) {
-    arr.sort((a, b) => {
-      const sumA = a.y.reduce((acc, val) => acc + val, 0);
-      const sumB = b.y.reduce((acc, val) => acc + val, 0);
-      return sumB - sumA;
-    });
-  } else {
-    arr.sort((a, b) => b.y % 2 - a.y % 2 || b.y - a.y);
-  }
-}
+// function sortArrayByDescValues(arr) {
+//   if (REF.detail == 1) {
+//     arr.sort((a, b) => {
+//       const sumA = a.y.reduce((acc, val) => acc + val, 0);
+//       const sumB = b.y.reduce((acc, val) => acc + val, 0);
+//       return sumB - sumA;
+//     });
+//   } else {
+//     arr.sort((a, b) => b.y % 2 - a.y % 2 || b.y - a.y);
+//   }
+// }
 
-function sortArrayByProtocolOrder(arr) {
-  if (REF.detail == 1) {
-    const energyCountriesCodes = REF.geos;
-    arr.sort((a, b) => {
-      if (a.code === "all") return -1; // Move "all" to the beginning
-      if (b.code === "all") return 1; // Move "all" to the beginning
-      return energyCountriesCodes.indexOf(a.code) - energyCountriesCodes.indexOf(b.code);
-    });
-    orderedSeries = makeOrderedSeries(categoriesAndStacks);
-  } else {
-    barproto = [];
-    bardata = barproto;
+// function sortArrayByProtocolOrder(arr) {
+//   if (REF.detail == 1) {
+//     const energyCountriesCodes = REF.geos;
+//     arr.sort((a, b) => {
+//       if (a.code === "all") return -1; // Move "all" to the beginning
+//       if (b.code === "all") return 1; // Move "all" to the beginning
+//       return energyCountriesCodes.indexOf(a.code) - energyCountriesCodes.indexOf(b.code);
+//     });
+//     orderedSeries = makeOrderedSeries(categoriesAndStacks);
+//   } else {
+//     barproto = [];
+//     bardata = barproto;
 
-    const geosProto = REF.geos.filter(geop => geop !== "all"); // Ignore "all" in REF.geos
+//     const geosProto = REF.geos.filter(geop => geop !== "all"); // Ignore "all" in REF.geos
 
-    geosProto.map((geop, gIdx) => {
-      geos.map((geo, yIdx) => {
-        if (geop == geo && geop !== "all") {
-          values = tax.map((tax, cIdx) => {
-            return (num = arr.value[cIdx * geos.length + yIdx]);
-          });
-        }
-      });
+//     geosProto.map((geop, gIdx) => {
+//       geos.map((geo, yIdx) => {
+//         if (geop == geo && geop !== "all") {
+//           values = tax.map((tax, cIdx) => {
+//             return (num = arr.value[cIdx * geos.length + yIdx]);
+//           });
+//         }
+//       });
 
-      const taxValue = REF.component == 1
-        ? parseFloat((values.reduce((a, b) => a + Number(b), 0) * factor).toFixed(dec))
-        : parseFloat((values[0] * factor).toFixed(dec));
+//       const taxValue = REF.component == 1
+//         ? parseFloat((values.reduce((a, b) => a + Number(b), 0) * factor).toFixed(dec))
+//         : parseFloat((values[0] * factor).toFixed(dec));
 
-      barcateg.push(languageNameSpace.labels[geop]);
+//       barcateg.push(languageNameSpace.labels[geop]);
 
-      const languageLabel = languageNameSpace.labels[geop];
-      const color = geop == "EU27_2020" ? '#14375a' : (geop == "EA" ? '#800000' : "#32afaf");
+//       const languageLabel = languageNameSpace.labels[geop];
+//       const color = geop == "EU27_2020" ? '#14375a' : (geop == "EA" ? '#800000' : "#32afaf");
 
-      barproto.push({ name: languageLabel, y: taxValue, color });
-    });
-  }
-}
+//       barproto.push({ name: languageLabel, y: taxValue, color });
+//     });
+//   }
+// }
 
 
 
@@ -610,22 +610,22 @@ function nonagregateIcon() {
 return iconHTML;
 }
 
-function chartToDisplay(d) { 
+// function chartToDisplay(d) { 
 
-  if(REF.chartId == "lineChart") {
-    endash(d)  
-  }
-  if(REF.chartId == "pieChart") {
-    createPieChart();
-  }
-  if(REF.chartId == "barChart") {
-    auxiliarBarGraph();
-  }
-  if(REF.chartId == "lineChart") {
-    createLineChart();
-  }
+//   if(REF.chartId == "lineChart") {
+//     endash(d)  
+//   }
+//   if(REF.chartId == "pieChart") {
+//     createPieChart();
+//   }
+//   if(REF.chartId == "barChart") {
+//     auxiliarBarGraph();
+//   }
+//   if(REF.chartId == "lineChart") {
+//     createLineChart();
+//   }
 
-}
+// }
 
 
 function updateREFFromCodesDataset(chartId) {
