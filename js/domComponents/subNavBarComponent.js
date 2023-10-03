@@ -178,8 +178,6 @@ class SubNavbar {
               removeComponents()
               buildComponents()
               endash();
-              // Example: Call a function or update a variable with the selected value
-              // handleSelectedGeo(selectedGeo);
             });
           });
 

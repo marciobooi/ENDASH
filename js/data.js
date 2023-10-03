@@ -18,6 +18,7 @@ const dataNameSpace = {
     chartType: "lineChart",
     chartCreated: false,
     chartExpanded: false,
+    share:"false",
     meta: ""
   },
   setRefURL() {

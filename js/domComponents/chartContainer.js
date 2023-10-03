@@ -33,9 +33,18 @@ class ChartContainer {
       if (entry.isIntersecting) {
         const chartItem = entry.target;
         REF.chartId = chartItem.id
+
+      const url = new URL(window.location.href);    
+      const shareParam = url.searchParams.get("share");
+  
+      if (shareParam == "true") {
+          REF.share = shareParam
+          hideForIframe();
+          this.intersectionObserver.disconnect()
+      } else {
         endash()
-        // // Unobserve the element to avoid duplicate loading
         this.intersectionObserver.unobserve(chartItem);
+      }
       }
     });
   }

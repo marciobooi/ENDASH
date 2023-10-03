@@ -2,6 +2,7 @@
 
 
 function initenprices(d = null) {
+  log('here')
 
  
   languageNameSpace.initLanguage(REF.language);

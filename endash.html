@@ -179,23 +179,23 @@
   </main>
 
 
-  <!-- <div class="modal" tabindex="-1" id="iframeModal">
+  <div class="modal" tabindex="-1" id="iframeModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" onclick="closeIframe()" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
         <p class="targetUrl"></p>
         </div>
         <div class="modal-footer">
-          <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="close" type="button" class="btn btn-secondary" onclick="closeIframe()"   data-bs-dismiss="modal">Close</button>
           <button id="share" type="button" class="btn btn-primary" onclick="copyUrl()">Copy the URL</button>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 
 
 
@@ -212,9 +212,26 @@
 
   <script>
 
-    $( document ).ready(function() {        
-    initenprices()    
-    hideForIframe()
+    $( document ).ready(function() {   
+      
+      
+//       const url = new URL(window.location.href);
+
+// // Get the value of the "share" parameter
+// const shareParam = url.searchParams.get("share");
+
+// // Check if the "share" parameter is equal to "true"
+// if (shareParam === "true") {
+//     // The "share" parameter is set to "true"
+//     // You can now perform your desired actions, such as calling the hideForIframe function
+//     hideForIframe();
+// } else {
+//     // The "share" parameter is not set to "true"
+//     // You can handle this case accordingly
+// }
+
+    // endash()    
+    // hideForIframe()
 
     }); 
 </script>
