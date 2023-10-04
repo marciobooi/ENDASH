@@ -201,18 +201,14 @@ function hideChartOptions() {
   $('#Agregates').css('display', 'none');
 }
 
-
-
-
-
-
-
 function addAuxiliarBarGraphOptions() {
   auxiliarBarGraphOptions = new ChartControls();
   auxiliarBarGraphOptions.addToDOM("#subnavbar-container"); 
 
   FloatingControls = new FloatingChartControls();
   FloatingControls.addToDOM("#componentFooter"); 
+
+  showHideTimeLine()
 }
 
 function removeAuxiliarBarGraphOptions() {

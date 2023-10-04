@@ -68,11 +68,11 @@ var languageNameSpace = {
 
     removeComponents()
     buildComponents()
-    endash();
+    compareCountries();
 
-    if(REF.chartId != "mainChart"){
-      addAuxiliarBarGraphOptions()
-    }
+    // if(REF.chartId != "mainChart"){
+    //   addAuxiliarBarGraphOptions()
+    // }
 
     linksContent = 	"<div class='modalHeader'>"
     + '<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>'

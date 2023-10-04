@@ -2,8 +2,6 @@
 
 
 function initenprices(d = null) {
-  log('here')
-
  
   languageNameSpace.initLanguage(REF.language);
 
@@ -26,9 +24,6 @@ function initenprices(d = null) {
   + "</div>"
 
   dataNameSpace.getRefURL();
-  endash()
-
-
 }
 
 function createForm(actionURL, nextURL) {

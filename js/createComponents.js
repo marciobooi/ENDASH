@@ -1,10 +1,6 @@
 
 $( document ).ready(function() {
 
-  
-
-  languageNameSpace.initLanguage(REF.language);
-
   const euGlobanContainer = $('<div>').attr('id', 'euGlobanContainer')
 
   euGlobanContainer.prependTo('header');
@@ -24,6 +20,8 @@ const formElement = createForm(actionURL, nextURL);
 formElement.addEventListener("submit", handleFormSubmit);
 document.getElementById("hiddenFormDiv").appendChild(formElement);
 
+initenprices()
+
 
 })
 
@@ -33,7 +31,6 @@ function buildComponents() {
     { instance: new Footer(), target: '#componentFooter' },
     { instance: new Navbar(), target: '#navbar-container' },
     { instance: new ChartContainer(), target: '#endash' },
-    // { instance: new FloatingChartControls(), target: '#componentFooter' },
   ];
 
   components.forEach(({ instance, target }) => {
@@ -49,6 +46,7 @@ function removeComponents() {
   $('#menuSwitch').remove();
   $('#floatingMenu').empty();
   $('#componentFooter').empty();
+  $('#menuToolbar').css('display', "flex");
 }
 
 function populateDropdownData() {

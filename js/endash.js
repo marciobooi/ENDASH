@@ -159,6 +159,8 @@ function compareCountries() {
     // REF.chartId = chartToLoad
     updateREFFromCodesDataset(REF.chartId);
 
+    log(REF.chartType)
+
     switch (REF.chartType) {
         case "barChart":
             createBarChart()
