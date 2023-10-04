@@ -149,10 +149,9 @@ class SubNavbar {
     
           // You need to define `defaultGeos`, `active`, and `visible` variables.
           defaultGeos.forEach(geo => {
+            log(geo)
             const content = `<a role="menuitem" class="dropdown-item d-flex justify-content-between align-items-center ${REF.geos === geo ? "active" : ''}" href="#"  data-geo="${geo}" data-bs-toggle="button">
-              <span>  
-                <img class="flag me-2" src="img/country_flags/${geo}.webp" alt="">${languageNameSpace.labels[geo]}
-              </span>
+              <span><img class="flag me-2" src="img/country_flags/${geo}.webp" alt="">${languageNameSpace.labels[geo]}</span>
             </a>`;
             geoDropdown.innerHTML += content;
           });     

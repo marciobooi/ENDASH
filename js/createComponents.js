@@ -1,6 +1,8 @@
 
 $( document ).ready(function() {
 
+  languageNameSpace.initLanguage(REF.language);
+
   const euGlobanContainer = $('<div>').attr('id', 'euGlobanContainer')
 
   euGlobanContainer.prependTo('header');
@@ -49,11 +51,4 @@ function removeComponents() {
   $('#menuToolbar').css('display', "flex");
 }
 
-function populateDropdownData() {
-  populateCountries();
-  populateFuel();
-  populateConsumer();
-  populateYearsData();
-  populateConsumption();
-  populateUnit();
-}
+
