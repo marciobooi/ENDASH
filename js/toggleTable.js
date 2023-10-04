@@ -20,7 +20,6 @@ function closeTable() {
   $("table").hide();
   $('#'+chartId).show();
 
-    showChartMenuOptions();
- 
+    showChartMenuOptions(); 
 
 }
