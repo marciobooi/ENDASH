@@ -31,14 +31,6 @@ class SubNavbar {
                   <button class="btn btn-primary min-with--nav" onclick="tutorial()" title="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">
                   <i class="fas fa-book-open"></i>
                   </button>
-
-
-
-                  <!-- <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                    <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-                  </ul> -->
                 </li>
               </ul>
           </div>`;
@@ -53,58 +45,43 @@ class SubNavbar {
               </button>
           </div>
           <div class="">              
-              <button id="menu" class="btnGroup" type="button" aria-label="${languageNameSpace.labels["MAINMENU"]}" title="${languageNameSpace.labels["MAINMENU"]}" aria-haspopup="true">
-                <i class="fas fa-bars"></i>                    
-                <span class="iconText">${languageNameSpace.labels["MAINMENU"]}</span>           
-              </button>
+          <div id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">     
+              <li class="nav-item dropdown px-1" id="tb-country" role="none">
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="tb-country-btn" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="true" id="selectCounty">
+                    <i class="fas fa-globe"></i>
+                  </button>
+                  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
+              </li>             
+              </div>
           </div>
 
-        <div class="chartMenuMobile d-none">
-          <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-              <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-                  <i class="fas fa-info"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                  <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-                </ul>
-              </li>
-              <li class="nav-item dropdown px-1" id="downloadChart" role="none">
-                <button class="btn btn-primary min-with--nav" type="button" aria-label="download chart image" data-bs-toggle="dropdown" role="menuitem" title="Download chart image" aria-haspopup="true" aria-expanded="true" id="downloadBtn">
-                  <i class="fas fa-download"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">     					
-                  <button class="dropdown-item" role="menuitem" onclick="exportPngChart()" aria-label="${languageNameSpace.labels['downloadPNG']}">${languageNameSpace.labels["downloadPNG"]}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="exportJpegChart()" aria-label="${languageNameSpace.labels['downloadJPEG']}">${languageNameSpace.labels["downloadJPEG"]}</button>
-                  <button class="dropdown-item" role="menuitem" onclick="exportXlsChart()" aria-label="${languageNameSpace.labels['downloadXLS']}">${languageNameSpace.labels["downloadXLS"]}</button>        		
-                </ul>
-              </li>     
-              <li class="nav-item button px-1" id="shareChart" role="none">
-                <button id="shareBtn" title="share chart" type="button" class="btn btn-primary min-with--nav" aria-label="share chart" onclick="">
-                  <i class="fas fa-share-alt"></i>
-                </button>
-              </li>
-              <li class="nav-item button px-1" id="embebedChart" role="none">
-                <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary min-with--nav" aria-label="Embebed chart iframe" onclick="exportIframe()">
-                  <i class="fas fa-code"></i>
-                </button>
-              </li>
-          </ul>
-        </div>
+          <div class="chartMenuMobile d-none">
+            <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+                <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                    <i class="fas fa-info"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+                    <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+                    <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
+                  </ul>
+                </li>
+                <li class="nav-item button px-1" id="shareChart" role="none">
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="share chart" data-bs-toggle="dropdown" role="menuitem" title="share chart" aria-haspopup="true" aria-expanded="true" id="shareBtn">
+                    <i class="fas fa-share-alt"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">     					
+                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>
+                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin" >${languageNameSpace.labels['linkedin']}</button>
+                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn()" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>          		
+                  </ul>
+                </li>
+            </ul>
+          </div>
 
-            <div id="chartOptionsMenu" class="toggleMenu">
-              <div class="close-button-container">
-                <button id="closeChartMenuBtn" class="btn btn-primary close-chart-menu-btn" aria-label="Close chart menu">
-                <i class="fas fa-times"></i>
-                </button>
-              </div>
-              <div class="dropdown-grid">
-                <div class="row">        
-                </div>
-              </div>
-            </div>
+      
+           
+          
 
 
         </div>
@@ -117,31 +94,30 @@ class SubNavbar {
       </div>`;
 
 
-         
 
 
-        // if (isMobile) {          
-        //   this.subNavbar.innerHTML = mobileContent         
+      if (isMobile) { 
+        this.subNavbar.innerHTML = mobileContent
+      } else {
+        this.subNavbar.innerHTML = notMobileContent
+      }
+
+
+        if (isMobile) {          
+              
           
-        //   this.toolsButton = this.subNavbar.querySelector('#tools');
-        //   this.chartToolsMenu = this.subNavbar.querySelector('.chartMenuMobile');
-        //   this.menuButton = this.subNavbar.querySelector('#menu');
-        //   this.chartOptionsMenu = this.subNavbar.querySelector('#chartOptionsMenu');
-        //   this.chartMenuOpen = this.subNavbar.querySelector('#menu');
+          this.toolsButton = this.subNavbar.querySelector('#tools');
+          this.chartToolsMenu = this.subNavbar.querySelector('.chartMenuMobile');
+          this.menuButton = this.subNavbar.querySelector('#menu');
+          this.chartOptionsMenu = this.subNavbar.querySelector('#chartOptionsMenu');
+          this.chartMenuOpen = this.subNavbar.querySelector('#menu');
       
-        //   this.toolsButton.addEventListener('click', () => {        
-        //     this.chartOptionsMenu.classList.contains("toggleMenu") ? "" : this.toggleChartOptionsMenu();
-        //     this.chartToolsMenu.classList.toggle('d-none');
-        //   });
+          this.toolsButton.addEventListener('click', () => {        
+            this.chartToolsMenu.classList.toggle('d-none');
+          });
 
-        //   this.menuButton.addEventListener('click', () => {
-        //     this.chartToolsMenu.classList.contains("d-none") ? "" : this.chartToolsMenu.classList.toggle('d-none');
-        //     this.toggleChartOptionsMenu();
-        //   });
+        } 
 
-        // } else {
-
-          this.subNavbar.innerHTML = notMobileContent;
           // Handle desktop-specific logic
           const geoDropdown = this.subNavbar.querySelector('#dropdown-geo-list');
 
@@ -149,7 +125,6 @@ class SubNavbar {
     
           // You need to define `defaultGeos`, `active`, and `visible` variables.
           defaultGeos.forEach(geo => {
-            log(geo)
             const content = `<a role="menuitem" class="dropdown-item d-flex justify-content-between align-items-center ${REF.geos === geo ? "active" : ''}" href="#"  data-geo="${geo}" data-bs-toggle="button">
               <span><img class="flag me-2" src="img/country_flags/${geo}.webp" alt="">${languageNameSpace.labels[geo]}</span>
             </a>`;
@@ -185,12 +160,18 @@ class SubNavbar {
 
 
 
-        // }     
+        
+
+   
+    
 
 
 
+    }
 
-
+    toggleChartOptionsMenu() {
+      this.chartOptionsMenu.classList.toggle('toggleMenu');
+      this.chartMenuOpen.classList.toggle('menuOpen');
     }
 
     addToDOM(targetElement) {

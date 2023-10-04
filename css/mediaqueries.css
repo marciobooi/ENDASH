@@ -5,12 +5,20 @@
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: portrait) {
 
+
+    .navbar-top {
+      padding-top: 0rem;
+  }
     #header-title-label {
-      font-size: 1.3rem;
+      font-size: .9rem;
       font-weight: 600;
       margin: 0;
-      margin-left: -18px;
-    }
+      margin-left: -5px;
+  }
+
+  .subNavOne > div {
+    margin-right: 1rem;
+  }
 
   #social-media {
     display: none !important;
@@ -108,8 +116,7 @@ span.iconText {
 ul.dropdown-menu.dropdown-menu-end.show {
   position: fixed;
   left: -1px;
-  top: 13rem;
-  border: none;
+  top: 7.9rem !important;
 }
 
 button.dropdown-item {
@@ -170,8 +177,8 @@ i.fas.fa-caret-down {
 }
 
 .dropdown-menu {
-  width: 89vw !important;
-  min-width: 90vw;
+  width: 100vw !important;
+  min-width: 100vw;
 }
 
 #btn-country-ok, #btn-country-cancel, #btn-country-reset {
@@ -231,6 +238,14 @@ button:focus, .input:focus {
   align-content: center;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 9999999999999;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 25%) -1px 0px 5px 1px;
+  padding-top: 1rem;
 }
 
 #menuSwitch {
@@ -261,14 +276,45 @@ span.agregates.fa-stack.fa-rotate-180 {
   font-size: 0.67rem;
 }
 
-#footer {
-  margin-top: 0.8rem;
+
+.chartContainer:first-child {
+  margin-top: 2rem;
 }
 
+.flex-item {
+  padding: 5px;
+  max-width: 22rem;
+  height: 22rem;
+  margin-top: 10px;
+  color: black;
+  font-size: 2.5em;
+  /* text-align: center; */
+  /* flex: 1 0 auto; */
+  margin: 0.2rem;
+  transition: opacity 0.3s ease;
+  box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
+  border-radius: 10px;
+}
 
+.highchartsContainer {
+  width: 21rem;
+  height: 14rem;
+  margin: 0 auto;
+}
 
+.expand {
+  max-width: 97vw;
+  height: 70vh;
+  box-shadow: initial;
+  margin-top: 7rem !important;
+}
 
-
+ul#footerCredits {
+  margin-right: auto;
+  margin-bottom: 0;
+  width: 100%;
+  margin-left: auto;
+}
 
 
 } /* end of portrait mobile */
