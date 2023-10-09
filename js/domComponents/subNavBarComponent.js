@@ -132,6 +132,7 @@ class SubNavbar {
           });     
           
           
+          
           const geoItems = geoDropdown.querySelectorAll('.dropdown-item');
           
           geoItems.forEach((item) => {
