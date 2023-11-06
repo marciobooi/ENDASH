@@ -25,7 +25,7 @@ class ChartControls {
 				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 				  <li class="nav-item button px-1" id="embebedChart" role="none"></li>
 				  <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['BTNINFICHART']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                     <i class="fas fa-info"></i>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
@@ -91,14 +91,14 @@ class ChartControls {
 	  container.insertBefore(this.controls, container.firstChild);
 
 	    // Create the button instances
-		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], "Toggle bar Chart", "barChart", "false");
-		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], "Toggle pie Chart", "pieChart", "false");
-		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], "Toggle line Chart", "lineChart", "true");
-		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], "Print chart", "false");
-		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
-		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart data", "false");
-		const embebedeChart = new Button("embebedBtn", ["btn", "btn-primary", "min-with--nav"], "Embebed chart iframe", "false");
-		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav", "btnClose"], "Close", "false");
+		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
+		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
+		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
+		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNPRINTCHART'], "false");
+		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
+		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNEXCELCHART'], "false");
+		const embebedeChart = new Button("embebedBtn", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNBSHARECHART'], "false");
+		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav", "btnClose"], languageNameSpace.labels['BTNCLOSECHART'], "false");
 	
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');

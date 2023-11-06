@@ -402,6 +402,19 @@
  "compare": "Compare countries",
 
  "header-title-label": "Energy dashboard",
+ "BTNBARCHART": "Click to view the bar chart",
+ "BTNPIECHART": "Click to view the pie chart",
+ "BTNLINECHART": "Click to view the line chart",
+ "BTNPRINTCHART": "Click print the chart",
+ "BTNDOWNLOADCHART": "Click to download the chart",
+ "BTNEXCELCHART": "Click to export as excel file",
+ "BTNBSHARECHART": "Click to share this chart",
+ "BTNCLOSECHART": "Click to return to main page",
+ "BTNINFICHART": "Click to open info menu",
+ "BTNTABLECHART": "Click to show the table",
+ "BTNPERCENTAGECHART": "Click to change to percentage",
+ "BTNAGREGATESCHART": "Click to show/Hide agregates",
+
 
  "ERROR1": "No metadata to display",
  "ERROR2": "No data to display"

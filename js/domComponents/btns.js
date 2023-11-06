@@ -1,5 +1,5 @@
 class Button {
-    constructor(id, classes, ariaLabel, value, otherAccessibilityParams) {
+    constructor(id, classes, ariaLabel, value, otherAccessibilityParams, title) {
       this.id = id;
       this.classes = classes;
       this.ariaLabel = ariaLabel;
@@ -8,6 +8,7 @@ class Button {
       this.clickHandler = null;
       this.buttonElement = null;
       this.innerHtml = "";
+      this.title = title;
 
     }
   
@@ -38,6 +39,7 @@ class Button {
         this.buttonElement.setAttribute("value", this.value);
         this.buttonElement.setAttribute("aria-label", this.ariaLabel);
         this.buttonElement.innerHTML = this.innerHtml;
+        this.buttonElement.title = this.ariaLabel;
         // Apply other accessibility parameters as needed
         if (this.clickHandler) {
           this.buttonElement.addEventListener("click", this.clickHandler);
