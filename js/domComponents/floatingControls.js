@@ -189,7 +189,7 @@ class FloatingChartControls {
     const self = this; 
 
 		const percentageButton = new Button("tb-togle-percentage", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNTABLECHART'], "", "true");
-		const agregatesButton = new Button("toggleAgregates", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels["TOGGLEAGREGATES"], "", "true");
+		const agregatesButton = new Button("toggleAgregates", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels["BTNAGREGATESCHART"], "", "true");
 		const tableButton = new Button("tb-togle-table", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNTABLECHART'], "", "true");
 		// const orderButton = new Button("tb-togle-order", ["btn", "btn-primary", "min-with--nav"], "Select order of the chart", "", "true");
 
