@@ -262,7 +262,7 @@ codesDataset = {
 	"chart_13": {
 		"dataset":'nrg_bal_c',
 		"title": "chart_13",
-		"indicator": ["O4671XR5220B","O4652XR5210B","R5220B","O4630","R5210B","G3000","R5220P","R5300","E7000","R5210P","R5290"],
+		"indicator": ["G3000","O4630","O4652XR5210B","O4671XR5220B","R5210P","R5210B","R5220P","R5220B","R5290","R5300","E7000"],
 		"indicator_type": "siec",	
 		"indicator2": ["FC_TRA_ROAD_E"],
 		"indicator2_type": "nrg_bal",	

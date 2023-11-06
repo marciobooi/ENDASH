@@ -32,7 +32,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const xAxis = {
         categories,
         labels: {
-            step: REF.chartExpanded ? 0 : 10,
+            step: REF.chartExpanded === false ? categories.length-1 : 0,
         },
     };
 
@@ -149,9 +149,6 @@ function compareCountries() {
 
     // Update REF properties based on the selected chartId
     updateREFFromCodesDataset(REF.chartId);
-
-    // Log the chart type (for debugging purposes)
-    console.log(REF.chartType);
 
     switch (REF.chartType) {
         case "barChart":
