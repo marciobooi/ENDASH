@@ -652,6 +652,16 @@ function updateREFFromCodesDataset(chartId) {
 }
 
 
+function allSeriesAreZero(chartSeries) {
+  for (const series of chartSeries) {
+      const data = series.data;
+      if (data.some(value => value !== 0)) {
+          return false; // At least one series has a non-zero value
+      }
+  }
+  return true; // All series have zero values
+}
+
 
 
    

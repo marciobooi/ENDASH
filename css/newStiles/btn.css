@@ -134,3 +134,8 @@ background-color: var(--tool-1) !important;
     overflow-x: hidden;
     width: auto;
 }
+
+.btnClose {
+    background-color: red !important;
+    border-color: red !important;
+}

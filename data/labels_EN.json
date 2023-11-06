@@ -403,7 +403,8 @@
 
  "header-title-label": "Energy dashboard",
 
- "ERROR1": "No metadata to display"
-  
+ "ERROR1": "No metadata to display",
+ "ERROR2": "No data to display"
+
 
 }

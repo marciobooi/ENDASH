@@ -28,8 +28,6 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
-    log(categories)
-
     // Define xAxis options with conditional label step
     const xAxis = {
         categories,
@@ -53,6 +51,14 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
     // Get the chart title
     const title = getTitle();
+
+    if (allSeriesAreZero(chartSeries)) {
+        // Call the nullishChart() function when all series have zero values
+        chartSeries = []
+        log(containerId, true)
+        nullishChart(containerId, chartSeries)
+        return
+    }
 
     // Define the chart options
     const chartOptions = {

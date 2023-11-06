@@ -98,7 +98,7 @@ class ChartControls {
 		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart image", "false");
 		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav"], "Download chart data", "false");
 		const embebedeChart = new Button("embebedBtn", ["btn", "btn-primary", "min-with--nav"], "Embebed chart iframe", "false");
-		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav"], "Close", "false");
+		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav", "btnClose"], "Close", "false");
 	
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');

@@ -110,26 +110,55 @@ class Chart {
   }
 
   // function that return empty chart for when is no data to display
-  function nullishChart() {
-    const chartOptions = {
-      containerId: "chart",
-      type: null,
-      title: null,
-      subtitle: null,
-      xAxis: null,
-      yAxisFormat: null,
-      tooltipFormatter: null,
-      creditsText: "Source: Eurostat",
-      creditsHref: "",
-      series: [{ data: [] }],
-      colors: null,
-      legend: true,
-      columnOptions: "",
-      seriesOptions: ""
-    };
+  function nullishChart(containerId, chartSeries) {
+    // Highcharts.setOptions({lang: {noData: "Your custom message"}})
+    // const chartOptions = {
+    //   containerId: containerId,
+    //   type: null,
+    //   title: null,
+    //   subtitle: null,
+    //   xAxis: null,
+    //   yAxisFormat: null,
+    //   tooltipFormatter: null,
+    //   creditsText: "Source: Eurostat",
+    //   creditsHref: "",
+    //   series: [],
+    //   colors: null,
+    //   legend: true,
+    //   columnOptions: "",
+    //   seriesOptions: ""
+    // };
   
-    const chart = new Chart(chartOptions);
-    chart.createChart();
+    // const chart = new Chart(chartOptions);
+    // chart.createChart();
+
+
+    Highcharts.setOptions({lang: {noData: languageNameSpace.labels['ERROR2']}})
+
+    Highcharts.chart(containerId, {   
+      exporting: {
+          enabled: false // Hide the exporting menu (burger menu)
+      },
+      xAxis: {
+          visible: false // Hide the x-axis
+      },
+      yAxis: {
+          visible: false // Hide the y-axis
+      },
+      credits: credits(),
+      series: [{
+          visible: false, // Hide the series
+          showInLegend: false,
+          data: []
+      }]
+  });
+  
+
+
+
+
+
+
   }
   
 
