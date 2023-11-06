@@ -28,12 +28,19 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
+    log(categories)
+
     // Define xAxis options with conditional label step
     const xAxis = {
         categories,
         labels: {
-            step: REF.chartExpanded === false ? categories.length-1 : 0,
-        },
+            step: REF.chartExpanded === false ? categories.length - 1 : 1, // Set step to 1 for first and last labels
+            formatter: function() {
+                if (this.isLast || this.isFirst) {
+                    return this.value;
+                }
+            }
+        }
     };
 
     // Define series options with conditional marker
@@ -75,49 +82,53 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     lineChart.update({ legend: isExpanded ? legendSmall : legendHide }, true);
 }
 
-function handleData(d, series, categories) {
-    const indicator_type = REF.indicator_type;
-    const indicator = REF.indicator;
+function handleData(d, series, categories ) {
+    const indicator_type = REF.indicator_type
+    const indicator = REF.indicator;    
 
-    chartSeries = [];
+    chartSeries = []
 
-    if (REF.dataset === "nrg_ind_ep" || REF.dataset === "nrg_ind_ffgae") {
-        chartSeries.push({ name: d.label, data: d.value });
+    if(REF.dataset === "nrg_ind_ep"|| REF.dataset === "nrg_ind_ffgae") {
+        chartSeries.push({name: d.label, data:d.value})
     } else {
         for (let item in indicator) {
             data = [];
-            let nonZeroFound = false; // Flag to track if a non-zero value is encountered
-            
             for (let j = 0; j < series.length; j++) {
-                const value = d.value[0];
-                if (value !== null) {
-                    if (value <= 0) {
-                        if (nonZeroFound) {
-                            // If non-zero values have been found, break the loop
-                            break;
-                        }
-                    } else {
-                        nonZeroFound = true; // Set the flag to true for non-zero values
-                    }
-                    if (nonZeroFound) {
-                        data.push(value); // Push values to data when a non-zero value is encountered
-                    }
-                }
+                
+                const value = d.value[0] == null ? 0 : d.value[0]
+                data.push(value);
                 d.value.shift();
             }
-            
             newObj = {
                 name: d.__tree__.dimension[indicator_type].category.label[indicator[item]],
                 data: data,
                 indicator: indicator[item]
             };
-            chartSeries.push(newObj);            
+            chartSeries.push(newObj);
         }
-        console.log(chartSeries);
-      
     }
 
-    // No need to remove elements from categories as the loop only processes the data array
+    let startIndex = 0;
+
+    chartSeries.forEach((series) => {
+        const data = series.data;
+        
+    
+        // Find the index of the first non-zero and non-null value
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] !== null && data[i] > 0) {
+                startIndex = i;
+                break;
+            }
+        }
+    
+        // Update the data series to start from the first non-zero value
+        series.data = data.slice(startIndex);
+    });
+
+  
+    categories.splice(0, startIndex)
+
 }
 
 
@@ -193,7 +204,7 @@ function compareCountries() {
                 const d = chartApiCall();
                 const series = d.Dimension("time").id;
                 const categories = d.Dimension("time").id;
-                handleData(d, series);
+                handleData(d, series, categories);
                 const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
                 buildChart(categories, REF.containerId, yAxisTitle, chartType);
             }
