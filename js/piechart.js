@@ -100,5 +100,7 @@ function piechartdata() {
     pieChart.series[0].setData(piedata);
   }  
 
+  getTitle()
+
 }
 
