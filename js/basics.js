@@ -451,7 +451,8 @@ switch (REF.chartType) {
     break;
   case "pieChart":
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
-    $("#title").html(title) 
+    $("#title").html(title)
+ 
     break;
 
   default:

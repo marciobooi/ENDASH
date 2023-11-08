@@ -156,8 +156,8 @@ codesDataset = {
 		"title": "chart_3",
 		"indicator": ['CRF1A1','CRF1A2','CRF1A3','CRF1A4A','CRF1A4B','CRF1A4C','CRF1A5'],
 		"indicator_type": "src_crf",
-		"indicator2": '',
-		"indicator2_type": "",	
+		"indicator2": ['GHG'],
+		"indicator2_type": "AIRPOL",	
 		"unit": "THS_T",	
 		"container": "highchartsContainer_3",	
 		"meta": "env_air_gge"		

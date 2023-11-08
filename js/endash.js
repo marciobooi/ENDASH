@@ -5,7 +5,14 @@ function endash(d = null) {
 
   REF.chartType = "lineChart";
 
-  const type = "spline";
+  const type = "spline"; 
+
+  if(REF.geos.length > 1) {
+
+    compareLineChart(type)   
+   
+    return
+  }
 
   if (REF.dataset === "demo_pjan") {
     d = chartEightCalculation(d);
@@ -24,7 +31,8 @@ function endash(d = null) {
   }
 
 }
-function buildChart(categories, containerId, yAxisTitle, type) {
+function buildChart(categories, containerId, yAxisTitle, type) {    
+
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
@@ -51,7 +59,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
     // Get the chart title
     const title = getTitle();
-
+  
     if (allSeriesAreZero(chartSeries)) {
         // Call the nullishChart() function when all series have zero values
         chartSeries = []
@@ -117,8 +125,7 @@ function handleData(d, series, categories ) {
     let startIndex = 0;
 
     chartSeries.forEach((series) => {
-        const data = series.data;
-        
+        const data = series.data;       
     
         // Find the index of the first non-zero and non-null value
         for (let i = 0; i < data.length; i++) {
@@ -130,11 +137,8 @@ function handleData(d, series, categories ) {
     
         // Update the data series to start from the first non-zero value
         series.data = data.slice(startIndex);
-    });
-
-  
+    });  
     categories.splice(0, startIndex)
-
 }
 
 
@@ -218,55 +222,123 @@ function compareCountries() {
     }
 }
 
-// Define the functions createBarChart, createPieChart, chartEightCalculation,
-// chartApiCall, handleData, and buildChart as needed.
-
-
 
 // function to display all countries but its disabled for now
-// function compareLineChart(indicator) {
-//     log(indicator)
+function compareLineChart(type) {
+    let testSeries = [];  
 
-//     const type = "spline"
-
-//     const indicator_type = `&${REF.indicator_type}=`
-
-//     REF.dataset = codesDataset[REF.chartId].dataset;
-//     containerId = codesDataset[REF.chartId].container;
-
-
-//     let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
-//     url += "format=JSON";
-//     url += "&lang=" + REF.language;
-//     url += "&unit=" + codesDataset[REF.chartId].unit; 
-//     url += indicator_type + indicator
-//     for (let i = 0; i < defaultGeos.length; i++) url += "&geo=" + defaultGeos[i]; 
-
-//     d = JSONstat(url).Dataset(0);
-
-//     log(d)
-
+    const indicator_type = `&${REF.indicator_type}=`
+    const indicator2_type = `&${REF.indicator2_type}=`
     
-//     const series = d.Dimension("time").id;
-//     const categories = d.Dimension("time").id;               
+  
+    let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
+    url += "format=JSON";
+    url += "&lang=" + REF.language;
+    url += "&unit=" + REF.unit;  
+    for (let i = 0; i < REF.geos.length; i++) url += "&geo=" + REF.geos[i]; 
+    if(REF.indicator.length > 0) {
+      for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
+    }
+    if(REF.indicator2.length > 0) {
+      for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];  
+    }
+  
+    if(REF.chartId === "chart_17" || REF.chartId === "chart-18") {
+      REF.chartId === "chart_17" ? url += "&operator=PRR_AUTO" : url += "&operator=PRR_MAIN"
+      url += "&plants=ELC"
+    }
+   
+  
+    const d = JSONstat(url).Dataset(0);
+    const series = d.Dimension("time").id;
+    const categories = d.Dimension("time").id;
+    const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
 
-//     for (let item in defaultGeos) {
-//         data = [];
-//         for (let j = 0; j < series.length; j++) {
-//             const value = d.value[0];
-//             data.push(value === null ? 0 : value);
-//             d.value.shift();
-//         }
-//         newObj = {
-//             name: defaultGeos[item],
-//             data: data,          
-//         };
-//         chartSeries.push(newObj);
-//     }
-
-//     const yAxisTitle = d.__tree__.dimension.unit.category.label[codesDataset[REF.chartId].unit]    
-
-//     buildChart(categories, REF.containerId, yAxisTitle, type);  
-
+    for (const country of REF.geos) {
+        const countryData = { name: country, data: [] };
+        if(REF.dataset === "nrg_ind_ep"|| REF.dataset === "nrg_ind_ffgae") {
+            const indicatorData = {
+                data: [],
+            };   
+            for (let j = 0; j < series.length; j++) {    
+                const filteredData = d.Data({
+                    geo: country,                  
+                    time: series[j]
+                });   
+                indicatorData.data.push(filteredData.value);
+            }           
+            countryData.data.push(indicatorData);
+           
+        } else {
+            for (const indicator of REF.indicator) {
+                const indicatorData = {
+                    data: [],
+                };    
+                for (let j = 0; j < series.length; j++) {  
+                    const filteredData = d.Data({
+                        geo: country,
+                        [REF.indicator_type]: indicator,
+                        time: series[j]
+                    });      
+                        indicatorData.data.push(filteredData.value);             
+                }    
+                countryData.data.push(indicatorData);
+            }    
+           
+        }
+        testSeries.push(countryData);
+      
+    }
     
-// }
+     testSeries = testSeries.map((countryData) => {
+        if (countryData.data.length === 1) {
+            // Only one indicator, push it as is
+            return {
+                name: languageNameSpace.labels[countryData.name],
+                data: countryData.data[0].data, // Use the single indicator directly
+            };
+        } else {
+            const mergedIndicatorData = []
+    
+            for (let j = 0; j < series.length; j++) {
+                const sum = countryData.data.reduce(
+                    (accumulator, indicatorData) => accumulator + indicatorData.data[j],
+                    0
+                );
+                mergedIndicatorData.push(sum);
+            }
+    
+            return {
+                name: languageNameSpace.labels[countryData.name],
+                data: mergedIndicatorData,
+            };
+        }
+    }); 
+
+    // let startIndex = 0;
+
+    // testSeries.forEach((series) => {
+    //     const data = series.data;       
+    
+    //     // Find the index of the first non-zero and non-null value
+    //     for (let i = 0; i < data.length; i++) {
+    //         if (data[i] !== null && data[i] > 0) {
+    //             startIndex = i;
+    //             break;
+    //         }
+    //     }
+    
+    //     // Update the data series to start from the first non-zero value
+    //     series.data = data.slice(startIndex);
+    // });  
+    // categories.splice(0, startIndex)
+
+    chartSeries = testSeries
+
+    buildChart(categories, containerId, yAxisTitle, type);
+
+  
+}
+
+
+
