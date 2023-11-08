@@ -282,3 +282,10 @@ tr > td:nth-child(2) {
 .highcharts-yaxis {
   width: 2rem !important;
 }
+
+.geo-dropdown-wrapper {
+  height: 23rem;
+  overflow: hidden;
+  border-bottom: 2px solid var(--tool-1);
+  margin: 5px;
+}

@@ -121,40 +121,89 @@ class SubNavbar {
           // Handle desktop-specific logic
           const geoDropdown = this.subNavbar.querySelector('#dropdown-geo-list');
 
+
           geoDropdown.innerHTML = ''
+
+
+
+
+
+
+
+          const geoDropdownWrapper = document.createElement('div');
+          geoDropdownWrapper.classList.add('geo-dropdown-wrapper');
+          geoDropdown.appendChild(geoDropdownWrapper);
+          
+          // // Now, append the wrapper to the subNavbar
+          // geoDropdown.appendChild(geoDropdownWrapper);
+
+
+
+
+
+
+
+
     
-          // You need to define `defaultGeos`, `active`, and `visible` variables.
           defaultGeos.forEach(geo => {
-            const content = `<a role="menuitem" class="dropdown-item d-flex justify-content-between align-items-center ${REF.geos === geo ? "active" : ''}" href="#"  data-geo="${geo}" data-bs-toggle="button">
-              <span><img class="flag me-2" src="img/country_flags/${geo.toLowerCase()}.webp" alt="">${languageNameSpace.labels[geo]}</span>
-            </a>`;
-            geoDropdown.innerHTML += content;
-          });     
-          
-          
-          
-          const geoItems = geoDropdown.querySelectorAll('.dropdown-item');
-          
-          geoItems.forEach((item) => {
-            item.addEventListener('click', (event) => {
-              event.preventDefault(); // Prevent the default link behavior
-              geoItems.forEach((otherItem) => {
-                otherItem.classList.remove('active');
-              });
-              item.classList.add('active');
-              
-              // Add your logic to handle the selected item here
-              const selectedGeo = item.getAttribute('data-geo');
-
-              REF.geos = selectedGeo
-
-              dataNameSpace.setRefURL()
-
-              removeComponents()
-              buildComponents()
-              endash();
-            });
+            const content = document.createElement('a');
+            content.setAttribute('role', 'menuitem');
+            content.classList.add('dropdown-item', 'd-flex', 'justify-content-between', 'align-items-center');
+            if (REF.geos.includes(geo)) { // Check if `geo` is in the `REF.geos` array
+              content.classList.add('active');
+            }
+            content.href = '#';
+            content.setAttribute('data-geo', geo);
+            content.setAttribute('data-bs-toggle', 'button');
+            
+            const innerContent = document.createElement('span');
+            const flagImage = document.createElement('img');
+            flagImage.classList.add('flag', 'me-2');
+            flagImage.src = `img/country_flags/${geo.toLowerCase()}.webp`;
+            flagImage.alt = '';
+            
+            const labelText = document.createTextNode(languageNameSpace.labels[geo]);
+            
+            innerContent.appendChild(flagImage);
+            innerContent.appendChild(labelText);
+            content.appendChild(innerContent);
+            
+            geoDropdownWrapper.appendChild(content);
           });
+          
+
+          const btnGroup = document.createElement('div');
+          btnGroup.classList.add('d-flex', 'justify-content-evenly', 'py-2');
+          btnGroup.innerHTML = `
+            <button class="btn btn-outline-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-reset">Reset</button>
+            <button class="btn btn-outline-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-cancel">Cancel</button>
+            <button class="btn btn-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-ok">OK</button>
+          `;
+          
+          geoDropdown.appendChild(btnGroup);
+          
+          // const geoItems = geoDropdown.querySelectorAll('.dropdown-item');
+          
+          // geoItems.forEach((item) => {
+          //   item.addEventListener('click', (event) => {
+          //     event.preventDefault(); // Prevent the default link behavior
+          //     geoItems.forEach((otherItem) => {
+          //       otherItem.classList.remove('active');
+          //     });
+          //     item.classList.add('active');
+              
+          //     // Add your logic to handle the selected item here
+          //     const selectedGeo = item.getAttribute('data-geo');
+
+          //     REF.geos = selectedGeo
+
+          //     dataNameSpace.setRefURL()
+
+          //     removeComponents()
+          //     buildComponents()
+          //     endash();
+          //   });
+          // });
 
 
 
