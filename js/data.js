@@ -48,9 +48,9 @@ const dataNameSpace = {
       this.ref.percentage = parseFloat(refURL.percentage);
     }  
 
-    if (refURL.geos) {
-      this.ref.geos = refURL.geos.toUpperCase();
-    }  
+    if (refURL.geos !== undefined) {
+        this.ref.geos = refURL.geos.split(",");      
+    }
     
   },  
   changeUrl(title, url) {

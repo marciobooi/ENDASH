@@ -414,6 +414,8 @@
  "BTNTABLECHART": "Click to show the table",
  "BTNPERCENTAGECHART": "Click to change to percentage",
  "BTNAGREGATESCHART": "Click to show/Hide agregates",
+ "AGGREGATES" : "Aggregate fuels for",
+ "DISAGGREGATES" : "Disaggregate fuels for",
 
 
  "ERROR1": "No metadata to display",

@@ -451,16 +451,28 @@ switch (REF.chartType) {
     break;
   case "pieChart":
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
-    $("#title").html(title)
- 
+    $("#title").html(title) 
     break;
-
   default:
-      title = `${languageNameSpace.labels[REF.title]}`   
-      $("#title").html(languageNameSpace.labels[REF.geos])
+    log(REF.title)  
+      if(aggregates) {
+        title = `${languageNameSpace.labels[REF.title]}`   
+
+        var navtitle = $("#title");
+        navtitle.html(`${languageNameSpace.labels["AGGREGATES"]}`);
+        
+        REF.geos.forEach(element => {
+          navtitle.append(`, ${languageNameSpace.labels[element]}`);
+        });
+        
+      } else {
+        title = `${languageNameSpace.labels[REF.title]}`   
+        $("#title").html(`${languageNameSpace.labels["DISAGGREGATES"]} ${languageNameSpace.labels[REF.geos]}`)
+      }
+      
     break;
 }
-titleElement.text(title)
+  titleElement.text(title)
   return title;
  
 }

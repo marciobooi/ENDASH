@@ -1,13 +1,16 @@
-
+let aggregates
 function endash(d = null) {
 
   updateREFFromCodesDataset(REF.chartId);
+
+  aggregates = REF.geos.length > 1;
 
   REF.chartType = "lineChart";
 
   const type = "spline"; 
 
-  if(REF.geos.length > 1) {
+
+  if(aggregates) {
 
     compareLineChart(type)   
    
