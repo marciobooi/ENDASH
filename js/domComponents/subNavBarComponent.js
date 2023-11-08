@@ -149,6 +149,7 @@ class SubNavbar {
             const content = document.createElement('a');
             content.setAttribute('role', 'menuitem');
             content.classList.add('dropdown-item', 'd-flex', 'justify-content-between', 'align-items-center');
+            log(REF.geos)
             if (REF.geos.includes(geo)) { // Check if `geo` is in the `REF.geos` array
               content.classList.add('active');
             }

@@ -228,31 +228,9 @@ function compareCountries() {
 
 // function to display all countries but its disabled for now
 function compareLineChart(type) {
-    let testSeries = [];  
-
-    const indicator_type = `&${REF.indicator_type}=`
-    const indicator2_type = `&${REF.indicator2_type}=`
+    let testSeries = [];   
     
-  
-    let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + REF.dataset + "?";
-    url += "format=JSON";
-    url += "&lang=" + REF.language;
-    url += "&unit=" + REF.unit;  
-    for (let i = 0; i < REF.geos.length; i++) url += "&geo=" + REF.geos[i]; 
-    if(REF.indicator.length > 0) {
-      for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
-    }
-    if(REF.indicator2.length > 0) {
-      for (let i = 0; i < REF.indicator2.length; i++) url += indicator2_type + REF.indicator2[i];  
-    }
-  
-    if(REF.chartId === "chart_17" || REF.chartId === "chart-18") {
-      REF.chartId === "chart_17" ? url += "&operator=PRR_AUTO" : url += "&operator=PRR_MAIN"
-      url += "&plants=ELC"
-    }
-   
-  
-    const d = JSONstat(url).Dataset(0);
+    d = chartApiCall();    
     const series = d.Dimension("time").id;
     const categories = d.Dimension("time").id;
     const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];

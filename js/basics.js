@@ -514,7 +514,7 @@ function chartApiCall(query) {
   switch (REF.chartType) {
     case "lineChart":
       url += "&unit=" + REF.unit; 
-      url += "&geo=" + REF.geos;  
+      for (let i = 0; i < REF.geos.length; i++) url += "&geo=" + REF.geos[i];
       if(REF.indicator.length > 0) {
         for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
       }
