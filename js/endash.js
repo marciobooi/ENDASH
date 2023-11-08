@@ -294,25 +294,7 @@ function compareLineChart(type) {
                 data: mergedIndicatorData,
             };
         }
-    }); 
-
-    // let startIndex = 0;
-
-    // testSeries.forEach((series) => {
-    //     const data = series.data;       
-    
-    //     // Find the index of the first non-zero and non-null value
-    //     for (let i = 0; i < data.length; i++) {
-    //         if (data[i] !== null && data[i] > 0) {
-    //             startIndex = i;
-    //             break;
-    //         }
-    //     }
-    
-    //     // Update the data series to start from the first non-zero value
-    //     series.data = data.slice(startIndex);
-    // });  
-    // categories.splice(0, startIndex)
+    });   
 
     chartSeries = testSeries
 
