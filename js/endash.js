@@ -51,14 +51,14 @@ function buildChart(categories, containerId, yAxisTitle, type) {
             }
         }
     };
-
+  
     // Define series options with conditional marker
     const seriesOptions = {
         cursor: "pointer",
         marker: {
-            enabled: REF.chartExpanded,
+          enabled: REF.chartExpanded == true ? true : false, // Set marker enabled based on REF.chartExpanded
         },
-    };
+      };
 
     // Get the chart title
     const title = getTitle();
@@ -229,7 +229,7 @@ function compareCountries() {
 // function to display all countries but its disabled for now
 function compareLineChart(type) {
     let testSeries = [];   
-    
+
     d = chartApiCall();    
     const series = d.Dimension("time").id;
     const categories = d.Dimension("time").id;

@@ -18,7 +18,7 @@ const dataNameSpace = {
     percentage: 0,
     chartType: "lineChart",
     chartCreated: false,
-    chartExpanded: false,
+    chartExpanded: "",
     share:"false",
     meta: ""
   },

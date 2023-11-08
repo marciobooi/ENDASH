@@ -185,7 +185,7 @@ class ChartContainer {
       document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
       } 
 
-      dataNameSpace.setRefURL()
+      // dataNameSpace.setRefURL()
     
     }
 

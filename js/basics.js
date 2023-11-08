@@ -222,6 +222,7 @@ function removeAuxiliarBarGraphOptions() {
   REF.chartType =  "lineChart"
   REF.percentage = 0
   REF.chartExpanded = false
+  dataNameSpace.setRefURL()
   compareCountries()
 
   getTitle()
@@ -454,7 +455,6 @@ switch (REF.chartType) {
     $("#title").html(title) 
     break;
   default:
-    log(REF.title)  
       if(aggregates) {
         title = `${languageNameSpace.labels[REF.title]}`   
 
