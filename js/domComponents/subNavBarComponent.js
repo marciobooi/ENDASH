@@ -121,30 +121,8 @@ class SubNavbar {
           // Handle desktop-specific logic
           const geoDropdown = this.subNavbar.querySelector('#dropdown-geo-list');
 
+          geoDropdown.innerHTML = ''  
 
-          geoDropdown.innerHTML = ''
-
-
-
-
-
-
-
-          const geoDropdownWrapper = document.createElement('div');
-          geoDropdownWrapper.classList.add('geo-dropdown-wrapper');
-          geoDropdown.appendChild(geoDropdownWrapper);
-          
-          // // Now, append the wrapper to the subNavbar
-          // geoDropdown.appendChild(geoDropdownWrapper);
-
-
-
-
-
-
-
-
-    
           defaultGeos.forEach(geo => {
             const content = document.createElement('a');
             content.setAttribute('role', 'menuitem');
@@ -168,70 +146,48 @@ class SubNavbar {
             innerContent.appendChild(labelText);
             content.appendChild(innerContent);
             
-            geoDropdownWrapper.appendChild(content);
+            geoDropdown.appendChild(content);
           });
           
-
-          const btnGroup = document.createElement('div');
-          btnGroup.classList.add('d-flex', 'justify-content-evenly', 'py-2');
-          btnGroup.innerHTML = `
-            <button class="btn btn-outline-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-reset">Reset</button>
-            <button class="btn btn-secondary btn-sm px-2 min-with--geo" type="button" id="btn-country-ok">OK</button>
-          `;
           
-          geoDropdown.appendChild(btnGroup); 
-    }
+          
+          const geoItems = geoDropdown.querySelectorAll('.dropdown-item');
+
+          
+          
+          geoItems.forEach((item) => {
+            item.addEventListener('click', (event) => {
+              event.preventDefault(); // Prevent the default link behavior
+              geoItems.forEach((otherItem) => {
+                otherItem.classList.remove('active');
+              });
+              item.classList.add('active');
+              
+              // Add your logic to handle the selected item here
+              const selectedGeo = item.getAttribute('data-geo');
+
+              REF.geos = selectedGeo
+
+              dataNameSpace.setRefURL()
+
+              removeComponents()
+              buildComponents()
+              endash();
+            });
+          });
 
 
-    attachEventListeners() {
-      // Add event listeners within the class
-      $('#dropdown-geo-list').on('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-      });
-  
-      $('#btn-country-reset').on('click', (event) => {
-        this.resetHandler(event);
-      });
-  
- 
-  
-      $('#btn-country-ok').on('click', (event) => {
-        this.okHandler(event);
-      });
-    }
 
 
 
-    resetHandler(event) {         
-        $('.geo-dropdown-wrapper .dropdown-item').removeClass('active');    
-        $(`.dropdown-item[data-geo="EU27_2020"]`).addClass('active');
-        const activeDataGeos = ['EU27_2020'];
-        REF.geos = activeDataGeos;       
-    }  
 
-  
-    okHandler(event) {
-      // Clear the REF.geos array
-      REF.geos = [];
+        
+
+   
     
-      // Get all the selected geos
-      const selectedGeos = document.querySelectorAll('.geo-dropdown-wrapper .dropdown-item.active');
-      
-      // Loop through the selected geos and push them into REF.geos
-      selectedGeos.forEach((geo) => {
-        const selectedGeo = geo.getAttribute('data-geo');
-        REF.geos.push(selectedGeo);
-      });
-    
-      const dropdownButton = document.querySelector('#selectCounty'); // Change the selector as needed      
-      dropdownButton.click(); // Simulate a click on the dropdown button
-      
-      dataNameSpace.setRefURL()
 
-      removeComponents()
-      buildComponents()
-      endash();
+
+
     }
 
     toggleChartOptionsMenu() {
@@ -242,7 +198,6 @@ class SubNavbar {
     addToDOM(targetElement) {
       const container = document.querySelector(targetElement);
       container.appendChild(this.subNavbar);
-      this.attachEventListeners();
  
     }
   }

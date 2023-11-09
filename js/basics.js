@@ -222,7 +222,6 @@ function removeAuxiliarBarGraphOptions() {
   REF.chartType =  "lineChart"
   REF.percentage = 0
   REF.chartExpanded = false
-  dataNameSpace.setRefURL()
   compareCountries()
 
   getTitle()
@@ -454,25 +453,13 @@ switch (REF.chartType) {
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
     $("#title").html(title) 
     break;
-  default:
-      if(aggregates) {
-        title = `${languageNameSpace.labels[REF.title]}`   
 
-        var navtitle = $("#title");
-        navtitle.html(`${languageNameSpace.labels["AGGREGATES"]}`);
-        
-        REF.geos.forEach(element => {
-          navtitle.append(`, ${languageNameSpace.labels[element]}`);
-        });
-        
-      } else {
-        title = `${languageNameSpace.labels[REF.title]}`   
-        $("#title").html(`${languageNameSpace.labels["DISAGGREGATES"]} ${languageNameSpace.labels[REF.geos]}`)
-      }
-      
+  default:
+      title = `${languageNameSpace.labels[REF.title]}`   
+      $("#title").html(languageNameSpace.labels[REF.geos])
     break;
 }
-  titleElement.text(title)
+titleElement.text(title)
   return title;
  
 }
@@ -514,7 +501,7 @@ function chartApiCall(query) {
   switch (REF.chartType) {
     case "lineChart":
       url += "&unit=" + REF.unit; 
-      for (let i = 0; i < REF.geos.length; i++) url += "&geo=" + REF.geos[i];
+      url += "&geo=" + REF.geos;  
       if(REF.indicator.length > 0) {
         for (let i = 0; i < REF.indicator.length; i++) url += indicator_type + REF.indicator[i];  
       }
@@ -680,4 +667,3 @@ function allSeriesAreZero(chartSeries) {
 
 
    
-

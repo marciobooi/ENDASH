@@ -111,29 +111,7 @@ class Chart {
 
   // function that return empty chart for when is no data to display
   function nullishChart(containerId, chartSeries) {
-    // Highcharts.setOptions({lang: {noData: "Your custom message"}})
-    // const chartOptions = {
-    //   containerId: containerId,
-    //   type: null,
-    //   title: null,
-    //   subtitle: null,
-    //   xAxis: null,
-    //   yAxisFormat: null,
-    //   tooltipFormatter: null,
-    //   creditsText: "Source: Eurostat",
-    //   creditsHref: "",
-    //   series: [],
-    //   colors: null,
-    //   legend: true,
-    //   columnOptions: "",
-    //   seriesOptions: ""
-    // };
-  
-    // const chart = new Chart(chartOptions);
-    // chart.createChart();
-
-
-    Highcharts.setOptions({lang: {noData: languageNameSpace.labels['ERROR2']}})
+      Highcharts.setOptions({lang: {noData: languageNameSpace.labels['ERROR2']}})
 
     Highcharts.chart(containerId, {   
       exporting: {
@@ -152,14 +130,9 @@ class Chart {
           data: []
       }]
   });
-  
-
-
-
-
-
-
   }
+
+  
   
 
   

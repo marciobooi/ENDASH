@@ -1,21 +1,11 @@
-let aggregates
+
 function endash(d = null) {
 
   updateREFFromCodesDataset(REF.chartId);
 
-  aggregates = REF.geos.length > 1;
-
   REF.chartType = "lineChart";
 
   const type = "spline"; 
-
-
-  if(aggregates) {
-
-    compareLineChart(type)   
-   
-    return
-  }
 
   if (REF.dataset === "demo_pjan") {
     d = chartEightCalculation(d);
@@ -34,7 +24,7 @@ function endash(d = null) {
   }
 
 }
-function buildChart(categories, containerId, yAxisTitle, type) {    
+function buildChart(categories, containerId, yAxisTitle, type) {
 
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
@@ -51,7 +41,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
             }
         }
     };
-  
+
     // Define series options with conditional marker
     const seriesOptions = {
         cursor: "pointer",
@@ -62,7 +52,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
 
     // Get the chart title
     const title = getTitle();
-  
+
     if (allSeriesAreZero(chartSeries)) {
         // Call the nullishChart() function when all series have zero values
         chartSeries = []
@@ -227,81 +217,7 @@ function compareCountries() {
 
 
 // function to display all countries but its disabled for now
-function compareLineChart(type) {
-    let testSeries = [];   
 
-    d = chartApiCall();    
-    const series = d.Dimension("time").id;
-    const categories = d.Dimension("time").id;
-    const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
-
-    for (const country of REF.geos) {
-        const countryData = { name: country, data: [] };
-        if(REF.dataset === "nrg_ind_ep"|| REF.dataset === "nrg_ind_ffgae") {
-            const indicatorData = {
-                data: [],
-            };   
-            for (let j = 0; j < series.length; j++) {    
-                const filteredData = d.Data({
-                    geo: country,                  
-                    time: series[j]
-                });   
-                indicatorData.data.push(filteredData.value);
-            }           
-            countryData.data.push(indicatorData);
-           
-        } else {
-            for (const indicator of REF.indicator) {
-                const indicatorData = {
-                    data: [],
-                };    
-                for (let j = 0; j < series.length; j++) {  
-                    const filteredData = d.Data({
-                        geo: country,
-                        [REF.indicator_type]: indicator,
-                        time: series[j]
-                    });      
-                        indicatorData.data.push(filteredData.value);             
-                }    
-                countryData.data.push(indicatorData);
-            }    
-           
-        }
-        testSeries.push(countryData);
-      
-    }
-    
-     testSeries = testSeries.map((countryData) => {
-        if (countryData.data.length === 1) {
-            // Only one indicator, push it as is
-            return {
-                name: languageNameSpace.labels[countryData.name],
-                data: countryData.data[0].data, // Use the single indicator directly
-            };
-        } else {
-            const mergedIndicatorData = []
-    
-            for (let j = 0; j < series.length; j++) {
-                const sum = countryData.data.reduce(
-                    (accumulator, indicatorData) => accumulator + indicatorData.data[j],
-                    0
-                );
-                mergedIndicatorData.push(sum);
-            }
-    
-            return {
-                name: languageNameSpace.labels[countryData.name],
-                data: mergedIndicatorData,
-            };
-        }
-    });   
-
-    chartSeries = testSeries
-
-    buildChart(categories, containerId, yAxisTitle, type);
-
-  
-}
 
 
 
