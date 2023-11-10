@@ -11,7 +11,7 @@ class SubNavbar {
       const notMobileContent = `<div class="container-fluid">
             <div class="col-8">
               <div class="text-group">
-                <h2 id="title" class="title">teste</h2>
+                <h2 id="title" class="title"></h2>
               </div>
             </div>
 

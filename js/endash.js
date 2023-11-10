@@ -26,6 +26,8 @@ function endash(d = null) {
 }
 function buildChart(categories, containerId, yAxisTitle, type) {
 
+
+
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
@@ -33,11 +35,9 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const xAxis = {
         categories,
         labels: {
-            step: REF.chartExpanded === false ? categories.length - 1 : 1, // Set step to 1 for first and last labels
+            step: REF.chartExpanded ? 1 : categories.length - 1,
             formatter: function() {
-                if (this.isLast || this.isFirst) {
-                    return this.value;
-                }
+                return (!REF.chartExpanded && (this.isLast || this.isFirst)) ? this.value : this.value;
             }
         }
     };
@@ -46,9 +46,9 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const seriesOptions = {
         cursor: "pointer",
         marker: {
-          enabled: REF.chartExpanded == true ? true : false, // Set marker enabled based on REF.chartExpanded
+            enabled: REF.chartExpanded,
         },
-      };
+    };
 
     // Get the chart title
     const title = getTitle();
