@@ -16,7 +16,18 @@ class ChartControls {
 				<!-- <h6 id="subtitle" class="subtitle">subtitle</h6> -->
 			  </div>
 			  <div class="menu">
+
+
+
 				<ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				  
+				<li class="nav-item dropdown px-1" id="tb-country" role="none">
+				<button class="btn btn-primary min-with--nav" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+				  <i class="fas fa-globe" aria-hidden="true"></i>
+				</button>
+				<ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry"></ul>
+				</li>			
+				
 				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
@@ -90,6 +101,8 @@ class ChartControls {
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 
+	  let originalGeo = [];
+
 	    // Create the button instances
 		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
 		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
@@ -153,6 +166,8 @@ class ChartControls {
 			exportIframe();
 		});
 		closeChart.setClickHandler(function() {
+		  REF.geos = originalGeo
+		  dataNameSpace.setRefURL();
 		  removeAuxiliarBarGraphOptions();
 		});
 
@@ -177,9 +192,71 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
+
+
+          // Handle desktop-specific logic
+          const geoDropdown = this.controls.querySelector('#dropdown-geo-list');
+
+          geoDropdown.innerHTML = ''  
+
+          defaultGeos.forEach(geo => {
+            const content = document.createElement('a');
+            content.setAttribute('role', 'menuitem');
+            content.classList.add('dropdown-item', 'd-flex', 'justify-content-between', 'align-items-center');
+            if (REF.geos.includes(geo)) { // Check if `geo` is in the `REF.geos` array
+              content.classList.add('active');
+            }
+            content.href = '#';
+            content.setAttribute('data-geo', geo);
+            content.setAttribute('data-bs-toggle', 'button');
+            
+            const innerContent = document.createElement('span');
+            const flagImage = document.createElement('img');
+            flagImage.classList.add('flag', 'me-2');
+            flagImage.src = `img/country_flags/${geo.toLowerCase()}.webp`;
+            flagImage.alt = '';
+            
+            const labelText = document.createTextNode(languageNameSpace.labels[geo]);
+            
+            innerContent.appendChild(flagImage);
+            innerContent.appendChild(labelText);
+            content.appendChild(innerContent);
+            
+            geoDropdown.appendChild(content);
+          });
+          
+          
+          
+          	this.countriesHandler(geoDropdown, originalGeo);
 			lineChart.setDisabled(true);
 	}
   
+	countriesHandler(geoDropdown, originalGeo) {
+		const geoItems = geoDropdown.querySelectorAll('.dropdown-item');		
+
+		originalGeo.length === 0 && originalGeo.push(REF.geos);		
+
+		geoItems.forEach((item) => {
+			item.addEventListener('click', (event) => {
+				event.preventDefault(); // Prevent the default link behavior
+				geoItems.forEach((otherItem) => {
+					otherItem.classList.remove('active');
+				});
+				item.classList.add('active');
+
+				// Add your logic to handle the selected item here
+				const selectedGeo = item.getAttribute('data-geo');
+
+				REF.geos = selectedGeo;
+
+				dataNameSpace.setRefURL();
+				compareCountries();
+
+			
+			});
+		});
+	}
+
 	removeFromDOM() {
 	  let navElement;
 	  if (isMobile) {
@@ -202,13 +279,10 @@ class ChartControls {
   
   function disableChatOptionsBtn(chart) {
 	REF.chartType = chart;  
-	const charts = ["barChart", "pieChart", "lineChart"];  
-	charts.forEach(chart => {
-	  if (REF.chartType == chart) {
-		$("#" + chart).attr("disabled", "disabled");
-	  } else {
-		$("#" + chart).removeAttr("disabled");
-	  }
+	const btns = ["barChart", "pieChart", "lineChart"];  
+	btns.forEach(btn => {
+    REF.chartType === btn ? $("#" + btn).prop("disabled", true) : $("#" + btn).prop("disabled", false)
+	REF.chartType === "barChart" ? $('#selectCounty').prop("disabled", true) : $('#selectCounty').prop("disabled", false);
 	});
   }
   

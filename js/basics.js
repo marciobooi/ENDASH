@@ -456,7 +456,7 @@ switch (REF.chartType) {
 
   default:
       title = `${languageNameSpace.labels[REF.title]}`   
-      $("#title").html(languageNameSpace.labels[REF.geos])
+      $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
     break;
 }
 titleElement.text(title)

@@ -22,10 +22,10 @@ class SubNavbar {
               
 
               <li class="nav-item dropdown px-1" id="tb-country" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="tb-country-btn" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="true" id="selectCounty">
-                    <i class="fas fa-globe"></i>
+                  <button class="btn btn-primary min-with--nav" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
                   </button>
-                  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
+                  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry"></ul>
               </li>
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
                   <button class="btn btn-primary min-with--nav" onclick="tutorial()" title="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">
