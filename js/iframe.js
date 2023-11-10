@@ -106,14 +106,26 @@ function hideForIframe() {
     compareCountries();
 
     document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`        
-    document.querySelector("#menuToolbar> div > .col-4").style.display = 'none'
-    document.querySelector("#lang-section").style.display = 'none'  
+    // document.querySelector("#menuToolbar> div > .col-4").style.display = 'none'
+    // document.querySelector("#lang-section").style.display = 'none'  
     
     Highcharts.charts.forEach(chart => {
         if (chart) {
             chart.reflow();
         }
     });
+
+   
+    document.querySelector("header").style.display = "none";
+    document.getElementById("subnavbar-container").style.display = "none";
+    document.getElementById("componentFooter").style.display = "none";
+    document.getElementById("timelineContainer").style.display = "none";
+    setTimeout(() => {
+        $('#cookie-consent-banner').css('display', 'none !important');
+    }, 1400);
+    
+
+
 
     stopLoadingAnimation()
      
