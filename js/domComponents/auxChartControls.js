@@ -101,7 +101,7 @@ class ChartControls {
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 
-	  let originalGeo = [];
+	  
 
 	    // Create the button instances
 		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
@@ -166,8 +166,8 @@ class ChartControls {
 			exportIframe();
 		});
 		closeChart.setClickHandler(function() {
-		  REF.geos = originalGeo
-		  dataNameSpace.setRefURL();
+		  REF.chartExpanded = false		
+		  showHideTimeLine()		  
 		  removeAuxiliarBarGraphOptions();
 		});
 
@@ -227,14 +227,12 @@ class ChartControls {
           
           
           
-          	this.countriesHandler(geoDropdown, originalGeo);
+          	this.countriesHandler(geoDropdown);
 			lineChart.setDisabled(true);
 	}
   
-	countriesHandler(geoDropdown, originalGeo) {
-		const geoItems = geoDropdown.querySelectorAll('.dropdown-item');		
-
-		originalGeo.length === 0 && originalGeo.push(REF.geos);		
+	countriesHandler(geoDropdown) {
+		const geoItems = geoDropdown.querySelectorAll('.dropdown-item');			
 
 		geoItems.forEach((item) => {
 			item.addEventListener('click', (event) => {
@@ -246,6 +244,8 @@ class ChartControls {
 
 				// Add your logic to handle the selected item here
 				const selectedGeo = item.getAttribute('data-geo');
+
+				log(selectedGeo)
 
 				REF.geos = selectedGeo;
 

@@ -192,7 +192,6 @@ function compareCountries() {
             createPieChart();
             break;
         default:
-            // Default chart type (e.g., spline)
             let chartType = "spline";
 
             if (REF.dataset === "demo_pjan") {
@@ -202,21 +201,18 @@ function compareCountries() {
                 const yAxisTitle = 'kilograms of oil equivalent';
                 const categories = d.Dimension("time").id;
                 buildChart(categories, REF.containerId, yAxisTitle, chartType);
-            } else {
-                // Handle other datasets (you may need to define chartApiCall and handleData functions)
+            } else {               
                 const d = chartApiCall();
                 const series = d.Dimension("time").id;
                 const categories = d.Dimension("time").id;
                 handleData(d, series, categories);
                 const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
-                buildChart(categories, REF.containerId, yAxisTitle, chartType);
+                buildChart(categories, REF.containerId, yAxisTitle, chartType);                
             }
             break;
     }
 }
 
-
-// function to display all countries but its disabled for now
 
 
 

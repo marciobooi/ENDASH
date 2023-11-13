@@ -213,20 +213,24 @@ function addAuxiliarBarGraphOptions() {
 
 function removeAuxiliarBarGraphOptions() {
 
-  const query = ['EU27_2020'];
+  // const query = ['EU27_2020'];
 
-  const hasQuery = query.every(item => defaultGeos.includes(item));
-  if (!hasQuery) {
-    defaultGeos = defaultGeos.concat(query);
-  } 
+  // const hasQuery = query.every(item => defaultGeos.includes(item));
+  // if (!hasQuery) {
+  //   defaultGeos = defaultGeos.concat(query);
+  // } 
   REF.chartType =  "lineChart"
   REF.percentage = 0
   REF.chartExpanded = false
+
+  dataNameSpace.setRefURL();
+
   compareCountries()
 
-  getTitle()
+ 
 
   closeTable()
+
   $('#menuSwitch').remove();
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");
@@ -243,14 +247,21 @@ function removeAuxiliarBarGraphOptions() {
 
     });
 
+    var myDiv = document.getElementById("endash");
+
+    // Empty the content of the div
+    myDiv.innerHTML = "";
+
+  const rebuiltCharts = new ChartContainer();
+  rebuiltCharts.addToDOM("#endash");
+
 
   const auxiliarBarGraphOptions = new ChartControls();
   auxiliarBarGraphOptions.removeFromDOM("#subnavbar-container");
 
-  // const FloatingControls = new FloatingChartControls();
-  // FloatingControls.removeFromDOM();
+  getTitle()
 
-  // $('#chartSlider').remove();
+
   $(".containerNav").css('visibility', 'initial')
 }
 
@@ -486,7 +497,6 @@ function addToCache(query, d) {
 
 
 function chartApiCall(query) {
-
 
   const indicator_type = `&${REF.indicator_type}=`
   const indicator2_type = `&${REF.indicator2_type}=`

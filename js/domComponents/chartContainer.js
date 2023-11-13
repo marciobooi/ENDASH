@@ -273,35 +273,6 @@ class ChartContainer {
     } else {
       console.error('Target element not found:', targetElementSelector);
     }
-
-
-    // $(document).on('click', '.close-button', function() {
-    //   console.log('close button clicked');  
-
-    //   const parentContainer = $(this).parent().parent();
-    //   parentContainer.removeClass("expand");
-    //   parentContainer.attr('aria-expanded', 'false');
-    //   $(this).remove();
-
-    //   $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "initial" );
-    //   parentContainer.find( ".highchartsContainerExpand" ).removeClass('highchartsContainerExpand')
-    //   Highcharts.charts.forEach(chart => {
-    //     if (chart) {
-    //         chart.reflow();
-    //     }
-    // });
-
-    // removeAuxiliarBarGraphOptions()
-
-    // REF.chartOpt = "mainChart"
-
-
-
-
-
-    // });
-
-
   }
 
 
