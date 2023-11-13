@@ -241,7 +241,7 @@ button:focus, .input:focus {
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 9999999999999;
+  z-index: 1;
   width: 100%;
   background-color: white;
   box-shadow: rgb(0 0 0 / 25%) -1px 0px 5px 1px;
@@ -505,6 +505,7 @@ i.fas.fa-caret-down {
 }
 
 
+
 } /* end of landscape mobile */
 
 
@@ -601,8 +602,26 @@ button.dropdown-item:last-child {
 }
 
 
+#dropdown-geo-list {
+  height: auto;
+  max-height: 48vh;
+  overflow-x: hidden;
+  width: auto;
+  height: auto;
+  max-height: 56vh;
+  overflow-x: hidden;
+  width: auto;
+  z-index: 99999999999!important;
+  position: fixed!important;
+  left: 0!important;
+  top: 1.5rem!important;
+  box-shadow: rgb(0 0 0 / 25%) -1px 0px 5px 1px;
+}
 
-
+.px-1 {
+  padding-right: 0.15rem!important;
+    padding-left: 0.15rem !important;
+}
 
 } /* end of reflow 400 */
 

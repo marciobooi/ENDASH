@@ -463,7 +463,12 @@ switch (REF.chartType) {
 
   default:
       title = `${languageNameSpace.labels[REF.title]}`   
-      $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
+      if(REF.chartExpanded == true) {
+        $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
+      } else {
+        $("#title").html(`${languageNameSpace.labels[REF.geos]}`)
+      }
+      
     break;
 }
 titleElement.text(title)

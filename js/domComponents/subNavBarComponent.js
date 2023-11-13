@@ -50,7 +50,7 @@ class SubNavbar {
                   <button class="btn btn-primary min-with--nav" type="button" aria-label="tb-country-btn" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="true" id="selectCounty">
                     <i class="fas fa-globe"></i>
                   </button>
-                  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
+                  <ul id="dropdown-geo-list" style="top:7.9rem!important" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
               </li>             
               </div>
           </div>
@@ -179,7 +179,7 @@ class SubNavbar {
 
 
 
-
+        
 
         
 

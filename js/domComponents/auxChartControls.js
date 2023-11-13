@@ -61,7 +61,13 @@ class ChartControls {
 			</button>
 			<div class="menu d-none">
 			  <ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-				<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
+			  <li class="nav-item dropdown px-1" id="tb-country" role="none">
+			  <button class="btn btn-primary min-with--nav" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+				<i class="fas fa-globe" aria-hidden="true"></i>
+			  </button>
+			  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry" ></ul>
+			  </li>				
+			  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
 				<li class="nav-item button px-1" id="printChart" role="none"></li>
@@ -225,8 +231,7 @@ class ChartControls {
             geoDropdown.appendChild(content);
           });
           
-          
-          
+	
           	this.countriesHandler(geoDropdown);
 			lineChart.setDisabled(true);
 	}
