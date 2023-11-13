@@ -58,7 +58,6 @@ var languageNameSpace = {
     ]
 
     elementsBtn.forEach((id, idx) => {
-      log(idx)
       const element = $(id);
       const label = languageNameSpace.labels[elementsBtnTranslations[idx]];
       element.attr({

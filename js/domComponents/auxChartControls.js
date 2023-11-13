@@ -82,7 +82,7 @@ class ChartControls {
 		
   
 	  if (isMobile) {
-		log(isMobile);
+		// log(isMobile);
 		this.controls.innerHTML = mobileContent;
 		this.toolsButton = this.controls.querySelector("#tools");
 		this.chartToolsMenu = this.controls.querySelector(".menu");
@@ -245,7 +245,7 @@ class ChartControls {
 				// Add your logic to handle the selected item here
 				const selectedGeo = item.getAttribute('data-geo');
 
-				log(selectedGeo)
+				// log(selectedGeo)
 
 				REF.geos = selectedGeo;
 

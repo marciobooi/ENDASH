@@ -58,7 +58,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     if (allSeriesAreZero(chartSeries)) {
         // Call the nullishChart() function when all series have zero values
         chartSeries = []
-        log(containerId, true)
+        // log(containerId, true)
         nullishChart(containerId, chartSeries)
         return
     }
