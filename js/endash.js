@@ -31,11 +31,13 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
+    const enable = REF.chartExpanded === true ? true : false
+
     // Define xAxis options with conditional label step
     const xAxis = {
         categories,
         labels: {
-            step: REF.chartExpanded ? 1 : categories.length - 1,
+            step: enable ? 1 : categories.length - 1,
             formatter: function() {
                 return (!REF.chartExpanded && (this.isLast || this.isFirst)) ? this.value : this.value;
             }
@@ -46,7 +48,7 @@ function buildChart(categories, containerId, yAxisTitle, type) {
     const seriesOptions = {
         cursor: "pointer",
         marker: {
-            enabled: REF.chartExpanded,
+            enabled: enable,
         },
     };
 

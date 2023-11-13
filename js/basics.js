@@ -213,23 +213,18 @@ function addAuxiliarBarGraphOptions() {
 
 function removeAuxiliarBarGraphOptions() {
 
-  // const query = ['EU27_2020'];
-
-  // const hasQuery = query.every(item => defaultGeos.includes(item));
-  // if (!hasQuery) {
-  //   defaultGeos = defaultGeos.concat(query);
-  // } 
+  
   REF.chartType =  "lineChart"
   REF.percentage = 0
   REF.chartExpanded = false
 
   dataNameSpace.setRefURL();
 
-  compareCountries()
-
- 
+  compareCountries() 
 
   closeTable()
+
+  showHideTimeLine()
 
   $('#menuSwitch').remove();
   var parentContainer = $(".flex-container").find(".expand");
@@ -239,21 +234,22 @@ function removeAuxiliarBarGraphOptions() {
 
     $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "initial" );
       parentContainer.find( ".highchartsContainerExpand" ).removeClass('highchartsContainerExpand')
+
+
       Highcharts.charts.forEach(chart => {
         if (chart) {
           chart.update({ legend: legendHide }, true); 
             chart.reflow();
         }
-
     });
 
-    var myDiv = document.getElementById("endash");
+    const chartContainer = document.getElementById("endash");
 
     // Empty the content of the div
-    myDiv.innerHTML = "";
+    chartContainer.innerHTML = "";
 
-  const rebuiltCharts = new ChartContainer();
-  rebuiltCharts.addToDOM("#endash");
+    const rebuiltCharts = new ChartContainer();
+    rebuiltCharts.addToDOM("#endash");
 
 
   const auxiliarBarGraphOptions = new ChartControls();
