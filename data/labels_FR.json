@@ -398,6 +398,8 @@
   "BTNTABLECHART": "Cliquez pour afficher la table",
   "BTNPERCENTAGECHART": "Cliquez pour passer en pourcentage",
   "BTNAGREGATESCHART": "Cliquez pour afficher/masquer les agrégats",
+  "BTNCHANGECOUNTRY": "Cliquez pour changer de pays",
+
 
   "ERROR1": "Aucune métadonnée à afficher",
   "ERROR2": "Aucune donnée à afficher"

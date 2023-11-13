@@ -392,6 +392,7 @@
   "BTNTABLECHART": "Klicken Sie, um die Tabelle anzuzeigen",
   "BTNPERCENTAGECHART": "Klicken Sie, um auf Prozent umzuschalten",
   "BTNAGREGATESCHART": "Klicken Sie, um Aggregate ein-/auszublenden",
+  "BTNCHANGECOUNTRY": "Klicken Sie, um das Land zu ändern",
 
   "ERROR1": "Keine Metadaten zum Anzeigen",
   "ERROR2": "Keine Daten zum Anzeigen"
