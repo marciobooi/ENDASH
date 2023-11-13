@@ -378,7 +378,24 @@
 	"chart_21": "Bruttoverfügbare Energie nach Produkt",
 	"chart_22": "Gesamte Energieversorgung nach Produkt",
 	"compare": "Länder vergleichen",
-	"header-title-label": "Energie-Dashboard"
+	"header-title-label": "Energie-Dashboard",
+
+  "BTNBARCHART": "Klicken Sie, um das Balkendiagramm anzuzeigen",
+  "BTNPIECHART": "Klicken Sie, um das Kreisdiagramm anzuzeigen",
+  "BTNLINECHART": "Klicken Sie, um das Liniendiagramm anzuzeigen",
+  "BTNPRINTCHART": "Klicken Sie, um das Diagramm zu drucken",
+  "BTNDOWNLOADCHART": "Klicken Sie, um das Diagramm herunterzuladen",
+  "BTNEXCELCHART": "Klicken Sie, um als Excel-Datei zu exportieren",
+  "BTNBSHARECHART": "Klicken Sie, um dieses Diagramm zu teilen",
+  "BTNCLOSECHART": "Klicken Sie, um zur Hauptseite zurückzukehren",
+  "BTNINFICHART": "Klicken Sie, um das Infomenü zu öffnen",
+  "BTNTABLECHART": "Klicken Sie, um die Tabelle anzuzeigen",
+  "BTNPERCENTAGECHART": "Klicken Sie, um auf Prozent umzuschalten",
+  "BTNAGREGATESCHART": "Klicken Sie, um Aggregate ein-/auszublenden",
+
+  "ERROR1": "Keine Metadaten zum Anzeigen",
+  "ERROR2": "Keine Daten zum Anzeigen"
+
  
 
 }

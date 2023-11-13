@@ -384,7 +384,24 @@
 	"chart_21": "Énergie brute disponible par produit",
 	"chart_22": "Approvisionnement total en énergie par produit",
 	"compare": "Comparer les pays",
-	"header-title-label": "Tableau de bord de l'énergie"
+	"header-title-label": "Tableau de bord de l'énergie",
+
+  "BTNBARCHART": "Cliquez pour afficher le diagramme en barres",
+  "BTNPIECHART": "Cliquez pour afficher le diagramme circulaire",
+  "BTNLINECHART": "Cliquez pour afficher le diagramme linéaire",
+  "BTNPRINTCHART": "Cliquez pour imprimer le diagramme",
+  "BTNDOWNLOADCHART": "Cliquez pour télécharger le diagramme",
+  "BTNEXCELCHART": "Cliquez pour exporter en fichier Excel",
+  "BTNBSHARECHART": "Cliquez pour partager ce diagramme",
+  "BTNCLOSECHART": "Cliquez pour revenir à la page principale",
+  "BTNINFICHART": "Cliquez pour ouvrir le menu d'information",
+  "BTNTABLECHART": "Cliquez pour afficher la table",
+  "BTNPERCENTAGECHART": "Cliquez pour passer en pourcentage",
+  "BTNAGREGATESCHART": "Cliquez pour afficher/masquer les agrégats",
+
+  "ERROR1": "Aucune métadonnée à afficher",
+  "ERROR2": "Aucune donnée à afficher"
+
  
 
 
