@@ -75,6 +75,11 @@ class Chart {
           },   
         },
         legend: this.legend,
+        legend: {          
+          itemHiddenStyle: {
+            color: '#767676'
+          },
+        },
         plotOptions: {
           column: this.columnOptions,
           pie: this.pieOptions,
@@ -104,6 +109,8 @@ class Chart {
 
 
       return chart
+
+      enableScreenREader()
 
     } // end of chart function
     

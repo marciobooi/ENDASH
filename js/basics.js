@@ -674,7 +674,23 @@ function allSeriesAreZero(chartSeries) {
 
 
 
-   
+function enableScreenREader(params) {
+	const titleElement = document.querySelector("text.highcharts-title")
+	if (titleElement) {
+	  titleElement.setAttribute('aria-hidden', 'false');
+	}
+
+	// Find and update the subtitle element
+	const subtitleElement = document.querySelector('text.highcharts-subtitle');
+	if (subtitleElement) {
+	  subtitleElement.setAttribute('aria-hidden', 'false');
+	}
+
+
+	const container = document.querySelector(".highcharts-root")
+
+	container.removeAttribute('aria-hidden');
+  }
 
 
    
