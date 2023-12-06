@@ -4,6 +4,44 @@
 
 
 
+
+
+
+
+
+
+
+
+
+.invisible {
+    visibility: hidden !important;
+}
+
+
+#dropdown-geo-list {
+    height: auto;
+    max-height: 48vh;
+    overflow-x: hidden;
+    width: auto;
+}
+
+
+
+
+option.active {
+    background-color: var(--tool-1);
+    color: white;
+}
+
+
+
+
+/* new */
+
+
+
+
+
 #menu {
     position: relative;
     padding: 0.2rem !important;
@@ -11,6 +49,8 @@
     width: 3rem;
     cursor: pointer;
     border: none;
+    color: var(--tool-1);
+    background-color: transparent;
 }
 
 .btnGroup {
@@ -36,12 +76,12 @@ span.iconText {
 li > button {
     background-color: var(--tool-1) !important;
     border-color: var(--tool-1) !important;
-    width: 2.875rem;
+    width: 2.5rem;
     height: 2.5rem;
     display: flex !important;
     justify-content: center;
     align-items: center;
-    border-radius: 0.4rem !important;
+    font-size: 1.2em !important;
 }
 
 #menuSwitch {
@@ -79,18 +119,9 @@ ul.dropdown-menu.dropdown-menu-end.show {
 }
 
 
-.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
-    text-decoration: none;
-    color: #262626;
-    background-color: lightgray;
-}
-
-
-#menu:hover {
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
 .min-with--nav:hover {
     box-shadow: 0 0 0 0.15rem rgba(49, 132, 253, 0.3);
+    background-color: #082b7a !important;
 }
 
 .form-switch.form-check-reverse {
@@ -106,43 +137,28 @@ dl, ol, ul {
 span.agregates.fa-stack.fa-rotate-180 {
     font-size: .9rem;
 }
-.close-button {
-background-color: var(--tool-1) !important;
-    border-color: var(--tool-1) !important;
-    width: 2.875rem;
-    height: 2.5rem;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.4rem !important;
+
+.round-btn {
+    border-radius: 50%;
 }
 
 
-.dropdown-menu.show {
-    display: block;
-    right: 0;
-}
-
-.invisible {
-    visibility: hidden !important;
-}
-
-
-#dropdown-geo-list {
-    height: auto;
-    max-height: 48vh;
-    overflow-x: hidden;
-    width: auto;
-}
-
-.btnClose {
+#btnCloseModalChart {
     background-color: red !important;
-    border-color: red !important;
+    border-color:red!important;
 }
 
-
-option.active {
-    background-color: var(--tool-1);
-    color: white;
+#btnCloseModalChart:hover {
+    box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.3);
+    background-color: rgb(146, 2, 2) !important;
 }
 
+#btnCloseModalChart:focus {
+    box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.3);
+}
+
+.text-truncate {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}

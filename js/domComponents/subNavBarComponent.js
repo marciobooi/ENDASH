@@ -22,7 +22,7 @@ class SubNavbar {
               
 
               <li class="nav-item dropdown px-1" id="tb-country" role="none">
-                  <button class="btn btn-primary min-with--nav" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+                  <button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
                     <i class="fas fa-globe" aria-hidden="true"></i>
                   </button>
                   <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry"></ul>

@@ -1,8 +1,10 @@
 #menuToolbar {
     background-color: #e9eaeb !important;
-    padding: 0.6rem 1.2rem 0.6rem 1.2rem;
 }
 
+#menu > span {
+    font-size: .8em;
+}
 
 .text-group {
     display: flex;
@@ -11,10 +13,17 @@
     align-content: flex-start;
     align-items: flex-start;
     justify-content: center;
+    padding-left: 1.5rem;
+}
+
+#title, #subtitle {
+    font-size: .8em;
+    color: var(--text-main-color);
+    margin-bottom: 0.2rem;
 }
 
 ul.dropdown-menu {
-    max-width: 19rem;
+    /* max-width: 19rem; */
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -22,7 +31,8 @@ ul.dropdown-menu {
 
 .flag {
     max-width: 25px;
-    height: auto;
+    height: 20px;
+    object-fit: fill;
 }
 
 
