@@ -27,11 +27,23 @@ class SubNavbar {
                   </button>
                   <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry"></ul>
               </li>
+
+
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="btn btn-primary min-with--nav" onclick="tutorial()" title="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">
-                  <i class="fas fa-book-open"></i>
-                  </button>
-                </li>
+              <button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                <i class="fas fa-info"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+                <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+                <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
+                <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter();" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>             		
+                <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook();" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>             		
+                <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn();" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin">${languageNameSpace.labels['linkedin']}</button>             		
+              </ul>
+            </li>
+
+
+     
               </ul>
           </div>`;
 
