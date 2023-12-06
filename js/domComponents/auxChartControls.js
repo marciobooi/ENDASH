@@ -30,12 +30,12 @@ class ChartControls {
 				
 				  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				  <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
-				  <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
+				  <li class="nav-item button px-1" id="toggleLineChart" role="none" style="margin-right: 2rem;"></li>
 				  <li class="nav-item button px-1" id="printChart" role="none"></li>
 				  <li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				  <li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 				  <li class="nav-item button px-1" id="embebedChart" role="none"></li>
-				  <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+				  <li class="nav-item dropdown px-1" id="infoBtnChart" role="none"  style="margin-right: 2rem;">
                   <button class="btn btn-primary min-with--nav" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['BTNINFICHART']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
                     <i class="fas fa-info"></i>
                   </button>
