@@ -183,17 +183,9 @@ class ChartContainer {
       addAuxiliarBarGraphOptions()
       compareCountries()
 
-      log(chartContainer)
-
       $(".containerNav").attr("id", "title")
       .css({'visibility': 'initial', "height": "4rem", "font-size": ".4em"})      
-      .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
-     
-
-      // let content = `<div id="auxChartTitle"><h2 id="title" class="title">title</h2></div>`
-      // chartContainer.append(content);
-
-
+      .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)   
 
       document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
       } 

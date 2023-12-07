@@ -126,7 +126,15 @@ function hideForIframe() {
     
 
 
+    $(".containerNav").attr("id", "title")
+    .css({'visibility': 'initial', "height": "4rem", "font-size": ".4em"})      
+    .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)   
+
+    document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
 
     stopLoadingAnimation()
+
+    REF.share = "false"
+    dataNameSpace.setRefURL();
      
 }
