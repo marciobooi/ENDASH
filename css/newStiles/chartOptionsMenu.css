@@ -109,6 +109,16 @@ a.dropdown-item.selected {
 .toggleMenu {
   display: none !important;
 }
+ul.dropdown-menu {
+  width: 20.3rem;
+  padding-bottom: calc(0.75rem - 1px);
+  padding-top: calc(0.75rem - 1px);
+  border: 1px solid #515560;
+  border-radius: 2px;
+  box-shadow: 0 7px 8px rgb(9 49 142 / 8%), 0 0 22px rgb(9 49 142 / 4%), 0 12px 17px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
+  line-height: 1.15;
+}
+
 
 .close-chart-menu-btn {
   display: flex;
