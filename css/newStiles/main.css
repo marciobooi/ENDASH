@@ -59,6 +59,10 @@ main {
   transform: rotate3d(25.5, -10.5, 6, 127deg);
 }
 
+li {
+  list-style-type: none;
+}
+
 @media screen {
   .highcharts-title {
     display: none;
