@@ -17,7 +17,7 @@
 }
 
 #title, #subtitle {
-    font-size: .8em;
+    /* font-size: .8em; */
     color: var(--text-main-color);
     margin-bottom: 0.2rem;
 }

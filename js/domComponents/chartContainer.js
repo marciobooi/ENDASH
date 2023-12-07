@@ -173,7 +173,7 @@ class ChartContainer {
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         // REF.compare = true
 
-        $(".containerNav").css('visibility', 'hidden')
+       
         Highcharts.charts.forEach(chart => {
           if (chart) {
               chart.reflow();
@@ -182,6 +182,19 @@ class ChartContainer {
 
       addAuxiliarBarGraphOptions()
       compareCountries()
+
+      log(chartContainer)
+
+      $(".containerNav").attr("id", "title")
+      .css({'visibility': 'initial', "height": "4rem", "font-size": ".4em"})      
+      .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
+     
+
+      // let content = `<div id="auxChartTitle"><h2 id="title" class="title">title</h2></div>`
+      // chartContainer.append(content);
+
+
+
       document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
       } 
 
@@ -270,6 +283,7 @@ class ChartContainer {
 
     if (targetElement) {
       targetElement.appendChild(this.target);
+
     } else {
       console.error('Target element not found:', targetElementSelector);
     }
