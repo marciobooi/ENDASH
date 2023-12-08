@@ -9,7 +9,18 @@ class SubNavbar {
   
 
       const notMobileContent = `<div class="container-fluid">
-            <div class="col-8">
+            
+            <div class="col-1">
+            <li class="nav-item dropdown px-1" id="tb-country" role="none">
+            <button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+              <i class="fas fa-globe" aria-hidden="true"></i>
+            </button>
+            <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-start form-control" role="menu" aria-labelledby="selectCountry"></ul>
+        </li>
+            </div>
+      
+      
+            <div class="col-9">
               <div class="text-group">
                 <h2 id="title" class="title"></h2>
               </div>
@@ -17,16 +28,11 @@ class SubNavbar {
 
 
 
-            <div class="col-4">
+            <div class="col-2">
               <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
               
 
-              <li class="nav-item dropdown px-1" id="tb-country" role="none">
-                  <button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
-                    <i class="fas fa-globe" aria-hidden="true"></i>
-                  </button>
-                  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-start form-control" role="menu" aria-labelledby="selectCountry"></ul>
-              </li>
+
 
 
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">

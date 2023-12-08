@@ -1,4 +1,11 @@
-
+#chartControls {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+}
 .navbar-top {
     position: relative;
     display: flex;
