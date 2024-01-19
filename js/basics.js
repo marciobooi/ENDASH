@@ -355,6 +355,8 @@ function chartNormalTooltip(points) {
 
 function tooltipTable(points) {
 
+  log('here')
+
   const decimals = REF.dataset == "demo_pjan" ? 0 : 3
 
   if(REF.percentage == 1 ){
@@ -453,7 +455,7 @@ function getTitle() {
 
 switch (REF.chartType) {
   case "barChart":
-    title = `${languageNameSpace.labels[REF.title] } - all countries - ${REF.year}`
+    title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels['BOX_SELECTION_ALL_COUNTRY']} - ${REF.year}`
     $("#title").html(title)
     break;
   case "pieChart":

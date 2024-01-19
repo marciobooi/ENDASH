@@ -172,6 +172,7 @@ class ChartContainer {
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         // REF.compare = true
+       
 
        
         Highcharts.charts.forEach(chart => {
@@ -188,9 +189,12 @@ class ChartContainer {
       .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)   
 
       document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
-      } 
+      
+      
+    } 
 
-      // dataNameSpace.setRefURL()
+    const $chartContainer = $(chartContainer);
+    $chartContainer.find('.highcharts-credits').css('display', 'initial');    
     
     }
 

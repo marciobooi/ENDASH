@@ -15,7 +15,7 @@ class Navbar {
 
       <div class="col-6 col-lg-9">
         <div id="header-title">
-          <h1 id="header-title-label"></h1>
+          <h1 id="header-title-label">${languageNameSpace.labels['header-title-label']}</h1>
         </div>
       </div>
 

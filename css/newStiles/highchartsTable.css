@@ -1,12 +1,13 @@
 .highcharts-data-table {
-    height: 74vh;
+    height: 77vh;
     overflow: auto;
     /* margin-top: -67px; */
     position: absolute;
     top: 10rem;
     left: 0;
-    margin: 1rem;
+    margin-left: 1rem;
     width: 98vw;
+    z-index: 4;
 }
 
 .highcharts-data-table table {

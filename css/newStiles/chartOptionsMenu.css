@@ -147,9 +147,9 @@ ul.dropdown-menu {
 }
 
 .close-chart-menu-btn:hover, .btn:first-child:active {
-  color: #000;
-  background-color: transparent;
-  border-color: var(--bs-btn-hover-border-color);
+  box-shadow: 0 0 0 0.15rem #cca3004d;
+  background-color: #CCA300!important;
+  border-color: #CCA300 !important;
 }
 
 .close-chart-menu-btn span {
@@ -173,4 +173,6 @@ ul.dropdown-menu {
 }
 
 
-
+text.highcharts-credits {
+  display: none;
+}

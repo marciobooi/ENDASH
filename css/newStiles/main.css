@@ -296,3 +296,12 @@ tr > td:nth-child(2) {
   border-bottom: 2px solid var(--tool-1);
   margin: 5px;
 }
+
+
+#dropdown-geo-list a:nth-child(1) {
+  border-bottom: 2px solid #c7c1c1 !important;
+}
+#dropdown-geo-list a:nth-child(34) {
+  border-bottom: 2px solid #c7c1c1 !important;
+}
+

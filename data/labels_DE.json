@@ -165,7 +165,7 @@
   "BOX_CONSUMER_TITLE": "Verbraucher auswählen",
   "BOX_BAND_TITLE": "Verbrauchsebene auswählen",
   "BOX_MORE_TITLE": "Tutorial",
-  "BOX_SELECTION_ALL_COUNTRY": "Alle Länder auswählen",
+  "BOX_SELECTION_ALL_COUNTRY": "alle Länder",
   "BOX_NORM_DATA": "Zu Prozentzahlen wechseln",
   "BOX_DENORM_DATA": "Zu absoluten Werten wechseln",
   "BOX_NAT_CURRENCY": "Zu Landeswährung wechseln",
@@ -392,6 +392,7 @@
   "BTNTABLECHART": "Klicken Sie, um die Tabelle anzuzeigen",
   "BTNPERCENTAGECHART": "Klicken Sie, um auf Prozent umzuschalten",
   "BTNAGREGATESCHART": "Klicken Sie, um Aggregate ein-/auszublenden",
+  "BTNATABLE": "Klicken Sie, um die Tabelle anzuzeigen/auszublenden",
   "BTNCHANGECOUNTRY": "Klicken Sie, um das Land zu ändern",
 
   "ERROR1": "Keine Metadaten zum Anzeigen",

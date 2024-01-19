@@ -94,8 +94,9 @@ function createLineChart() {
     if (emptyResponse) {nullishChart(); return }
 
    
-    const tooltipFormatter = function () { return tooltipTable(this.points);}; 
-     
+    const tooltipFormatter = function () { return tooltipTable(this.points);};      
+
+    
   
       const chartOptions = {
         containerId: "chart",

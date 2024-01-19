@@ -8,9 +8,7 @@ const chartId = codesDataset[REF.chartId].container
     if (chart) {
       chart.viewData();
    
-      $("table").removeAttr("summary");
-      hideChartMenuOptions()
-     
+      $("table").removeAttr("summary");     
     }
   }, 100);
 }
@@ -19,7 +17,5 @@ function closeTable() {
   const chartId = codesDataset[REF.chartId].container
   $("table").hide();
   $('#'+chartId).show();
-
-    showChartMenuOptions(); 
 
 }

@@ -200,7 +200,7 @@
   "BOX_CONSUMER_TITLE": "Select consumer",
   "BOX_BAND_TITLE": "Select consumption level",
   "BOX_MORE_TITLE": "Tutorial",
-  "BOX_SELECTION_ALL_COUNTRY": "All countries",
+  "BOX_SELECTION_ALL_COUNTRY": "all countries",
   "BOX_NORM_DATA": "Change to percentages",
   "BOX_DENORM_DATA": "Change to absolute values",
   "BOX_NAT_CURRENCY": "Change to national currency",
@@ -414,6 +414,7 @@
  "BTNTABLECHART": "Click to show the table",
  "BTNPERCENTAGECHART": "Click to change to percentage",
  "BTNAGREGATESCHART": "Click to show/Hide aggregates",
+ "BTNATABLE": "Click to show/Hide table",
  "BTNCHANGECOUNTRY": "Click to change countries",
 
 

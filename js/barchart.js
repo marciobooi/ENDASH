@@ -15,17 +15,25 @@ function createBarChart() {
 
   const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit]   
 
-
-  // const xAxis = REF.chartOpt === "compareChart"
+   // const xAxis = REF.chartOpt === "compareChart"
   // ? { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
   // : { categories: categories, labels: REF.compare == true ? {step: 0} : {step: 10} };
 
   const xAxis = { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
 
-
-  const tooltipFormatter = function() {
-    return tooltipTable(this.points) ;
+  const tooltipFormatter = function () {   
+    const unit = REF.unit ;  
+    const formatPointTooltip = function (point) {
+      return `<span style="color:${point.color}">\u25CF</span> ${point.series.name}: ${point.y} ${unit}<br>`;
+    };
+    let tooltipContent = `<b>${this.x}</b><br>`;
+    tooltipContent += this.points.map(formatPointTooltip).join('');
+  
+    return tooltipContent;
   };
+
+
+
 
 
   const chartOptions = {
@@ -121,7 +129,7 @@ $(window).on('resize', function () {
   changeLegendPisition(barChart);
 });
 
-    
+$('.highcharts-credits').css('display', 'initial');  
 
   stopLoadingAnimation()
 }

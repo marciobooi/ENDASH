@@ -63,6 +63,8 @@ function createPieChart() {
 
   stopLoadingAnimation()
 
+  $('.highcharts-credits').css('display', 'initial');    
+
 }
 
 function piechartdata() {

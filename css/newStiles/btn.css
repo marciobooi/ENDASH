@@ -23,6 +23,7 @@
     max-height: 48vh;
     overflow-x: hidden;
     width: auto;
+    margin: 1rem;
 }
 
 
@@ -67,10 +68,15 @@ span.iconText {
 .btnGroup > i {
     font-size: 1.3em;
 }
+#selectCounty {
+    margin-left: 0.6rem;
+}
+
 
 #chartBtns {
     display: flex;
     justify-content: flex-end;
+    padding-right: 1rem;
 }
 
 li > button {
@@ -95,10 +101,12 @@ li > button {
 }
 
 #menuSwitch label {
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.8rem;   
 }
 
+#menuSwitch input[type="checkbox"]:checked + label {
+    font-weight: bold;
+}
 #floatingMenu {
     display: flex;
     position: relative;
@@ -111,17 +119,28 @@ li > button {
 
 button:focus,
 .input:focus {
-    box-shadow: var(--bs-btn-focus-box-shadow);
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
 }
 
 ul.dropdown-menu.dropdown-menu-end.show {
+    margin-top: 1rem;
     z-index: 9999999999;
 }
 
 
 .min-with--nav:hover {
-    box-shadow: 0 0 0 0.15rem rgba(49, 132, 253, 0.3);
-    background-color: #082b7a !important;
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+}
+
+.btn:disabled {
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+    opacity: 0.4;
 }
 
 .form-switch.form-check-reverse {
@@ -144,17 +163,33 @@ span.agregates.fa-stack.fa-rotate-180 {
 
 
 #btnCloseModalChart {
-    background-color: red !important;
-    border-color:red!important;
+    background-color: #ff000000 !important;
+    border-color: #E7EDFA!important;
+    color: #082B7A;
+    border: 3px solid #E7EDFA!important;
+    font-size: 1.7rem !important;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
 }
 
 #btnCloseModalChart:hover {
-    box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.3);
-    background-color: rgb(146, 2, 2) !important;
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+    color: white;
 }
 
 #btnCloseModalChart:focus {
-    box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+    color: white;
 }
 
 .text-truncate {

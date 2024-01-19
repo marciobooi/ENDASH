@@ -11,7 +11,7 @@ function endash(d = null) {
     d = chartEightCalculation(d);
     const yAxisTitle = 'kilograms of oil equivalent';
     const categories = d.Dimension("time").id;
-    buildChart(categories, containerId, yAxisTitle, type);
+    buildChart(categories, containerId, yAxisTitle, type, unit);
   } else {
     d = chartApiCall();
     const series = d.Dimension("time").id;
@@ -20,11 +20,13 @@ function endash(d = null) {
     handleData(d, series, categories);
     const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
 
-    buildChart(categories, containerId, yAxisTitle, type);
+    const unit = REF.unit
+
+    buildChart(categories, containerId, yAxisTitle, type, unit);
   }
 
 }
-function buildChart(categories, containerId, yAxisTitle, type) {
+function buildChart(categories, containerId, yAxisTitle, type, unit) {
 
 
 
@@ -63,6 +65,19 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         return
     }
 
+
+
+    const tooltipFormatter = function () {
+        const formatPointTooltip = function (point) {
+          return `<b>${point.series.name}:</b> ${point.y} ${unit}<br>`;
+        };
+        let tooltipContent = `<b>${this.x}</b><br>`;
+        tooltipContent += this.points.map(formatPointTooltip).join('');
+      
+        return tooltipContent;
+      };
+
+
     // Define the chart options
     const chartOptions = {
         containerId,
@@ -72,8 +87,8 @@ function buildChart(categories, containerId, yAxisTitle, type) {
         xAxis,
         yAxisFormat: '{value:.2f}',
         yAxisTitle,
-        tooltipFormatter: '',
-        creditsText: '',
+        tooltipFormatter: tooltipFormatter,    
+        creditsText: credits(),
         creditsHref: "",
         series: chartSeries,
         colors,
@@ -181,10 +196,10 @@ function chartEightCalculation() {
     return d;
 }
 function compareCountries() {
-    // Ensure that REF.chartId is set appropriately before calling this function
 
-    // Update REF properties based on the selected chartId
     updateREFFromCodesDataset(REF.chartId);
+
+    const unit = REF.unit
 
     switch (REF.chartType) {
         case "barChart":
@@ -202,14 +217,14 @@ function compareCountries() {
                 const d = chartEightCalculation();
                 const yAxisTitle = 'kilograms of oil equivalent';
                 const categories = d.Dimension("time").id;
-                buildChart(categories, REF.containerId, yAxisTitle, chartType);
+                buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);
             } else {               
                 const d = chartApiCall();
                 const series = d.Dimension("time").id;
                 const categories = d.Dimension("time").id;
                 handleData(d, series, categories);
                 const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
-                buildChart(categories, REF.containerId, yAxisTitle, chartType);                
+                buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);                
             }
             break;
     }

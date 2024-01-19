@@ -188,14 +188,14 @@ class FloatingChartControls {
 
     const self = this; 
 
-		const percentageButton = new Button("tb-togle-percentage", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNTABLECHART'], "", "true");
+		const percentageButton = new Button("tb-togle-percentage", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNPERCENTAGECHART'], "", "true");
 		const agregatesButton = new Button("toggleAgregates", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels["BTNAGREGATESCHART"], "", "true");
-		const tableButton = new Button("tb-togle-table", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNTABLECHART'], "", "true");
+		// const tableButton = new Button("tb-togle-table", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNTABLECHART'], "", "true");
 		// const orderButton = new Button("tb-togle-order", ["btn", "btn-primary", "min-with--nav"], "Select order of the chart", "", "true");
 
     percentageButton.setInnerHtml('<i id="percentage-icon" class="fas fa-percentage"></i>');
     agregatesButton.setInnerHtml(agregateIcon())
-    tableButton.setInnerHtml('<i id="table-icon" class="fas fa-table"></i><i id="chart-icon" class="fas fa-chart-bar" style="display: none;"></i>');
+    // tableButton.setInnerHtml('<i id="table-icon" class="fas fa-table"></i><i id="chart-icon" class="fas fa-chart-bar" style="display: none;"></i>');
     // orderButton.setInnerHtml('<i class="fas fa-sort-amount-down"></i>');
 
     percentageButton.setClickHandler(function() {
@@ -206,19 +206,19 @@ class FloatingChartControls {
       self.toggleChartAgregates(); // Call the class method using the stored reference
     });
 
-    tableButton.setClickHandler(function() {
-      self.toggleIcons(); // Call the class method using the stored reference
-    });
+    // tableButton.setClickHandler(function() {
+    //   self.toggleIcons(); // Call the class method using the stored reference
+    // });
 
     const percentageElement = percentageButton.createButton();
     const agregatesElement = agregatesButton.createButton();
-    const tableElement = tableButton.createButton();
+    // const tableElement = tableButton.createButton();
     // const orderElement = orderButton.createButton();
     
 
     document.getElementById("togglePercentage").appendChild(percentageElement);
     document.getElementById("Agregates").appendChild(agregatesElement);
-    document.getElementById("toggleTable").appendChild(tableElement);
+    // document.getElementById("toggleTable").appendChild(tableElement);
 
   }
 

@@ -170,7 +170,7 @@
   "BOX_CONSUMER_TITLE": "Sélectionner consommateur",
   "BOX_BAND_TITLE": "Sélectionner niveau de consommation",
   "BOX_MORE_TITLE": "Tutoriel",
-  "BOX_SELECTION_ALL_COUNTRY": "Tous les pays",
+  "BOX_SELECTION_ALL_COUNTRY": "tous les pays",
   "BOX_NORM_DATA": "Changer en percentages",
   "BOX_DENORM_DATA": "Changer en valeurs absolues",
   "BOX_NAT_CURRENCY": "Changer en devise nationale",
@@ -398,6 +398,7 @@
   "BTNTABLECHART": "Cliquez pour afficher la table",
   "BTNPERCENTAGECHART": "Cliquez pour passer en pourcentage",
   "BTNAGREGATESCHART": "Cliquez pour afficher/masquer les agrégats",
+  "BTNATABLE": "Cliquez pour afficher/masquer la table",
   "BTNCHANGECOUNTRY": "Cliquez pour changer de pays",
 
 

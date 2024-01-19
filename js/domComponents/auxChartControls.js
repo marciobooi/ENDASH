@@ -14,7 +14,7 @@ class ChartControls {
 
 				<div>
 					<li class="nav-item dropdown px-1" id="tb-country" role="none">
-						<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+						<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="${languageNameSpace.labels['MENU_COUNTRY']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['MENU_COUNTRY']}" aria-haspopup="true" aria-expanded="false" id="selectCounty">
 							<i class="fas fa-globe" aria-hidden="true"></i>
 						</button>
 						<ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-start form-control" role="menu" aria-labelledby="selectCountry"></ul>
@@ -25,7 +25,8 @@ class ChartControls {
 					<ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 						<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 						<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
-						<li class="nav-item button px-1" id="toggleLineChart" role="none" style="margin-right: 2rem;"></li>
+						<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
+						<li class="nav-item button px-1" id="toggleAuxTable" role="none" style="margin-right: 2rem;"></li>
 						<li class="nav-item button px-1" id="printChart" role="none"></li>
 						<li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 						<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
@@ -57,7 +58,7 @@ class ChartControls {
 			<div class="menu d-none">
 			  <ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 			  <li class="nav-item dropdown px-1" id="tb-country" role="none">
-			  <button class="btn btn-primary min-with--nav" type="button" aria-label="Select country" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="false" id="selectCounty">
+			  <button class="btn btn-primary min-with--nav" type="button" aria-label="${languageNameSpace.labels['MENU_COUNTRY']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['MENU_COUNTRY']}" aria-haspopup="true" aria-expanded="false" id="selectCounty">
 				<i class="fas fa-globe" aria-hidden="true"></i>
 			  </button>
 			  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry" ></ul>
@@ -108,6 +109,7 @@ class ChartControls {
 		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
 		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
 		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
+		const table = new Button("toggleTableBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], "Toggle table", "table", "false");
 		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNPRINTCHART'], "false");
 		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
 		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
@@ -118,6 +120,7 @@ class ChartControls {
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');
 		pieChart.setInnerHtml('<i class="fas fa-chart-pie"></i>');
 		lineChart.setInnerHtml('<i class="fas fa-chart-line"></i>');
+		table.setInnerHtml('<i class="fas fa-table"></i>');
 		createprintChart.setInnerHtml('<i class="fas fa-print"></i>');
 		downloadChart.setInnerHtml('<i class="fas fa-download"></i>');
 		downloadExcel.setInnerHtml('<i class="fas fa-file-excel"></i>');
@@ -154,6 +157,42 @@ class ChartControls {
 			compareCountries();
 
 		});
+		table.setClickHandler(function() {		
+	
+
+			const tableBtn = document.querySelector("#toggleTableBtn");
+			const tableIcon = document.querySelector("#toggleTableBtn > i");
+			
+			if (tableIcon.classList.contains("fa-table")) {
+				tableIcon.classList.remove("fa-table");
+				tableIcon.classList.add("fa-chart-bar");
+			
+				tableBtn.setAttribute('aria-label', 'Toggle chart');
+				tableBtn.setAttribute('title', 'Toggle chart');
+
+				const chartsBtn = ["barChart", "pieChart", "lineChart"];  
+				chartsBtn.forEach(chart => {$("#" + chart).attr("disabled", "disabled")})	
+
+				$('#floatingMenu').css('display','none')
+			
+				openVizTable();
+
+				tableBtn.focus();
+			} else {
+				tableIcon.classList.remove("fa-chart-bar");
+				tableIcon.classList.add("fa-table");
+			
+				tableBtn.setAttribute('aria-label', 'Toggle table');
+				tableBtn.setAttribute('title', 'Toggle table');
+			
+				closeTable();
+
+				disableChatOptionsBtn(REF.chartId)		
+				$('#floatingMenu').css('display','flex')		
+
+				tableBtn.focus();
+			}			
+		});
 		createprintChart.setClickHandler(function() {
 			exportHandling(this.id);
 		});
@@ -176,6 +215,7 @@ class ChartControls {
 			const barChartElement = barChart.createButton();
 			const pieChartElement = pieChart.createButton();
 			const lineChartElement = lineChart.createButton();
+			const tableChartElement = table.createButton();
 			const printChartElement = createprintChart.createButton();
 			const downloadChartElement = downloadChart.createButton();
 			const downloadExcelElement = downloadExcel.createButton();
@@ -187,6 +227,7 @@ class ChartControls {
 			document.getElementById("toggleBarChart").appendChild(barChartElement);
 			document.getElementById("togglePieChart").appendChild(pieChartElement);
 			document.getElementById("toggleLineChart").appendChild(lineChartElement);
+			document.getElementById("toggleAuxTable").appendChild(tableChartElement);
 			document.getElementById("printChart").appendChild(printChartElement);
 			document.getElementById("downloadChart").appendChild(downloadChartElement);
 			document.getElementById("downloadExcel").appendChild(downloadExcelElement);
