@@ -86,7 +86,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         creditsText: credits(),
         creditsHref: "",
         series: chartSeries,
-        colors,
+        colors: colors,
         legend: {},
         seriesOptions,
     };
