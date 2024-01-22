@@ -64,8 +64,8 @@ class Chart {
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
           useHTML: true,    
-          padding: 5,          
-          backgroundColor: "rgba(255,255,255,0.8)",   
+          padding: 0,          
+          // backgroundColor: "rgba(255,255,255,0.8)",   
         },
         credits: {
           text: this.creditsText,

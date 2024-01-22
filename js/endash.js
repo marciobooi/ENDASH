@@ -11,6 +11,7 @@ function endash(d = null) {
     d = chartEightCalculation(d);
     const yAxisTitle = 'kilograms of oil equivalent';
     const categories = d.Dimension("time").id;
+    const unit = REF.unit
     buildChart(categories, containerId, yAxisTitle, type, unit);
   } else {
     d = chartApiCall();
@@ -68,14 +69,33 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
 
 
     const tooltipFormatter = function () {
-        const formatPointTooltip = function (point) {
-          return `<b>${point.series.name}:</b> ${point.y} ${unit}<br>`;
-        };
-        let tooltipContent = `<b>${this.x}</b><br>`;
-        tooltipContent += this.points.map(formatPointTooltip).join('');
+        // Assuming there is a variable 'unit' representing the unit you want to display
+        const unit = REF.unit; // Replace 'your_unit' with the actual unit
+        const na = languageNameSpace.labels['FLAG_NA'];
       
-        return tooltipContent;
+        const formatPointTooltip = function (point) {
+            return `<tr class="tooltipTableRow"><td>${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
+          };
+      
+        // Construct the complete tooltip content
+        const tooltipRows = this.points.map(formatPointTooltip).join('');
+        
+        // Create the HTML table structure
+        const html = `<table id="tooltipTable" class="table tooltipTable"> 
+          <thead class="tooltipTableHead">
+            <tr class="tooltipTableTr">
+              <th scope="col" colspan="2">${this.x}</th>                
+            </tr>
+          </thead>
+          <tbody>
+          ${tooltipRows}
+            
+          </tbody>
+        </table>`;
+      
+        return html;
       };
+      
 
 
     // Define the chart options

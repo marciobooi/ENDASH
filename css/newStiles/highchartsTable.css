@@ -1,13 +1,6 @@
 .highcharts-data-table {
     height: 77vh;
     overflow: auto;
-    /* margin-top: -67px; */
-    position: absolute;
-    top: 10rem;
-    left: 0;
-    margin-left: 1rem;
-    width: 98vw;
-    z-index: 4;
 }
 
 .highcharts-data-table table {
@@ -17,7 +10,7 @@
     min-width: 100%;
     margin-top: 10px;
     font-family: sans-serif;
-    font-size: 0.4em;
+    font-size: 0.9em;
 }
 .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
     border: 1px solid silver;
@@ -40,6 +33,7 @@
     line-height: inherit !important;
     border-collapse: inherit !important;
     margin-bottom: 0 !important;
+    background-color: #fff;
 }
 
 tbody, td, tfoot, th, thead, tr {
@@ -52,14 +46,48 @@ tbody, td, tfoot, th, thead, tr {
     border-bottom: 0;
   }
 
-.table > :not(caption) > * > * {
-    padding: 0.2rem 0.2rem;
+  #tooltipTable > :not(caption) > * > * {
+    padding: 8px !important;
+    color: initial;
 }
 
-tbody > tr > th.highcharts-text {
-    font-size: 0.9em;
+
+
+#tooltipTable > :not(caption) > * > * {
+    padding: 8px !important;
 }
 
-td.highcharts-number {
+.tooltipTable{
+    border:1px solid #515560;
+    background-color: #fff;
+    color:#fff
+}
+
+.tooltipTableHead, #tooltipTable > thead > tr > th {
+    background-color: #515560;
+    font-size: 14px;
+    padding: 2px 5px;
+    text-align: left;
+    color: white;
+
+}
+
+
+tr.tooltipTableTr {
+    font-size: 16px;
+    color: white;
+}
+
+#tooltipTable > thead > tr > th {
+    text-align: center;
+    color: white !important;
+}
+
+#tooltipTable > tbody > tr > td {
     text-align: end;
+}
+
+
+#tooltipTable > tbody > tr > td:first-child {
+    text-align: start;
 }

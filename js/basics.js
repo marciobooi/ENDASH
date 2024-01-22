@@ -351,6 +351,25 @@ function chartNormalTooltip(points) {
   const na = languageNameSpace.labels['FLAG_NA'];
   const title = REF.chartId==="lineChart" ?  points[0].key : points[0].x
   return this.y == 0 ? `<b>${title}<br>Total: <b>${na}</b>` : `<b>${title}<br>Total: <b>${value}</b> ${unit}`;
+
+  html += `<table id="tooltipTable" class="table tooltipTable"> 
+  <thead class="tooltipTableHead">
+    <tr class="tooltipTableTr">
+        <th scope="cols" colspan="2">${title}</th>                
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="tooltipTableTd">
+        <td><b>${toolValue}</b> ${unit}</td>
+    </tr>
+  </tbody>
+</table>`;
+
+
+  return html
+
+
+
 }
 
 function tooltipTable(points) {
