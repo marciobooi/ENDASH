@@ -68,33 +68,8 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
 
 
 
-    const tooltipFormatter = function () {
-        // Assuming there is a variable 'unit' representing the unit you want to display
-        const unit = REF.unit; // Replace 'your_unit' with the actual unit
-        const na = languageNameSpace.labels['FLAG_NA'];
-      
-        const formatPointTooltip = function (point) {
-            return `<tr class="tooltipTableRow"><td>${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
-          };
-      
-        // Construct the complete tooltip content
-        const tooltipRows = this.points.map(formatPointTooltip).join('');
-        
-        // Create the HTML table structure
-        const html = `<table id="tooltipTable" class="table tooltipTable"> 
-          <thead class="tooltipTableHead">
-            <tr class="tooltipTableTr">
-              <th scope="col" colspan="2">${this.x}</th>                
-            </tr>
-          </thead>
-          <tbody>
-          ${tooltipRows}
-            
-          </tbody>
-        </table>`;
-      
-        return html;
-      };
+
+
       
 
 
@@ -107,7 +82,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         xAxis,
         yAxisFormat: '{value:.2f}',
         yAxisTitle,
-        tooltipFormatter: tooltipFormatter,    
+        tooltipFormatter: tooltip,    
         creditsText: credits(),
         creditsHref: "",
         series: chartSeries,

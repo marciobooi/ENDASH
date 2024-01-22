@@ -21,18 +21,16 @@ function createBarChart() {
 
   const xAxis = { categories: categories.map(category => languageNameSpace.labels[category]), labels: { step: 0 } }
 
-  const tooltipFormatter = function () {   
-    const unit = REF.unit ;  
-    const formatPointTooltip = function (point) {
-      return `<span style="color:${point.color}">\u25CF</span> ${point.series.name}: ${point.y} ${unit}<br>`;
-    };
-    let tooltipContent = `<b>${this.x}</b><br>`;
-    tooltipContent += this.points.map(formatPointTooltip).join('');
+  // const tooltipFormatter = function () {   
+  //   const unit = REF.unit ;  
+  //   const formatPointTooltip = function (point) {
+  //     return `<span style="color:${point.color}">\u25CF</span> ${point.series.name}: ${point.y} ${unit}<br>`;
+  //   };
+  //   let tooltipContent = `<b>${this.x}</b><br>`;
+  //   tooltipContent += this.points.map(formatPointTooltip).join('');
   
-    return tooltipContent;
-  };
-
-
+  //   return tooltipContent;
+  // };
 
 
 
@@ -44,7 +42,7 @@ function createBarChart() {
     xAxis: xAxis,
     yAxisFormat: '{value:.2f}',
     yAxisTitle:  yAxisTitle,
-    tooltipFormatter: tooltipFormatter,
+    tooltipFormatter: tooltip,
     creditsText: credits(),
     creditsHref: "",
     series: chartSeries,

@@ -344,37 +344,42 @@ function hideChartMenuOptions() {
 // }
 
 
-
-function chartNormalTooltip(points) {
-  const value = Highcharts.numberFormat(points[0].y, 4);
-  const unit = `${languageNameSpace.labels["S_" + REF.currency]}/${languageNameSpace.labels["S_" + REF.unit]}`;
+tooltip = function () {
+ 
+  // Assuming there is a variable 'unit' representing the unit you want to display
+  const unit = REF.unit; // Replace 'your_unit' with the actual unit
   const na = languageNameSpace.labels['FLAG_NA'];
-  const title = REF.chartId==="lineChart" ?  points[0].key : points[0].x
-  return this.y == 0 ? `<b>${title}<br>Total: <b>${na}</b>` : `<b>${title}<br>Total: <b>${value}</b> ${unit}`;
 
-  html += `<table id="tooltipTable" class="table tooltipTable"> 
-  <thead class="tooltipTableHead">
-    <tr class="tooltipTableTr">
-        <th scope="cols" colspan="2">${title}</th>                
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="tooltipTableTd">
-        <td><b>${toolValue}</b> ${unit}</td>
-    </tr>
-  </tbody>
-</table>`;
+  const formatPointTooltip = function (point) {
+    if(REF.chartType === "pieChart") {
+        return `<tr class="tooltipTableRow"><td><span style="color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
+      } else {
+        return `<tr class="tooltipTableRow"><td><span style="color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
+      }      
+    };
 
+  // Construct the complete tooltip content
+  const tooltipRows = REF.chartType === "pieChart" ? formatPointTooltip(this.point) : this.points.map(formatPointTooltip).join('');
+  
+  // Create the HTML table structure
+  const html = `<table id="tooltipTable" class="table tooltipTable"> 
+    <thead class="tooltipTableHead">
+      <tr class="tooltipTableTr">
+        <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>                
+      </tr>
+    </thead>
+    <tbody>
+    ${tooltipRows}
+      
+    </tbody>
+  </table>`;
 
-  return html
-
-
+  return html;   
 
 }
 
-function tooltipTable(points) {
 
-  log('here')
+function tooltipTable(points) {
 
   const decimals = REF.dataset == "demo_pjan" ? 0 : 3
 

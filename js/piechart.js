@@ -28,6 +28,16 @@ function createPieChart() {
       },
   } 
 
+
+  function pieChartNormalTooltip(point) {
+    const unit = REF.unit;
+    const na = languageNameSpace.labels['FLAG_NA'];
+
+    return `<b>${point.name}:</b> ${point.y} ${unit}<br>`;
+}
+
+
+
    const chartOptions = {
     containerId: containerId,
     type: "pie",
@@ -35,7 +45,7 @@ function createPieChart() {
     subtitle: null,
     xAxis: null,
     yAxisFormat: "",
-    tooltipFormatter: "",
+    tooltipFormatter: tooltip,
     creditsText: credits(),
     creditsHref: "",
       series: [{
