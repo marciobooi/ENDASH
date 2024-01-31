@@ -257,7 +257,6 @@ function removeAuxiliarBarGraphOptions() {
 
   getTitle()
 
-
   $(".containerNav").css('visibility', 'initial')
 }
 
@@ -352,9 +351,9 @@ tooltip = function () {
 
   const formatPointTooltip = function (point) {
     if(REF.chartType === "pieChart") {
-        return `<tr class="tooltipTableRow"><td><span style="color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
       } else {
-        return `<tr class="tooltipTableRow"><td><span style="color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
       }      
     };
 
@@ -362,18 +361,18 @@ tooltip = function () {
   const tooltipRows = REF.chartType === "pieChart" ? formatPointTooltip(this.point) : this.points.map(formatPointTooltip).join('');
   
   // Create the HTML table structure
-  const html = `<table id="tooltipTable" class="table tooltipTable"> 
-    <thead class="tooltipTableHead">
-      <tr class="tooltipTableTr">
-        <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>                
-      </tr>
-    </thead>
-    <tbody>
-    ${tooltipRows}
-      
-    </tbody>
+  const html = `
+  
+  <table class="table_component">
+      <thead>
+          <tr>
+            <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>   
+          </tr>
+      </thead>
+      <tbody>       
+          ${tooltipRows}        
+      </tbody>
   </table>`;
-
   return html;   
 
 }
@@ -472,10 +471,16 @@ function tooltipTable(points) {
   }
 }
 
-function getTitle() {
+function getTitle(yAxisTitle) {
 
   const titleElement = $(`#${containerId}`).prev();
+
   let title
+  let unit = yAxisTitle
+
+  const btn = `<button id="expandChart" class="btn btn-primary min-with--nav round-btn" aria-label="Click to expand the chart" title="Click to expand the chart">
+                <i class="fas fa-expand-alt" aria-hidden="true"></i>
+              </button>`
 
 switch (REF.chartType) {
   case "barChart":
@@ -489,6 +494,7 @@ switch (REF.chartType) {
 
   default:
       title = `${languageNameSpace.labels[REF.title]}`   
+      unit = `${unit}`
       if(REF.chartExpanded == true) {
         $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
       } else {
@@ -497,7 +503,16 @@ switch (REF.chartType) {
       
     break;
 }
-titleElement.text(title)
+  titleElement.html(`<div class="textGroup">
+  <h2>${title}</h2><p>${unit}</p></div>`).append(btn);
+
+
+  if ($('.chartContainer').hasClass('expand')) {
+    $("#expandChart").css('display', 'none');
+} else {
+    $("#expandChart").css('display', 'initial');
+}
+
   return title;
  
 }
@@ -716,6 +731,7 @@ function enableScreenREader(params) {
 	const container = document.querySelector(".highcharts-root")
 
 	container.removeAttribute('aria-hidden');
+  
   }
 
 

@@ -53,7 +53,7 @@ class Chart {
             style: {             
               wordWrap:'break-word',
               step:1,
-              width : "200px"
+              width : "200px",
             }   
           },
 
@@ -64,8 +64,7 @@ class Chart {
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
           useHTML: true,    
-          padding: 0,          
-          // backgroundColor: "rgba(255,255,255,0.8)",   
+          padding: 0,         
         },
         credits: {
           text: this.creditsText,

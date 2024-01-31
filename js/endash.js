@@ -56,7 +56,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
     };
 
     // Get the chart title
-    const title = getTitle();
+    const title = getTitle(yAxisTitle);
 
     if (allSeriesAreZero(chartSeries)) {
         // Call the nullishChart() function when all series have zero values
@@ -64,14 +64,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         // log(containerId, true)
         nullishChart(containerId, chartSeries)
         return
-    }
-
-
-
-
-
-      
-
+    }      
 
     // Define the chart options
     const chartOptions = {
@@ -96,9 +89,11 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
     lineChart = customChart.createChart();
 
     const chartElement = $("#" + REF.chartId);
-    const isExpanded = chartElement.hasClass("expand");
+    var isExpanded = chartElement.hasClass("expand");
 
     lineChart.update({ legend: isExpanded ? legendSmall : legendHide }, true);
+
+
 }
 
 function handleData(d, series, categories ) {

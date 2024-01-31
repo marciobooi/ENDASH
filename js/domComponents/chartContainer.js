@@ -172,7 +172,6 @@ class ChartContainer {
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         // REF.compare = true
-       
 
        
         Highcharts.charts.forEach(chart => {
@@ -195,6 +194,7 @@ class ChartContainer {
 
     const $chartContainer = $(chartContainer);
     $chartContainer.find('.highcharts-credits').css('display', 'initial');    
+    $('text.highcharts-axis-title').css('display', 'initial')
     
     }
 

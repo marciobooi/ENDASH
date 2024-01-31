@@ -37,10 +37,11 @@ body {
 }
 
 main {
-  height: 90vh;
+  /* height: 90vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 /* #page {
@@ -91,8 +92,9 @@ li {
 }
 
 .flex-item {
+  position: relative;
   padding: 5px;
-  max-width: 26rem;
+  width: 26rem;
   height: 23rem;
   margin-top: 10px;
   color: black;
@@ -101,8 +103,9 @@ li {
   flex: 1 0 auto;
   margin: 0.5rem;
   transition: opacity 0.3s ease;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
-  border-radius: 10px;
+  box-shadow: 0 2px 4px rgb(9 49 142 / 8%), 0 0 10px rgb(9 49 142 / 4%), 0 4px 5px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
+  border-radius: 5px;
+  border: 1px solid #d3d3d378;
 }
 
 .flex-item:hover {
@@ -163,24 +166,40 @@ li {
 .containerNav {
   display: flex;
   align-items: flex-start;
-  font-size: 1.3rem;
+  font-size: initial;
   padding: 0.5rem;
   margin-bottom: 1rem;
   text-align: left;
-  height: 6rem;
-  font-weight: bold;
+  justify-content: space-between;
+}
+
+.textGroup h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0;
+}
+.textGroup p {
+  font-size: .9em;
+  font-weight: 200;
+  margin: 0;
 }
 
 
 .highchartsContainer {
   width: 25rem;
-  height: 14rem;
+  height: 16rem;
   margin: 0 auto;
 }
+.chartContainer:not(.expand) > .highchartsContainer { 
+  position: absolute;
+  bottom: 0;
+  width: 97%;
+}
+
 
 .highchartsContainerExpand {
   width: auto;
-  height: 60vh;
+  height: 55vh;
   margin: 0 auto;
 }
 
@@ -290,6 +309,10 @@ tr > td:nth-child(2) {
   width: 2rem !important;
 }
 
+text.highcharts-axis-title {
+  display: none ;
+}
+
 .geo-dropdown-wrapper {
   height: 23rem;
   overflow: hidden;
@@ -305,3 +328,6 @@ tr > td:nth-child(2) {
   border-bottom: 2px solid #c7c1c1 !important;
 }
 
+.row {
+  align-items: center;
+}

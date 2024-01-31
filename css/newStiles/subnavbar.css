@@ -1,5 +1,5 @@
 #menuToolbar {
-    background-color: #e9eaeb !important;
+    background-color: #004494!important;    
 }
 
 #menu > span {
@@ -18,7 +18,7 @@
 
 #title, #subtitle {
     /* font-size: .8em; */
-    color: var(--text-main-color);
+    color: white;
     margin-bottom: 0.2rem;
 }
 
