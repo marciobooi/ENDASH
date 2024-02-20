@@ -23,7 +23,7 @@ const formElement = createForm(actionURL, nextURL);
 formElement.addEventListener("submit", handleFormSubmit);
 document.getElementById("hiddenFormDiv").appendChild(formElement);
 
-initenprices()
+initEndash()
 
 
 })

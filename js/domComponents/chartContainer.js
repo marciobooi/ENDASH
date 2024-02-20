@@ -195,6 +195,7 @@ class ChartContainer {
     const $chartContainer = $(chartContainer);
     $chartContainer.find('.highcharts-credits').css('display', 'initial');    
     $('text.highcharts-axis-title').css('display', 'initial')
+    getTitle()
     
     }
 

@@ -478,7 +478,7 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button id="expandChart" class="btn btn-primary min-with--nav round-btn" aria-label="Click to expand the chart" title="Click to expand the chart">
+  const btn = `<button id="expandChart" class="ecl-button ecl-button--primary round-btn" aria-label="Click to expand the chart" title="Click to expand the chart">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`
 

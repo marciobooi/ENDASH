@@ -160,7 +160,16 @@ span.agregates.fa-stack.fa-rotate-180 {
 .round-btn {
     border-radius: 50%;
 }
+.containerNav > .round-btn {
+    border-radius: 50%;
+    background-color: rgba(14,71,203,.5);
+    color: hsla(0,0%,100%,.5);
+}
 
+.ecl-button--primary:active, .ecl-button--primary:hover {
+    background-color: #3e6cd5;
+    color: #ffffff;
+}
 
 #btnCloseModalChart {
     background-color: #ff000000 !important;

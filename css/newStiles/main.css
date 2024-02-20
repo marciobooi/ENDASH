@@ -173,6 +173,8 @@ li {
   justify-content: space-between;
 }
 
+
+
 .textGroup h2 {
   font-size: 1.2em;
   font-weight: 600;
@@ -195,7 +197,9 @@ li {
   bottom: 0;
   width: 97%;
 }
-
+.chartContainer.expand .containerNav .textGroup h2 {
+  color: #004494;
+}
 
 .highchartsContainerExpand {
   width: auto;

@@ -1,7 +1,7 @@
 
 
 
-function initenprices(d = null) {
+function initEndash(d = null) {
  
   languageNameSpace.initLanguage(REF.language);
 
@@ -23,7 +23,7 @@ function initenprices(d = null) {
   + "<div>"
   + "</div>"
 
-  
+  ECL.autoInit();
 }
 
 function createForm(actionURL, nextURL) {
