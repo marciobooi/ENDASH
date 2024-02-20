@@ -49,7 +49,7 @@ var languageNameSpace = {
     
     $("#title").html(languageNameSpace.labels[REF.chartId]);
 
-    const elementsBtn = ["selectCounty", "barChart", "pieChart",  "lineChart",  "toggleAgregates",  "tb-togle-percentage",  "tb-togle-table",   
+    const elementsBtn = [ "barChart", "pieChart",  "lineChart",  "toggleAgregates",  "tb-togle-percentage",  "tb-togle-table",   
     "printBtn",  "downloadBtn",  "excelBtn",  "embebedBtn",  "btnCloseModalChart", "infoBtn" ]
 
     const elementsBtnTranslations = [
@@ -68,7 +68,7 @@ var languageNameSpace = {
       element.html(languageNameSpace.labels[id.substring(1)]);
     });
 
-    $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
+    // $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
 
 
 
@@ -98,7 +98,7 @@ setTimeout(() => {
 
     REF.chartExpanded === true ? endash() : (removeComponents(), buildComponents(), compareCountries());
     
-    $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
+    // $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
     $("#barChart").attr("title", languageNameSpace.labels["BTNBARCHART"]).attr("aria-label", languageNameSpace.labels["BTNBARCHART"]);
     $("#pieChart").attr("title", languageNameSpace.labels["BTNPIECHART"]).attr("aria-label", languageNameSpace.labels["BTNPIECHART"]);
     $("#lineChart").attr("title", languageNameSpace.labels["BTNLINECHART"]).attr("aria-label", languageNameSpace.labels["BTNLINECHART"]);

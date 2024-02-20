@@ -68,10 +68,6 @@ span.iconText {
 .btnGroup > i {
     font-size: 1.3em;
 }
-#selectCounty {
-    margin-left: 0.6rem;
-}
-
 
 #chartBtns {
     display: flex;
@@ -117,12 +113,12 @@ li > button {
     list-style-type: none;
 }
 
-button:focus,
+/* button:focus,
 .input:focus {
     box-shadow: 0 0 0 0.15rem #cca3004d;
     background-color: #CCA300!important;
     border-color: #CCA300 !important;
-}
+} */
 
 ul.dropdown-menu.dropdown-menu-end.show {
     margin-top: 1rem;
@@ -133,14 +129,12 @@ ul.dropdown-menu.dropdown-menu-end.show {
 .min-with--nav:hover {
     box-shadow: 0 0 0 0.15rem #cca3004d;
     background-color: #CCA300!important;
-    border-color: #CCA300 !important;
+    /* border-color: #CCA300 !important; */
 }
 
 .btn:disabled {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    opacity: 0.4;
+    background-color: rgba(14,71,203,.5);
+    color: hsla(0,0%,100%,.5);
 }
 
 .form-switch.form-check-reverse {
@@ -170,37 +164,6 @@ span.agregates.fa-stack.fa-rotate-180 {
     background-color: #3e6cd5;
     color: #ffffff;
 }
-
-#btnCloseModalChart {
-    background-color: #ff000000 !important;
-    border-color: #E7EDFA!important;
-    color: #082B7A;
-    border: 3px solid #E7EDFA!important;
-    font-size: 1.7rem !important;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    width: 2.7rem;
-    height: 2.7rem;
-}
-
-#btnCloseModalChart:hover {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    color: white;
-}
-
-#btnCloseModalChart:focus {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    color: white;
-}
-
 .text-truncate {
     overflow: hidden !important;
     white-space: nowrap !important;

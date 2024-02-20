@@ -7,21 +7,11 @@ class ChartControls {
 	  select.classList.add("form-select", "mx-2");
 	  select.setAttribute("aria-label", "Select flow");
   
-	  const notMobileContent = `
-		<div class="container-fluid">
-		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navbar-light bg-light navChartControls">
-			<div class="container-fluid">
+	  const notMobileContent = /*html*/`
 
-				<div>
-					<li class="nav-item dropdown px-1" id="tb-country" role="none">
-						<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="${languageNameSpace.labels['MENU_COUNTRY']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['MENU_COUNTRY']}" aria-haspopup="true" aria-expanded="false" id="selectCounty">
-							<i class="fas fa-globe" aria-hidden="true"></i>
-						</button>
-						<ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-start form-control" role="menu" aria-labelledby="selectCountry"></ul>
-					</li>	
-				</div>
-
+		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navbar-light bg-light navChartControls">			
 				<div class="menu">
+
 					<ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 						<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 						<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
@@ -32,21 +22,21 @@ class ChartControls {
 						<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 						<li class="nav-item button px-1" id="embebedChart" role="none"></li>
 						<li class="nav-item dropdown px-1" id="infoBtnChart" role="none"  style="margin-right: 2rem;">
-						<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['BTNINFICHART']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-							<i class="fas fa-info"></i>
-						</button>
-						<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-							<!-- <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button> -->
-							<button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
-							<button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
-						</ul>
+							<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['BTNINFICHART']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+								<i class="fas fa-info"></i>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+								<button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
+								<button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
+							</ul>
 						</li>
-						<li class="nav-item button px-1" id="closeChart" role="none"></li>
+						<li class="nav-item button" id="closeChart" role="none"></li>
 					</ul>
-				</div>
+
+			
 			</div>
 		  </nav>
-		</div>`;
+		`;
   
 	  const mobileContent = `
 		<div id="chartOptions">
@@ -55,14 +45,7 @@ class ChartControls {
 			  <i class="fas fa-ellipsis-h"></i>
 			  <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>
 			</button>
-			<div class="menu d-none">
-			  <ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-			  <li class="nav-item dropdown px-1" id="tb-country" role="none">
-			  <button class="btn btn-primary min-with--nav" type="button" aria-label="${languageNameSpace.labels['MENU_COUNTRY']}" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['MENU_COUNTRY']}" aria-haspopup="true" aria-expanded="false" id="selectCounty">
-				<i class="fas fa-globe" aria-hidden="true"></i>
-			  </button>
-			  <ul id="dropdown-geo-list" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="selectCountry" ></ul>
-			  </li>				
+			<div class="menu d-none">	
 			  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
@@ -236,39 +219,7 @@ class ChartControls {
 
 
 
-          // Handle desktop-specific logic
-          const geoDropdown = this.controls.querySelector('#dropdown-geo-list');
 
-          geoDropdown.innerHTML = ''  
-
-          defaultGeos.forEach(geo => {
-            const content = document.createElement('a');
-            content.setAttribute('role', 'menuitem');
-            content.classList.add('dropdown-item', 'd-flex', 'justify-content-between', 'align-items-center');
-            if (REF.geos.includes(geo)) { // Check if `geo` is in the `REF.geos` array
-              content.classList.add('active');
-            }
-            content.href = '#';
-            content.setAttribute('data-geo', geo);
-            content.setAttribute('data-bs-toggle', 'button');
-            
-            const innerContent = document.createElement('span');
-            const flagImage = document.createElement('img');
-            flagImage.classList.add('flag', 'me-2');
-            flagImage.src = `img/country_flags/${geo.toLowerCase()}.webp`;
-            flagImage.alt = '';
-            
-            const labelText = document.createTextNode(languageNameSpace.labels[geo]);
-            
-            innerContent.appendChild(flagImage);
-            innerContent.appendChild(labelText);
-            content.appendChild(innerContent);
-            
-            geoDropdown.appendChild(content);
-          });
-          
-	
-          	this.countriesHandler(geoDropdown);
 			lineChart.setDisabled(true);
 	}
   
@@ -313,8 +264,7 @@ class ChartControls {
 		}
 	  }
 	  $("#menuToolbar").toggle();
-	//   showMenuSwitch();
-	//   REF.compare = false
+
 	}
   }
   
@@ -323,7 +273,6 @@ class ChartControls {
 	const btns = ["barChart", "pieChart", "lineChart"];  
 	btns.forEach(btn => {
     REF.chartType === btn ? $("#" + btn).prop("disabled", true) : $("#" + btn).prop("disabled", false)
-	REF.chartType === "barChart" ? $('#selectCounty').prop("disabled", true) : $('#selectCounty').prop("disabled", false);
 	});
   }
   

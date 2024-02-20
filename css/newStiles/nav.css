@@ -1,11 +1,4 @@
-#chartControls {
-    width: 100vw;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    align-content: center;
-    flex-direction: row;
-}
+
 
 #navbar-container {
     background: linear-gradient(90deg, #082b7a 25%, #AFDFE9 55%, white 75%, #AFDFE9 105%);

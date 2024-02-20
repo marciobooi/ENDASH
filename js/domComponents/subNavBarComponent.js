@@ -61,17 +61,7 @@ class SubNavbar {
                 <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>    
               </button>
           </div>
-          <div class="">              
-          <div id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">     
-              <li class="nav-item dropdown px-1" id="tb-country" role="none">
-                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="tb-country-btn" data-bs-toggle="dropdown" role="menuitem" title="Select country" aria-haspopup="true" aria-expanded="true" id="selectCounty">
-                    <i class="fas fa-globe"></i>
-                  </button>
-                  <ul id="dropdown-geo-list" style="top:7.9rem!important" class="dropdown-menu dropdown-menu-end form-control" role="menu" aria-labelledby="Select country"></ul>
-              </li>             
-              </div>
-          </div>
-
+          <div class="">  
           <div class="chartMenuMobile d-none">
             <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
                 <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">

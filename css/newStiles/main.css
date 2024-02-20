@@ -106,7 +106,7 @@ li {
   transition: opacity 0.3s ease;
   box-shadow: 0 2px 4px rgb(9 49 142 / 8%), 0 0 10px rgb(9 49 142 / 4%), 0 4px 5px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
   border-radius: 5px;
-  border: 1px solid #d3d3d378;
+  /* border: 1px solid #d3d3d378; */
 }
 
 .flex-item:hover {

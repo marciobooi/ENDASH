@@ -29,7 +29,7 @@ ul.dropdown-menu {
     padding-bottom: 0;
 }
 
-.nav-item > .round-btn {
+.chartBtns > .nav-item > .round-btn {
     background-color: white !important;
     color: var(--ECU-120);
 }
@@ -70,3 +70,9 @@ ul.dropdown-menu {
     visibility: hidden !important;
 }
 
+#chartControls {
+    padding: 0.8rem;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-end;
+}
