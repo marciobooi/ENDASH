@@ -40,6 +40,8 @@ function buildComponents() {
     instance.addToDOM(target);
   });
 
+  populateCountries();
+
 }
 
 function removeComponents() {

@@ -63,8 +63,17 @@ class ChartContainer {
 
 
   populateChartItems() {
+
+    const countryContainer = document.createElement('div');
+    countryContainer.classList.add('col-12');
+    countryContainer.setAttribute('id', 'countrySelect');
+
+    this.target.appendChild(countryContainer);
+
+
     const chartContainer = document.createElement('div');
     chartContainer.classList.add('flex-container');
+
 
     const numberOfCharts = Object.keys(codesDataset).length;
   

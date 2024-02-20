@@ -1,5 +1,6 @@
 #menuToolbar {
-    background-color: #004494!important;    
+    background-color: var(--ECU-120) !important;
+    border-top: 0.1px solid #eef8fa2b;
 }
 
 #menu > span {
@@ -28,13 +29,19 @@ ul.dropdown-menu {
     padding-bottom: 0;
 }
 
-
-.flag {
-    max-width: 25px;
-    height: 20px;
-    object-fit: fill;
+.nav-item > .round-btn {
+    background-color: white !important;
+    color: var(--ECU-120);
 }
 
+.nav-item > .round-btn:hover,
+.nav-item > .round-btn:focus,
+.nav-item > .round-btn:focus-visible {
+    box-shadow: 0 0 0 0.15rem #8ca6e1;
+    background-color: #6e91e0!important;
+    outline: 2px solid #6e91e0;
+    color: var(--ECU-120);
+}
 
 #chartOptionsMenu > div.dropdown-grid > div > div:nth-child(1) > div > ul > div.d-flex.justify-content-evenly.py-2 {
     background-color: var(--sub-nav-color) !important;
@@ -50,9 +57,12 @@ ul.dropdown-menu {
     background-color: white;
 }
 
-.btn-outline-secondary {
-    border-color: var(--tool-1);
-    color: var(--tool-1);
+.ecl-link {
+    text-decoration: none;
+}
+.ecl-link:hover {
+    color: #0e47cb;
+    text-decoration: underline;
 }
 
 

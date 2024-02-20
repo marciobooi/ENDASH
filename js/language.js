@@ -86,6 +86,7 @@ setTimeout(() => {
         $("#footer-cookies").html(languageNameSpace.labels["COOKIES"]);
         $("#footer-privacy").html(languageNameSpace.labels["PRIVACY"]);
         $("#footer-legal").html(languageNameSpace.labels["LEGAL"]);
+        $("#footer-access").html(languageNameSpace.labels["ACCESS"]);
 }, 200);
 
   },
