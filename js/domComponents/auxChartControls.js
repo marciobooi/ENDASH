@@ -9,7 +9,7 @@ class ChartControls {
   
 	  const notMobileContent = /*html*/`
 
-		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navbar-light bg-light navChartControls">			
+		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navChartControls">			
 				<div class="menu">
 
 					<ul id="chartBtns" role="menubar" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
@@ -86,18 +86,16 @@ class ChartControls {
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 
-	  
-
 	    // Create the button instances
-		const barChart = new Button("barChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
-		const pieChart = new Button("pieChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
-		const lineChart = new Button("lineChart", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
-		const table = new Button("toggleTableBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], "Toggle table", "table", "false");
-		const createprintChart = new Button("printBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNPRINTCHART'], "false");
-		const downloadChart = new Button("downloadBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
-		const downloadExcel = new Button("excelBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
-		const embebedeChart = new Button("embebedBtn", ["btn", "btn-primary", "min-with--nav", "round-btn"], languageNameSpace.labels['BTNBSHARECHART'], "false");
-		const closeChart = new Button("btnCloseModalChart", ["btn", "btn-primary", "min-with--nav", "btnClose", "round-btn"], languageNameSpace.labels['BTNCLOSECHART'], "false");
+		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
+		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
+		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
+		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle table", "table", "false");
+		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPRINTCHART'], "false");
+		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
+		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
+		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBSHARECHART'], "false");
+		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "btnClose", "round-btn"], languageNameSpace.labels['BTNCLOSECHART'], "false");
 	
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');

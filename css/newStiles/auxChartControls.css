@@ -1,5 +1,6 @@
 #chartControls {
-    padding: 0.8rem;
+    background-color: var(--ECU-120) !important;
+    border-top: 0.1px solid #eef8fa2b;
 }
 
 .title, .subtitle {

@@ -86,15 +86,6 @@ li > button {
     font-size: 1.2em !important;
 }
 
-#menuSwitch {
-    color: var(--main-color);
-    display: flex;
-    flex-direction: row-reverse;
-    align-content: center;
-    justify-content: space-evenly;
-    align-items: center;
-    /* margin-bottom: 0 !important; */
-}
 
 #menuSwitch label {
     font-size: 0.8rem;   
@@ -164,8 +155,17 @@ span.agregates.fa-stack.fa-rotate-180 {
     background-color: #3e6cd5;
     color: #ffffff;
 }
+
+.flex-item:hover .containerNav .ecl-button--primary {
+    background-color: #3e6cd5;
+    color: #ffffff;
+}
+
 .text-truncate {
     overflow: hidden !important;
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
 }
+
+
+

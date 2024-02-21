@@ -30,17 +30,15 @@ initEndash()
 
 function buildComponents() {
   const components = [
-    { instance: new SubNavbar(), target: '#subnavbar-container' },
-    { instance: new Footer(), target: '#componentFooter' },
+    { instance: new SubNavbar(), target: '#subnavbar-container' },   
     { instance: new Navbar(), target: '#navbar-container' },
     { instance: new ChartContainer(), target: '#endash' },
+    { instance: new Footer(), target: '#componentFooter' },
   ];
 
   components.forEach(({ instance, target }) => {
     instance.addToDOM(target);
   });
-
-  populateCountries();
 
 }
 

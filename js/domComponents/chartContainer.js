@@ -70,6 +70,8 @@ class ChartContainer {
 
     this.target.appendChild(countryContainer);
 
+    populateCountries();
+
 
     const chartContainer = document.createElement('div');
     chartContainer.classList.add('flex-container');

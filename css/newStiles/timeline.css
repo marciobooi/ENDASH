@@ -1,18 +1,32 @@
 
 
-#chartSliderContainer {
+/* #chartSliderContainer {
   width: 75%;
   position: absolute;
   bottom: 5.5rem;
   left: 50vw;
   transform: translate(-50%, -50%);
+} */
+
+#chartSliderContainer {
+  /* width: 90%; */
+  /* position: absolute; */
+  /* bottom: 5.5rem; */
+  /* left: 50vw; */
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transform: translateY(-20px);
 }
   
   
-  #chartSlider {
-    width: 100%;
-    cursor: pointer;
-  }
+#chartSlider {
+  width: 90vw;
+  cursor: pointer;
+}
   
   .ui-slider-horizontal {
     height: 0.4rem !important;

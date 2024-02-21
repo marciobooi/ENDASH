@@ -29,8 +29,10 @@ function changeLegendPisition() {
       if (chart) {
         if(chart.renderTo.id === openChart) {
             if ($(window).width() > 1100) {
+              $('.flex-item.chartContainer.expand .highcharts-credits').css( "transform", "translate(38%, -10%)")
               chart.update({ legend: legendBig }, true); // true for redraw
             } else {
+              $('.flex-item.chartContainer.expand .highcharts-credits').css( "transform", "translate(0, 0)")
               chart.update({ legend: legendSmall }, true); // true for redraw
             }
             chart.redraw()
@@ -209,7 +211,14 @@ function addAuxiliarBarGraphOptions() {
   auxiliarBarGraphOptions.addToDOM("#subnavbar-container"); 
 
   FloatingControls = new FloatingChartControls();
-  FloatingControls.addToDOM("#componentFooter"); 
+  FloatingControls.addToDOM("#componentFooter > footer"); 
+
+  const footerElement = document.querySelector("#componentFooter > footer");
+  const menuSwitchElement = document.querySelector("#menuSwitch");
+  
+  footerElement.insertBefore(menuSwitchElement, footerElement.firstChild);
+  
+footerElement.style.justifyContent = 'space-between';
 
   showHideTimeLine()
 }
@@ -261,6 +270,8 @@ function removeAuxiliarBarGraphOptions() {
   getTitle()
 
   $(".containerNav").css('visibility', 'initial')
+  const footerElement = document.querySelector("#componentFooter > footer");  
+  footerElement.style.justifyContent = 'flex-end';
 }
 
 function showChartMenuOptions() {
