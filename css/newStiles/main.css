@@ -340,3 +340,8 @@ text.highcharts-axis-title {
 #countrySelect {
   padding: 1.5rem;
 }
+
+
+.flex-item.chartContainer.expand .highcharts-credits {
+  transform: translate(38%, -10%);
+}

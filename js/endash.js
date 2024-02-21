@@ -92,6 +92,18 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
     var isExpanded = chartElement.hasClass("expand");
 
     lineChart.update({ legend: isExpanded ? legendSmall : legendHide }, true);
+    
+    changeLegendPisition(lineChart);     
+    
+    $(window).on('resize', function () {
+      changeLegendPisition(lineChart);
+    });
+
+
+
+
+
+
 
 
 }

@@ -126,6 +126,7 @@ function createLineChart() {
       
       const chart = new Chart(chartOptions);
       chart.createChart();    
+      
       stopLoadingAnimation()
 }
 

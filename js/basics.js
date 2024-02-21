@@ -14,9 +14,12 @@ var legendSmall = {
       align: 'center',
       verticalAlign: 'bottom',
 }
+
 var legendHide = {     
   enabled: false
 }
+
+
 
 function changeLegendPisition() {
 
