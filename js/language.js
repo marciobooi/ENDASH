@@ -89,6 +89,8 @@ setTimeout(() => {
         $("#footer-access").html(languageNameSpace.labels["ACCESS"]);
 }, 200);
 
+$('.ecl-modal__header-content').html(languageNameSpace.labels["sharemodaltitle"]);
+
   },
 
 

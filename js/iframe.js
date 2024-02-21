@@ -1,18 +1,19 @@
+
 function exportIframe() {
     REF.share = true
-    dataNameSpace.setRefURL()
 
-    $('.modal-title').html(languageNameSpace.labels['sharemodaltitle'])
-    $('.targetUrl').html(window.location.href) 
-    
-    $('#iframeModal').modal('show');
-}
-function closeIframe() {
-    REF.share = false
-    dataNameSpace.setRefURL()
+    $('ecl-modal__header-content').html(languageNameSpace.labels['sharemodaltitle'])
+    $('.targetUrl').html(window.location.href)     
+ 
+    const modal = document.getElementById('iframeModal');
 
-    $('#iframeModal').modal('hide');
+    // Open the modal
+    modal.showModal();
+
+    ECL.autoInit();
 }
+
+
 
 
 function copyUrl() {

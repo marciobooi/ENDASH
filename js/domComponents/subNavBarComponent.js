@@ -74,9 +74,9 @@ class SubNavbar {
                   </ul>
                 </li>
                 <li class="nav-item button px-1" id="shareChart" role="none">
-                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="share chart" data-bs-toggle="dropdown" role="menuitem" title="share chart" aria-haspopup="true" aria-expanded="true" id="shareBtn">
-                    <i class="fas fa-share-alt"></i>
-                  </button>
+                <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary  min-with--nav round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
+                <i class="fas fa-code" aria-hidden="true"></i>
+              </button>
                   <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">     					
                     <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>
                     <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin" >${languageNameSpace.labels['linkedin']}</button>

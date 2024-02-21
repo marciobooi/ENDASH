@@ -345,3 +345,11 @@ text.highcharts-axis-title {
 .flex-item.chartContainer.expand .highcharts-credits {
   transform: translate(38%, -10%);
 }
+
+
+.ecl-modal__body-scroll {
+  word-break: break-all;
+  text-align: justify;
+  overflow-y: auto;
+  padding: 1rem;
+}
