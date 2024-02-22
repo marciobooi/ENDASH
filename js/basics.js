@@ -362,6 +362,7 @@ tooltip = function () {
   // Assuming there is a variable 'unit' representing the unit you want to display
   const unit = REF.unit; // Replace 'your_unit' with the actual unit
   const na = languageNameSpace.labels['FLAG_NA'];
+  
 
   const formatPointTooltip = function (point) {
     if(REF.chartType === "pieChart") {
@@ -492,7 +493,7 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button id="expandChart" class="ecl-button ecl-button--primary round-btn" aria-label="Click to expand the chart" title="Click to expand the chart">
+  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" aria-label="${languageNameSpace.labels['BTNEXPAND']}" title="${languageNameSpace.labels['BTNEXPAND']}">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`
 
@@ -522,9 +523,9 @@ switch (REF.chartType) {
 
 
   if ($('.chartContainer').hasClass('expand')) {
-    $("#expandChart").css('display', 'none');
+    $(".expandChart").css('display', 'none');
 } else {
-    $("#expandChart").css('display', 'initial');
+    $(".expandChart").css('display', 'initial');
 }
 
   return title;

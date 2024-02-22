@@ -29,8 +29,6 @@ function endash(d = null) {
 }
 function buildChart(categories, containerId, yAxisTitle, type, unit) {
 
-
-
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
@@ -201,7 +199,9 @@ function compareCountries() {
 
     updateREFFromCodesDataset(REF.chartId);
 
-    const unit = REF.unit
+    const unit = REF.unit   
+
+    log(REF.chartType)
 
     switch (REF.chartType) {
         case "barChart":

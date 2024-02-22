@@ -32,7 +32,7 @@ var languageNameSpace = {
     const elementsId = [".pie", ".barchart", ".line", ".db", ".meta", 
     ".info", ".details", "#close", ".componentsShow", ".componentsHide",
     ".play", "#share", ".Modalshare", ".twitter", ".linkedin", ".facebook", ".chartMenu",
-    "#vizualizationMenu", "#visualization-table", "#find-more-menu-icon", ".toggle-thumb", "#header-title-label"
+    "#vizualizationMenu", "#visualization-table", "#find-more-menu-icon", ".toggle-thumb", "#header-title-label",
     ]
 
     elementsId.forEach(id => {
@@ -50,23 +50,24 @@ var languageNameSpace = {
     $("#title").html(languageNameSpace.labels[REF.chartId]);
 
     const elementsBtn = [ "barChart", "pieChart",  "lineChart",  "toggleAgregates",  "tb-togle-percentage",  "tb-togle-table",   
-    "printBtn",  "downloadBtn",  "excelBtn",  "embebedBtn",  "btnCloseModalChart", "infoBtn" ]
+    "printBtn",  "downloadBtn",  "excelBtn",  "embebedBtn",  "btnCloseModalChart", "infoBtn", "shareChart1" ]
 
     const elementsBtnTranslations = [
-      "BTNCHANGECOUNTRY", "BTNBARCHART", "BTNPIECHART", "BTNLINECHART", "BTNAGREGATESCHART", "BTNPERCENTAGECHART", "BTNTABLECHART", 
-      "BTNPRINTCHART", "BTNDOWNLOADCHART", "BTNEXCELCHART", "BTNBSHARECHART", "BTNCLOSECHART", "BTNINFICHART",
+      "BTNBARCHART", "BTNPIECHART", "BTNLINECHART", "BTNAGREGATESCHART", "BTNPERCENTAGECHART", "BTNTABLECHART", 
+      "BTNPRINTCHART", "BTNDOWNLOADCHART", "BTNEXCELCHART", "BTNBSHARECHART", "BTNCLOSECHART", "BTNINFICHART", "BTNBSHARECHART",
     ]
 
     elementsBtn.forEach((id, idx) => {
-      const element = $(id);
+      const element = document.getElementById(id);
+      if (!element) {
+          return; 
+      }
       const label = languageNameSpace.labels[elementsBtnTranslations[idx]];
-      element.attr({
-        'title': label,
-        'data-original-title': label,
-        'aria-label': label
-      });
-      element.html(languageNameSpace.labels[id.substring(1)]);
-    });
+      console.log(id, element, label);
+      element.setAttribute('title', label);
+      element.setAttribute('data-original-title', label);
+      element.setAttribute('aria-label', label);
+  });
 
     // $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
 
@@ -100,44 +101,26 @@ $('.ecl-modal__header-content').html(languageNameSpace.labels["sharemodaltitle"]
 
     REF.chartExpanded === true ? endash() : (removeComponents(), buildComponents(), compareCountries());
     
-    // $("#selectCounty").attr("title", languageNameSpace.labels["BTNCHANGECOUNTRY"]).attr("aria-label", languageNameSpace.labels["BTNCHANGECOUNTRY"]);
-    $("#barChart").attr("title", languageNameSpace.labels["BTNBARCHART"]).attr("aria-label", languageNameSpace.labels["BTNBARCHART"]);
-    $("#pieChart").attr("title", languageNameSpace.labels["BTNPIECHART"]).attr("aria-label", languageNameSpace.labels["BTNPIECHART"]);
-    $("#lineChart").attr("title", languageNameSpace.labels["BTNLINECHART"]).attr("aria-label", languageNameSpace.labels["BTNLINECHART"]);
-    $("#toggleTableBtn").attr("title", languageNameSpace.labels["BTNATABLE"]).attr("aria-label", languageNameSpace.labels["BTNATABLE"]);
-    $("#printBtn").attr("title", languageNameSpace.labels["BTNPRINTCHART"]).attr("aria-label", languageNameSpace.labels["BTNPRINTCHART"]);
-    $("#downloadBtn").attr("title", languageNameSpace.labels["BTNDOWNLOADCHART"]).attr("aria-label", languageNameSpace.labels["BTNDOWNLOADCHART"]);
-    $("#excelBtn").attr("title", languageNameSpace.labels["BTNEXCELCHART"]).attr("aria-label", languageNameSpace.labels["BTNEXCELCHART"]);
-    $("#embebedBtn").attr("title", languageNameSpace.labels["BTNBSHARECHART"]).attr("aria-label", languageNameSpace.labels["BTNBSHARECHART"]);
-    $("#btnCloseModalChart").attr("title", languageNameSpace.labels["BTNCLOSECHART"]).attr("aria-label", languageNameSpace.labels["BTNCLOSECHART"]);
+    const elementsBtn = [ "barChart", "pieChart",  "lineChart",  "toggleAgregates",  "tb-togle-percentage",  "tb-togle-table",   
+    "printBtn",  "downloadBtn",  "excelBtn",  "embebedBtn",  "btnCloseModalChart", "infoBtn", "shareChart1" ]
 
-    $("#tb-togle-percentage").attr("title", languageNameSpace.labels["BTNPERCENTAGECHART"]).attr("aria-label", languageNameSpace.labels["BTNPERCENTAGECHART"]);
-    $("#toggleAgregates").attr("title", languageNameSpace.labels["BTNAGREGATESCHART"]).attr("aria-label", languageNameSpace.labels["BTNAGREGATESCHART"]);
+    const elementsBtnTranslations = [
+      "BTNBARCHART", "BTNPIECHART", "BTNLINECHART", "BTNAGREGATESCHART", "BTNPERCENTAGECHART", "BTNTABLECHART", 
+      "BTNPRINTCHART", "BTNDOWNLOADCHART", "BTNEXCELCHART", "BTNBSHARECHART", "BTNCLOSECHART", "BTNINFICHART", "BTNBSHARECHART",
+    ]
 
+    elementsBtn.forEach((id, idx) => {
+      const element = document.getElementById(id);
+      if (!element) {
+          return; 
+      }
+      const label = languageNameSpace.labels[elementsBtnTranslations[idx]];
+      console.log(id, element, label);
+      element.setAttribute('title', label);
+      element.setAttribute('data-original-title', label);
+      element.setAttribute('aria-label', label);
+  });
   
-    // if(REF.chartId != "mainChart"){
-    //   addAuxiliarBarGraphOptions()
-    // }
-
-    // linksContent = 	"<div class='modalHeader'>"
-    // + '<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>'
-    // + "<h5>" + languageNameSpace.labels["LINKS"] + "</h5>"
-    // + "</div>"
-    // + "<div>"
-    // + '<a href=\"https://ec.europa.eu/info/cookies_'+ REF.language.toLowerCase() +'\" target=\"_blank\" class="underline"><span>'+languageNameSpace.labels["COOKIES"]+'</span><svg viewBox="0 0 13 20"><polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" /></svg></a>'
-    // + "</div>"
-    // + "<div>"
-    // + '<a href=\"https://ec.europa.eu/info/privacy-policy_'+ REF.language.toLowerCase() +'\" target=\"_blank\" class="underline"><span>'+languageNameSpace.labels["PRIVACY"]+'</span><svg viewBox="0 0 13 20"><polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" /></svg></a>'
-    // + "</div>"
-    // + "<div>"
-    // + '<a href=\"https://ec.europa.eu/info/legal-notice_'+ REF.language.toLowerCase() +'\" target=\"_blank\" class="underline"><span>'+languageNameSpace.labels["LEGAL"]+'</span><svg viewBox="0 0 13 20"><polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" /></svg></a>'
-    // + "</div>"  
-    // + "<div>"
-    // + "</div>"
-  
-    // if($("#links").html() === "") {
-    //   $("#links").append(linksContent);
-    // }
 
   }
 };

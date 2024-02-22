@@ -29,7 +29,7 @@ function tutorial(buttonTimer) {
 		  position: 'auto'
 		},
 		{
-		  element: document.querySelector("#selectCounty"),
+		  element: document.querySelector("#selectCountry"),
 		  title: languageNameSpace.tutorial["TUTO_7"],
 		  intro: languageNameSpace.tutorial["TUTO_8"],
 		  position: 'auto'
@@ -42,7 +42,7 @@ function tutorial(buttonTimer) {
 		},
 	
 		{			
-		  element: document.querySelector("#social-media"),
+		  element: document.querySelector("#shareChart1"),
 		  title: languageNameSpace.tutorial["TUTO_11"],
 		  intro: languageNameSpace.tutorial["TUTO_12"],
 		  position: 'auto'

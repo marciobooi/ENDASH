@@ -53,52 +53,44 @@ class SubNavbar {
           </div>`;
 
 
-      const mobileContent = `<div class="">
-        <div class="col-12 subNavOne">
-          <div class="">              
-              <button id="tools" class="btnGroup" type="button" aria-label="${languageNameSpace.labels["TOOLS"]}" title="${languageNameSpace.labels["TOOLS"]}" aria-haspopup="true">
-                <i class="fas fa-ellipsis-h"></i>      
-                <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>    
-              </button>
-          </div>
-          <div class="">  
-          <div class="chartMenuMobile d-none">
-            <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-                <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-                  <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-                    <i class="fas fa-info"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                    <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-                  </ul>
-                </li>
-                <li class="nav-item button px-1" id="shareChart" role="none">
-                <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary  min-with--nav round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
-                <i class="fas fa-code" aria-hidden="true"></i>
-              </button>
-                  <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">     					
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin" >${languageNameSpace.labels['linkedin']}</button>
-                    <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn()" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>          		
-                  </ul>
-                </li>
-            </ul>
-          </div>
-
-      
-           
-          
-
-
-        </div>
-        <div class="col-12 subNavTwo">
+      const mobileContent = /*html*/ `
+      <div class="col-12 subNavOne">
+        <div class="subNavTwo">
           <div class="text-group">
-              <h2 id="title" class="title"></h2>
-              <!-- <h6 id="subtitle" class="subtitle"></h6>       -->
-            </div>
+            <h2 id="title" class="title"></h2>
+          </div>
         </div>
-      </div>`;
+        <div class="menuShare">
+          <button id="tools" class="btnGroup" type="button" aria-label="${languageNameSpace.labels[" TOOLS"]}" title="${languageNameSpace.labels[" TOOLS"]}" aria-haspopup="true">
+            <i class="fas fa-ellipsis-h"></i>
+            <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>
+          </button>
+        </div>
+        <div class="chartMenuMobile d-none">
+        <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
+            <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+              <i class="fas fa-info"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
+              <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+              <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>
+            </ul>
+          </li>
+          <li class="nav-item button px-1" id="shareChart" role="none">
+            <button id="embebedBtn" title="Embebed chart iframe" type="button" class="btn btn-primary  min-with--nav round-btn" aria-label="Embebed chart iframe" onclick="exportIframe()">
+              <i class="fas fa-code" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Download chart">
+              <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>
+              <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin">${languageNameSpace.labels['linkedin']}</button>
+              <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn()" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      </div>
+        `;
 
 
 

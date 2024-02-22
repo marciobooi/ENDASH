@@ -38,17 +38,15 @@ class ChartControls {
 		  </nav>
 		`;
   
-	  const mobileContent = `
+	  const mobileContent = /*html*/`
 		<div id="chartOptions">
 		  <div class="col-12 subNavOne auxChartbtn">
-			<button id="tools" class="btnGroup pe-2" type="button" aria-label="${languageNameSpace.labels["TOOLS"]}" title="${languageNameSpace.labels["TOOLS"]}" aria-haspopup="true">
-			  <i class="fas fa-ellipsis-h"></i>
-			  <span class="iconText">${languageNameSpace.labels["TOOLS"]}</span>
-			</button>
-			<div class="menu d-none">	
+
+			<div class="menu">	
 			  <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 				<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 				<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
+				<li class="nav-item button px-1" id="toggleAuxTable" role="none"></li>
 				<li class="nav-item button px-1" id="printChart" role="none"></li>
 				<li class="nav-item dropdown px-1" id="downloadChart" role="none"></li>
 				<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
@@ -57,25 +55,20 @@ class ChartControls {
 			  </ul>
 			</div>
 		  </div>
-		  <div class="col-12 subNavTwo">
-			<div id="auxChartTitle">
-			  <h2 id="title" class="title">title</h2>
-			  <!-- <h6 id="subtitle" class="subtitle">subtitle</h6> -->
-			</div>
-		  </div>
-		</div>`;	
+		</div>
+		`;	
 		
   
 	  if (isMobile) {
 		// log(isMobile);
 		this.controls.innerHTML = mobileContent;
-		this.toolsButton = this.controls.querySelector("#tools");
-		this.chartToolsMenu = this.controls.querySelector(".menu");
+		// this.toolsButton = this.controls.querySelector("#tools");
+		// this.chartToolsMenu = this.controls.querySelector(".menu");
   
-		this.toolsButton.addEventListener("click", () => {
-		  this.chartToolsMenu.classList.toggle("d-none");
-		  this.toolsButton.style.display = "none";
-		});
+		// this.toolsButton.addEventListener("click", () => {
+		//   this.chartToolsMenu.classList.toggle("d-none");
+		//   this.toolsButton.style.display = "none";
+		// });
 	  } else {
 		this.controls.innerHTML = notMobileContent;
 	  }
@@ -90,7 +83,7 @@ class ChartControls {
 		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
 		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
 		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
-		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "Toggle table", "table", "false");
+		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNTABLECHART'], "table", "false");
 		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPRINTCHART'], "false");
 		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
 		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
@@ -215,37 +208,34 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
-
-
-
 			lineChart.setDisabled(true);
 	}
   
-	countriesHandler(geoDropdown) {
-		const geoItems = geoDropdown.querySelectorAll('.dropdown-item');			
+	// countriesHandler(geoDropdown) {
+	// 	const geoItems = geoDropdown.querySelectorAll('.dropdown-item');			
 
-		geoItems.forEach((item) => {
-			item.addEventListener('click', (event) => {
-				event.preventDefault(); // Prevent the default link behavior
-				geoItems.forEach((otherItem) => {
-					otherItem.classList.remove('active');
-				});
-				item.classList.add('active');
+	// 	geoItems.forEach((item) => {
+	// 		item.addEventListener('click', (event) => {
+	// 			event.preventDefault(); // Prevent the default link behavior
+	// 			geoItems.forEach((otherItem) => {
+	// 				otherItem.classList.remove('active');
+	// 			});
+	// 			item.classList.add('active');
 
-				// Add your logic to handle the selected item here
-				const selectedGeo = item.getAttribute('data-geo');
+	// 			// Add your logic to handle the selected item here
+	// 			const selectedGeo = item.getAttribute('data-geo');
 
-				// log(selectedGeo)
+	// 			// log(selectedGeo)
 
-				REF.geos = selectedGeo;
+	// 			REF.geos = selectedGeo;
 
-				dataNameSpace.setRefURL();
-				compareCountries();
+	// 			dataNameSpace.setRefURL();
+	// 			compareCountries();
 
 			
-			});
-		});
-	}
+	// 		});
+	// 	});
+	// }
 
 	removeFromDOM() {
 	  let navElement;

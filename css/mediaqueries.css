@@ -8,17 +8,17 @@
 
     .navbar-top {
       padding-top: 0rem;
+      height: 4rem;
   }
     #header-title-label {
       font-size: .9rem;
       font-weight: 600;
       margin: 0;
-      margin-left: -5px;
+      /* margin-left: -5px; */
+      padding-left: 0rem;
   }
 
-  .subNavOne > div {
-    margin-right: 1rem;
-  }
+  
 
   #social-media {
     display: none !important;
@@ -34,7 +34,7 @@
     height: 3rem;
     font-size: 0.6em;
     background-color: transparent;
-    color: white;
+    color: #003776;
     border: none;
     white-space: normal;
     word-wrap: break-word;
@@ -206,14 +206,18 @@ i.fas.fa-caret-down {
 }
 
 .menu {
-  position: absolute;
-  top: 3rem;
-  left: 0;
+  /* position: absolute; */
+  /* top: 3rem; */
+  /* left: 0; */
   width: 100vw;
-  background-color: #f3f6fc;
-  height: 4rem;
-  z-index: 9;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  /* background-color: #f3f6fc; */
+  /* height: 4rem; */
+  /* z-index: 9; */
+  /* box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px; */
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 
@@ -245,16 +249,26 @@ button:focus, .input:focus {
   width: 100%;
   background-color: white;
   box-shadow: rgb(0 0 0 / 25%) -1px 0px 5px 1px;
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
 }
 
-#menuSwitch {
+.ecl-link {
+  text-decoration: none;
+  padding: 0.5rem;
+  font-size: 11px;
+}
+
+.ecl-site-footer__list-item {
+  margin-top: 0rem !important;
+}
+
+/* #menuSwitch {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-around;
   width: 100%;
-}
+} */
 
 #floatingMenu {
   display: flex;
@@ -276,21 +290,20 @@ span.agregates.fa-stack.fa-rotate-180 {
   font-size: 0.67rem;
 }
 
-
 .chartContainer:first-child {
   margin-top: 2rem;
 }
 
 .flex-item {
   padding: 5px;
-  max-width: 22rem;
+  max-width: 20rem;
   height: 22rem;
   margin-top: 10px;
   color: black;
   font-size: 2.5em;
   /* text-align: center; */
   /* flex: 1 0 auto; */
-  margin: 0.2rem;
+  margin: 1rem;
   transition: opacity 0.3s ease;
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
   border-radius: 10px;
@@ -298,24 +311,83 @@ span.agregates.fa-stack.fa-rotate-180 {
 
 .highchartsContainer {
   width: 21rem;
-  height: 14rem;
+  height: 16rem;
   margin: 0 auto;
 }
 
 .expand {
   max-width: 97vw;
-  height: 70vh;
+  height: 80vh;
   box-shadow: initial;
-  margin-top: 7rem !important;
+  /* margin-top: 7rem !important; */
 }
 
 ul#footerCredits {
   margin-right: auto;
   margin-bottom: 0;
+  margin-top: 0;
   width: 100%;
   margin-left: auto;
 }
 
+#countrySelect {
+  padding: 0.5rem;
+}
+
+.menuShare {
+  padding-right: 1rem;
+}
+
+.col-12.subNavOne.auxChartbtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ecl-button {
+  padding: 0.5rem 0.75rem;
+}
+
+
+
+.expand>.highchartsContainer {
+  width: 20rem;
+  height: 25rem;
+  margin: 0 auto;
+}
+
+th.highcharts-text {
+  border-width: 0;
+  display: table-cell;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  font-size: .8em;
+}
+
+thead tr th:not(:first-child) {
+  border-width: 0;
+  display: table-cell;
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  font-size: 0.8em;
+  text-align: end;
+}
+
+td.highcharts-number {
+  font-size: .8em;
+  text-align: end;
+}
+
+#chartSliderContainer {
+  width: 90%;
+  position: absolute;
+  bottom: 12rem;
+  left: 10px;
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  transform: initial;
+}
 
 } /* end of portrait mobile */
 
@@ -529,10 +601,11 @@ i.fas.fa-caret-down {
 }
 
 .subNavOne {
-  background-color: #0e47cb;
+  background-color: var(--ECU-120) !important;
+  border-top: 0.1px solid #eef8fa2b;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   height: 3rem;
   width: 100vw;
@@ -545,8 +618,8 @@ i.fas.fa-caret-down {
 }
 
 #title, #subtitle {
-  font-size: .8em;
-  color: black;
+  font-size: .9em;
+  color: white;
   line-height: 1.2em;
   margin-bottom: 0;
 }
