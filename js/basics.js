@@ -362,13 +362,12 @@ tooltip = function () {
   // Assuming there is a variable 'unit' representing the unit you want to display
   const unit = REF.unit; // Replace 'your_unit' with the actual unit
   const na = languageNameSpace.labels['FLAG_NA'];
-  
 
   const formatPointTooltip = function (point) {
     if(REF.chartType === "pieChart") {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y}</td></tr>`;
       } else {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y} ${unit}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y}</td></tr>`;
       }      
     };
 
@@ -493,7 +492,7 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" aria-label="${languageNameSpace.labels['BTNEXPAND']}" title="${languageNameSpace.labels['BTNEXPAND']}">
+  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" aria-label="${languageNameSpace.labels['BTNEXPAND']}" title="Click to expand the chart">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`
 
