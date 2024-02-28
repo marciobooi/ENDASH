@@ -167,5 +167,8 @@ span.agregates.fa-stack.fa-rotate-180 {
     text-overflow: ellipsis !important;
 }
 
-
+ul#chartBtns > li > button {
+    background-color: white !important;
+    color: var(--ECU-120);
+}
 

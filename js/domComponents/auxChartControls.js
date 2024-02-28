@@ -181,8 +181,10 @@ class ChartControls {
 		});
 		closeChart.setClickHandler(function() {
 		  REF.chartExpanded = false		
+		  REF.chartType = "lineChart"	
 		  showHideTimeLine()		  
 		  removeAuxiliarBarGraphOptions();
+		  populateCountries()
 		});
 
 	  	  // Create the button elements

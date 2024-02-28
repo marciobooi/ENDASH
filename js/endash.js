@@ -3,7 +3,7 @@ function endash(d = null) {
 
   updateREFFromCodesDataset(REF.chartId);
 
-  REF.chartType = "lineChart";
+//   REF.chartType = "lineChart";
 
   const type = "spline"; 
 

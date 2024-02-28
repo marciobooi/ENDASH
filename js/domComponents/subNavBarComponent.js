@@ -8,49 +8,33 @@ class SubNavbar {
       // const isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768
   
 
-      const notMobileContent = `<div class="container-fluid">     
-      
-            <div class="col-9">
-              <div class="text-group">
-                <h2 id="title" class="title"></h2>
-              </div>
-            </div>
-
-
-
-            <div class="col-2">
-              <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-              
-
-
-
-
+      const notMobileContent = /*html*/`
+      <div class="container-fluid">      
+            <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
               <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-              <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-                <i class="fas fa-info"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-                <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
-                <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown px-1" id="social-media-dropdown" role="none">
-            
-            <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="Share in social media" data-bs-toggle="dropdown" role="menuitem" title="Share chart" aria-haspopup="true" aria-expanded="true" id="shareChart1">
-              <i class="fas fa-share-alt" aria-hidden="true"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Share chart">     					
-            <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter();" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>             		
-            <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook();" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>             		
-            <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn();" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin">${languageNameSpace.labels['linkedin']}</button>             		
+                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="Info" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+                  <i class="fas fa-info"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
+                  <button class="dropdown-item" role="menuitem" onclick="tutorial()" aria-label="${languageNameSpace.labels['TUTORIAL']}" value="Tutorial">${languageNameSpace.labels['TUTORIAL']}</button>
+                  <button class="dropdown-item" role="menuitem" onclick="mailContact()" aria-label="${languageNameSpace.labels['FEED']}" value="Feedback">${languageNameSpace.labels['FEED']}</button>          		
+                </ul>
+              </li>
+      
+              <li class="nav-item dropdown px-1" id="social-media-dropdown" role="none">
+                <button class="ecl-button ecl-button--primary round-btn" type="button" aria-label="Share in social media" data-bs-toggle="dropdown" role="menuitem" title="Share chart" aria-haspopup="true" aria-expanded="true" id="shareChart1">
+                  <i class="fas fa-share-alt" aria-hidden="true"></i>
+                </button>
+      
+                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Share chart">     					
+                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter();" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>             		
+                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook();" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>             		
+                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn();" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin">${languageNameSpace.labels['linkedin']}</button>             		
+                </ul>
+              </li>
             </ul>
-          </li>  
-
-
-     
-              </ul>
-          </div>`;
+    </div>
+    `;
 
 
       const mobileContent = /*html*/ `

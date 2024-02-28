@@ -18,18 +18,18 @@ class Singleselect {
     }
 
     createSingleSelect() {
-        let optionsHTML = '';
+        let optionsHTML = '';   
 
         if (this.elementId === "selectCountry") {
             optionsHTML = `
             <optgroup label="Agreggates">
-                ${countriesAgregates.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
+                ${countriesAgregates.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
             </optgroup>
             <optgroup label="European members">
-                ${EU_MEMBER_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
+                ${EU_MEMBER_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
             </optgroup>
             <optgroup label="Non European members">
-                ${NON_MEMBER_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
+                ${NON_MEMBER_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
             </optgroup>
         `;
         } else {

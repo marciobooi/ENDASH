@@ -2,7 +2,7 @@
 function exportIframe() {
     REF.share = true
 
-    $('ecl-modal__header-content').html(languageNameSpace.labels['sharemodaltitle'])
+    $('.ecl-modal__header-content').html(languageNameSpace.labels['sharemodaltitle'])
     $('.targetUrl').html(window.location.href)     
  
     const modal = document.getElementById('iframeModal');
@@ -15,6 +15,9 @@ function exportIframe() {
 
 
 
+function closeModalUrl(params) {
+    REF.share = false
+}
 
 function copyUrl() {
     dataNameSpace.setRefURL()
@@ -100,15 +103,12 @@ function hideForIframe() {
     chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
     $(".containerNav").css('visibility', 'hidden')
 
+    log(REF.chartType)
 
-
-    languageNameSpace.initLanguage(REF.language);
-
+    languageNameSpace.initLanguage(REF.language);   
     compareCountries();
 
     document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`        
-    // document.querySelector("#menuToolbar> div > .col-4").style.display = 'none'
-    // document.querySelector("#lang-section").style.display = 'none'  
     
     Highcharts.charts.forEach(chart => {
         if (chart) {
@@ -136,6 +136,5 @@ function hideForIframe() {
     stopLoadingAnimation()
 
     REF.share = "false"
-    dataNameSpace.setRefURL();
-     
+       
 }

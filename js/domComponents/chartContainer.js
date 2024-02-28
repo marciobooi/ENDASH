@@ -28,26 +28,34 @@ class ChartContainer {
     });
   }
 
-  handleIntersection(entries) {
+ handleIntersection(entries) {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const chartItem = entry.target;
-        REF.chartId = chartItem.id
+        if (entry.isIntersecting) {
+            const chartItem = entry.target;
+            REF.chartId = chartItem.id;
 
-      const url = new URL(window.location.href);    
-      const shareParam = url.searchParams.get("share");
+            const url = new URL(window.location.href);    
+            const shareParam = url.searchParams.get("share");
   
-      if (shareParam == "true") {
-          REF.share = shareParam
-          hideForIframe();
-          this.intersectionObserver.disconnect()
-      } else {
-        endash()
-        this.intersectionObserver.unobserve(chartItem);
-      }
-      }
+            if (shareParam == "true") {
+                REF.share = shareParam;
+                hideForIframe();
+                this.intersectionObserver.disconnect();
+            } else {
+                loadSkeleton(); 
+                endash();
+                this.intersectionObserver.unobserve(chartItem);
+                setTimeout(() => {
+                  unloadSkeleton();
+                }, 2500);
+            }
+        } else {
+          setTimeout(() => {
+            unloadSkeleton();
+          }, 2500);
+        }
     });
-  }
+}
 
   createTarget(targetSelector) {
     const existingTarget = document.querySelector(targetSelector);
@@ -97,12 +105,16 @@ class ChartContainer {
       containerNav.classList.add('containerNav');
       containerNav.textContent = `Chart Item ${i + 1}`;
 
+      const skeleton = document.createElement('div');
+      skeleton.classList.add('skeletonContainer', 'd-none');
+
       const highchartsContainer = document.createElement('div');
       highchartsContainer.classList.add('highchartsContainer');
       highchartsContainer.id = `highchartsContainer_${i + 1}`;
   
       chartItem.appendChild(containerNav);
       chartItem.appendChild(highchartsContainer);
+      chartItem.appendChild(skeleton);
   
       this.chartItems.push(chartItem); // Assuming you want to store chart items in this array
     }
@@ -225,68 +237,7 @@ class ChartContainer {
     }
   }
 
-  // handleKeyDown(event) {
-  //   if ($('.expand').length > 0) {
-  //    return
-  //   } else {
-  //     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-  //       event.preventDefault();
-    
-  //       // Calculate the new index based on the arrow key
-  //       const newIndex = event.key === 'ArrowUp' ? this.selectedIndex - 1 : this.selectedIndex + 1;
-    
-  //       // Ensure the new index is within bounds
-  //       if (newIndex >= 0 && newIndex < this.chartItems.length) {
-  //         // Remove selection from the previous item
-  //         if (this.selectedIndex >= 0) {
-  //           this.chartItems[this.selectedIndex].classList.remove('selected');
-  //         }
-    
-  //         // Update the selected index and add selection to the new item
-  //         this.selectedIndex = newIndex;
-  //         this.chartItems[this.selectedIndex].classList.add('selected');
-  //         this.chartItems[this.selectedIndex].focus();
-  //       }
-  //     } else if (event.key === ' ') {
-   
-  //       event.preventDefault();
-  //       if (this.firstSelectedIndex === -1) {
-  //         // First Enter key press: Store the first selected item
-  //         if (this.selectedIndex !== -1) {
-  //           this.firstSelectedIndex = this.selectedIndex;
-  //           this.chartItems[this.selectedIndex].classList.add('first-selected');
-  //           this.chartItems[this.selectedIndex].setAttribute('tabindex', '0');
-  
-  //         }
-  //       } else {
-  //         // Second Enter key press: Swap the first and second selected items
-  //         if (this.selectedIndex !== -1 && this.selectedIndex !== this.firstSelectedIndex) {
-  //           this.swapChartItems(this.firstSelectedIndex, this.selectedIndex);
-  //           this.chartItems[this.firstSelectedIndex].classList.remove('first-selected');
-  //           this.firstSelectedIndex = -1;  
-  
-  //           // Remove the 'selected' class from both items after swap
-  //           this.chartItems[this.selectedIndex].classList.remove('selected');
-  //           this.chartItems[this.selectedIndex].blur();
-  //           $(this.target).find('.chartContainer').removeClass("selected");
-  
-  //         }
-  //       }
-  //     } else if (event.key === 'Enter') {
-  //       log('here')
-  //       event.preventDefault(); 
-  //       if (this.selectedIndex >= 0) {
-  //         this.selectedChartItem = this.chartItems[this.selectedIndex];
-  //       }
-  //       this.handleItemClick(this.selectedChartItem)
-  //       // this.toggleChartContainer(this.selectedChartItem);
-  //     }
-  //   }
-
-  // } 
-
-
-  addToDOM(targetElementSelector) {
+    addToDOM(targetElementSelector) {
     const targetElement = document.querySelector(targetElementSelector);
 
     if (targetElement) {

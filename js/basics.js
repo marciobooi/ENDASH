@@ -163,8 +163,10 @@ function exportTable() {
 function showHideBarChartOptions() {
   if (REF.chartType !== "barChart") {
       $("#togglePercentage, #Agregates").css('display', 'none');
+      $("#countrySelect").css('display', '');
   } else {
       $("#togglePercentage, #Agregates").css('display', '');
+      $("#countrySelect").css('display', 'none');
   }
 }
 
@@ -365,7 +367,7 @@ tooltip = function () {
 
   const formatPointTooltip = function (point) {
     if(REF.chartType === "pieChart") {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
       } else {
         return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y}</td></tr>`;
       }      
@@ -748,5 +750,31 @@ function enableScreenREader(params) {
   
   }
 
+  function loadSkeleton() {    
+    // Select all elements with the class "flex-item" and "chartContainer"
+    const elements = document.querySelectorAll(".chartContainer");
 
-   
+      elements.forEach(element => {
+          // Select elements within the current element
+          $(".containerNav > div > h2").addClass('pulsate')
+          $(".containerNav > div > p").addClass('pulsate')
+          $(".containerNav > button").addClass('pulsate')
+          $("div.skeletonContainer").removeClass('d-none')
+      });
+}
+
+
+
+function unloadSkeleton() {    
+  // Select all elements with the class "chartContainer"
+  const elements = document.querySelectorAll(".chartContainer");
+
+  elements.forEach(element => {
+      // Deactivate pulsate effect
+      $(".containerNav > div > h2").removeClass('pulsate');
+      $(".containerNav > div > p").removeClass('pulsate');
+      $(".containerNav > button").removeClass('pulsate');
+      // Hide skeleton container
+      $("div.skeletonContainer").addClass('d-none');
+  });
+}
