@@ -166,7 +166,7 @@ tbody, td, tfoot, th, thead, tr {
 
 tr > td:nth-child(2) {
     text-align: right;
-    width: 7rem;
+    white-space: nowrap;
 }
 
 

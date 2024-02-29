@@ -365,11 +365,14 @@ tooltip = function () {
   const unit = REF.unit; // Replace 'your_unit' with the actual unit
   const na = languageNameSpace.labels['FLAG_NA'];
 
+
+
   const formatPointTooltip = function (point) {
+    const formattedY = Number(point.y).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ');
     if(REF.chartType === "pieChart") {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${point.y} ${unit}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${formattedY} ${unit}</td></tr>`;
       } else {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${point.y}</td></tr>`;
+        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${formattedY}</td></tr>`;
       }      
     };
 
@@ -440,12 +443,12 @@ function tooltipTable(points) {
     
     sortedPoints.forEach(function (point) {
       const color = point.series.color;
-      const value = point.y.toFixed(decimals); // Limit decimals to three places
+      const formattedY = Number(point.y).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ');
       const category = point.series.name;
     
       html += `<tr>
         <td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${color}" /></svg> ${category}</td>
-        <td>${value}</td>
+        <td>${formattedY}</td>
       </tr>`;
     
       // Check if point is "Total" and set the flag if found

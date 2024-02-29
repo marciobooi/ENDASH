@@ -30,7 +30,7 @@ class Navbar {
 
       <div class="col-3 col-md-2 col-lg-2 col-xl-2 logo"> 
         <a id="home" href="https://ec.europa.eu/eurostat/web/main/home">
-          <img id="eurostatLogo" src="/img/estat-logo-horizontal.svg" alt="Eurostat - Official Logo">
+          <img id="eurostatLogo" src="img/estat-logo-horizontal.svg" alt="Eurostat - Official Logo">
         </a>
       </div>
       </div>
