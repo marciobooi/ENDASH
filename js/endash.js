@@ -109,10 +109,20 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
 }
 
 function handleData(d, series, categories ) {
+
+
     const indicator_type = REF.indicator_type
-    const indicator = REF.indicator;    
+
+    let indicator
+
+    if(REF.chartId == 'chart_20') {
+        indicator = REF.indicator
+    } else {
+        indicator = d.Dimension('siec') !== null ? d.Dimension('siec').id : REF.indicator 
+    }
 
     chartSeries = []
+
 
     if(REF.dataset === "nrg_ind_ep"|| REF.dataset === "nrg_ind_ffgae") {
         chartSeries.push({name: d.label, data:d.value})
@@ -126,7 +136,7 @@ function handleData(d, series, categories ) {
                 d.value.shift();
             }
             newObj = {
-                name: d.__tree__.dimension[indicator_type].category.label[indicator[item]],
+                name: d.__tree__.dimension[indicator_type].category.label[indicator[item]] + indicator[item],
                 data: data,
                 indicator: indicator[item]
             };
@@ -134,23 +144,54 @@ function handleData(d, series, categories ) {
         }
     }
 
-    let startIndex = 0;
-
-    chartSeries.forEach((series) => {
-        const data = series.data;       
-    
-        // Find the index of the first non-zero and non-null value
-        for (let i = 0; i < data.length; i++) {
-            if (data[i] !== null && data[i] > 0) {
-                startIndex = i;
-                break;
+    if (REF.chartId == "chart_6") {
+        // Calculate the combined data for the new category
+        const combinedData = new Array(chartSeries[0].data.length).fill(0);
+        for (let series of chartSeries) {
+            if (series.indicator === 'C0110' || series.indicator === 'C0121' || series.indicator === 'C0129') {
+                series.data.forEach((value, index) => {
+                    combinedData[index] += value;
+                });
             }
         }
+
+        // Create a new category object for the combined data
+        const newCategory = {
+            name: languageNameSpace.labels['C0100'],
+            data: combinedData,
+            indicator: 'C0100'
+        };
+
+        // Remove indicators C0110, C0121, and C0129 from chartSeries
+        chartSeries = chartSeries.filter(item => item.indicator !== 'C0110' && item.indicator !== 'C0121' && item.indicator !== 'C0129');
+
+        // Push the new category to chartSeries
+        chartSeries.push(newCategory);
+    }
+ 
+    if(REF.chartId != 'chart_21' || REF.chartId != 'chart_22') {
+        categories = categories
+    } else {
+        let startIndex = 0;
+        chartSeries.forEach((series) => {
+            const data = series.data;       
+        
+            // Find the index of the first non-zero and non-null value
+            for (let i = 0; i < data.length; i++) {
+                if (data[i] !== null && data[i] > 0) {
+                    startIndex = i;
+                    break;
+                }
+            }
+        
+            // Update the data series to start from the first non-zero value
+            series.data = data.slice(startIndex);
+        }); 
+        categories.splice(0, startIndex)
+    }
+
+
     
-        // Update the data series to start from the first non-zero value
-        series.data = data.slice(startIndex);
-    });  
-    categories.splice(0, startIndex)
 }
 
 

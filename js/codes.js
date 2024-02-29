@@ -196,7 +196,7 @@ codesDataset = {
 	"chart_6": {
 		"dataset":'nrg_ind_id',
 		"title": "chart_6",
-		"indicator": ["C0000X0350-0370","C0110","C0121","C0129","C0210","C0220","G3000","O4000XBIO","O4100_TOT","O4200"],	
+		"indicator": ["C0000X0350-0370","C0100","C0110","C0121","C0129", "G3000","O4000XBIO","O4100_TOT","O4200"],	
 		"indicator_type": "siec",	
 		"indicator2": '',
 		"indicator2_type": "",	
@@ -282,7 +282,7 @@ codesDataset = {
 	"chart_14": {
 		"dataset":'nrg_bal_s',
 		"title": "chart_14",
-		"indicator": ["C0000X0350-0370","C0350-0370","E7000","G3000","H8000","N900H","O4000XBIO","P1000","RA000","S2000","W6100_6220"],
+		"indicator": ["C0000X0350-0370","E7000","G3000","H8000","O4000XBIO","RA000","W6100_6220"],
 		"indicator_type": "siec",	
 		"indicator2": ["FC_OTH_CP_E"],
 		"indicator2_type": "nrg_bal",	
@@ -304,7 +304,7 @@ codesDataset = {
 	"chart_16": {
 		"dataset":'nrg_bal_s',
 		"title": "chart_16",
-		"indicator": ["C0000X0350-0370","C0350-0370","E7000","G3000","H8000","N900H","O4000XBIO","P1000","RA000","S2000","W6100_6220"],
+		"indicator": ["C0000X0350-0370","C0350-0370","G3000","O4000XBIO","P1000","RA000","S2000",],
 		"indicator_type": "siec",	
 		"indicator2": ["FC_NE"],
 		"indicator2_type": "nrg_bal",	
@@ -346,7 +346,7 @@ codesDataset = {
 		"meta": "ilc_sieusilc"		
 	},
 	"chart_20": {
-		"dataset":'NRG_IND_MARKET',
+		"dataset":'nrg_ind_market',
 		"title": "chart_20",
 		"indicator": ["RCMPY_NEG95","PCMPY_NEG5","LCMPY_EG","CMPY_EG5","LCMPY_IECAP","CMPY_ECAP5","ECAP_CN","ECAP_DC","ECAP_VAR","ERTL","ERTL_SELL_EC5","ERTL_LG","ERTL_EC5"],
 		"indicator_type": "indic_nrgm",	

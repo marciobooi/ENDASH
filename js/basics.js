@@ -600,11 +600,7 @@ function chartApiCall(query) {
     url += "&time=" + REF.year;
     url += "&geo=" + REF.geos;
   
-    break
-
-
-
-  
+    break 
  
   }
 
@@ -628,7 +624,6 @@ function chartApiCall(query) {
   
     const data = JSON.parse(request.responseText);
     const d = JSONstat(data).Dataset(0);
-
     addToCache(url, d);
     
     return d;
