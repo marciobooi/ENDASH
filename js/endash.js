@@ -136,7 +136,7 @@ function handleData(d, series, categories ) {
                 d.value.shift();
             }
             newObj = {
-                name: d.__tree__.dimension[indicator_type].category.label[indicator[item]] + indicator[item],
+                name: d.__tree__.dimension[indicator_type].category.label[indicator[item]],
                 data: data,
                 indicator: indicator[item]
             };

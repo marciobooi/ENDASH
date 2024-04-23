@@ -360,50 +360,54 @@ function hideChartMenuOptions() {
 
 
 tooltip = function () {
- 
-  // Assuming there is a variable 'unit' representing the unit you want to display
-  const unit = REF.unit; // Replace 'your_unit' with the actual unit
+  const unit = REF.unit; 
   const na = languageNameSpace.labels['FLAG_NA'];
 
-
-
   const formatPointTooltip = function (point) {
-    const formattedY = Number(point.y).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ');
-    if(REF.chartType === "pieChart") {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${formattedY} ${unit}</td></tr>`;
+      const formattedY = Number(point.y).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ');
+      if (REF.chartType === "pieChart") {
+          return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.name}:</td><td>${formattedY} ${unit}</td></tr>`;
       } else {
-        return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${formattedY}</td></tr>`;
-      }      
-    };
+          return `<tr class=""><td><span style="padding-right: 5px; color:${point.color}">\u25CF</span> ${point.series.name}:</td><td>${formattedY}</td></tr>`;
+      }
+  };
+
+  // Calculate total
+  let total = 0;
+  if (REF.chartType !== "pieChart") {
+      this.points.forEach(function (point) {
+          total += point.y;
+      });
+  }
 
   // Construct the complete tooltip content
   const tooltipRows = REF.chartType === "pieChart" ? formatPointTooltip(this.point) : this.points.map(formatPointTooltip).join('');
-  
-  // Create the HTML table structure
-  const html = `
-  
-  <table class="table_component">
-      <thead>
-          <tr>
-            <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>   
-          </tr>
-      </thead>
-      <tbody>       
-          ${tooltipRows}        
-      </tbody>
-  </table>`;
-  return html;   
+  const totalRow = REF.chartType !== "pieChart" ? 
+  `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</td></tr>` : '';
 
+  // Create the HTML table structure
+  const html = `  
+      <table class="table_component">
+          <thead>
+              <tr>
+                  <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>   
+              </tr>
+          </thead>
+          <tbody>       
+              ${tooltipRows}
+              ${totalRow}        
+          </tbody>
+      </table>`;
+  return html;   
 }
 
 
+
 function tooltipTable(points) {
-
-  const decimals = REF.dataset == "demo_pjan" ? 0 : 3
-
+  
   if(REF.percentage == 1 ){
     let html = "";
-    html += `<table id="tooltipTable" class="table">                
+    html += `<table id="tooltipTable" class="table_component">                
                 <thead>
                   <tr>
                     <th scope="cols">${points[0].x}</th>                    
@@ -424,7 +428,8 @@ function tooltipTable(points) {
   } else {
     let html = "";
     let totalAdded = false; // Flag to track if the total row has been added
-    let totalColor = "#7cb5ec";
+    let totalColor = "rgb(14, 71, 203)";
+
     
     // Sort the points so that the "Total" item is at the last place
     const sortedPoints = points.sort(function (a, b) {
@@ -432,8 +437,10 @@ function tooltipTable(points) {
       if (b.series.name == languageNameSpace.labels['TOTAL']) return -1;
       return 0;
     });
+
+
     
-    html += `<table id="tooltipTable" class="table">                
+    html += `<table id="tooltipTable" class="table_component">                
       <thead>
         <tr>
           <th scope="cols">${sortedPoints[0].key}</th>                    
@@ -443,16 +450,19 @@ function tooltipTable(points) {
     
     sortedPoints.forEach(function (point) {
       const color = point.series.color;
-      const formattedY = Number(point.y).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ');
-      const category = point.series.name;
-    
-      html += `<tr>
+      const value = point.y.toFixed(2); // Limit decimals to three places
+      const category = point.series.name;    
+
+      log(category)
+
+      if(REF.details != 0) {
+        html += `<tr>
         <td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${color}" /></svg> ${category}</td>
-        <td>${formattedY}</td>
+        <td>${value}</td>
       </tr>`;
-    
+      }    
       // Check if point is "Total" and set the flag if found
-      if (category == languageNameSpace.labels['TOTAL']) {
+      if (category == languageNameSpace.labels['total']) {
         totalAdded = true;
       }
     });
@@ -461,10 +471,20 @@ function tooltipTable(points) {
     const allValuesZero = sortedPoints.every(function (point) {
       return point.y === 0;
     });
-    
-    // if (allValuesZero) {
-    //   html = "<p>All values are zero.</p>"; // Replace the table with the message
-    // } else {
+   
+    if (allValuesZero) {
+      html = 
+    `<table id="tooltipTable" class="table_component">                
+    <thead>
+      <tr>
+        <th scope="cols">${sortedPoints[0].key}</th>                                    
+      </tr>
+    </thead><tr>      
+    <td>${languageNameSpace.labels["FLAG_NA"]}</td>
+  </tr></table>`;
+
+
+    } else {
       // Add a row for the total if not already added
       if (!totalAdded) {
         // Calculate the total sum of all values
@@ -473,7 +493,7 @@ function tooltipTable(points) {
         }, 0);
     
         // Format the total sum with three decimal places
-        const totalValue = totalSum.toFixed(decimals);
+        const totalValue = totalSum.toFixed(2);
     
         // Add a row for the total
         html += `<tr>
@@ -481,10 +501,8 @@ function tooltipTable(points) {
           <td>${totalValue}</td>
         </tr>`;
       }
-    // }
-    
-    html += `</table>`;
-    
+    }    
+    html += `</table>`; 
     return `<div>${html}</div>`;
     
   }

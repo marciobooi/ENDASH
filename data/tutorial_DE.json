@@ -1,19 +1,19 @@
 ﻿{
 	"TUTO_1": "Einführung",
-	"TUTO_2": "Willkommen beim Tutorial zum Visualisierungstool für den Energiestatus von Eurostat. Diese geführte Tour zeigt Ihnen die wichtigsten Möglichkeiten zur Interaktion mit dem Tool.",
+	"TUTO_2": "Willkommen beim Tutorial des Visualisierungstools für das Energie-Dashboard von Eurostat. Diese geführte Tour zeigt Ihnen die wichtigsten Möglichkeiten zur Interaktion mit dem Tool.",
 
 	"TUTO_3": "Hauptindikatoren",
-	"TUTO_4": "Dieses Hauptfenster stellt die Energiestatistiken und Indikatoren für das ausgewählte Land dar.",
+	"TUTO_4": "Dieses Hauptfenster zeigt die Energie-Statistiken und -Indikatoren für das ausgewählte Land.",
 
-	"TUTO_5": "Länder vergleichen",
-	"TUTO_6": "Klicken Sie in einem Diagramm, um zwischen verschiedenen Diagrammtypen für unterschiedliche Datenvisualisierungen zu wechseln.",
+	"TUTO_5": "Länder Vergleichen",
+	"TUTO_6": "Klicken Sie auf einen Graphen, um zwischen verschiedenen Diagrammtypen für unterschiedliche Datenvisualisierungen zu wechseln.",
 
-	"TUTO_7": "Länder filtern",
-	"TUTO_8": "Verwenden Sie diese Option, um die Länder zu filtern.",
+	"TUTO_7": "Länder Auswählen",
+	"TUTO_8": "Verwenden Sie diese Option, um zwischen verschiedenen Ländern zu wechseln.",
 
 	"TUTO_9": "Sprache ändern",
-	"TUTO_10": "Verwenden Sie diese Option, um die Sprache des Tools zu ändern. Es unterstützt Englisch, Französisch oder Deutsch.",
+	"TUTO_10": "Verwenden Sie diese Option, um die Sprache des Tools zu ändern. Es unterstützt Englisch, Französisch und Deutsch.",
 
-	"TUTO_11": "Das war unsere Tour.",
-	"TUTO_12": "Wenn Sie dieses Visualisierungstool nützlich finden, zeigen Sie Ihre Unterstützung, indem Sie es auf Twitter, Facebook und LinkedIn teilen. Vielen Dank!"
+	"TUTO_11": "Abschluss",
+	"TUTO_12": "Wenn Sie dieses Visualisierungstool nützlich finden, teilen Sie es bitte mit anderen auf Twitter, Facebook und LinkedIn, um dazu beizutragen, es bekannt zu machen. Ihre Unterstützung wird sehr geschätzt!"
 }

@@ -1,20 +1,19 @@
 {
 	"TUTO_1": "Introduction",
-	"TUTO_2": "Welcome to the tutorial of Eurostat's Energy dasboard visualization tool. This guided tour will show you the main ways of interacting with the tool.",
-	
-	"TUTO_3": "Main indicators",
-	"TUTO_4": "This main window represents the energy statistics and indicators for the selected country.",
-	
-	"TUTO_5": "Compare countries",
-	"TUTO_6": "Click in a graph to change between different chart types for diferent visualizations of the data.",
-	
-	"TUTO_7": "Filtering countries",
-	"TUTO_8": "Use this option to filter the countries.",
+	"TUTO_2": "Welcome to the tutorial of Eurostat's Energy dashboard visualization tool. This guided tour will show you the main ways of interacting with the tool.",
 
-	"TUTO_9": "Change language",
-	"TUTO_10": "Use this option to change the language of the tool, it supports English, French or German.",
+	"TUTO_3": "Main Indicators",
+	"TUTO_4": "This main window displays energy statistics and indicators for the selected country.",
 
-	"TUTO_11": "That is it for our tour.",
-	"TUTO_12": "If you find this visualisation tool useful, please show your support by sharing it with others on Twitter, Facebook, and LinkedIn. Thank you!"
+	"TUTO_5": "Compare Countries",
+	"TUTO_6": "Click on a graph to switch between different chart types for varied data visualizations.",
 
+	"TUTO_7": "Selecting Countries",
+	"TUTO_8": "Use this option to switch between different countries.",
+
+	"TUTO_9": "Change Language",
+	"TUTO_10": "Use this option to change the language of the tool. It currently supports English, French, and German.",
+
+	"TUTO_11": "Conclusion",
+	"TUTO_12": "If you find this visualization tool useful, please consider sharing it with others on Twitter, Facebook, and LinkedIn to help spread the word. Your support is greatly appreciated!"
 }

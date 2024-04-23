@@ -1,19 +1,19 @@
 ﻿{
 	"TUTO_1": "Introduction",
-	"TUTO_2": "Bienvenue dans le tutoriel de l'outil de visualisation du tableau de bord de l'énergie d'Eurostat. Cette visite guidée vous montrera les principales façons d'interagir avec l'outil.",
+	"TUTO_2": "Bienvenue dans le tutoriel de l'outil de visualisation du tableau de bord énergétique d'Eurostat. Cette visite guidée vous montrera les principales façons d'interagir avec l'outil.",
 
-	"TUTO_3": "Principaux indicateurs",
-	"TUTO_4": "Cette fenêtre principale représente les statistiques et les indicateurs énergétiques du pays sélectionné.",
+	"TUTO_3": "Principaux Indicateurs",
+	"TUTO_4": "Cette fenêtre principale affiche les statistiques et les indicateurs énergétiques pour le pays sélectionné.",
 
-	"TUTO_5": "Comparer les pays",
-	"TUTO_6": "Cliquez sur un graphique pour changer entre différents types de graphiques pour différentes visualisations des données.",
+	"TUTO_5": "Comparer les Pays",
+	"TUTO_6": "Cliquez sur un graphique pour basculer entre différents types de graphiques pour des visualisations de données variées.",
 
-	"TUTO_7": "Filtrer les pays",
-	"TUTO_8": "Utilisez cette option pour filtrer les pays.",
+	"TUTO_7": "Sélection des Pays",
+	"TUTO_8": "Utilisez cette option pour basculer entre différents pays.",
 
-	"TUTO_9": "Changer de langue",
-	"TUTO_10": "Utilisez cette option pour changer la langue de l'outil, il prend en charge l'anglais, le français ou l'allemand.",
+	"TUTO_9": "Changer de Langue",
+	"TUTO_10": "Utilisez cette option pour changer la langue de l'outil. Il prend en charge l'anglais, le français et l'allemand.",
 
-	"TUTO_11": "C'est tout pour notre visite.",
-	"TUTO_12": "Si vous trouvez cet outil de visualisation utile, montrez votre soutien en le partageant avec d'autres sur Twitter, Facebook et LinkedIn. Merci !"
+	"TUTO_11": "Conclusion",
+	"TUTO_12": "Si vous trouvez cet outil de visualisation utile, envisagez de le partager avec d'autres sur Twitter, Facebook et LinkedIn pour aider à le faire connaître. Votre soutien est grandement apprécié !"
 }

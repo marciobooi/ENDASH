@@ -115,19 +115,19 @@ ALL ABOUT BAND CODES
 */
 //define a generic list of 14 band colors to be used for the pie charts and time graphs
 colors = [
-	"#2644A7",
-	"#EFD18C", 
-	"#208486",
-	"#388AE2",
-	"#b38f00",
-	"#AA5F18",
-	"#672DC4",
-	"#007243",
-	"#982630",
-	"#17256B",
-	"#005C99",
-	"#CCB151",
+	'#388AE2',
+	'#A5DAF9',
+	'#80BFFA',
+	'#104F99',
+	'#208486',
+	'#92C1C0',
+	"#5FADAD",
 	"#00525C",
+	"#008BE6",
+	"#F4F4F4",
+	"#A1CBE6",
+	"#5CAFE6",
+	"#005C99",
 ];
 
 

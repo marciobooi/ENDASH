@@ -1,5 +1,10 @@
+tbody, td, tfoot, th, thead, tr {
+    padding: 0.3rem;
+    font-size: 14px;   
+}
+
 .highcharts-data-table {
-    height: 64vh;
+    height: 55vh;
     overflow: auto;
 }
 

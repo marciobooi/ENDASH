@@ -26,6 +26,7 @@ class Chart {
           plotBorderWidth: null,
           plotShadow: false,
           animation: false,
+          spacingBottom: 50,
            events: {
             load() {
               const chart = this;
@@ -44,23 +45,18 @@ class Chart {
         },
         xAxis: this.xAxis,
         yAxis: {
-          // labels: {
-          //   format: this.yAxisFormat,
-          // },
+          labels: {
+            format: this.yAxisFormat,
+          },
           title: {
             enabled: true,
-            text: this.yAxisTitle,         
-            style: {             
-              wordWrap:'break-word',
-              step:1,
-              width : "200px",
-            }   
+            text: this.yAxisTitle,            
           },
-
         },
         colors: this.colors,
         tooltip: {
           formatter: this.tooltipFormatter,
+          footerFormat: 'Sum: <b>{point.total}</b>',
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
           useHTML: true,    
@@ -74,10 +70,13 @@ class Chart {
           },   
         },
         legend: this.legend,
-        legend: {          
+        legend: {                
           itemHiddenStyle: {
             color: '#767676'
           },
+          itemStyle: {
+            fontSize: '1rem',
+          }
         },
         plotOptions: {
           column: this.columnOptions,
@@ -102,14 +101,32 @@ class Chart {
               contextButton: {
                   enabled: false
               }
-          }
+          },
+          csv: {
+            columnHeaderFormatter: function(item, key) {
+                if (!item || item instanceof Highcharts.Axis) {
+                  const chartLabels = {
+                    "pieChart": languageNameSpace.labels["IND"],
+                    "barChart": languageNameSpace.labels["CTR"],
+                    // Add more chart types and their corresponding labels here
+                };                    
+                // Default label for unknown chart types
+                const defaultLabel = languageNameSpace.labels["YEAR"];  
+                const label = chartLabels[REF.chartType] || defaultLabel;
+                return label;                   
+                } else {
+                    return item.name;
+                }
+            }
+        }
       }
     }); // end of chart object
-
+    
+    enableScreenREader()
 
       return chart
 
-      enableScreenREader()
+
 
     } // end of chart function
     

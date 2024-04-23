@@ -11,22 +11,40 @@ function createPieChart() {
   piechartdata()
   
   const seriesOpt = {
-    innerSize: "75%",
     showInLegend: true,
     dataLabels: {
       enabled: true,
     },
   };
 
+
   const pieOpt = {  
-      allowPointSelect: true,
-      animation: true,
-      cursor: "pointer",
-      dataLabels: {
+    allowPointSelect: true,
+    // size: "75%",
+    innerSize: "75%",
+    showInLegend: true,
+    animation: true,
+    cursor: "pointer",
+    dataLabels: {
         enabled: true,
-        format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %<br>value: {point.y:,.4f} " + REF.unit
-      },
-  } 
+        style: {
+            fontSize: '.8rem',
+            fontWeight: 'normal'
+        },
+        formatter: function () {
+          // Split the name by spaces
+          const nameParts = this.point.name.split(' ');
+          // Insert <br> after the second word
+          nameParts.splice(2, 0, '<br>');
+          // Join the parts back together
+          const formattedName = nameParts.join(' ');
+          
+          return '<b>' + formattedName + '</b>:<br>' +
+              'Percentage: ' + Highcharts.numberFormat(this.point.percentage, 1) + '%<br>' +
+              languageNameSpace.labels["VAL"] + ': ' + Highcharts.numberFormat(this.point.y, 4) + ' ' + languageNameSpace.labels[REF.unit];
+      }
+    }
+}
 
 
   function pieChartNormalTooltip(point) {
@@ -50,7 +68,7 @@ function createPieChart() {
     creditsHref: "",
       series: [{
       name: 'Categories',
-      data: piedata
+      data: piedata.sort((a, b) => b[1] - a[1]),
     }],
     colors: colors,
     legend: {},
@@ -85,7 +103,7 @@ function piechartdata() {
   if(REF.indicator.length == 0) {
 
   for (i = 0; i < 1; i++) {
-    if (d.value[i] != null) {
+    if (d.value[i] != null || d.value[i] > 0) {
         piedata.push(
           [d.__tree__.label,
             d.value[i]]
@@ -97,7 +115,7 @@ function piechartdata() {
   } else {
 
     for (i = 0; i < REF.indicator.length; i++) {
-      if (d.value[i] != null) {
+      if (d.value[i] != null || d.value[i] > 0) {
           piedata.push(
             [d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
               d.value[i]]

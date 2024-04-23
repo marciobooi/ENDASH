@@ -26,11 +26,49 @@ class SubNavbar {
                   <i class="fas fa-share-alt" aria-hidden="true"></i>
                 </button>
       
-                <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="Share chart">     					
-                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.twitter();" aria-label="${languageNameSpace.labels['twitter']}" value="twitter">${languageNameSpace.labels['twitter']}</button>             		
-                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.facebook();" aria-label="${languageNameSpace.labels['facebook']}" value="facebook">${languageNameSpace.labels['facebook']}</button>             		
-                  <button class="dropdown-item" role="menuitem" onclick="socialNameSpace.linkedIn();" aria-label="${languageNameSpace.labels['linkedin']}" value="linkedin">${languageNameSpace.labels['linkedin']}</button>             		
-                </ul>
+                <ul class="dropdown-menu dropdown-menu-end" style="padding: 12px;" role="menu" aria-labelledby="Share chart">     	  					
+                <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;">Share this page</p>   		
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}">                  
+                    <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                      <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/twiter.svg" alt="Twitter Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                    </span>
+                    <span class="ecl-link__label">${languageNameSpace.labels["twitter"]}</span>                  
+                </button>  
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.facebook()" aria-label="${languageNameSpace.labels['facebook']}">
+                  <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                    <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/face.svg" alt="Facebook Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                  </span>
+                  <span class="ecl-link__label">${languageNameSpace.labels["facebook"]}</span>                  
+                </button>
+
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.linkedin()" aria-label="${languageNameSpace.labels['linkedin']}">
+                  <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
+                    <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/linkdin.svg" alt="Linkedin Icon" width="24" height="24" focusable="false" aria-hidden="true">
+                  </span>
+                  <span class="ecl-link__label">${languageNameSpace.labels["linkedin"]}</span>                  
+                </button>
+                  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               </li>
             </ul>
     </div>

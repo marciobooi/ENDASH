@@ -1,45 +1,14 @@
+.ecl-button:hover, #btn-country-ok:hover {
+    color: white;
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+    
+}
+
 .btn-secondary {
     background-color: var(--tool-1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-.invisible {
-    visibility: hidden !important;
-}
-
-
-#dropdown-geo-list {
-    height: auto;
-    max-height: 48vh;
-    overflow-x: hidden;
-    width: auto;
-    margin: 1rem;
-}
-
-
-
-
-option.active {
-    background-color: var(--tool-1);
-    color: white;
-}
-
-
-
-
-/* new */
-
-
 
 
 
@@ -72,7 +41,7 @@ span.iconText {
 #chartBtns {
     display: flex;
     justify-content: flex-end;
-    padding-right: 1rem;
+    padding: 0 0.8rem;
 }
 
 li > button {
@@ -84,49 +53,59 @@ li > button {
     justify-content: center;
     align-items: center;
     font-size: 1.2em !important;
+    
 }
 
 
-#menuSwitch label {
-    font-size: 0.8rem;   
-}
 
-#menuSwitch input[type="checkbox"]:checked + label {
-    font-weight: bold;
-}
-#floatingMenu {
-    display: flex;
-    position: relative;
-}
 
-#floatingMenu > li {
-    text-decoration: none;
-    list-style-type: none;
-}
 
-/* button:focus,
+
+
+
+
+
+
+button:focus,
 .input:focus {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-} */
+    box-shadow: var(--bs-btn-focus-box-shadow);
+}
 
 ul.dropdown-menu.dropdown-menu-end.show {
-    margin-top: 1rem;
     z-index: 9999999999;
 }
 
 
-.min-with--nav:hover {
+/* .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    text-decoration: none;
+    color: #262626;
+    background-color: lightgray;
+} */
+
+
+/* #menu:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+} */
+.min-with--nav:hover:not(.dropdown-toggle) {
     box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    /* border-color: #CCA300 !important; */
+    background-color: #CCA300;
+    border-color: #CCA300 ;
+}
+button:focus:not(:focus-visible):not(.dropdown-toggle), button:active:not(.dropdown-toggle) {
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300 !important;
+    border-color: #CCA300 !important;
 }
 
-.btn:disabled {
-    background-color: rgba(14,71,203,.5);
-    color: hsla(0,0%,100%,.5);
+
+
+.ecl-button:focus-visible { 
+    outline: 0;   
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300;
+    border-color: #CCA300 ;
 }
+
 
 .form-switch.form-check-reverse {
     padding-right: 2.5em;
@@ -143,22 +122,41 @@ span.agregates.fa-stack.fa-rotate-180 {
 }
 
 .round-btn {
-    border-radius: 50%;
-}
-.containerNav > .round-btn {
-    border-radius: 50%;
-    background-color: rgba(14,71,203,.5);
-    color: hsla(0,0%,100%,.5);
+    border-radius: 50% !important;
 }
 
-.ecl-button--primary:active, .ecl-button--primary:hover {
-    background-color: #3e6cd5;
-    color: #ffffff;
+
+#btnCloseModalChart {
+    background-color: #cfdaf5 !important;
+    border-color: #cfdaf5!important;
+    color: #0e47cb;
+    border: 3px solid #cfdaf5!important;
+    font-size: 1.7rem !important;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    
 }
 
-.flex-item:hover .containerNav .ecl-button--primary {
-    background-color: #3e6cd5;
-    color: #ffffff;
+#closeChart {
+    margin-left: 2rem;
+}
+
+
+
+#btnCloseModalChart:hover {
+    box-shadow: 0 0 0 0.15rem #0e47cb4d;
+    background-color: #0e47cb!important;
+    border-color: #0e47cb !important;
+    color: white !important;
+}
+
+#btnCloseModalChart:focus {
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
 }
 
 .text-truncate {
@@ -167,8 +165,53 @@ span.agregates.fa-stack.fa-rotate-180 {
     text-overflow: ellipsis !important;
 }
 
-ul#chartBtns > li > button {
-    background-color: white !important;
-    color: var(--ECU-120);
+
+
+#floatingMenu > li {
+    text-decoration: none;
+    list-style-type: none;
 }
 
+#menuSwitch {
+    color: var(--main-color);
+    display: flex;
+}
+
+ul#floatingMenu {
+    display: flex;
+}
+
+
+#SHOW, #HIDE {
+    font-size: 1rem;
+} 
+
+#menuSwitch input[type="checkbox"]:checked + label {    
+    font-weight: bold;   
+}
+
+label#HIDE {
+    font-weight: bold;  
+}
+
+.form-check-label:first-of-type {
+    margin-right: 10px; /* Adjust as needed */
+}
+
+.form-check-label:last-of-type {
+    margin-left: 10px; /* Adjust as needed */
+}
+
+#switchBtn {
+    padding-right: 2.5em;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+button#toggleAgregates {
+    position: relative;
+}

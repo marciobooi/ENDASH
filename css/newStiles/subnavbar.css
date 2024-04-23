@@ -23,11 +23,6 @@
     margin-bottom: 0.2rem;
 }
 
-ul.dropdown-menu {
-    /* max-width: 19rem; */
-    padding-top: 0;
-    padding-bottom: 0;
-}
 
 .chartBtns > .nav-item > .round-btn {
     background-color: white !important;
@@ -72,7 +67,7 @@ ul.dropdown-menu {
 
 #chartControls {
     padding: 0.8rem;
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     justify-content: flex-end;
 }

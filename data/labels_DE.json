@@ -399,7 +399,12 @@
   "C0100": "Hartkohle",
 
   "ERROR1": "Keine Metadaten zum Anzeigen",
-  "ERROR2": "Keine Daten zum Anzeigen"
+  "ERROR2": "Keine Daten zum Anzeigen",
+
+  "IND": "Kraftstoff",
+  "CTR": "Länder",
+  "VAL": "Wert",
+  "VALS": "Werte"
 
  
 

@@ -423,7 +423,13 @@
 
 
  "ERROR1": "No metadata to display",
- "ERROR2": "No data to display"
+ "ERROR2": "No data to display",
+
+ "IND": "Fuel",
+ "CTR": "Countries",
+
+ "VAL": "Value",
+ "VALS": "Values"
 
 
 }

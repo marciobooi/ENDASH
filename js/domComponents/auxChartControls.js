@@ -26,8 +26,8 @@ class ChartControls {
 								<i class="fas fa-info"></i>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-								<button class="dropdown-item" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
-								<button class="dropdown-item" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
+								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
+								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
 							</ul>
 						</li>
 						<li class="nav-item button" id="closeChart" role="none"></li>
@@ -88,8 +88,8 @@ class ChartControls {
 		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
 		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
 		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBSHARECHART'], "false");
-		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "btnClose", "round-btn"], languageNameSpace.labels['BTNCLOSECHART'], "false");
-	
+		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn", "close-chart-menu-btn"], languageNameSpace.labels['BTNCLOSECHART'], "false");
+		
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');
 		pieChart.setInnerHtml('<i class="fas fa-chart-pie"></i>');
@@ -214,7 +214,7 @@ class ChartControls {
 	}
   
 	// countriesHandler(geoDropdown) {
-	// 	const geoItems = geoDropdown.querySelectorAll('.dropdown-item');			
+	// 	const geoItems = geoDropdown.querySelectorAll('.dropdown-item ecl-link ecl-link--standalone');			
 
 	// 	geoItems.forEach((item) => {
 	// 		item.addEventListener('click', (event) => {

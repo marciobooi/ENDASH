@@ -405,7 +405,12 @@
   "C0100": "Charbon dur",
 
   "ERROR1": "Aucune métadonnée à afficher",
-  "ERROR2": "Aucune donnée à afficher"
+  "ERROR2": "Aucune donnée à afficher",
+
+  "IND": "Carburant",
+  "CTR": "Pays",
+  "VAL": "Valeur",
+  "VALS": "Valeurs"
 
 
 

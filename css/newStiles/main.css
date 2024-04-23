@@ -355,3 +355,7 @@ text.highcharts-axis-title {
   overflow-y: auto;
   padding: 1rem;
 }
+
+.ecl-link--standalone {
+    text-decoration: underline !important;
+}

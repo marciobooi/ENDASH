@@ -55,7 +55,7 @@ function createBarChart() {
           mouseOver: function () {
             var point = this;
             var color = point.color;
-            $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
+            // $('path.highcharts-label-box.highcharts-tooltip-box').css('stroke', color);
           }
         }
       },

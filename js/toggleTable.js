@@ -27,3 +27,4 @@ function closeTable() {
     $('#timelineContainer').css('display', 'initial');
 
 }
+
