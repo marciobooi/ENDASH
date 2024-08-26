@@ -15,7 +15,7 @@ function populateCountries() {
 
   const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
       REF.geos = selectedValue;      
-      REF.chartExpanded === "true" ? endash() : (compareCountries());
+      REF.chartExpanded === false ? removeAuxiliarBarGraphOptions() : compareCountries();
   });
 
   const singleSelectHTML = singleSelect.createSingleSelect();

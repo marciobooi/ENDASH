@@ -1,16 +1,10 @@
-.ecl-button:hover, #btn-country-ok:hover {
-    color: white;
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-    
-}
-
 .btn-secondary {
     background-color: var(--tool-1);
 }
 
-
+#allContainer > div > nav {
+    position: relative;
+}
 
 #menu {
     position: relative;
@@ -21,6 +15,23 @@
     border: none;
     color: var(--tool-1);
     background-color: transparent;
+}
+
+
+
+.menuOpen {
+    background-color: #f3f6fc !important;
+    color: #0e47cb !important;
+    box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+}
+
+#menu:hover {
+    background-color: #4073AF;
+}
+
+#menu > span {
+    padding-top: 2px;
+    font-size: .8em;
 }
 
 .btnGroup {
@@ -35,36 +46,53 @@ span.iconText {
 }
 
 .btnGroup > i {
-    font-size: 1.3em;
+    font-size: 1em;
 }
 
 #chartBtns {
     display: flex;
     justify-content: flex-end;
-    padding: 0 0.8rem;
 }
 
 li > button {
-    background-color: var(--tool-1) !important;
-    border-color: var(--tool-1) !important;
+    background-color: #0e47cb;
+    color: #fff;
+    border: 2px solid #0e47cb;
+    border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
+    padding: 0;
     display: flex !important;
     justify-content: center;
     align-items: center;
     font-size: 1.2em !important;
-    
 }
 
 
+#menuSwitch {
+    color: var(--main-color);
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-bottom: 0 !important; */
+}
 
+#menuSwitch label {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
 
+#floatingMenu {
+    display: flex;
+    position: relative;
+}
 
-
-
-
-
-
+#floatingMenu > li {
+    text-decoration: none;
+    list-style-type: none;
+}
 
 button:focus,
 .input:focus {
@@ -86,26 +114,11 @@ ul.dropdown-menu.dropdown-menu-end.show {
 /* #menu:hover {
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 } */
-.min-with--nav:hover:not(.dropdown-toggle) {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300;
-    border-color: #CCA300 ;
+.round-btn:hover, .round-btn:focus {
+    background-color: white !important;
+    border: 2px solid #0e47cb;
+    color: #0e47cb !important;
 }
-button:focus:not(:focus-visible):not(.dropdown-toggle), button:active:not(.dropdown-toggle) {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300 !important;
-    border-color: #CCA300 !important;
-}
-
-
-
-.ecl-button:focus-visible { 
-    outline: 0;   
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300;
-    border-color: #CCA300 ;
-}
-
 
 .form-switch.form-check-reverse {
     padding-right: 2.5em;
@@ -119,45 +132,14 @@ dl, ol, ul {
 
 span.agregates.fa-stack.fa-rotate-180 {
     font-size: .9rem;
+    top: 12px !important;
 }
-
 .round-btn {
-    border-radius: 50% !important;
-}
-
-
-#btnCloseModalChart {
-    background-color: #cfdaf5 !important;
-    border-color: #cfdaf5!important;
-    color: #0e47cb;
-    border: 3px solid #cfdaf5!important;
-    font-size: 1.7rem !important;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    width: 2.7rem;
-    height: 2.7rem;
-    
-}
-
-#closeChart {
-    margin-left: 2rem;
+    border-radius: 50%;
 }
 
 
 
-#btnCloseModalChart:hover {
-    box-shadow: 0 0 0 0.15rem #0e47cb4d;
-    background-color: #0e47cb!important;
-    border-color: #0e47cb !important;
-    color: white !important;
-}
-
-#btnCloseModalChart:focus {
-    box-shadow: 0 0 0 0.15rem #cca3004d;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
-}
 
 .text-truncate {
     overflow: hidden !important;
@@ -166,52 +148,40 @@ span.agregates.fa-stack.fa-rotate-180 {
 }
 
 
-
-#floatingMenu > li {
-    text-decoration: none;
-    list-style-type: none;
-}
-
-#menuSwitch {
-    color: var(--main-color);
+.groupOne, .groupTwo, .groupTree {
     display: flex;
 }
 
-ul#floatingMenu {
+.groupOne, .groupTwo {
     display: flex;
+    padding-right: 2rem;
 }
 
-
-#SHOW, #HIDE {
-    font-size: 1rem;
-} 
-
-#menuSwitch input[type="checkbox"]:checked + label {    
-    font-weight: bold;   
+#closeChart {
+    margin-left: 2rem;
 }
 
-label#HIDE {
-    font-weight: bold;  
-}
-
-.form-check-label:first-of-type {
-    margin-right: 10px; /* Adjust as needed */
-}
-
-.form-check-label:last-of-type {
-    margin-left: 10px; /* Adjust as needed */
-}
-
-#switchBtn {
-    padding-right: 2.5em;
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
+#btnCloseModalChart {
+    background-color: #cfdaf5 !important;
+    border-color: #cfdaf5 !important;
+    color: #0e47cb;
+    border: 3px solid #cfdaf5 !important;
+    font-size: 1.5rem !important;
     justify-content: center;
-    align-items: center;
     align-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
-button#toggleAgregates {
-    position: relative;
+#btnCloseModalChart:hover {
+    box-shadow: 0 0 0 0.15rem #0e47cb4d;
+    background-color: #0e47cb !important;
+    border-color: #0e47cb !important;
+    color: white !important;
 }
+
+
+
+
+/* document.querySelector("#tb-togle-details > span > i:nth-child(2)") */

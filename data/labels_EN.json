@@ -412,7 +412,7 @@
  "BTNEXCELCHART": "Click to export as excel file",
  "BTNBSHARECHART": "Click to share this chart",
  "BTNCLOSECHART": "Click to return to main page",
- "BTNINFICHART": "Click to open info menu",
+ "BTNINFICHART": "Show information",
  "BTNTABLECHART": "Click to show the table",
  "BTNPERCENTAGECHART": "Click to change to percentage",
  "BTNAGREGATESCHART": "Click to show/Hide aggregates",
@@ -430,7 +430,13 @@
  "CTR": "Countries",
 
  "VAL": "Value",
- "VALS": "Values"
+ "VALS": "Values",
+
+ "AGGREGATES_COUNTRY_CODES":"Aggregates",
+  "EU_COUNTRY_CODES":"European Union Members",
+  "EFTA_COUNTRY_CODES":"EFTA Countries",
+  "ENLARGEMENT_COUNTRY_CODES":"Enlargement Countries",
+  "OTHER_THIRD_COUNTRY_CODES":"Other Third Countries"
 
 
 }

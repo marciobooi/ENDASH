@@ -45,7 +45,7 @@ function createBarChart() {
     tooltipFormatter: tooltip,
     creditsText: credits(),
     creditsHref: "",
-    series: chartSeries,
+    series: sortByName(chartSeries),
     colors: colors,
     legend: {},
     columnOptions: {

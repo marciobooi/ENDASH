@@ -390,7 +390,7 @@
   "BTNEXCELCHART": "Klicken Sie, um als Excel-Datei zu exportieren",
   "BTNBSHARECHART": "Klicken Sie, um dieses Diagramm zu teilen",
   "BTNCLOSECHART": "Klicken Sie, um zur Hauptseite zurückzukehren",
-  "BTNINFICHART": "Klicken Sie, um das Infomenü zu öffnen",
+  "BTNINFICHART": "Informationen anzeigen",
   "BTNTABLECHART": "Klicken Sie, um die Tabelle anzuzeigen",
   "BTNPERCENTAGECHART": "Klicken Sie, um auf Prozent umzuschalten",
   "BTNAGREGATESCHART": "Klicken Sie, um Aggregate ein-/auszublenden",
@@ -405,7 +405,13 @@
   "IND": "Kraftstoff",
   "CTR": "Länder",
   "VAL": "Wert",
-  "VALS": "Werte"
+  "VALS": "Werte",
+
+  "AGGREGATES_COUNTRY_CODES": "Aggregierte Daten",
+  "EU_COUNTRY_CODES": "Mitglieder der Europäischen Union",
+  "EFTA_COUNTRY_CODES": "EFTA-Staaten",
+  "ENLARGEMENT_COUNTRY_CODES": "Erweiterungsländer",
+  "OTHER_THIRD_COUNTRY_CODES": "Andere Drittstaaten"
 
  
 

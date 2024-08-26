@@ -28,9 +28,6 @@ function endash(d = null) {
 
 }
 function buildChart(categories, containerId, yAxisTitle, type, unit) {
-
-
-
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
@@ -78,7 +75,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         tooltipFormatter: tooltip,    
         creditsText: credits(),
         creditsHref: "",
-        series: chartSeries,
+        series: sortByName(chartSeries),
         colors: colors,
         legend: {},
         seriesOptions,
@@ -98,14 +95,6 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
     $(window).on('resize', function () {
       changeLegendPisition(lineChart);
     });
-
-
-
-
-
-
-
-
 }
 
 function handleData(d, series, categories ) {
@@ -193,8 +182,6 @@ function handleData(d, series, categories ) {
 
     
 }
-
-
 function chartEightCalculation() {
     urlChartEightOne = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_bal_c?";
     urlChartEightOne += "format=JSON";

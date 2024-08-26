@@ -115,19 +115,7 @@ ALL ABOUT BAND CODES
 */
 //define a generic list of 14 band colors to be used for the pie charts and time graphs
 colors = [
-	'#388AE2',
-	'#A5DAF9',
-	'#80BFFA',
-	'#104F99',
-	'#208486',
-	'#92C1C0',
-	"#5FADAD",
-	"#00525C",
-	"#008BE6",
-	"#F4F4F4",
-	"#A1CBE6",
-	"#5CAFE6",
-	"#005C99",
+'#06D7FF', '#19FF99', '#4C99FF', '#FFD900', '#C88000', '#33D129', '#FFB800', '#E67500', '#05A0FF', '#2CB523', '#8C4000', '#0033FF', '#00A68C', '#FF8C00', '#00D98C', '#2673FF', '#FFB300', '#FF8A00', '#B35900', '#26A31F', '#0573FF'
 ];
 
 
@@ -386,10 +374,23 @@ codesDataset = {
 
 defaultGeos = ["EU27_2020","BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE"]
 
-const allCountries = ["EU27_2020","BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE"]
-const countriesAgregates = ["EU27_2020", "EA"];
-const EU_MEMBER_COUNTRY_CODES = ['BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'EL', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE'];
-const NON_MEMBER_COUNTRY_CODES = allCountries.filter(country => !EU_MEMBER_COUNTRY_CODES.includes(country) && !countriesAgregates.includes(country));
 
+const AGGREGATES_COUNTRY_CODES = ["EU27_2020", "EA"];
+  
+const EU_COUNTRY_CODES = [
+  "BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT",
+  "LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE"
+]
 
+const EFTA_COUNTRY_CODES = [
+  "IS", "LI", "NO"
+]
+
+const ENLARGEMENT_COUNTRY_CODES = [
+  "ME","MK","AL","RS","TR","BA","XK"
+]
+
+const OTHER_THIRD_COUNTRY_CODES = [
+  "UA", "MD", "GE"
+]
 

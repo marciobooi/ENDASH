@@ -108,7 +108,7 @@ function createLineChart() {
         tooltipFormatter: tooltipFormatter,
         creditsText: credits(),
         creditsHref: 'https://ec.europa.eu/eurostat/databrowser/view/'+REF.dataset+'/default/table?lang=EN',
-        series: orderedSeries,
+        series: sortByName(orderedSeries),
         colors: lineColors,
         legend: {enabled:true},        
         columnOptions: {

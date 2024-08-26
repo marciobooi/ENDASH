@@ -357,5 +357,5 @@ text.highcharts-axis-title {
 }
 
 .ecl-link--standalone {
-    text-decoration: underline !important;
+    text-decoration: none;
 }

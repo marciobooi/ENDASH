@@ -396,7 +396,7 @@
   "BTNEXCELCHART": "Cliquez pour exporter en fichier Excel",
   "BTNBSHARECHART": "Cliquez pour partager ce diagramme",
   "BTNCLOSECHART": "Cliquez pour revenir à la page principale",
-  "BTNINFICHART": "Cliquez pour ouvrir le menu d'information",
+  "BTNINFICHART": "Afficher les informations",
   "BTNTABLECHART": "Cliquez pour afficher la table",
   "BTNPERCENTAGECHART": "Cliquez pour passer en pourcentage",
   "BTNAGREGATESCHART": "Cliquez pour afficher/masquer les agrégats",
@@ -411,7 +411,13 @@
   "IND": "Carburant",
   "CTR": "Pays",
   "VAL": "Valeur",
-  "VALS": "Valeurs"
+  "VALS": "Valeurs",
+
+  "AGGREGATES_COUNTRY_CODES": "Agrégats",
+    "EU_COUNTRY_CODES": "Membres de l'Union européenne",
+    "EFTA_COUNTRY_CODES": "Pays de l'AELE",
+    "ENLARGEMENT_COUNTRY_CODES": "Pays en voie d'adhésion",
+    "OTHER_THIRD_COUNTRY_CODES": "Autres pays tiers"
 
 
 

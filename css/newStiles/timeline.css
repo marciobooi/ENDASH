@@ -117,7 +117,12 @@
   .sliderHandle:focus, .sliderHandle:hover {
     width: 4.2rem !important;
     height: 2rem !important;
-    box-shadow: 0 0 0 0.15rem #cca3004d !important;
-    background-color: #CCA300!important;
-    border-color: #CCA300 !important;
+    box-shadow: 0 0 0 0.15rem #0e47cb4d;
+    background-color: white !important;
+    border-color: #0e47cb !important;
+    color: #0e47cb !important;
+  }
+
+  .sliderHandle:hover #sliderTimePeriod {
+    color: #0e47cb;
   }

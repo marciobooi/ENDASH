@@ -794,3 +794,18 @@ function unloadSkeleton() {
       $("div.skeletonContainer").addClass('d-none');
   });
 }
+
+
+
+function sortByName(array) {
+  return array.sort((a, b) => {
+      // Compare the 'name' properties of the two objects
+      if (a.name < b.name) {
+          return -1; // a should come before b
+      }
+      if (a.name > b.name) {
+          return 1; // a should come after b
+      }
+      return 0; // a and b are equal
+  });
+}
