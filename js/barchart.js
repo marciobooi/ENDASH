@@ -40,7 +40,7 @@ function createBarChart() {
     title: getTitle(),
     subtitle: null,
     xAxis: xAxis,
-    yAxisFormat: '{value:.2f}',
+    yAxisFormat: '{value:.0f}',
     yAxisTitle:  yAxisTitle,
     tooltipFormatter: tooltip,
     creditsText: credits(),

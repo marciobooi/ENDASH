@@ -70,7 +70,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         title,
         subtitle: null,
         xAxis,
-        yAxisFormat: '{value:.2f}',
+        yAxisFormat: '{value:,.0f}',
         yAxisTitle,
         tooltipFormatter: tooltip,    
         creditsText: credits(),

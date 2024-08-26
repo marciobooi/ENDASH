@@ -382,22 +382,26 @@
 	"compare": "Länder vergleichen",
 	"header-title-label": "Energie-Dashboard",
 
-  "BTNBARCHART": "Klicken Sie, um das Balkendiagramm anzuzeigen",
-  "BTNPIECHART": "Klicken Sie, um das Kreisdiagramm anzuzeigen",
-  "BTNLINECHART": "Klicken Sie, um das Liniendiagramm anzuzeigen",
-  "BTNPRINTCHART": "Klicken Sie, um das Diagramm zu drucken",
-  "BTNDOWNLOADCHART": "Klicken Sie, um das Diagramm herunterzuladen",
-  "BTNEXCELCHART": "Klicken Sie, um als Excel-Datei zu exportieren",
-  "BTNBSHARECHART": "Klicken Sie, um dieses Diagramm zu teilen",
-  "BTNCLOSECHART": "Klicken Sie, um zur Hauptseite zurückzukehren",
-  "BTNINFICHART": "Informationen anzeigen",
-  "BTNTABLECHART": "Klicken Sie, um die Tabelle anzuzeigen",
-  "BTNPERCENTAGECHART": "Klicken Sie, um auf Prozent umzuschalten",
-  "BTNAGREGATESCHART": "Klicken Sie, um Aggregate ein-/auszublenden",
-  "BTNATABLE": "Klicken Sie, um die Tabelle anzuzeigen/auszublenden",
-  "BTNCHANGECOUNTRY": "Klicken Sie, um das Land zu ändern",
-  "BTNEXPAND": "Klicken Sie, um das Diagramm zu vergrößern",
+
   "C0100": "Hartkohle",
+
+  "BTNATABLE": "Tabelle anzeigen",
+  "BTNINFICHART": "Informationen anzeigen",
+  "BTNDOWNLOADCHART": "Diagramm als Bild herunterladen",
+  "BTNBSHARECHART": "In sozialen Medien teilen",
+  "BTNBARCHART": "Balkendiagramm anzeigen",
+  "BTNPIECHART": "Kreisdiagramm anzeigen",
+  "BTNLINECHART": "Liniendiagramm anzeigen",
+  "BTNTABLECHART": "Tabelle anzeigen",
+  "BTNCLOSECHART": "Schließen",
+  "BTNPRINTCHART": "Diagramm als Bild herunterladen",
+  "BTNEXCELCHART": "Diagrammdaten herunterladen",
+  "BTNPERCENTAGECHART": "Klicken, um zu Prozentsätzen zu wechseln",
+  "BTNAGREGATESCHART": "Klicken, um Aggregate anzuzeigen/zu verbergen",
+  "BTNCHANGECOUNTRY": "Klicken, um Länder zu ändern",
+  "BTNEXPAND": "Diagramm erweitern",
+  "BTNEDETAILS": "Klicken, um Details anzuzeigen/zu verbergen",
+  "BTNRNW": "Zwischen erneuerbaren/nicht erneuerbaren umschalten",
 
   "ERROR1": "Keine Metadaten zum Anzeigen",
   "ERROR2": "Keine Daten zum Anzeigen",
@@ -411,7 +415,9 @@
   "EU_COUNTRY_CODES": "Mitglieder der Europäischen Union",
   "EFTA_COUNTRY_CODES": "EFTA-Staaten",
   "ENLARGEMENT_COUNTRY_CODES": "Erweiterungsländer",
-  "OTHER_THIRD_COUNTRY_CODES": "Andere Drittstaaten"
+  "OTHER_THIRD_COUNTRY_CODES": "Andere Drittstaaten",
+      "SELECTLANGUAGE": "Sprache auswählen",
+    "OFFICIAL": "Offizielle EU-Sprachen:"
 
  
 

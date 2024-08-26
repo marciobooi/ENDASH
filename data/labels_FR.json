@@ -388,22 +388,27 @@
 	"compare": "Comparer les pays",
 	"header-title-label": "Tableau de bord de l'énergie",
 
-  "BTNBARCHART": "Cliquez pour afficher le diagramme en barres",
-  "BTNPIECHART": "Cliquez pour afficher le diagramme circulaire",
-  "BTNLINECHART": "Cliquez pour afficher le diagramme linéaire",
-  "BTNPRINTCHART": "Cliquez pour imprimer le diagramme",
-  "BTNDOWNLOADCHART": "Cliquez pour télécharger le diagramme",
-  "BTNEXCELCHART": "Cliquez pour exporter en fichier Excel",
-  "BTNBSHARECHART": "Cliquez pour partager ce diagramme",
-  "BTNCLOSECHART": "Cliquez pour revenir à la page principale",
+ 
+  "C0100": "Charbon dur",
+
+
+  "BTNATABLE": "Afficher le tableau",
   "BTNINFICHART": "Afficher les informations",
-  "BTNTABLECHART": "Cliquez pour afficher la table",
+  "BTNDOWNLOADCHART": "Télécharger le graphique en image",
+  "BTNBSHARECHART": "Partager sur les réseaux sociaux",
+  "BTNBARCHART": "Afficher un graphique en barres",
+  "BTNPIECHART": "Afficher un graphique en secteurs",
+  "BTNLINECHART": "Afficher un graphique en courbes",
+  "BTNTABLECHART": "Afficher le tableau",
+  "BTNCLOSECHART": "Fermer",
+  "BTNPRINTCHART": "Télécharger le graphique en image",
+  "BTNEXCELCHART": "Télécharger les données du graphique",
   "BTNPERCENTAGECHART": "Cliquez pour passer en pourcentage",
   "BTNAGREGATESCHART": "Cliquez pour afficher/masquer les agrégats",
-  "BTNATABLE": "Cliquez pour afficher/masquer la table",
-  "BTNCHANGECOUNTRY": "Cliquez pour changer de pays",
-  "BTNEXPAND": "Cliquez pour agrandir le graphique",
-  "C0100": "Charbon dur",
+  "BTNCHANGECOUNTRY": "Cliquez pour changer les pays",
+  "BTNEXPAND": "Agrandir le graphique",
+  "BTNEDETAILS": "Cliquez pour afficher/masquer les détails",
+  "BTNRNW": "Basculer entre renouvelables/non renouvelables",
 
   "ERROR1": "Aucune métadonnée à afficher",
   "ERROR2": "Aucune donnée à afficher",
@@ -417,7 +422,9 @@
     "EU_COUNTRY_CODES": "Membres de l'Union européenne",
     "EFTA_COUNTRY_CODES": "Pays de l'AELE",
     "ENLARGEMENT_COUNTRY_CODES": "Pays en voie d'adhésion",
-    "OTHER_THIRD_COUNTRY_CODES": "Autres pays tiers"
+    "OTHER_THIRD_COUNTRY_CODES": "Autres pays tiers",
+        "SELECTLANGUAGE": "Sélectionner la langue",
+    "OFFICIAL": "Langues officielles de l'UE :"
 
 
 
