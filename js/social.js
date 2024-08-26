@@ -1,79 +1,43 @@
-var socialNameSpace = {
-  //social media
-  linkedIn: function () {
-    var currentUrl = window.location.href;
-    var encodedUrl = encodeURIComponent(currentUrl);
-    var url = "https://www.linkedin.com/shareArticle?mini=true&title=Energyprices&url=" + encodedUrl;
-    window.open( url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650");
-    return false;
-  },
+var socialNameSpace = (function () {
+  const text = {
+    EN: "By using the energy dashboard tool, created by Eurostat, you can easily visualise the evolution of the most important energy indicators (energy efficiency, share of renewables, import dependency and many more) for your country and for the EU.",
+    FR: "En utilisant l'outil de tableau de bord énergétique, créé par Eurostat, vous pouvez facilement visualiser l'évolution des indicateurs énergétiques les plus importants (efficacité énergétique, part des énergies renouvelables, dépendance aux importations, et bien d'autres) pour votre pays et pour l'UE.",
+    DE: "Mit dem Energiedashboard-Tool, das von Eurostat erstellt wurde, können Sie die Entwicklung der wichtigsten Energieindikatoren (Energieeffizienz, Anteil erneuerbarer Energien, Importabhängigkeit und viele mehr) für Ihr Land und für die EU leicht visualisieren."
+    };
 
-  twitter: function () {
-    var currentUrl = window.location.href;
-    var encodedUrl = encodeURIComponent(currentUrl);
-    var url = "https://twitter.com/share?text=Energyprices&url=" + encodedUrl;
-    window.open(url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700");
-    return false;
-  },
+  const currentUrl = encodeURIComponent(window.location.href);
+  const language = (REF.language || 'EN').toUpperCase(); // Default to English and ensure uppercase
 
-  facebook: function () {
-    var currentUrl = window.location.href;
-    var encodedUrl = encodeURIComponent(currentUrl);
-    var url ="https://www.facebook.com/sharer.php?t=Energyprices&u=" + encodedUrl;
-    window.open(url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700");
-    return false;
-  },
+  function openWindow(url, height = 450, width = 650) {
+    window.open(url, "", `menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=${height},width=${width}`);
+  }
 
+  return {
+    linkedin: function () {
+      const description = encodeURIComponent(text[language]);
+      const url = `https://www.linkedin.com/shareArticle?mini=true&title=Energydashboard&summary=${description}&url=${currentUrl}`;
+      openWindow(url);
+      return false;
+    },
 
+    twitter: function () {
+      const textContent = encodeURIComponent(text[language]);
+      const url = `https://twitter.com/share?text=${textContent}&url=${currentUrl}`;
+      openWindow(url, 400, 700);
+      return false;
+    },
 
+    facebook: function () {
+      const description = encodeURIComponent(text[language]);
+      const url = `https://www.facebook.com/sharer.php?u=${currentUrl}&quote=${description}`;
+      openWindow(url, 500, 700);
+      return false;
+    },
 
-
-
-
-  // linkedInModal: function () {
-  //   var currentUrl = window.location.href.replace("&modal=0", "&modal="+ REF.modal +"");
-  //   currentUrl += "&geo=" + REF.geo;
-  //   var encodedUrl = encodeURIComponent(currentUrl);
-  //   var url = "https://www.linkedin.com/shareArticle?mini=true&title=Energyprices&url=" + encodedUrl;
-  //   // console.log(currentUrl)
-  //   window.open( url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650");
-  //   return false;
-  // },
-
-  // twitterModal: function () {
-  //   var currentUrl = window.location.href.replace("&modal=0", "&modal="+ REF.modal +"");
-  //   currentUrl += "&geo=" + REF.geo;
-
-  //   var encodedUrl = encodeURIComponent(currentUrl);
-  //   var url = "https://twitter.com/share?text=Energyprices&url=" + encodedUrl;
-  //   window.open(url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700");
-  //   // console.log(currentUrl)
-  //   return false;
-  // },
-
-  // facebookModal: function () {
-  //   var currentUrl = window.location.href.replace("&modal=0", "&modal="+ REF.modal +"");
-  //   currentUrl += "&geo=" + REF.geo;
-  //   var encodedUrl = encodeURIComponent(currentUrl);
-  //   var url ="https://www.facebook.com/sharer.php?t=Energyprices&u=" + encodedUrl;
-  //   window.open(url,"","menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700");
-  //   // console.log(currentUrl)
-  //   return false;
-  // },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
+    email: function () {
+      const subject = encodeURIComponent("Energy dashboard");
+      const body = encodeURIComponent(`${text[language]} ${window.location.href}`);
+      document.location = `mailto:ESTAT-ENERGY@ec.europa.eu?subject=${subject}&body=${body}`;
+    },
+  };
+})();

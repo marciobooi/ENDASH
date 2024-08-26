@@ -292,9 +292,10 @@
   "share": "Insérer",
   "legTooltip": "Show/hide series",
 
-  "twitter": "Partager sur Twitter",
-  "linkedin": "Partager sur linkedin",
-  "facebook": "Partager sur facebook",
+  "twitter": "X",
+  "linkedin": "Linkedin",
+  "facebook": "Facebook",
+  "SHARE": "Partager",
 
   "LINKS": "Liens",
   "COOKIES": "Cookies",

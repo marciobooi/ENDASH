@@ -77,9 +77,10 @@
   "toggle-thumb": "Toggle table",
   "find-more-menu-icon": "Open tutorial",
 
-  "twitter": "Share on twitter",
-  "linkedin": "Share on linkedin",
-  "facebook": "Share on facebook",
+  "twitter": "X",
+  "linkedin": "Linkedin",
+  "facebook": "Facebook",
+  "SHARE": "Share",
 
   "sharemodaltitle": "Embed chart",
   "msg": "Text copied to clipboard",

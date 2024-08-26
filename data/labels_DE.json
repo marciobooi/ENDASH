@@ -288,9 +288,10 @@
   "msg": "Text in die Zwischenablage kopiert",
   "legTooltip": "Serie ein- / ausblenden",
 
-  "twitter": "Auf Twitter teilen",
-  "linkedin": "Auf LinkedIn teilen",
-  "facebook": "Auf Facebook teilen",
+  "twitter": "X",
+  "linkedin": "Linkedin",
+  "facebook": "Facebook",
+  "SHARE": "Teilen",
 
   "inftitle": "Energiedaten",
 

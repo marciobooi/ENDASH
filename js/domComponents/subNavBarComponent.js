@@ -27,7 +27,7 @@ class SubNavbar {
                 </button>
       
                 <ul class="dropdown-menu dropdown-menu-end" style="padding: 12px;" role="menu" aria-labelledby="Share chart">     	  					
-                <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;">Share this page</p>   		
+                <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;">${languageNameSpace.labels['SHARE']}</p>   		
 
                 <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.twitter()" aria-label="${languageNameSpace.labels['twitter']}">                  
                     <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
