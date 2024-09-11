@@ -9,6 +9,8 @@ var languageNameSpace = {
   //init of the labels for the language defined in the URL
   initLanguage: function (val, language) {
     language == "" ? language = "EN" : language = val 
+
+    console.trace("here")
     
     languageNameSpace.languageSelected = language;
 

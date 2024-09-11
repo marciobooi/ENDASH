@@ -17,41 +17,29 @@ class Singleselect {
         });
     }
 
-    createSingleSelect() {
-        let optionsHTML = '';   
-        if (this.elementId === "selectCountry") {
-            optionsHTML = `
-                <optgroup label="${languageNameSpace.labels['AGGREGATES_COUNTRY_CODES']}">
-                    ${AGGREGATES_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
-                </optgroup>
-                <optgroup label="${languageNameSpace.labels['EU_COUNTRY_CODES']}">
-                    ${EU_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
-                </optgroup>
-                <optgroup label="${languageNameSpace.labels['EFTA_COUNTRY_CODES']}">
-                    ${EFTA_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
-                </optgroup>
-                <optgroup label="${languageNameSpace.labels['ENLARGEMENT_COUNTRY_CODES']}">
-                    ${ENLARGEMENT_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
-                </optgroup>
-                <optgroup label="${languageNameSpace.labels['OTHER_THIRD_COUNTRY_CODES']}">
-                    ${OTHER_THIRD_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''}>${languageNameSpace.labels[elm]}</option>`).join('')}
-                </optgroup>
-        `;
-        } else {
-            // For other elementIds, create options based on the provided optionsArray
-            optionsHTML = this.optionsArray.map(option => `
-                <option value="${option}" ${this.activeElement === option ? 'selected' : ''}>
-                    ${languageNameSpace.labels[option] !== undefined ? languageNameSpace.labels[option] : option}
-                </option>
-            `).join('');
-        }
+    createSingleSelect() {     
+   
 
-        // Generate the full HTML for the single select element
+
         const singleSelectHTML = `
             <div class="ecl-form-group" role="application">
                 <div class="ecl-select__container ecl-select__container--l">
                     <select class="ecl-select" id="${this.elementId}" name="country" required="">
-                        ${optionsHTML}
+                        <optgroup data-i18n-label="AGGREGATE">
+                            ${AGGREGATES_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
+                        </optgroup>
+                        <optgroup data-i18n-label="EUCTR">
+                            ${EU_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
+                        </optgroup>
+                        <optgroup data-i18n-label="EFTA">
+                            ${EFTA_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
+                        </optgroup>
+                        <optgroup label="ENLARGEMENT">
+                            ${ENLARGEMENT_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
+                        </optgroup>
+                        <optgroup data-i18n-label="OTHERCTR">
+                            ${OTHER_THIRD_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
+                        </optgroup>
                     </select>
                     <div class="ecl-select__icon">
                         ${this.svgArrow}
