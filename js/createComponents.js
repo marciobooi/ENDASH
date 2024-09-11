@@ -2,7 +2,7 @@
 $( document ).ready(function() {
   dataNameSpace.getRefURL();
 
-  languageNameSpace.initLanguage(REF.language);
+
 
   const euGlobanContainer = $('<div>').attr('id', 'euGlobanContainer')
 
@@ -16,15 +16,8 @@ $( document ).ready(function() {
 
   buildComponents();
 
-  // Call the createForm function and append the form to the "hiddenFormDiv"
-// const actionURL = "https://formsubmit.co/e466de393c51be5bb8265025772c5712";
-// const nextURL = "https://ec.europa.eu/eurostat/cache/infographs/energy_prices/404.html";
-// const formElement = createForm(actionURL, nextURL);
-// formElement.addEventListener("submit", handleFormSubmit);
-// document.getElementById("hiddenFormDiv").appendChild(formElement);
-
 initEndash()
-
+  languageNameSpace.initLanguage(REF.language);
 
 })
 
