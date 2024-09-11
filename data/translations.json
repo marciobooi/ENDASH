@@ -239,28 +239,10 @@
     "DE": "Amtssprachen der EU:",
     "FR": "Langues officielles de l'UE:"
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  "MAINMENU": {
-    "EN": "Menu",
-    "DE": "Menü",
-    "FR": "Menu"
+  "OPTIONS_GRAPH_TOOLBOX": {
+    "EN": "Options graph toolbox",
+    "DE": "Optionswerkzeugkasten für Grafiken",
+    "FR": "Boîte à outils des options de graphique"
   },
   "INFO": {
     "EN": "Show information",
@@ -272,45 +254,10 @@
     "DE": "Anleitung",
     "FR": "Tutoriel"
   },
-  "META": {
-    "EN": "Metadata",
-    "DE": "Metadaten",
-    "FR": "Métadonnées"
-  },
   "FEED": {
     "EN": "Feedback",
     "DE": "Rückmeldung",
     "FR": "Retour d'information"
-  },
-  "DOWNLOAD": {
-    "EN": "Download",
-    "DE": "Herunterladen",
-    "FR": "Télécharger"
-  },
-  "DOWNLOAD_CHART_IMAGE": {
-    "EN": "Download chart image",
-    "DE": "Diagrammbild herunterladen",
-    "FR": "Télécharger l'image du graphique"
-  },
-  "DOWNLOAD_PNG": {
-    "EN": "Download PNG image",
-    "DE": "PNG-Bild herunterladen",
-    "FR": "Télécharger l'image PNG"
-  },
-  "DOWNLOAD_JPEG": {
-    "EN": "Download JPEG image",
-    "DE": "JPEG-Bild herunterladen",
-    "FR": "Télécharger l'image JPEG"
-  },
-  "DOWNLOAD_XLS": {
-    "EN": "Download Excel file",
-    "DE": "Excel-Datei herunterladen",
-    "FR": "Télécharger le fichier Excel"
-  },
-  "EMBEDDED": {
-    "EN": "Embedded chart iframe",
-    "DE": "Diagramm einbetten (iframe)",
-    "FR": "Intégrer le graphique (iframe)"
   },
   "SHARE": {
     "EN": "Share",
@@ -337,16 +284,67 @@
     "DE": "Werkzeuge",
     "FR": "Outils"
   },
+  "EMBEDDED": {
+    "EN": "Embedded chart iframe",
+    "DE": "Diagramm einbetten (iframe)",
+    "FR": "Intégrer le graphique (iframe)"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  "MAINMENU": {
+    "EN": "Menu",
+    "DE": "Menü",
+    "FR": "Menu"
+  },
+
+  "DOWNLOAD": {
+    "EN": "Download",
+    "DE": "Herunterladen",
+    "FR": "Télécharger"
+  },
+  "DOWNLOAD_CHART_IMAGE": {
+    "EN": "Download chart image",
+    "DE": "Diagrammbild herunterladen",
+    "FR": "Télécharger l'image du graphique"
+  },
+  "DOWNLOAD_PNG": {
+    "EN": "Download PNG image",
+    "DE": "PNG-Bild herunterladen",
+    "FR": "Télécharger l'image PNG"
+  },
+  "DOWNLOAD_JPEG": {
+    "EN": "Download JPEG image",
+    "DE": "JPEG-Bild herunterladen",
+    "FR": "Télécharger l'image JPEG"
+  },
+  "DOWNLOAD_XLS": {
+    "EN": "Download Excel file",
+    "DE": "Excel-Datei herunterladen",
+    "FR": "Télécharger le fichier Excel"
+  },
+
   "OPTIONS": {
     "EN": "Options",
     "DE": "Optionen",
     "FR": "Options"
   },
-  "OPTIONS_GRAPH_TOOLBOX": {
-    "EN": "Options graph toolbox",
-    "DE": "Optionswerkzeugkasten für Grafiken",
-    "FR": "Boîte à outils des options de graphique"
-  },
+
   "CLOSE": {
     "EN": "Close",
     "DE": "Schließen",
@@ -1147,10 +1145,10 @@
     "EN": "Browser does not support HTML5.",
     "FR": "Le navigateur ne prend pas en charge HTML5.",
     "DE": "Browser unterstützt HTML5 nicht."
-},
-"MSG_LOADING": {
+  },
+  "MSG_LOADING": {
     "EN": "Loading",
     "FR": "Chargement",
     "DE": "Laden"
-}
+  }
 }
