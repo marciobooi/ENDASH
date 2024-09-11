@@ -23,7 +23,7 @@ function initEndash(d = null) {
   + "<div>"
   + "</div>"
 
-  ECL.autoInit();
+  
 }
 
 function createForm(actionURL, nextURL) {

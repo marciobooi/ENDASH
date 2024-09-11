@@ -273,7 +273,7 @@ function removeAuxiliarBarGraphOptions() {
 
   $(".containerNav").css('visibility', 'initial')
   const footerElement = document.querySelector("#componentFooter > footer");  
-  footerElement.style.justifyContent = 'flex-end';
+  footerElement.style.justifyContent = 'flex-end';  
 }
 
 function showChartMenuOptions() {
@@ -462,7 +462,7 @@ function tooltipTable(points) {
       </tr>`;
       }    
       // Check if point is "Total" and set the flag if found
-      if (category == languageNameSpace.labels['total']) {
+      if (category == languageNameSpace.labels['TOTAL']) {
         totalAdded = true;
       }
     });

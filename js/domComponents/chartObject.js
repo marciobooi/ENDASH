@@ -133,11 +133,11 @@ class Chart {
             columnHeaderFormatter: function(item, key) {
                 if (!item || item instanceof Highcharts.Axis) {
                   const chartLabels = {
-                    "pieChart": languageNameSpace.labels["IND"],
-                    "barChart": languageNameSpace.labels["CTR"],
-                    "mainChart": languageNameSpace.labels["CTR"],
+                    pieChart: languageNameSpace.labels["INDICATOR"],
+                    barChart: languageNameSpace.labels["CTR"],
+                    mainChart: languageNameSpace.labels["CTR"],
                     // Add more chart types and their corresponding labels here
-                };                    
+                  };                    
                 // Default label for unknown chart types
                 const defaultLabel = languageNameSpace.labels["YEAR"];  
                 log(chartLabels[REF.chartId])

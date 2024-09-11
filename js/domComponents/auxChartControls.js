@@ -7,7 +7,7 @@ class ChartControls {
 	  select.classList.add("form-select", "mx-2");
 	  select.setAttribute("aria-label", "Select flow");
   
-	  const notMobileContent = /*html*/`
+	  const notMobileContent = /*html*/ `
 
 		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navChartControls">			
 				<div class="menu">
@@ -22,12 +22,12 @@ class ChartControls {
 						<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 						<li class="nav-item button px-1" id="embebedChart" role="none"></li>
 						<li class="nav-item dropdown px-1" id="infoBtnChart" role="none"  style="margin-right: 2rem;">
-							<button class="btn btn-primary min-with--nav round-btn" type="button" aria-label="InfoBtn" data-bs-toggle="dropdown" role="menuitem" title="${languageNameSpace.labels['BTNINFICHART']}" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+							<button class="btn btn-primary min-with--nav round-btn" type="button" data-i18n-label="INFO" data-bs-toggle="dropdown" role="menuitem" data-i18n-title="INFO" aria-haspopup="true" aria-expanded="true" id="infoBtn">
 								<i class="fas fa-info"></i>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels['meta']}" value="Metadata" >${languageNameSpace.labels['meta']}</button>
-								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels['DB']}" value="Dataset">${languageNameSpace.labels['DB']}</button>          		
+								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels["meta"]}" value="Metadata" >${languageNameSpace.labels["meta"]}</button>
+								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels["DB"]}" value="Dataset">${languageNameSpace.labels["DB"]}</button>          		
 							</ul>
 						</li>
 						<li class="nav-item button" id="closeChart" role="none"></li>
@@ -80,15 +80,15 @@ class ChartControls {
 	  container.insertBefore(this.controls, container.firstChild);
 
 	    // Create the button instances
-		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBARCHART'], "barChart", "false");
-		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPIECHART'], "pieChart", "false");
-		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNLINECHART'], "lineChart", "true");
-		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNTABLECHART'], "table", "false");
-		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPRINTCHART'], "false");
-		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNDOWNLOADCHART'], "false");
-		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNEXCELCHART'], "false");
-		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNBSHARECHART'], "false");
-		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn", "close-chart-menu-btn"], languageNameSpace.labels['BTNCLOSECHART'], "false");
+		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_BAR_CHART", "barChart", "false");
+		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "pieChart", "false");
+		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "lineChart", "true");
+		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_TABLE", "table", "false");
+		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "PRINT_CHART", "false");
+		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "DOWNLOAD_CHART_IMAGE", "false");
+		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "DOWNLOAD_XLS", "false");
+		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "SHARE", "false");
+		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn", "close-chart-menu-btn"], "CLOSE", "false");
 		
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');

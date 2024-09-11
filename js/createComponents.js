@@ -2,9 +2,10 @@
 $( document ).ready(function() {
   dataNameSpace.getRefURL();
 
-
+    languageNameSpace.initLanguage(REF.language);
 
   const euGlobanContainer = $('<div>').attr('id', 'euGlobanContainer')
+
 
   euGlobanContainer.prependTo('header');
 
@@ -16,8 +17,10 @@ $( document ).ready(function() {
 
   buildComponents();
 
-initEndash()
+  initEndash()
   languageNameSpace.initLanguage(REF.language);
+
+  checkAndShowTutorial()
 
 })
 
@@ -32,7 +35,7 @@ function buildComponents() {
   components.forEach(({ instance, target }) => {
     instance.addToDOM(target);
   });
-
+// ECL.autoInit();
 }
 
 function removeComponents() {

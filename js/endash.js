@@ -240,7 +240,6 @@ function compareCountries() {
             break;
         default:
             let chartType = "spline";
-
             if (REF.dataset === "demo_pjan") {
                 // Handle special case for dataset "demo_pjan"
                 // You may need to define chartEightCalculation and buildChart functions

@@ -9,7 +9,7 @@ var languageNameSpace = {
   //init of the labels for the language defined in the URL
   initLanguage: function (val, language) {
     language == "" ? language = "EN" : language = val 
-
+    
     languageNameSpace.languageSelected = language;
 
     $.ajaxSetup({
@@ -44,55 +44,41 @@ var languageNameSpace = {
     translateElements("[data-i18n-labelledby]","i18n-labelledby","aria-labelledby");
     translateElements("[data-i18n-title]", "i18n-title", "title");
     translateElements("optgroup[data-i18n-label]", "i18n-label", "label");   
+
   },
 
 
   ChangeLanguage: function (val) {
     REF.language = val;
-    languageNameSpace.initLanguage(REF.language);
+        switch (REF.chartType) {
+          case "barChart":
+            dataNameSpace.setRefURL();
+            showHideTimeLine();
+            compareCountries();
+            showHideBarChartOptions();
+            break;
+          case "pieChart":
+            REF.chartCreated = false;
+            dataNameSpace.setRefURL();
+            showHideTimeLine();
+            compareCountries();
+            showHideBarChartOptions();
+            break;
+          case "lineChart":
+              REF.chartType = "lineChart";
+              dataNameSpace.setRefURL();
+              showHideTimeLine();
+              showHideBarChartOptions();
+              compareCountries();
+            break;
 
-    REF.chartExpanded === true ? endash() : (removeComponents(), buildComponents(), compareCountries());
-
-
-      if(REF.chartType === "barChart") {
-        dataNameSpace.setRefURL()
-        showHideTimeLine()
-        compareCountries();
-        showHideBarChartOptions()
-      } else if (REF.chartType === "pieChart") {
-        REF.chartCreated = false;
-        dataNameSpace.setRefURL()
-        showHideTimeLine()
-        compareCountries();
-        showHideBarChartOptions();
-      } else {
-        REF.chartType = "lineChart";
-        dataNameSpace.setRefURL()
-        showHideTimeLine()
-        showHideBarChartOptions();
-        compareCountries();
-      }    
-    
-    
-    const elementsBtn = [ "barChart", "pieChart",  "lineChart",  "toggleAgregates",  "tb-togle-percentage",  "tb-togle-table",   
-    "printBtn",  "downloadBtn",  "excelBtn",  "embebedBtn",  "btnCloseModalChart", "infoBtn", "shareChart1" ]
-
-    const elementsBtnTranslations = [
-      "BTNBARCHART", "BTNPIECHART", "BTNLINECHART", "BTNAGREGATESCHART", "BTNPERCENTAGECHART", "BTNTABLECHART", 
-      "BTNPRINTCHART", "BTNDOWNLOADCHART", "BTNEXCELCHART", "BTNBSHARECHART", "BTNCLOSECHART", "BTNINFICHART", "BTNBSHARECHART",
-    ]
-
-    elementsBtn.forEach((id, idx) => {
-      const element = document.getElementById(id);
-      if (!element) {
-          return; 
-      }
-      const label = languageNameSpace.labels[elementsBtnTranslations[idx]];
-      element.setAttribute('title', label);
-      element.setAttribute('data-original-title', label);
-      element.setAttribute('aria-label', label);
-  });
-  
-
-  }
+          default:
+            dataNameSpace.setRefURL();
+            removeComponents()
+            buildComponents()
+            compareCountries();
+            break;
+            }    
+          languageNameSpace.initLanguage(REF.language);
+          }
 };

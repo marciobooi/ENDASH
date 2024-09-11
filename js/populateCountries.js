@@ -2,11 +2,11 @@
 function populateCountries() {
 
   const target = document.querySelector("#countrySelect");
-  const elementId = 'selectCountry';
+  const elementId = "MENU_COUNTRY";
   const optionsArray = defaultGeos;
-  const labelDescription = languageNameSpace.labels["COUNTRY"];
+  const labelDescription = "MENU_COUNTRY";
   const activeElement = REF.geos;
-  const textChange = languageNameSpace.labels["MENU_COUNTRY"];
+  const textChange = "MENU_COUNTRY";
 
   const existingSingleSelect = document.getElementById(elementId);
     if (existingSingleSelect) {
@@ -14,8 +14,9 @@ function populateCountries() {
     }
 
   const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
-      REF.geos = selectedValue;      
-      REF.chartExpanded === false ? removeAuxiliarBarGraphOptions() : compareCountries();
+    REF.geos = selectedValue;      
+    dataNameSpace.setRefURL();
+      REF.chartExpanded == false ? removeAuxiliarBarGraphOptions() : compareCountries();
   });
 
   const singleSelectHTML = singleSelect.createSingleSelect();

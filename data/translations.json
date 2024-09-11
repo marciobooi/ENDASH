@@ -289,6 +289,308 @@
     "DE": "Diagramm einbetten (iframe)",
     "FR": "Intégrer le graphique (iframe)"
   },
+  "AGGREGATE": {
+    "EN": "Aggregates",
+    "DE": "Aggregate",
+    "FR": "Agrégats"
+  },
+  "EUCTR": {
+    "EN": "EU countries",
+    "DE": "EU-Länder",
+    "FR": "Pays de l'UE"
+  },
+  "EFTA": {
+    "EN": "EFTA countries",
+    "DE": "EFTA-Länder",
+    "FR": "Pays de l'AELE"
+  },
+  "ENLARGEMENT": {
+    "EN": "Enlargement countries",
+    "DE": "Erweiterungsländer",
+    "FR": "Pays en élargissement"
+  },
+  "OTHERCTR": {
+    "EN": "Other third countries",
+    "DE": "Andere Drittländer",
+    "FR": "Autres pays tiers"
+  },
+  "MENU_COUNTRY": {
+    "EN": "Select country",
+    "DE": "Länder auswählen",
+    "FR": "Sélectionner le pays"
+  },
+  "COOKIES": {
+    "EN": "Cookies policy",
+    "DE": "Cookie-Richtlinie",
+    "FR": "Politique de cookies"
+  },
+  "PRIVACY": {
+    "EN": "Privacy policy",
+    "DE": "Datenschutzrichtlinie",
+    "FR": "Politique de confidentialité"
+  },
+  "LEGAL": {
+    "EN": "Legal notice",
+    "DE": "Rechtlicher Hinweis",
+    "FR": "Mention légale"
+  },
+  "ACCESS": {
+    "EN": "Accessibility",
+    "DE": "Barrierefreiheit",
+    "FR": "Accessibilité"
+  },
+  "SHOW_AGGREGATES": {
+    "EN": "Show aggregates",
+    "FR": "Afficher les agrégats",
+    "DE": "Aggregate anzeigen"
+  },
+  "SHOW_PERCENTAGE": {
+    "EN": "Show percentage view",
+    "FR": "Afficher la vue en pourcentage",
+    "DE": "Prozentansicht anzeigen"
+  },
+  "CTR": {
+    "EN": "Countries",
+    "DE": "Länder",
+    "FR": "Pays"
+  },
+  "YEAR": {
+    "EN": "Year",
+    "DE": "Jahr",
+    "FR": "Année"
+  },
+  "INDICATOR": {
+    "EN": "Indicator",
+    "DE": "Indikator",
+    "FR": "Indicateur"
+  },
+  "ERROR1": {
+    "EN": "No metadata to display",
+    "DE": "Keine Metadaten zum Anzeigen",
+    "FR": "Aucune donnée à afficher"
+  },
+  "ERROR2": {
+    "EN": "No data to display",
+    "DE": "Keine Daten zum Anzeigen",
+    "FR": "Aucune donnée à afficher"
+  },
+  "chart_1": {
+    "EN": "Energy efficiency",
+    "DE": "Energieeffizienz",
+    "FR": "Efficacité énergétique"
+  },
+  "chart_2": {
+    "EN": "Share of energy from renewable sources",
+    "DE": "Anteil erneuerbarer Energiequellen",
+    "FR": "Part de l'énergie provenant de sources renouvelables"
+  },
+  "chart_3": {
+    "EN": "Greenhouse gas emissions intensity of energy consumption",
+    "DE": "Treibhausgasemissionsintensität des Energieverbrauchs",
+    "FR": "Intensité des émissions de gaz à effet de serre de la consommation d'énergie"
+  },
+  "chart_4": {
+    "EN": "Energy intensity",
+    "DE": "Energieintensität",
+    "FR": "Intensité énergétique"
+  },
+  "chart_5": {
+    "EN": "Energy productivity",
+    "DE": "Energieproduktivität",
+    "FR": "Productivité énergétique"
+  },
+  "chart_6": {
+    "EN": "Energy imports dependency",
+    "DE": "Abhängigkeit von Energieimporten",
+    "FR": "Dépendance aux importations d'énergie"
+  },
+  "chart_7": {
+    "EN": "Share of fossil fuels in gross available energy",
+    "DE": "Anteil fossiler Brennstoffe an der verfügbaren Bruttoenergie",
+    "FR": "Part des combustibles fossiles dans l'énergie brute disponible"
+  },
+  "chart_8": {
+    "EN": "Final energy consumption in households per capita",
+    "DE": "Endenergieverbrauch in Haushalten pro Kopf",
+    "FR": "Consommation d'énergie finale dans les ménages par habitant"
+  },
+  "chart_9": {
+    "EN": "Final energy consumption by product",
+    "DE": "Endenergieverbrauch nach Produkt",
+    "FR": "Consommation d'énergie finale par produit"
+  },
+  "chart_10": {
+    "EN": "Final energy consumption by sector",
+    "DE": "Endenergieverbrauch nach Sektor",
+    "FR": "Consommation d'énergie finale par secteur"
+  },
+  "chart_11": {
+    "EN": "Disaggregated final energy consumption in households - quantities",
+    "DE": "Aufgeschlüsselter Endenergieverbrauch in Haushalten - Mengen",
+    "FR": "Consommation finale d'énergie désagrégée dans les ménages - quantités"
+  },
+  "chart_12": {
+    "EN": "Final energy consumption in transport by type of fuel",
+    "DE": "Endenergieverbrauch im Verkehr nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans les transports par type de carburant"
+  },
+  "chart_13": {
+    "EN": "Final energy consumption in road transport by type of fuel",
+    "DE": "Endenergieverbrauch im Straßenverkehr nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans le transport routier par type de carburant"
+  },
+  "chart_14": {
+    "EN": "Final energy consumption in services by type of fuel",
+    "DE": "Endenergieverbrauch in Dienstleistungen nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans les services par type de carburant"
+  },
+  "chart_15": {
+    "EN": "Final energy consumption in industry by type of fuel",
+    "DE": "Endenergieverbrauch in der Industrie nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans l'industrie par type de carburant"
+  },
+  "chart_16": {
+    "EN": "Final non-energy consumption by type of fuel",
+    "DE": "Endenergieverbrauch außerhalb des Energiebereichs nach Art des Kraftstoffs",
+    "FR": "Consommation finale non énergétique par type de carburant"
+  },
+  "chart_17": {
+    "EN": "Gross and net production of electricity and derived heat by type of plant and operator",
+    "DE": "Brutto- und Nettoerzeugung von Strom und abgeleiteter Wärme nach Anlagentyp und Betreiber",
+    "FR": "Production brute et nette d'électricité et de chaleur dérivée par type d'installation et opérateur"
+  },
+  "chart_18": {
+    "EN": "Gross production of electricity and derived heat from combustible fuels by type of plant and operator",
+    "DE": "Bruttoerzeugung von Strom und abgeleiteter Wärme aus Brennstoffen nach Anlagentyp und Betreiber",
+    "FR": "Production brute d'électricité et de chaleur dérivée de combustibles fossiles par type d'installation et opérateur"
+  },
+  "chart_19": {
+    "EN": "Population unable to keep home adequately warm by poverty status",
+    "DE": "Bevölkerung, die nicht in der Lage ist, ihr Zuhause ausreichend zu beheizen, nach Armutsstatus",
+    "FR": "Population incapable de maintenir correctement la chaleur à la maison en fonction du statut de pauvreté"
+  },
+  "chart_20": {
+    "EN": "Market share of the largest generator in the electricity market",
+    "DE": "Marktanteil des größten Erzeugers auf dem Strommarkt",
+    "FR": "Part de marché du plus grand producteur sur le marché de l'électricité"
+  },
+  "chart_21": {
+    "EN": "Gross available energy by product",
+    "DE": "Bruttoverfügbare Energie nach Produkt",
+    "FR": "Énergie brute disponible par produit"
+  },
+  "chart_22": {
+    "EN": "Total energy supply by product",
+    "DE": "Gesamte Energieversorgung nach Produkt",
+    "FR": "Approvisionnement total en énergie par produit"
+  },
+  "SHOW_BAR_CHART": {
+    "EN": "Show bar chart",
+    "FR": "Afficher le graphique en barres",
+    "DE": "Balkendiagramm anzeigen"
+  },
+  "SHOW_PIE_CHART": {
+    "EN": "Show pie chart",
+    "FR": "Afficher le graphique en secteurs",
+    "DE": "Kreisdiagramm anzeigen"
+  },
+  "SHOW_LINE_CHART": {
+    "EN": "Show line chart",
+    "FR": "Afficher le graphique linéaire",
+    "DE": "Liniendiagramm anzeigen"
+  },
+  "SHOW_TABLE": {
+    "EN": "Show table view",
+    "FR": "Afficher la vue en tableau",
+    "DE": "Tabellenansicht anzeigen"
+  },
+
+  "PRINT_CHART": {
+    "EN": "Print chart",
+    "FR": "Imprimer le graphique",
+    "DE": "Diagramm drucken"
+  },
+
+  "DOWNLOAD_CHART_IMAGE": {
+    "EN": "Download chart image",
+    "DE": "Diagrammbild herunterladen",
+    "FR": "Télécharger l'image du graphique"
+  },
+  "DOWNLOAD_XLS": {
+    "EN": "Download Excel file",
+    "DE": "Excel-Datei herunterladen",
+    "FR": "Télécharger le fichier Excel"
+  },
+  "CLOSE": {
+    "EN": "Close",
+    "DE": "Schließen",
+    "FR": "Fermer"
+  },
+  "FLAG_NA": {
+    "EN": "Not available",
+    "DE": "Nicht verfügbar",
+    "FR": "Non disponible"
+  },
+  "TOTAL": {
+    "EN": "Total",
+    "DE": "Gesamt",
+    "FR": "Total"
+  },
+  "BTNEXPAND": {
+    "EN": "Expand chart",
+    "DE": "Diagramm erweitern",
+    "FR": "Agrandir le graphique"
+  },
+  "BOX_SELECTION_ALL_COUNTRY": {
+    "EN": "All countries",
+    "DE": "Alle Länder",
+    "FR": "Tous les pays"
+  },
+  "EXPORT_FOOTER_TITLE": {
+    "EN": "Source: Eurostat",
+    "DE": "Quelle: Eurostat",
+    "FR": "Source : Eurostat"
+  },
+  "DB": {
+    "EN": "Dataset",
+    "DE": "Datensatz",
+    "FR": "Jeu de données"
+  },
+  "MSG_BROWSER": {
+    "EN": "Browser does not support HTML5.",
+    "FR": "Le navigateur ne prend pas en charge HTML5.",
+    "DE": "Browser unterstützt HTML5 nicht."
+  },
+  "MSG_LOADING": {
+    "EN": "Loading",
+    "FR": "Chargement",
+    "DE": "Laden"
+  },
+  "C0100": {
+    "EN": "Hard coal",
+    "FR": "Charbon dur",
+    "DE": "Feine Kohle"
+  },
+  "VAL": {
+    "EN": "Value",
+    "FR": "Valeur",
+    "DE": "Wert"
+  },
+  "BACK": {
+    "EN": "BACK",
+    "FR": "Valeur",
+    "DE": "Wert"
+  },
+  "NEXT": {
+    "EN": "NEXT",
+    "FR": "SUIVANT",
+    "DE": "WEITER"
+  },
+  "FINISH": {
+    "EN": "FINISH",
+    "FR": "TERMINER",
+    "DE": "FERTIG"
+  },
 
 
 
@@ -303,9 +605,6 @@
 
 
 
-
-
-  
 
   "MAINMENU": {
     "EN": "Menu",
@@ -318,11 +617,7 @@
     "DE": "Herunterladen",
     "FR": "Télécharger"
   },
-  "DOWNLOAD_CHART_IMAGE": {
-    "EN": "Download chart image",
-    "DE": "Diagrammbild herunterladen",
-    "FR": "Télécharger l'image du graphique"
-  },
+
   "DOWNLOAD_PNG": {
     "EN": "Download PNG image",
     "DE": "PNG-Bild herunterladen",
@@ -333,11 +628,6 @@
     "DE": "JPEG-Bild herunterladen",
     "FR": "Télécharger l'image JPEG"
   },
-  "DOWNLOAD_XLS": {
-    "EN": "Download Excel file",
-    "DE": "Excel-Datei herunterladen",
-    "FR": "Télécharger le fichier Excel"
-  },
 
   "OPTIONS": {
     "EN": "Options",
@@ -345,11 +635,6 @@
     "FR": "Options"
   },
 
-  "CLOSE": {
-    "EN": "Close",
-    "DE": "Schließen",
-    "FR": "Fermer"
-  },
   "COPY": {
     "EN": "Copy",
     "DE": "Kopieren",
@@ -360,16 +645,7 @@
     "DE": "URL kopieren",
     "FR": "Copier l'URL"
   },
-  "CTR": {
-    "EN": "Countries",
-    "DE": "Länder",
-    "FR": "Pays"
-  },
-  "MENU_COUNTRY": {
-    "EN": "Select countries",
-    "DE": "Länder auswählen",
-    "FR": "Sélectionner les pays"
-  },
+
   "FUEL": {
     "EN": "Fuel",
     "DE": "Kraftstoff",
@@ -380,11 +656,7 @@
     "DE": "Kraftstoff auswählen",
     "FR": "Sélectionner le carburant"
   },
-  "YEAR": {
-    "EN": "Year",
-    "DE": "Jahr",
-    "FR": "Année"
-  },
+
   "MENU_YEARS": {
     "EN": "Select year",
     "DE": "Jahr auswählen",
@@ -421,31 +693,7 @@
     "DE": "Schlüsselwort eingeben",
     "FR": "Entrez le mot-clé"
   },
-  "AGGREGATE": {
-    "EN": "Aggregates",
-    "DE": "Aggregate",
-    "FR": "Agrégats"
-  },
-  "EUCTR": {
-    "EN": "EU countries",
-    "DE": "EU-Länder",
-    "FR": "Pays de l'UE"
-  },
-  "EFTA": {
-    "EN": "EFTA countries",
-    "DE": "EFTA-Länder",
-    "FR": "Pays de l'AELE"
-  },
-  "ENLARGEMENT": {
-    "EN": "Enlargement countries",
-    "DE": "Erweiterungsländer",
-    "FR": "Pays en élargissement"
-  },
-  "OTHERCTR": {
-    "EN": "Other third countries",
-    "DE": "Andere Drittländer",
-    "FR": "Autres pays tiers"
-  },
+
   "CONSUMER": {
     "EN": "Consumer",
     "DE": "Verbraucher",
@@ -816,11 +1064,7 @@
     "DE": "NAT",
     "FR": "NAT"
   },
-  "FLAG_NA": {
-    "EN": "Not available",
-    "DE": "Nicht verfügbar",
-    "FR": "Non disponible"
-  },
+
   "FLAG_C": {
     "EN": "Confidential",
     "DE": "Vertraulich",
@@ -881,26 +1125,13 @@
     "DE": "Nicht zutreffend",
     "FR": "Non applicable"
   },
-  "TOTAL": {
-    "EN": "Total",
-    "DE": "Gesamt",
-    "FR": "Total"
-  },
+
   "BAR_CHART_TITLE_CONSOMS": {
     "EN": "Consumption levels",
     "DE": "Verbrauchsniveaus",
     "FR": "Niveaux de consommation"
   },
-  "EXPORT_FOOTER_TITLE": {
-    "EN": "Source: Eurostat",
-    "DE": "Quelle: Eurostat",
-    "FR": "Source: Eurostat"
-  },
-  "DB": {
-    "EN": "Dataset",
-    "DE": "Datensatz",
-    "FR": "Jeu de données"
-  },
+
   "X_TAX": {
     "EN": "Price excluding taxes and levies",
     "DE": "Preis ohne Steuern und Abgaben",
@@ -1051,26 +1282,7 @@
     "DE": "in Prozent",
     "FR": "en pourcentages"
   },
-  "COOKIES": {
-    "EN": "Cookies policy",
-    "DE": "Cookie-Richtlinie",
-    "FR": "Politique de cookies"
-  },
-  "PRIVACY": {
-    "EN": "Privacy policy",
-    "DE": "Datenschutzrichtlinie",
-    "FR": "Politique de confidentialité"
-  },
-  "LEGAL": {
-    "EN": "Legal notice",
-    "DE": "Rechtlicher Hinweis",
-    "FR": "Mention légale"
-  },
-  "ACCESS": {
-    "EN": "Accessibility",
-    "DE": "Barrierefreiheit",
-    "FR": "Accessibilité"
-  },
+
   "DETAILS": {
     "EN": "Show details",
     "DE": "Details anzeigen",
@@ -1096,59 +1308,10 @@
     "FR": "Sélectionnez l'ordre du graphique",
     "DE": "Wählen Sie die Reihenfolge des Diagramms"
   },
-  "SHOW_PERCENTAGE": {
-    "EN": "Show percentage view",
-    "FR": "Afficher la vue en pourcentage",
-    "DE": "Prozentansicht anzeigen"
-  },
-  "SHOW_TABLE": {
-    "EN": "Show table view",
-    "FR": "Afficher la vue en tableau",
-    "DE": "Tabellenansicht anzeigen"
-  },
-  "SHOW_AGGREGATES": {
-    "EN": "Show aggregates",
-    "FR": "Afficher les agrégats",
-    "DE": "Aggregate anzeigen"
-  },
-  "SHOW_BAR_CHART": {
-    "EN": "Show bar chart",
-    "FR": "Afficher le graphique en barres",
-    "DE": "Balkendiagramm anzeigen"
-  },
-  "SHOW_PIE_CHART": {
-    "EN": "Show pie chart",
-    "FR": "Afficher le graphique en secteurs",
-    "DE": "Kreisdiagramm anzeigen"
-  },
-  "SHOW_LINE_CHART": {
-    "EN": "Show line chart",
-    "FR": "Afficher le graphique linéaire",
-    "DE": "Liniendiagramm anzeigen"
-  },
-  "PRINT_CHART": {
-    "EN": "Print chart",
-    "FR": "Imprimer le graphique",
-    "DE": "Diagramm drucken"
-  },
-  "VAL": {
-    "EN": "Value",
-    "FR": "Valeur",
-    "DE": "Wert"
-  },
+
   "TAX": {
     "EN": "Tax",
     "FR": "Taxe",
     "DE": "Steuer"
-  },
-  "MSG_BROWSER": {
-    "EN": "Browser does not support HTML5.",
-    "FR": "Le navigateur ne prend pas en charge HTML5.",
-    "DE": "Browser unterstützt HTML5 nicht."
-  },
-  "MSG_LOADING": {
-    "EN": "Loading",
-    "FR": "Chargement",
-    "DE": "Laden"
   }
 }

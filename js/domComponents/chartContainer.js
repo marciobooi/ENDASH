@@ -20,7 +20,7 @@ class ChartContainer {
 
     this.intersectionObserver = new IntersectionObserver(this.handleIntersection.bind(this), {
       root: null, // Use the viewport as the root
-      threshold: 0.2, // Percentage of visibility required to trigger
+      threshold: 0.1, // Percentage of visibility required to trigger
     });
 
     this.chartItems.forEach(item => {

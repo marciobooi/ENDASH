@@ -2,7 +2,7 @@
 function exportIframe() {
     REF.share = true
 
-    $('.ecl-modal__header-content').html(languageNameSpace.labels['sharemodaltitle'])
+    $(".ecl-modal__header-content").html(languageNameSpace.labels["EMBEDDED"]);
     $('.targetUrl').html(window.location.href)     
  
     const modal = document.getElementById('iframeModal');

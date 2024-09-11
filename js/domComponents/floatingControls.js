@@ -7,7 +7,7 @@ class FloatingChartControls {
     this.chartControls.className = 'menuSwitch';
     this.chartControls.id = 'menuSwitch';
 
-    this.chartControls.innerHTML = `<ul id="floatingMenu" role="menubar" aria-label="Options graph toolbox">    
+    this.chartControls.innerHTML = `<ul id="floatingMenu" role="menubar" data-i18n-label="OPTIONS_GRAPH_TOOLBOX">    
       <li class="nav-item px-1" id="togglePercentage" role="none">
       </li>
       <li class="nav-item px-1" id="Agregates" role="none">
@@ -45,8 +45,8 @@ class FloatingChartControls {
 
     const self = this;     
 
-		const percentageButton = new Button("tb-togle-percentage", [ "ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels['BTNPERCENTAGECHART'], "", "true");
-		const agregatesButton = new Button("toggleAgregates", [ "ecl-button", "ecl-button--primary", "round-btn"], languageNameSpace.labels["BTNAGREGATESCHART"], "", "true");
+		const percentageButton = new Button("tb-togle-percentage", [ "ecl-button", "ecl-button--primary", "round-btn"], 'SHOW_PERCENTAGE', "", "true");
+		const agregatesButton = new Button("toggleAgregates", [ "ecl-button", "ecl-button--primary", "round-btn"], "SHOW_AGGREGATES", "", "true");
 
     percentageButton.setInnerHtml('<i id="percentage-icon" class="fas fa-percentage"></i>');
     agregatesButton.setInnerHtml(agregateIcon())
