@@ -18,7 +18,7 @@ $( document ).ready(function() {
   buildComponents();
 
   initEndash()
-  languageNameSpace.initLanguage(REF.language);
+
 
   checkAndShowTutorial()
 

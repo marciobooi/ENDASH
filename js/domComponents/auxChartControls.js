@@ -75,7 +75,7 @@ class ChartControls {
 	}
   
 	addToDOM(targetElement) {
-	  $("#menuToolbar").toggle();	
+	  $("#menuToolbar").css('display', 'none');	
 	  const container = document.querySelector(targetElement);
 	  container.insertBefore(this.controls, container.firstChild);
 
@@ -253,7 +253,7 @@ class ChartControls {
 		  parentContainer.parentNode.removeChild(parentContainer);
 		}
 	  }
-	  $("#menuToolbar").toggle();
+	  $("#menuToolbar").css('display', "flex");
 
 	}
   }

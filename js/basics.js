@@ -220,7 +220,7 @@ function addAuxiliarBarGraphOptions() {
   
   footerElement.insertBefore(menuSwitchElement, footerElement.firstChild);
   
-footerElement.style.justifyContent = 'space-between';
+  footerElement.style.justifyContent = 'space-between';
 
   showHideTimeLine()
 }
