@@ -515,9 +515,9 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" aria-label="${languageNameSpace.labels['BTNEXPAND']}" title="Click to expand the chart">
+  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" aria-label="${languageNameSpace.labels["BTNEXPAND"]}" title="${languageNameSpace.labels["BTNEXPAND"]}">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
-              </button>`
+              </button>`;
 
 switch (REF.chartType) {
   case "barChart":

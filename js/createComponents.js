@@ -13,8 +13,11 @@ $( document ).ready(function() {
     });
 
   buildComponents();
-  ECL.autoInit();
+
+
   languageNameSpace.initLanguage(REF.language);
+
+
   checkAndShowTutorial()
 })
 

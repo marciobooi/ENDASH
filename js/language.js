@@ -26,7 +26,9 @@ var languageNameSpace = {
         languageNameSpace.tutorial = data;
       })
     );
-
+    $.ajaxSetup({
+      async: true,
+    }); 
         populateCountries();
 
     const translateElements = (selector, attribute, targetAttr = "text") => {

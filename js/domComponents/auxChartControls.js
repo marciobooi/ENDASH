@@ -209,7 +209,10 @@ class ChartControls {
 			document.getElementById("embebedChart").appendChild(embebedeChartElement);
 			document.getElementById("closeChart").appendChild(closeChartElement);
 
-			lineChart.setDisabled(true);
+		lineChart.setDisabled(true);
+		
+
+		languageNameSpace.initLanguage(REF.language);
 	}
   
 	// countriesHandler(geoDropdown) {
