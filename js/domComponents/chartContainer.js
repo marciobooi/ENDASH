@@ -72,13 +72,7 @@ class ChartContainer {
 
   populateChartItems() {
 
-    const countryContainer = document.createElement('div');
-    countryContainer.classList.add('col-12');
-    countryContainer.setAttribute('id', 'countrySelect');
 
-    this.target.appendChild(countryContainer);
-
-    populateCountries();
 
 
     const chartContainer = document.createElement('div');

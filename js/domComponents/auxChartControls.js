@@ -184,7 +184,6 @@ class ChartControls {
 		  REF.chartType = "lineChart"	
 		  showHideTimeLine()		  
 		  removeAuxiliarBarGraphOptions();
-		  populateCountries()
 		});
 
 	  	  // Create the button elements

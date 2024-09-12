@@ -9,8 +9,6 @@ var languageNameSpace = {
   //init of the labels for the language defined in the URL
   initLanguage: function (val, language) {
     language == "" ? language = "EN" : language = val 
-
-    console.trace("here")
     
     languageNameSpace.languageSelected = language;
 
@@ -29,6 +27,8 @@ var languageNameSpace = {
       })
     );
 
+        populateCountries();
+
     const translateElements = (selector, attribute, targetAttr = "text") => {
       $(selector).each(function () {
         let key = $(this).data(attribute);
@@ -46,6 +46,8 @@ var languageNameSpace = {
     translateElements("[data-i18n-labelledby]","i18n-labelledby","aria-labelledby");
     translateElements("[data-i18n-title]", "i18n-title", "title");
     translateElements("optgroup[data-i18n-label]", "i18n-label", "label");   
+
+
 
   },
 

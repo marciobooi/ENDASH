@@ -226,7 +226,7 @@ function addAuxiliarBarGraphOptions() {
 }
 
 function removeAuxiliarBarGraphOptions() {
-
+log('here')
   
   REF.chartType =  "lineChart"
   REF.percentage = 0
