@@ -236,7 +236,7 @@
   },
   "OFFICIAL": {
     "EN": "Official EU languages:",
-    "DE": "Amtssprachen der EU:",
+    "DE": "Offizielle EU-Sprachen:",
     "FR": "Langues officielles de l'UE:"
   },
   "OPTIONS_GRAPH_TOOLBOX": {
@@ -262,7 +262,7 @@
   "SHARE": {
     "EN": "Share",
     "DE": "Teilen",
-    "FR": "Partager"
+    "FR": "Parteger"
   },
   "TWITTER": {
     "EN": "X",
@@ -291,7 +291,7 @@
   },
   "AGGREGATE": {
     "EN": "Aggregates",
-    "DE": "Aggregate",
+    "DE": "Aggregaten",
     "FR": "Agrégats"
   },
   "EUCTR": {
@@ -564,12 +564,12 @@
   "MSG_LOADING": {
     "EN": "Loading",
     "FR": "Chargement",
-    "DE": "Laden"
+    "DE": "Wird geladen"
   },
   "C0100": {
     "EN": "Hard coal",
-    "FR": "Charbon dur",
-    "DE": "Feine Kohle"
+    "FR": "Houille",
+    "DE": "Steinkohle"
   },
   "VAL": {
     "EN": "Value",
@@ -577,18 +577,18 @@
     "DE": "Wert"
   },
   "BACK": {
-    "EN": "BACK",
-    "FR": "Valeur",
-    "DE": "Wert"
+    "EN": "Back",
+    "FR": "Retour",
+    "DE": "Zurück"
   },
   "NEXT": {
-    "EN": "NEXT",
-    "FR": "SUIVANT",
-    "DE": "WEITER"
+    "EN": "Next",
+    "FR": "Suivant",
+    "DE": "Weiter"
   },
   "FINISH": {
-    "EN": "FINISH",
-    "FR": "TERMINER",
-    "DE": "FERTIG"
+    "EN": "Finish",
+    "FR": "Terminer",
+    "DE": "Fertig"
   }
 }
