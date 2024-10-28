@@ -44,6 +44,10 @@ hr {
   text-decoration: none;
   padding: 0.5rem;
   font-size: 16px;
+  color: #535151  !important;
+}
+.ecl-link:hover {
+  color: #510dcd  !important;
 }
 
 

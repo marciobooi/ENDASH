@@ -17,7 +17,7 @@ class SubNavbar {
             </button>
             <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="INFO">
               <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="mailContact()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
+              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
             </ul>
           </li>
           <li class="nav-item dropdown px-1" id="social-media-dropdown" role="none">
@@ -71,7 +71,7 @@ class SubNavbar {
               </button>
               <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="INFO">
                 <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="mailContact()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
               </ul>
             </li>
             <li class="nav-item button px-1" id="shareChart" role="none">

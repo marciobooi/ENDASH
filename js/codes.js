@@ -386,11 +386,5 @@ const EFTA_COUNTRY_CODES = [
   "IS", "LI", "NO"
 ]
 
-const ENLARGEMENT_COUNTRY_CODES = [
-  "ME","MK","AL","RS","TR","BA","XK"
-]
-
-const OTHER_THIRD_COUNTRY_CODES = [
-  "UA", "MD", "GE"
-]
-
+const ENLARGEMENT_COUNTRY_CODES = [ "BA","ME","MD","MK","GE","AL","RS","TR","UA","XK",]
+// const OTHER_THIRD_COUNTRY_CODES = ["UA", "MD", "GE"];

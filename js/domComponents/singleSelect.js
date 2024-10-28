@@ -34,11 +34,8 @@ class Singleselect {
                         <optgroup data-i18n-label="EFTA">
                             ${EFTA_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
                         </optgroup>
-                        <optgroup label="ENLARGEMENT">
+                        <optgroup data-i18n-label="ENLARGEMENT">
                             ${ENLARGEMENT_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
-                        </optgroup>
-                        <optgroup data-i18n-label="OTHERCTR">
-                            ${OTHER_THIRD_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
                         </optgroup>
                     </select>
                     <div class="ecl-select__icon">
