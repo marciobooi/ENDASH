@@ -50,7 +50,7 @@ var languageNameSpace = {
     translateElements("optgroup[data-i18n-label]", "i18n-label", "label");   
 
 
-
+    document.documentElement.lang = lang.toLowerCase();
   },
 
 
