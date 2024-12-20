@@ -250,8 +250,8 @@ select:focus option:focus {
 
 
   span.ecl-link.ecl-site-header__language-link {
-    text-decoration: none !important;
-}
+    text-decoration: none;
+  }
 
 
 
