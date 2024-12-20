@@ -10,7 +10,15 @@ $( document ).ready(function() {
       utility: "globan",
       lang: REF.language.toLowerCase(),
       theme: "dark",
+      logo: true,
+      link: true,
+      mode: false,
+      zindex : 40
     });
+
+
+
+
 
   buildComponents();
 

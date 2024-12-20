@@ -621,7 +621,7 @@ function chartApiCall(query) {
     break 
  
   }
-
+log(url)
   if (cache[url] && cache[url].length > 0) {  
     d = JSONstat(cache[url][cache[url].length - 1]).Dataset(0);
     return d;
