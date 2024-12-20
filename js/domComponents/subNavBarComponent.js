@@ -11,34 +11,34 @@ class SubNavbar {
     const notMobileContent = /*html*/ `
       <div class="container-fluid">
         <ul id="chartBtns" role="menubar" data-i18n-label="OPTIONS_GRAPH_TOOLBOX" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-          <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-            <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown" role="menuitem" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+          <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
+            <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="true" id="infoBtn">
               <i class="fas fa-info"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="INFO">
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
+              <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
+              <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
             </ul>
           </li>
-          <li class="nav-item dropdown px-1" id="social-media-dropdown" role="none">
-            <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="SHARE" aria-label="SHARE" data-bs-toggle="dropdown" role="menuitem" data-i18n-title="SHARE" aria-haspopup="true" aria-expanded="true" id="shareChart1">
+          <li class="nav-item dropdown px-1" id="social-media-dropdown" role="menuitem">
+            <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="SHARE" aria-label="SHARE" data-bs-toggle="dropdown"  data-i18n-title="SHARE" aria-haspopup="true" aria-expanded="true" id="shareChart1">
               <i class="fas fa-share-alt" aria-hidden="true"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="SHARE">
               <p id="SHARETITLE" class="ecl-social-media-share__description" style="font-weight: normal;" data-i18n="SHARE"></p>
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.twitter()" data-i18n-label="TWITTER" aria-label="TWITTER">
+              <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.twitter()" data-i18n-label="TWITTER" aria-label="TWITTER">
                 <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
                   <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/twiter.svg" alt="Twitter Icon" width="24" height="24" focusable="false" aria-hidden="true">
                 </span>
                 <span class="ecl-link__label" data-i18n="TWITTER"></span>
               </button>
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.facebook()" data-i18n-label="FACEBOOK" aria-label="FACEBOOK">
+              <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.facebook()" data-i18n-label="FACEBOOK" aria-label="FACEBOOK">
                 <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
                   <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/face.svg" alt="Facebook Icon" width="24" height="24" focusable="false" aria-hidden="true">
                 </span>
                 <span class="ecl-link__label" data-i18n="FACEBOOK"></span>
               </button>
-              <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.linkedin()" data-i18n-label="LINKEDIN" aria-label="LINKEDIN">
+              <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.linkedin()" data-i18n-label="LINKEDIN" aria-label="LINKEDIN">
                 <span class="socialImg ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon">
                   <img class="ecl-icon ecl-icon--m ecl-link__icon ecl-social-media-share__icon" src="img/social-media/linkdin.svg" alt="Linkedin Icon" width="24" height="24" focusable="false" aria-hidden="true">
                 </span>
@@ -65,23 +65,23 @@ class SubNavbar {
         </div>
         <div class="chartMenuMobile d-none">
           <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
-            <li class="nav-item dropdown px-1" id="infoBtnChart" role="none">
-              <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown" role="menuitem" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+            <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
+              <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="true" id="infoBtn">
                 <i class="fas fa-info"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="INFO">
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="tutorial()" data-i18n-label="TUTORIAL" data-i18n="TUTORIAL" value="Tutorial"></button>
+                <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.email()" data-i18n-label="FEED" value="Feedback" aria-label="FEED" data-i18n="FEED">FEED</button>
               </ul>
             </li>
-            <li class="nav-item button px-1" id="shareChart" role="none">
+            <li class="nav-item button px-1" id="shareChart" role="menuitem">
               <button id="embebedBtn" type="button" class="btn btn-primary min-with--nav round-btn" data-i18n-label="EMBEDDED" aria-label="EMBEDDED" data-i18n-title="EMBEDDED" onclick="exportIframe()">
                 <i class="fas fa-code"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" role="menu" data-i18n-labelledby="SHARE">
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.twitter()" data-i18n-label="TWITTER" aria-label="TWITTER">TWITTER</button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.facebook()" data-i18n-label="FACEBOOK" aria-label="FACEBOOK">FACEBOOK</button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="socialNameSpace.linkedin()" data-i18n-label="LINKEDIN" aria-label="LINKEDIN">LINKEDIN</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.twitter()" data-i18n-label="TWITTER" aria-label="TWITTER">TWITTER</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.facebook()" data-i18n-label="FACEBOOK" aria-label="FACEBOOK">FACEBOOK</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone"  onclick="socialNameSpace.linkedin()" data-i18n-label="LINKEDIN" aria-label="LINKEDIN">LINKEDIN</button>
               </ul>
             </li>
           </ul>
