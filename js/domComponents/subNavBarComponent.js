@@ -10,7 +10,7 @@ class SubNavbar {
 
     const notMobileContent = /*html*/ `
       <div class="container-fluid">
-        <ul id="chartBtns" role="menubar" data-i18n-label="OPTIONS_GRAPH_TOOLBOX" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+        <ul id="chartBtns"  data-i18n-label="OPTIONS_GRAPH_TOOLBOX" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
           <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
             <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="true" id="infoBtn">
               <i class="fas fa-info"></i>
@@ -64,7 +64,7 @@ class SubNavbar {
           </button>
         </div>
         <div class="chartMenuMobile d-none">
-          <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <ul id="chartBtns"  aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
             <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
               <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="true" id="infoBtn">
                 <i class="fas fa-info"></i>
