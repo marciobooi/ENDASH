@@ -512,9 +512,9 @@
   },
 
   "DOWNLOAD_CHART_IMAGE": {
-    "EN": "Download chart image",
-    "DE": "Diagrammbild herunterladen",
-    "FR": "Télécharger l'image du graphique"
+    "EN": "Download chart",
+    "DE": "Diagramm herunterladen",
+    "FR": "Télécharger le graphique"
   },
   "DOWNLOAD_XLS": {
     "EN": "Download Excel file",
