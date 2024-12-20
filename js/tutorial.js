@@ -115,7 +115,7 @@ function tutorial(buttonTimer) {
 		  subtree: true,
 		}
 	);
-	
+
 	  introProfile.start();
   
 	  isOpen = true
@@ -161,6 +161,7 @@ function tutorial(buttonTimer) {
 function closeTutorial() {
 	buttonTimer = setTimeout("introJs().exit()", 4000);	
 	isOpen = false
+	$('button#infoBtn').focus();
 }
 
 btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton")
@@ -176,6 +177,7 @@ function closeProcess(params) {
 	document.querySelector("#tb-tutorial-btn");
 	// const button = document.getElementById('tb-tutorial-btn');
 	// button.focus();
+	$('button#infoBtn').focus();
 	isOpen = false
 }
 
