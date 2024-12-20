@@ -371,3 +371,22 @@ text.highcharts-axis-title {
  a.ecl-link.ecl-link--standalone.ecl-site-header__language-link:focus-visible .ecl-site-header__language-link-label {
    text-decoration: underline
  }
+
+ .tooltip {
+  position: absolute;
+  background:rgba(255, 255, 255, 0.94);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  border: 4px solid #0e47cb;
+  border-radius: 10px;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
