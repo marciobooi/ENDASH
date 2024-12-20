@@ -153,6 +153,10 @@ class Chart {
     
     enableScreenREader()
 
+    setTimeout(() => {
+      updateAccessibilityLabels()
+    }, 500);
+
       return chart
 
 

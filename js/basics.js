@@ -892,3 +892,20 @@ function observeAriaHidden() {
 
 // Initialize the observer
 document.addEventListener("DOMContentLoaded", observeAriaHidden);
+
+
+function updateAccessibilityLabels() {
+
+  const elements = document.querySelectorAll('.highcharts-a11y-proxy-element');
+  elements.forEach((element) => {
+    let ariaLabel = element.getAttribute('aria-label');
+    if (ariaLabel && (ariaLabel.includes("Show") || ariaLabel.includes("Anzeigen") || ariaLabel.includes("Afficher"))) {
+      const updatedLabel = ariaLabel
+        .replace(/Show/g, translationsCache["SHOW"])
+        .replace(/Anzeigen/g, translationsCache["SHOW"])
+        .replace(/Afficher/g, translationsCache["SHOW"]);
+      element.setAttribute('aria-label', updatedLabel);
+    }
+  });
+}
+  document.addEventListener('DOMContentLoaded', updateAccessibilityLabels);

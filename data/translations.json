@@ -590,5 +590,10 @@
     "EN": "Finish",
     "FR": "Terminer",
     "DE": "Fertig"
+  },
+  "SHOW": {
+    "EN": "Show",
+    "FR": "Afficher",
+    "DE": "Anzeigen"
   }
 }
