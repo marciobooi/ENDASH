@@ -97,6 +97,11 @@ li > button {
 button:focus,
 .input:focus {
     box-shadow: var(--bs-btn-focus-box-shadow);
+    border: 2px solid #0e47cb;
+    background-color: white;
+    color: #0e47cb;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 ul.dropdown-menu.dropdown-menu-end.show {
