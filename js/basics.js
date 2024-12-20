@@ -846,7 +846,7 @@ function enableTooltips() {
     const positionTooltip = (element) => {
       const rect = element.getBoundingClientRect();
       tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
-      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 8}px`;
+      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 6}px`;
     };
 
     // Show tooltip

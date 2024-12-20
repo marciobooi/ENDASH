@@ -144,14 +144,30 @@ class ChartControls {
 				tableBtn.setAttribute('aria-label', 'Toggle chart');
 				tableBtn.setAttribute('title', 'Toggle chart');
 
-				const chartsBtn = ["barChart", "pieChart", "lineChart"];  
-				chartsBtn.forEach(chart => {$("#" + chart).attr("disabled", "disabled")})	
+				log(REF.chartType)
+
+				const charts = ["barChart", "pieChart", "lineChart"];  
+				charts.forEach(chart => {
+					$("#" + chart).attr("disabled", "disabled")
+					$("#" + chart).attr("aria-disabled", "true")
+				})
+
+				
+
+				$("#"+REF.chartType).addClass('highlighDisbleBtn');
+				
+
+				log($("#"+REF.chartType))
 
 				$('#floatingMenu').css('display','none')
 			
 				openVizTable();
 
 				tableBtn.focus();
+		
+				setTimeout(() => {
+					$("#toggleTableBtn").focus()
+				}, 400);
 			} else {
 				tableIcon.classList.remove("fa-chart-bar");
 				tableIcon.classList.add("fa-table");
@@ -163,8 +179,11 @@ class ChartControls {
 
 				disableChatOptionsBtn(REF.chartId)		
 				$('#floatingMenu').css('display','flex')		
+				$("#"+REF.chartType).removeClass('highlighDisbleBtn');
 
-				tableBtn.focus();
+				setTimeout(() => {
+					$("#toggleTableBtn").focus()
+				}, 400);
 			}			
 		});
 		createprintChart.setClickHandler(function() {

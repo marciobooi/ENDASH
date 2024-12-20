@@ -187,6 +187,532 @@ span.agregates.fa-stack.fa-rotate-180 {
 }
 
 
+.btn-secondary {
+    background-color: var(--tool-1);
+}
+
+#menu {
+    position: relative;
+    padding: 0.2rem !important;
+    /* margin-left: 2rem; */
+    width: 3rem;
+    cursor: pointer;
+    border: none;
+    color: var(--tool-1);
+    background-color: transparent;
+}
+
+.btnGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--tool-1);
+}
+
+span.iconText {
+    font-size: 0.7em;
+}
+
+.btnGroup > i {
+    font-size: 1.3em;
+}
+
+#chartBtns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+li > button {
+    background-color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em !important;
+}
+
+#menuSwitch {
+    /* color: var(--main-color); */
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 0 !important; */
+    /* position: absolute;
+    left: 2%;
+    bottom: calc(11% - 20px); */
+    position: fixed;
+    left: 2%;
+    bottom: 11vh; /* Adjust this value as needed */
+    transform: translateY(50px); /* Fine-tune the vertical position */
+    z-index: 1000; /* Ensure the element stays above other content */
+}
+
+
+#SHOW, #HIDE {
+    font-size: 1rem;
+} 
+
+#SHOW {
+    font-weight: bold;
+}
+
+/* #menuSwitch input[type="checkbox"]:checked + label {    
+    font-weight: bold;
+   
+} */
+
+.form-check-label:first-of-type {
+    margin-right: 10px; /* Adjust as needed */
+}
+
+.form-check-label:last-of-type {
+    margin-left: 10px; /* Adjust as needed */
+}
+
+#floatingMenu {
+    display: flex;
+    position: relative;
+    padding: 0;
+}
+
+#floatingMenu > li {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+button:focus,
+.input:focus {
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
+    
+}
+
+
+ul.dropdown-menu.dropdown-menu-end.show {
+    z-index: 9999999999;
+}
+
+
+/* .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    text-decoration: none;
+    color: #262626;
+    background-color: lightgray;
+} */
+
+
+/* #menu:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+} */
+.min-with--nav:hover:not(.dropdown-toggle):not(#tutorialCloser),a.introjs-button.introjs-nextbutton:hover {
+    box-shadow: 0 0 0 0.15rem #cca30000;
+    border: 2px solid #0e47cb;
+    background-color: white;
+    color: #0e47cb;
+    opacity: 1;
+    pointer-events: auto;
+}
+/* button:focus:not(:focus-visible):not(.dropdown-toggle), button:active:not(.dropdown-toggle) {
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: #CCA300!important;
+    border-color: #CCA300 !important;
+} */
+
+.btn:disabled {
+    pointer-events: auto;
+    cursor: not-allowed !important; 
+    opacity: .5;
+    text-decoration: none;
+}
+
+.btn:disabled:hover {
+    background-color: white;
+    border-color: #0e47cb !important;
+    border: 2px solid #0e47cb;
+    box-shadow: 0px 0px 6px 1px #0107152b;
+}
+
+.btn:focus-visible { 
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.15rem #0e47cb00;
+    color: white;
+    background-color: var(--tool-1);
+}
+
+
+.tableHeader > .tableInfoIcon:focus {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.15rem #0e47cb00;
+    color: white !important;
+    background-color: var(--tool-1);
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+
+span.agregates.fa-stack.fa-rotate-180 {
+    font-size: .9rem;
+}
+
+.round-btn {
+    border-radius: 50%;
+}
+
+
+#btnCloseModalChart {
+    background-color: #cfdaf5 !important;
+    border-color: #cfdaf5!important;
+    color: #0e47cb;
+    border: 3px solid #cfdaf5!important;
+    font-size: 1.7rem !important;
+    /* position: absolute; */
+    /* right: 4px; */
+    /* top: 10px; */
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+}
+
+#btnCloseModalChart:hover {
+    box-shadow: 0 0 0 0.15rem #0e47cb4d;
+    background-color: #0e47cb!important;
+    border-color: #0e47cb !important;
+    color: white !important;
+}
+
+#btnCloseModalChart:focus {
+    box-shadow: 0 0 0 0.15rem #0e47cb4d;
+    background-color: #0e47cb!important;
+    border-color: #0e47cb !important;
+    color: white !important;
+}
+.text-truncate {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+#infoCard button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border-radius: 4px;
+    border-width: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font: normal normal 400 1rem/1.25rem arial,sans-serif;
+    font-weight: 400;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    background-color: #0e47cb;
+    color: #fff;
+    
+  }
+  
+  /* Hover and focus styles */
+  #infoCard button:hover,
+  #infoCard button:focus {
+    box-shadow: 0 2px 4px rgb(9 49 142 / 8%), 0 0 10px rgb(9 49 142 / 4%), 0 4px 5px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
+    background-color: #3e6cd5 !important;
+    text-decoration: none;
+  }
+  
+  /* Optional: Add a transition for box-shadow if desired */
+  #infoCard button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow */
+  }
+  
+  /* Optional: Style the buttons as a group */
+  #infoCard .button-group {
+    display: flex;
+    gap: 0.2rem;
+  }
+  
+  /* Optional: Style the buttons individually if needed */
+  #infoCard .button-group button {
+    flex: 1; /* Make buttons in the group evenly spaced */
+  }
+
+
+ .chartIcon:hover {
+    transform: translate(0, -10%);
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white;
+}
+
+.tableInfoIcon:hover {
+    transform: translate(0, -10%);
+    color: white;
+    background-color: var(--tool-1);
+    border: 1px solid var(--tool-1);
+    line-height: 0;
+}
+
+#infoCard .btn-secondary {
+    background-color: #fff;
+    border: 2px solid #0e47cb;
+    color: #0e47cb;
+    padding: calc(0.75rem - 2px) calc(1rem - 2px);
+}
+
+button.btn.btn-secondary.min-with--nav.Metadata {
+    margin-right: 15px !important;
+}
+
+
+#infoCard .btn-secondary:active, #infoCard .btn-secondary:hover {
+    border-color: #0e47cb;
+    color: #0e47cb;
+}
+
+#infoCard .btn-secondary:active, #infoCard .btn-secondary:hover {
+    border-color: #0e47cb !important;
+    color: #0e47cb !important;    
+    text-decoration: none;
+    background-color: white;
+    box-shadow: 0 2px 4px rgb(9 49 142 / 8%), 0 0 10px rgb(9 49 142 / 4%), 0 4px 5px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%) !important
+}
+
+button.ecl-button.ecl-button--ghost.ecl-modal__close:focus {
+    box-shadow: 0 0 0 0.15rem #cca30000;
+    background-color: #ffffff!important;
+    color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    border-radius: 50%;
+}
+
+.ecl-icon--s {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
+
+.ecl-modal__body-scroll {
+    word-break: break-all;
+    text-align: justify;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.ecl-modal__header {
+    align-items: flex-start;
+    border-bottom: 1px solid #cfdaf5;
+    display: flex;
+    font: normal normal 500 1.4rem/1.85rem arial, sans-serif;
+    padding: 1rem;
+}
+
+
+button#menu:focus, button#menu:active, button#menu:hover {
+    background-color: #f3f6fc !important;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border-color: var(--tool-1) !important;
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    color: #0e47cb;
+}
+
+
+
+#toTop {
+    opacity: 0; /* Initially invisible */
+    visibility: hidden; /* Initially hidden */
+    transition: opacity 0.8s, visibility 0.8s; /* Smooth transition for opacity and visibility */
+    position: fixed;
+    top: 92vh;
+    left: 20px;
+    z-index: 99;    
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--tool-1) !important;
+    width: 2.5rem;
+    height: 2.5rem;  
+    font-size: 1.2em !important;
+}
+
+
+  #toTop.show {
+    opacity: 1; /* Fully visible */
+    visibility: visible; /* Visible */
+  }
+
+
+  button.btn.btn-outline-primary {
+    color: var(--eublue);
+    --bs-btn-border-color: transparent;
+    background-color: white;
+    border-radius: 0.2rem;
+}
+
+.btn:active, .btn:hover, .btn:focus-visible, .btn.show, .btn:focus, .introjs-button:focus {
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 2px solid #0e47cb !important;
+    background-color: white;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.roundBtn {
+    color: var(--eublue);
+    background: white;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em !important;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.roundBtn:hover {
+    box-shadow: 0 0 0 0.15rem #cca3004d;
+    background-color: var(--tool-1) !important;
+    border-color: var(--tool-1) !important;
+    color: var(--tool-1) !important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover, .dropdown-item:focus-visible {
+    color: white;
+    background-color: var(--eublue);
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+
+.button-container .dropdown-menu {
+    position: absolute;
+    top: 3.6rem;
+    transform: translateX(-20%);
+    border: 1px solid #515560;
+    border-radius: 2px;
+    box-shadow: 0 7px 8px rgb(9 49 142 / 8%), 0 0 22px rgb(9 49 142 / 4%), 0 12px 17px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
+    line-height: 1.15;
+}
+
+.notLink:hover {
+text-decoration: none !important;
+}
+
+button.tableRowIcon:focus {
+    background-color: var(--tool-1) !important;
+
+  }
+
+  button.tableRowIcon:focus i {
+
+    color: white !important;
+  }
+
+
+  button#close:focus, button#close:hover {
+    color: white;
+    background-color: #3e6cd5;
+    border-color: #3e6cd5;
+  }
+  button#share:focus, button#share:hover {
+    background-color: #fff;
+    color: #0e47cb;
+    border: 2px solid #0e47cb;
+    box-shadow: none;
+  }
+ 
+
+  .ecl-button--secondary:active, .ecl-button--secondary:hover {
+    background-color: #3e6cd5 !important;
+    border-color: #3e6cd5;
+    color: #fff !important;
+}
+
+.ecl-button--primary:active, .ecl-button--primary:hover {
+    background-color: #3e6cd5 !important;
+    background-color: #fff;
+    border: 2px solid #0e47cb !important;
+    color: #0e47cb !important;
+}
+
+/* .ecl-modal__close:active, .ecl-modal__close:hover {
+    color: #e7edfa !important;
+    padding: 0;
+    margin: .15rem;
+    border-radius: 50%;
+    border-color: #0e47cb !important;
+} */
+
+.ecl-modal__close {
+    padding: 8px !important;
+    background-color: transparent !important;
+    margin: 2px !important;
+}
+
+.ecl-button--tertiary:hover, .ecl-button--tertiary:focus {
+    background-color: #d8e0fb !important;
+    border-color: #546fa6 !important;
+    color: #26324b !important;
+}
+
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap; /* Prevents text wrapping */
+    border: 0;
+  }
+
+
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: #fff  !important;
+    border-color: #3e6cd5 !important;
+    color: #3e6cd5 !important;
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+  }
+
+  #toTop:hover, #toTop:focus {   
+        background-color: #fff  !important;
+        border: 2px solid #3e6cd5 !important;
+        color: #3e6cd5 !important;
+        box-shadow: 0 0 0 0.15rem #cca30000 !important;
+  }
+
+.highlighDisbleBtn {
+    background-color: #fff  !important;
+    border: 2px solid #3e6cd5 !important;
+    color: #3e6cd5 !important;
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    opacity:0.7;
+}
 
 
 /* document.querySelector("#tb-togle-details > span > i:nth-child(2)") */
