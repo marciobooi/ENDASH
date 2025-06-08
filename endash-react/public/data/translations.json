@@ -1,0 +1,599 @@
+{
+  "EU28": {
+    "EN": "European Union (28 countries)",
+    "DE": "Europäische Union (28 Länder)",
+    "FR": "Union européenne (28 pays)"
+  },
+  "EU27_2020": {
+    "EN": "European Union (27 countries)",
+    "DE": "Europäische Union (27 Länder)",
+    "FR": "Union européenne (27 pays)"
+  },
+  "EA": {
+    "EN": "Euro area (19 countries)",
+    "DE": "Euroraum (19 Länder)",
+    "FR": "Zone euro (19 pays)"
+  },
+  "BE": {
+    "EN": "Belgium",
+    "DE": "Belgien",
+    "FR": "Belgique"
+  },
+  "BG": {
+    "EN": "Bulgaria",
+    "DE": "Bulgarien",
+    "FR": "Bulgarie"
+  },
+  "CZ": {
+    "EN": "Czechia",
+    "DE": "Tschechien",
+    "FR": "Tchéquie"
+  },
+  "DK": {
+    "EN": "Denmark",
+    "DE": "Dänemark",
+    "FR": "Danemark"
+  },
+  "DE": {
+    "EN": "Germany",
+    "DE": "Deutschland",
+    "FR": "Allemagne"
+  },
+  "EE": {
+    "EN": "Estonia",
+    "DE": "Estland",
+    "FR": "Estonie"
+  },
+  "IE": {
+    "EN": "Ireland",
+    "DE": "Irland",
+    "FR": "Irlande"
+  },
+  "EL": {
+    "EN": "Greece",
+    "DE": "Griechenland",
+    "FR": "Grèce"
+  },
+  "ES": {
+    "EN": "Spain",
+    "DE": "Spanien",
+    "FR": "Espagne"
+  },
+  "FR": {
+    "EN": "France",
+    "DE": "Frankreich",
+    "FR": "France"
+  },
+  "HR": {
+    "EN": "Croatia",
+    "DE": "Kroatien",
+    "FR": "Croatie"
+  },
+  "IT": {
+    "EN": "Italy",
+    "DE": "Italien",
+    "FR": "Italie"
+  },
+  "CY": {
+    "EN": "Cyprus",
+    "DE": "Zypern",
+    "FR": "Chypre"
+  },
+  "LV": {
+    "EN": "Latvia",
+    "DE": "Lettland",
+    "FR": "Lettonie"
+  },
+  "LT": {
+    "EN": "Lithuania",
+    "DE": "Litauen",
+    "FR": "Lituanie"
+  },
+  "LU": {
+    "EN": "Luxembourg",
+    "DE": "Luxemburg",
+    "FR": "Luxembourg"
+  },
+  "HU": {
+    "EN": "Hungary",
+    "DE": "Ungarn",
+    "FR": "Hongrie"
+  },
+  "MT": {
+    "EN": "Malta",
+    "DE": "Malta",
+    "FR": "Malte"
+  },
+  "NL": {
+    "EN": "Netherlands",
+    "DE": "Niederlande",
+    "FR": "Pays-Bas"
+  },
+  "AT": {
+    "EN": "Austria",
+    "DE": "Österreich",
+    "FR": "Autriche"
+  },
+  "PL": {
+    "EN": "Poland",
+    "DE": "Polen",
+    "FR": "Pologne"
+  },
+  "PT": {
+    "EN": "Portugal",
+    "DE": "Portugal",
+    "FR": "Portugal"
+  },
+  "RO": {
+    "EN": "Romania",
+    "DE": "Rumänien",
+    "FR": "Roumanie"
+  },
+  "SI": {
+    "EN": "Slovenia",
+    "DE": "Slowenien",
+    "FR": "Slovénie"
+  },
+  "SK": {
+    "EN": "Slovakia",
+    "DE": "Slowakei",
+    "FR": "Slovaquie"
+  },
+  "FI": {
+    "EN": "Finland",
+    "DE": "Finnland",
+    "FR": "Finlande"
+  },
+  "SE": {
+    "EN": "Sweden",
+    "DE": "Schweden",
+    "FR": "Suède"
+  },
+  "UK": {
+    "EN": "United Kingdom",
+    "DE": "Vereinigtes Königreich",
+    "FR": "Royaume-Uni"
+  },
+  "IS": {
+    "EN": "Iceland",
+    "DE": "Island",
+    "FR": "Islande"
+  },
+  "LI": {
+    "EN": "Liechtenstein",
+    "DE": "Liechtenstein",
+    "FR": "Liechtenstein"
+  },
+  "NO": {
+    "EN": "Norway",
+    "DE": "Norwegen",
+    "FR": "Norvège"
+  },
+  "ME": {
+    "EN": "Montenegro",
+    "DE": "Montenegro",
+    "FR": "Monténégro"
+  },
+  "MK": {
+    "EN": "North Macedonia",
+    "DE": "Nordmazedonien",
+    "FR": "Macédoine du Nord"
+  },
+  "RS": {
+    "EN": "Serbia",
+    "DE": "Serbien",
+    "FR": "Serbie"
+  },
+  "TR": {
+    "EN": "Türkiye",
+    "DE": "Türkei",
+    "FR": "Turquie"
+  },
+  "BA": {
+    "EN": "Bosnia and Herzegovina",
+    "DE": "Bosnien und Herzegowina",
+    "FR": "Bosnie Herzégovine"
+  },
+  "XK": {
+    "EN": "Kosovo (UN SCR 1244/99)",
+    "DE": "Kosovo (UNSCR 1244/99)",
+    "FR": "Kosovo (UNSCR 1244/99)"
+  },
+  "MD": {
+    "EN": "Moldova",
+    "DE": "Moldau",
+    "FR": "Moldavie"
+  },
+  "UA": {
+    "EN": "Ukraine",
+    "DE": "Ukraine",
+    "FR": "Ukraine"
+  },
+  "GE": {
+    "EN": "Georgia",
+    "DE": "Georgien",
+    "FR": "Géorgie"
+  },
+  "AL": {
+    "EN": "Albania",
+    "DE": "Albanien",
+    "FR": "Albanie"
+  },
+  "TITLE": {
+    "EN": "Energy dashboard",
+    "DE": "Energiedashboard",
+    "FR": "Tableau de bord de l'énergie"
+  },
+  "SELECTLANGUAGE": {
+    "EN": "Select language",
+    "DE": "Sprache auswählen",
+    "FR": "Sélectionner la langue"
+  },
+  "SELECTLANGUAGELABEL": {
+    "EN": "Change language, current language is ",
+    "DE": "Sprache ändern, aktuelle Sprache ist ",
+    "FR": "Changer de langue, la langue actuelle est "
+  },
+  "OFFICIAL": {
+    "EN": "Official EU languages:",
+    "DE": "Offizielle EU-Sprachen:",
+    "FR": "Langues officielles de l'UE:"
+  },
+  "OPTIONS_GRAPH_TOOLBOX": {
+    "EN": "Options graph toolbox",
+    "DE": "Optionswerkzeugkasten für Grafiken",
+    "FR": "Boîte à outils des options de graphique"
+  },
+  "INFO": {
+    "EN": "Show information",
+    "DE": "Informationen anzeigen",
+    "FR": "Afficher les infos"
+  },
+  "TUTORIAL": {
+    "EN": "Tutorial",
+    "DE": "Anleitung",
+    "FR": "Tutoriel"
+  },
+  "FEED": {
+    "EN": "Feedback",
+    "DE": "Rückmeldung",
+    "FR": "Retour d'information"
+  },
+  "SHARE": {
+    "EN": "Share",
+    "DE": "Teilen",
+    "FR": "Parteger"
+  },
+  "TWITTER": {
+    "EN": "X",
+    "DE": "X",
+    "FR": "X"
+  },
+  "LINKEDIN": {
+    "EN": "LinkedIn",
+    "DE": "LinkedIn",
+    "FR": "LinkedIn"
+  },
+  "FACEBOOK": {
+    "EN": "Facebook",
+    "DE": "Facebook",
+    "FR": "Facebook"
+  },
+  "TOOLS": {
+    "EN": "Tools",
+    "DE": "Werkzeuge",
+    "FR": "Outils"
+  },
+  "EMBEDDED": {
+    "EN": "Embedded chart iframe",
+    "DE": "Diagramm einbetten (iframe)",
+    "FR": "Intégrer le graphique (iframe)"
+  },
+  "AGGREGATE": {
+    "EN": "Aggregates",
+    "DE": "Aggregate",
+    "FR": "Agrégats"
+  },
+  "EUCTR": {
+    "EN": "European Union (EU)",
+    "DE": "Europäische Union (EU)",
+    "FR": "Union européenne (UE)"
+  },
+  "EFTA": {
+    "EN": "European Free Trade Association (EFTA)",
+    "DE": "Europäische Freihandelsassoziation (EFTA)",
+    "FR": "Association européenne de libre-échange (AELE)"
+  },
+  "ENLARGEMENT": {
+    "EN": "EU Enlargement",
+    "DE": "EU-Erweiterung",
+    "FR": "Élargissement de l'UE"
+  },
+  "OTHERCTR": {
+    "EN": "Other third countries",
+    "DE": "Ländercodes anderer Drittländer",
+    "FR": "Codes d'autres pays tiers"
+  },
+  "MENU_COUNTRY": {
+    "EN": "Select country",
+    "DE": "Länder auswählen",
+    "FR": "Sélectionner le pays"
+  },
+  "COOKIES": {
+    "EN": "Cookies policy",
+    "DE": "Cookie-Richtlinie",
+    "FR": "Politique de cookies"
+  },
+  "PRIVACY": {
+    "EN": "Privacy policy",
+    "DE": "Datenschutzrichtlinie",
+    "FR": "Politique de confidentialité"
+  },
+  "LEGAL": {
+    "EN": "Legal notice",
+    "DE": "Rechtlicher Hinweis",
+    "FR": "Mention légale"
+  },
+  "ACCESS": {
+    "EN": "Accessibility",
+    "DE": "Barrierefreiheit",
+    "FR": "Accessibilité"
+  },
+  "SHOW_AGGREGATES": {
+    "EN": "Show aggregates",
+    "FR": "Afficher les agrégats",
+    "DE": "Aggregate anzeigen"
+  },
+  "SHOW_PERCENTAGE": {
+    "EN": "Show percentage view",
+    "FR": "Afficher la vue en pourcentage",
+    "DE": "Prozentansicht anzeigen"
+  },
+  "CTR": {
+    "EN": "Countries",
+    "DE": "Länder",
+    "FR": "Pays"
+  },
+  "YEAR": {
+    "EN": "Year",
+    "DE": "Jahr",
+    "FR": "Année"
+  },
+  "INDICATOR": {
+    "EN": "Indicator",
+    "DE": "Indikator",
+    "FR": "Indicateur"
+  },
+  "ERROR1": {
+    "EN": "No metadata to display",
+    "DE": "Keine Metadaten zum Anzeigen",
+    "FR": "Aucune donnée à afficher"
+  },
+  "ERROR2": {
+    "EN": "No data to display",
+    "DE": "Keine Daten zum Anzeigen",
+    "FR": "Aucune donnée à afficher"
+  },
+  "chart_1": {
+    "EN": "Energy efficiency",
+    "DE": "Energieeffizienz",
+    "FR": "Efficacité énergétique"
+  },
+  "chart_2": {
+    "EN": "Share of energy from renewable sources",
+    "DE": "Anteil erneuerbarer Energiequellen",
+    "FR": "Part de l'énergie provenant de sources renouvelables"
+  },
+  "chart_3": {
+    "EN": "Greenhouse gas emissions intensity of energy consumption",
+    "DE": "Treibhausgasemissionsintensität des Energieverbrauchs",
+    "FR": "Intensité des émissions de gaz à effet de serre de la consommation d'énergie"
+  },
+  "chart_4": {
+    "EN": "Energy intensity",
+    "DE": "Energieintensität",
+    "FR": "Intensité énergétique"
+  },
+  "chart_5": {
+    "EN": "Energy productivity",
+    "DE": "Energieproduktivität",
+    "FR": "Productivité énergétique"
+  },
+  "chart_6": {
+    "EN": "Energy imports dependency",
+    "DE": "Abhängigkeit von Energieimporten",
+    "FR": "Dépendance aux importations d'énergie"
+  },
+  "chart_7": {
+    "EN": "Share of fossil fuels in gross available energy",
+    "DE": "Anteil fossiler Brennstoffe an der verfügbaren Bruttoenergie",
+    "FR": "Part des combustibles fossiles dans l'énergie brute disponible"
+  },
+  "chart_8": {
+    "EN": "Final energy consumption in households per capita",
+    "DE": "Endenergieverbrauch in Haushalten pro Kopf",
+    "FR": "Consommation d'énergie finale dans les ménages par habitant"
+  },
+  "chart_9": {
+    "EN": "Final energy consumption by product",
+    "DE": "Endenergieverbrauch nach Produkt",
+    "FR": "Consommation d'énergie finale par produit"
+  },
+  "chart_10": {
+    "EN": "Final energy consumption by sector",
+    "DE": "Endenergieverbrauch nach Sektor",
+    "FR": "Consommation d'énergie finale par secteur"
+  },
+  "chart_11": {
+    "EN": "Disaggregated final energy consumption in households - quantities",
+    "DE": "Aufgeschlüsselter Endenergieverbrauch in Haushalten - Mengen",
+    "FR": "Consommation finale d'énergie désagrégée dans les ménages - quantités"
+  },
+  "chart_12": {
+    "EN": "Final energy consumption in transport by type of fuel",
+    "DE": "Endenergieverbrauch im Verkehr nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans les transports par type de carburant"
+  },
+  "chart_13": {
+    "EN": "Final energy consumption in road transport by type of fuel",
+    "DE": "Endenergieverbrauch im Straßenverkehr nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans le transport routier par type de carburant"
+  },
+  "chart_14": {
+    "EN": "Final energy consumption in services by type of fuel",
+    "DE": "Endenergieverbrauch in Dienstleistungen nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans les services par type de carburant"
+  },
+  "chart_15": {
+    "EN": "Final energy consumption in industry by type of fuel",
+    "DE": "Endenergieverbrauch in der Industrie nach Art des Kraftstoffs",
+    "FR": "Consommation d'énergie finale dans l'industrie par type de carburant"
+  },
+  "chart_16": {
+    "EN": "Final non-energy consumption by type of fuel",
+    "DE": "Endenergieverbrauch außerhalb des Energiebereichs nach Art des Kraftstoffs",
+    "FR": "Consommation finale non énergétique par type de carburant"
+  },
+  "chart_17": {
+    "EN": "Gross and net production of electricity and derived heat by type of plant and operator",
+    "DE": "Brutto- und Nettoerzeugung von Strom und abgeleiteter Wärme nach Anlagentyp und Betreiber",
+    "FR": "Production brute et nette d'électricité et de chaleur dérivée par type d'installation et opérateur"
+  },
+  "chart_18": {
+    "EN": "Gross production of electricity and derived heat from combustible fuels by type of plant and operator",
+    "DE": "Bruttoerzeugung von Strom und abgeleiteter Wärme aus Brennstoffen nach Anlagentyp und Betreiber",
+    "FR": "Production brute d'électricité et de chaleur dérivée de combustibles fossiles par type d'installation et opérateur"
+  },
+  "chart_19": {
+    "EN": "Population unable to keep home adequately warm by poverty status",
+    "DE": "Bevölkerung, die nicht in der Lage ist, ihr Zuhause ausreichend zu beheizen, nach Armutsstatus",
+    "FR": "Population incapable de maintenir correctement la chaleur à la maison en fonction du statut de pauvreté"
+  },
+  "chart_20": {
+    "EN": "Market share of the largest generator in the electricity market",
+    "DE": "Marktanteil des größten Erzeugers auf dem Strommarkt",
+    "FR": "Part de marché du plus grand producteur sur le marché de l'électricité"
+  },
+  "chart_21": {
+    "EN": "Gross available energy by product",
+    "DE": "Bruttoverfügbare Energie nach Produkt",
+    "FR": "Énergie brute disponible par produit"
+  },
+  "chart_22": {
+    "EN": "Total energy supply by product",
+    "DE": "Gesamte Energieversorgung nach Produkt",
+    "FR": "Approvisionnement total en énergie par produit"
+  },
+  "SHOW_BAR_CHART": {
+    "EN": "Show bar chart",
+    "FR": "Afficher le graphique en barres",
+    "DE": "Balkendiagramm anzeigen"
+  },
+  "SHOW_PIE_CHART": {
+    "EN": "Show pie chart",
+    "FR": "Afficher le graphique en secteurs",
+    "DE": "Kreisdiagramm anzeigen"
+  },
+  "SHOW_LINE_CHART": {
+    "EN": "Show line chart",
+    "FR": "Afficher le graphique linéaire",
+    "DE": "Liniendiagramm anzeigen"
+  },
+  "SHOW_TABLE": {
+    "EN": "Show table view",
+    "FR": "Afficher la vue en tableau",
+    "DE": "Tabellenansicht anzeigen"
+  },
+
+  "PRINT_CHART": {
+    "EN": "Print chart",
+    "FR": "Imprimer le graphique",
+    "DE": "Diagramm drucken"
+  },
+
+  "DOWNLOAD_CHART_IMAGE": {
+    "EN": "Download chart",
+    "DE": "Diagramm herunterladen",
+    "FR": "Télécharger le graphique"
+  },
+  "DOWNLOAD_XLS": {
+    "EN": "Download Excel file",
+    "DE": "Excel-Datei herunterladen",
+    "FR": "Télécharger le fichier Excel"
+  },
+  "CLOSE": {
+    "EN": "Close",
+    "DE": "Schließen",
+    "FR": "Fermer"
+  },
+  "FLAG_NA": {
+    "EN": "Not available",
+    "DE": "Nicht verfügbar",
+    "FR": "Non disponible"
+  },
+  "TOTAL": {
+    "EN": "Total",
+    "DE": "Gesamt",
+    "FR": "Total"
+  },
+  "BTNEXPAND": {
+    "EN": "Expand chart",
+    "DE": "Diagramm erweitern",
+    "FR": "Agrandir le graphique"
+  },
+  "BOX_SELECTION_ALL_COUNTRY": {
+    "EN": "All countries",
+    "DE": "Alle Länder",
+    "FR": "Tous les pays"
+  },
+  "EXPORT_FOOTER_TITLE": {
+    "EN": "Source: Eurostat",
+    "DE": "Quelle: Eurostat",
+    "FR": "Source : Eurostat"
+  },
+  "DB": {
+    "EN": "Dataset",
+    "DE": "Datensatz",
+    "FR": "Jeu de données"
+  },
+  "MSG_BROWSER": {
+    "EN": "Browser does not support HTML5.",
+    "FR": "Le navigateur ne prend pas en charge HTML5.",
+    "DE": "Browser unterstützt HTML5 nicht."
+  },
+  "MSG_LOADING": {
+    "EN": "Loading",
+    "FR": "Chargement",
+    "DE": "Wird geladen"
+  },
+  "C0100": {
+    "EN": "Hard coal",
+    "FR": "Houille",
+    "DE": "Steinkohle"
+  },
+  "VAL": {
+    "EN": "Value",
+    "FR": "Valeur",
+    "DE": "Wert"
+  },
+  "BACK": {
+    "EN": "Back",
+    "FR": "Retour",
+    "DE": "Zurück"
+  },
+  "NEXT": {
+    "EN": "Next",
+    "FR": "Suivant",
+    "DE": "Weiter"
+  },
+  "FINISH": {
+    "EN": "Finish",
+    "FR": "Terminer",
+    "DE": "Fertig"
+  },
+  "SHOW": {
+    "EN": "Show",
+    "FR": "Afficher",
+    "DE": "Anzeigen"
+  }
+}

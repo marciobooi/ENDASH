@@ -1,0 +1,260 @@
+/* Modern CSS Reset (from main.css) - Commented out to prefer ECL's reset */
+/*
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*/
+
+/* Global Styles (from main.css) */
+html {
+  /* font-size: 16px; */ /* Let ECL handle base font size if possible */
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  font-family: Arial, sans-serif; /* Explicit font stack */
+}
+
+body {
+  /* touch-action: pan-y;
+  overscroll-behavior-x: none;  */ /* Might not be needed immediately */
+  color: #333; /* Default text color from main.css */
+  font-family: Arial, sans-serif; /* Ensure body also gets this font */
+}
+
+/* Screen-reader only class (from main.css & btn.css) */
+.sr-only, .ecl-u-sr-only { /* Combined for safety, ECL might have its own */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* NavbarComponent specific styles (from nav.css) */
+.es_app_top {
+  padding: 0rem 1rem !important; /* Original had padding: 0rem 1rem; */
+  background-color: #082B7A;
+  background: linear-gradient(125deg, #082b7a 35%, #AFDFE9 75%, white 100%);
+  height: 7vh;
+  min-height: 75px;
+  max-height: 99px;
+  display: flex; /* Added to help align items if container-fluid doesn't handle it */
+  align-items: center; /* Added for vertical alignment */
+}
+
+#es_app_header {
+  display: grid;
+  grid-template-columns: auto 190px 220px 190px; /* Default desktop */
+  min-height: 70px; /* from nav.css */
+  padding: 0px;
+  align-items: center;
+  width: 100%; /* Ensure it takes full width */
+}
+
+#header-title-label {
+  font-weight: 1000; /* Bolder than ECL default h1 potentially */
+  line-height: 100%;
+  margin-bottom: 0;
+  display: inline;
+  padding-right: 1rem;
+  padding-left: 2rem;
+  /* left: -2.2rem; */ /* Position relative might not be ideal, check layout */
+  position: relative;
+  text-align: left;
+  font: normal normal bold 2.4rem / 2.6rem Arial, sans-serif;
+  letter-spacing: 0px;
+  color: #F3F6FC;
+  white-space: nowrap;
+}
+
+#es_app_header_ribbon {
+    display: flex; /* Added to help align image if needed */
+    align-items: center; /* Added for vertical alignment */
+    justify-content: center; /* Added for horizontal centering if column shrinks */
+}
+
+#es_app_header_ribbon img {
+  max-height: 75px;
+}
+
+.es_logo {
+  max-height: 26px;
+}
+
+/* Language Selector specific styles (from nav.css) */
+#lang-section {
+  position: relative; /* For dropdown positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lang-section > button > i.fa-globe { /* More specific selector */
+  padding-right: 10px;
+  line-height: 20px; /* from nav.css, might need adjustment */
+}
+
+/* Basic visibility for dropdown, React controls actual visibility */
+.ecl-site-header__language-container.visible {
+  display: block;
+  position: absolute; /* Position it relative to #lang-section */
+  top: 40px; /* from nav.css */
+  z-index: 9999; /* High z-index */
+  /* background-color: white; */ /* ECL should handle this */
+  /* border: 1px solid #ccc; */ /* ECL should handle this */
+}
+
+
+/* SubNavbarComponent specific styles (from subnavbar.css and btn.css) */
+#menuToolbar {
+  background-color: #003776 !important; /* var(--ECU-120) */
+  border-top: 0.1px solid #eef8fa2b;
+}
+
+/* Round buttons from btn.css, used in SubNavbar */
+.round-btn {
+  background-color: #0e47cb !important; /* var(--tool-1) */
+  border-color: #0e47cb !important; /* var(--tool-1) */
+  color: #fff !important;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em !important;
+}
+
+.round-btn:hover, .round-btn:focus {
+  background-color: white !important;
+  border: 2px solid #0e47cb !important;
+  color: #0e47cb !important;
+}
+
+/* Dropdown menu basic positioning if needed, ECL might cover this */
+#chartBtns .dropdown-menu.show {
+    z-index: 1050; /* Bootstrap's default is 1000, ECL might be higher */
+    /* position: absolute !important; */ /* ECL might handle this */
+}
+#chartBtns .dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
+
+/* FooterComponent specific styles (from footer.css) */
+/* .ecl-site-footer is an ECL component, avoid direct style override unless necessary */
+/* The main thing was custom alignment and link borders */
+#footerCredits {
+  display: flex;
+  flex-wrap: nowrap; /* Original was nowrap */
+  justify-content: flex-end; /* Original alignment */
+  align-items: center;
+  /* margin-bottom: 1.5rem; */ /* ECL might handle spacing */
+  padding: 0.5rem 0; /* Add some padding for breathing room */
+}
+
+.ecl-site-footer__list-item a.ecl-link.ecl-site-footer__link { /* Increased specificity */
+  border-right: 1px solid #0e47cb; /* var(--main-color) */
+  padding: 0.3rem 1rem;
+  color: #535151; /* From footer.css */
+  text-decoration: none; /* From main.css overrides */
+}
+
+.ecl-site-footer__list-item:last-child a.ecl-link.ecl-site-footer__link {
+  border-right: none;
+}
+
+.ecl-site-footer__list-item a.ecl-link.ecl-site-footer__link:hover {
+  color: #510dcd !important; /* From footer.css */
+  text-decoration: underline !important; /* From main.css overrides */
+}
+
+/* Override ECL link behavior if these are desired globally for non-button links */
+/* These were in main.css, affecting all .ecl-link instances */
+/*
+a.ecl-link.ecl-link--standalone, a.ecl-link {
+ text-decoration: none;
+ color:black;
+}
+a.ecl-link.ecl-link--standalone:hover, a.ecl-link:hover {
+ text-decoration: underline !important;
+}
+*/
+
+/* Responsive adjustments from nav.css (example for medium screens) */
+@media (min-width: 768px) and (max-width: 1200px) {
+    #header-title-label {
+        font-size: 2.15rem;
+    }
+    #es_app_header {
+        /* grid-template-columns: auto 190px 220px 190px; */ /* Already default */
+    }
+}
+ @media (min-width: 577px) and (max-width: 768px) {
+    #header-title-label {
+        font-size: 1.8rem; /* Adjusted from 2.15 for smaller screens */
+        padding-left: 0.5rem;
+    }
+    #es_app_header {
+      grid-template-columns: auto auto 1fr auto; /* Simpler grid for smaller screens */
+      padding: 0 0.5rem; /* Reduce padding */
+    }
+    #es_app_header_ribbon {
+      display: none; /* Hide ribbon on smaller screens as per original */
+    }
+    #lang-section .btn-text { /* .btn .btn-text in original */
+        display: none; /* Hide text, show only globe icon */
+    }
+    #toggleLanguageBtn { /* More specific */
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .es_logo {
+        max-height: 18px;
+    }
+    /* #language-list-overlay might need adjustment if it causes overflow */
+}
+
+@media (max-width: 576px) {
+    .es_app_top {
+      min-height: 70px;
+      max-height: 70px;
+      /* Gradient adjusted for React where it might not be on body */
+    }
+    #header-title-label {
+      font-size: 1.3rem; /* Adjusted from 1.5rem */
+      padding-left: 0.25rem;
+      /* text-shadow: 0px 0px 2px #000; */ /* Text shadow can make text harder to read */
+    }
+    #es_app_header {
+        grid-template-columns: auto auto 1fr auto; /* Simpler grid */
+        padding: 0 0.25rem; /* Further reduce padding */
+    }
+    #es_app_header_ribbon {
+      display: none;
+    }
+    #lang-section .btn-text {
+        display: none;
+    }
+    #toggleLanguageBtn {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .es_logo {
+        max-height: 18px;
+    }
+}
+
+/* Ensure ECL button primary hover/focus is consistent if btn.css overrides are desired */
+/* .ecl-button--primary:active, .ecl-button--primary:hover {
+    background-color: #fff !important;
+    border: 2px solid #0e47cb !important;
+    color: #0e47cb !important;
+} */
