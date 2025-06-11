@@ -12,7 +12,7 @@ class ChartControls {
 		  <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navChartControls">			
 				<div class="menu">
 
-				<ul id="chartBtns" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+				<ul id="chartBtns" aria-label="Chart controls" role="toolbar" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
 						<li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
 						<li class="nav-item button px-1" id="togglePieChart" role="none"></li>
 						<li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
@@ -22,7 +22,7 @@ class ChartControls {
 						<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 						<li class="nav-item button px-1" id="embebedChart" role="none"></li>
 						<li class="nav-item dropdown px-1" id="infoBtnChart" role="none"  style="margin-right: 2rem;">
-							<button class="btn btn-primary min-with--nav round-btn" type="button" data-i18n-label="INFO" data-bs-toggle="dropdown" role="menuitem" data-i18n-title="INFO" aria-haspopup="true" aria-expanded="true" id="infoBtn">
+							<button class="btn btn-primary min-with--nav round-btn" type="button" data-i18n-label="INFO" data-bs-toggle="dropdown" role="menuitem" data-i18n-title="INFO" aria-haspopup="true" id="infoBtn">
 								<i class="fas fa-info"></i>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
@@ -80,15 +80,24 @@ class ChartControls {
 	  container.insertBefore(this.controls, container.firstChild);
 
 	    // Create the button instances
-		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_BAR_CHART", "barChart", "false");
-		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "pieChart", "false");
-		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "lineChart", "true");
-		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_TABLE", "table", "false");
+		const barChart = new Button("barChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_BAR_CHART", "barChart", {"aria-pressed": "false"});
+		const pieChart = new Button("pieChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "pieChart", {"aria-pressed": "false"});
+		const lineChart = new Button("lineChart", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_PIE_CHART", "lineChart", {"aria-pressed": "true"});
+		const table = new Button("toggleTableBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "SHOW_TABLE", "table", {"aria-pressed": "false"});
 		const createprintChart = new Button("printBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "PRINT_CHART", "false");
 		const downloadChart = new Button("downloadBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "DOWNLOAD_CHART_IMAGE", "false");
 		const downloadExcel = new Button("excelBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "DOWNLOAD_XLS", "false");
 		const embebedeChart = new Button("embebedBtn", ["ecl-button", "ecl-button--primary", "round-btn"], "SHARE", "false");
-		const closeChart = new Button("btnCloseModalChart", ["ecl-button", "ecl-button--primary", "round-btn", "close-chart-menu-btn"], "CLOSE", "false");
+		// REF.chartId should give the chart like 'chart_1', 'chart_2'.
+		// codesDataset[REF.chartId].container should give the actual DOM ID like 'highchartsContainer_0'
+		const chartContainerId = codesDataset[REF.chartId] ? codesDataset[REF.chartId].container : '';
+		const closeChart = new Button(
+			"btnCloseModalChart",
+			["ecl-button", "ecl-button--primary", "round-btn", "close-chart-menu-btn"],
+			"CLOSE",
+			"false", // value not particularly relevant here
+			{"aria-expanded": "false", "aria-controls": chartContainerId}
+		);
 		
 		// Set inner HTML content for each button
 		barChart.setInnerHtml('<i class="fas fa-chart-bar"></i>');
@@ -143,6 +152,7 @@ class ChartControls {
 			
 				tableBtn.setAttribute('aria-label', 'Toggle chart');
 				tableBtn.setAttribute('title', 'Toggle chart');
+				tableBtn.setAttribute('aria-pressed', 'true');
 
 				log(REF.chartType)
 
@@ -174,6 +184,7 @@ class ChartControls {
 			
 				tableBtn.setAttribute('aria-label', 'Toggle table');
 				tableBtn.setAttribute('title', 'Toggle table');
+				tableBtn.setAttribute('aria-pressed', 'false');
 			
 				closeTable();
 
@@ -232,6 +243,100 @@ class ChartControls {
 		
 
 		languageNameSpace.initLanguage(REF.language);
+
+		// Toolbar keyboard navigation
+		const toolbar = this.controls.querySelector('#chartBtns');
+		if (toolbar) {
+			// Select only buttons that are direct children of li.nav-item and are intended for toolbar navigation
+			const buttons = Array.from(toolbar.querySelectorAll('li.nav-item > button.ecl-button'));
+
+			if (buttons.length > 0) {
+				toolbar.addEventListener('keydown', (event) => {
+					const target = event.target;
+					// Ensure the event target is one of the toolbar buttons
+					if (!buttons.includes(target)) {
+						return;
+					}
+
+					let currentIndex = buttons.indexOf(target);
+					let nextIndex;
+
+					switch (event.key) {
+						case 'ArrowLeft':
+							event.preventDefault();
+							nextIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+							buttons[nextIndex].focus();
+							break;
+						case 'ArrowRight':
+							event.preventDefault();
+							nextIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+							buttons[nextIndex].focus();
+							break;
+						case 'Home':
+							event.preventDefault();
+							buttons[0].focus();
+							break;
+						case 'End':
+							event.preventDefault();
+							buttons[buttons.length - 1].focus();
+							break;
+					}
+				});
+			}
+		}
+
+		// Info Dropdown Accessibility
+		const infoButtonContainer = this.controls.querySelector('#infoBtnChart');
+		const infoButton = this.controls.querySelector('#infoBtn');
+		const infoDropdownMenu = this.controls.querySelector('ul.dropdown-menu[aria-labelledby="infoBtn"]');
+
+		if (infoButtonContainer && infoButton && infoDropdownMenu) {
+			const dropdownItems = Array.from(infoDropdownMenu.querySelectorAll('.dropdown-item[role="menuitem"]'));
+
+			$(infoButtonContainer).on('shown.bs.dropdown', function () {
+				infoButton.setAttribute('aria-expanded', 'true');
+				if (dropdownItems.length > 0) {
+					dropdownItems[0].focus();
+				}
+			});
+
+			$(infoButtonContainer).on('hidden.bs.dropdown', function () {
+				infoButton.setAttribute('aria-expanded', 'false');
+				// Return focus to the info button, but only if the focus is still within the dropdown menu
+                // or on the button itself, to avoid overriding focus set elsewhere by user interaction.
+                const activeElement = document.activeElement;
+                if (infoDropdownMenu.contains(activeElement) || activeElement === infoButton) {
+                    infoButton.focus();
+                }
+			});
+
+			infoDropdownMenu.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape') {
+					// Bootstrap should close the dropdown.
+					// The 'hidden.bs.dropdown' event will handle returning focus.
+					// We just ensure the button itself is focused if Bootstrap's event doesn't fire for some reason or focus is lost.
+					// $(infoButtonContainer).dropdown('hide'); // Manually hide if necessary
+					infoButton.focus();
+				} else if (event.key === 'Tab') {
+					if (dropdownItems.length === 0) return;
+
+					const firstFocusableElement = dropdownItems[0];
+					const lastFocusableElement = dropdownItems[dropdownItems.length - 1];
+
+					if (event.shiftKey) { // Shift + Tab
+						if (document.activeElement === firstFocusableElement) {
+							event.preventDefault();
+							lastFocusableElement.focus();
+						}
+					} else { // Tab
+						if (document.activeElement === lastFocusableElement) {
+							event.preventDefault();
+							firstFocusableElement.focus();
+						}
+					}
+				}
+			});
+		}
 	}
   
 	// countriesHandler(geoDropdown) {
@@ -283,7 +388,11 @@ class ChartControls {
 	REF.chartType = chart;  
 	const btns = ["barChart", "pieChart", "lineChart"];  
 	btns.forEach(btn => {
-    REF.chartType === btn ? $("#" + btn).prop("disabled", true) : $("#" + btn).prop("disabled", false)
+    if (REF.chartType === btn) {
+      $("#" + btn).prop("disabled", true).attr("aria-pressed", "true");
+    } else {
+      $("#" + btn).prop("disabled", false).attr("aria-pressed", "false");
+    }
 	});
   }
   

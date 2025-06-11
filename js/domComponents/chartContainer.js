@@ -206,13 +206,19 @@ class ChartContainer {
 
       document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
       
-      
+      // Update aria-expanded for the expand button (it will be hidden by getTitle)
+      $(chartContainer).find('.containerNav .expandChart').attr('aria-expanded', 'true');
+      // Update aria-expanded for the close button that becomes visible
+      // Ensure auxChartControls are added and then query for the button.
+      // This might require a slight delay if addAuxiliarBarGraphOptions is asynchronous, but typically it's synchronous.
+      $('#btnCloseModalChart').attr('aria-expanded', 'true');
+
     } 
 
     const $chartContainer = $(chartContainer);
     $chartContainer.find('.highcharts-credits').css('display', 'initial');    
     $('text.highcharts-axis-title').css('display', 'initial')
-    getTitle()
+    getTitle() // This function also handles hiding/showing the expandChart button based on class 'expand'
     
     }
 

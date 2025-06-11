@@ -65,6 +65,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
 
     // Define the chart options
     const chartOptions = {
+        accessibility: { enabled: true, description: "Chart with accessibility enabled." },
         containerId,
         type,
         title,

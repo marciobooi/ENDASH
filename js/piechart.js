@@ -56,7 +56,9 @@ function createPieChart() {
 
 
 
+
    const chartOptions = {
+    accessibility: { enabled: true, description: "Pie chart with accessibility enabled." },
     containerId: containerId,
     type: "pie",
     title: getTitle(),

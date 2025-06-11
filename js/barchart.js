@@ -35,6 +35,7 @@ function createBarChart() {
 
 
   const chartOptions = {
+    accessibility: { enabled: true, description: "This is a test bar chart with accessibility enabled." },
     containerId: containerId,
     type: type,
     title: getTitle(),

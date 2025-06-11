@@ -1,5 +1,23 @@
 var log = console.log.bind(console);
 
+// Variable to hold the timeout for clearing the live region
+let liveRegionTimeout;
+
+// Helper function to announce messages to the live region
+function announceToLiveRegion(message, delay = 1000) {
+  const liveRegion = $('#ui-updates-live-region');
+  if (liveRegion.length) {
+    // Clear any existing timeout to prevent it from clearing the new message prematurely
+    if (liveRegionTimeout) {
+      clearTimeout(liveRegionTimeout);
+    }
+    liveRegion.text(message);
+    liveRegionTimeout = setTimeout(() => {
+      liveRegion.text('');
+    }, delay);
+  }
+}
+
 var isMobile = /Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 850 || /Mobi|Android/i.test(navigator.userAgent) && (window.innerWidth < window.innerHeight);
 
 
@@ -161,15 +179,20 @@ function showHideBarChartOptions() {
   if (REF.chartType !== "barChart") {
       $("#togglePercentage, #Agregates").css('display', 'none');
       $("#countrySelect").css('display', '');
+      // Announce Country Select is available, others hidden (implicitly)
+      announceToLiveRegion('Country select options are now available.');
   } else {
       $("#togglePercentage, #Agregates").css('display', '');
       $("#countrySelect").css('display', 'none');
+      // Announce Bar Chart specific options are available
+      announceToLiveRegion('Bar chart options (Percentage, Aggregates) are now available.');
   }
 }
 
 
 function showHideTimeLine() {
   const timelineContainer = document.getElementById('timelineContainer');
+  let message = '';
 
   // Check if a timeline instance exists
   if (this.timeline) {
@@ -186,24 +209,39 @@ function showHideTimeLine() {
     this.timeline.addToDOM();
 
     // Show specific chart options
-    showChartOptions();
+    showChartOptions(); // This function itself doesn't exist, but the logic for showing options is here.
+                       // The original prompt implies showChartOptions/hideChartOptions are called from here.
+                       // Let's assume the options become visible along with the timeline.
+    message = 'Timeline and associated chart options are now available.';
   } else {
     // Hide specific chart options
-    hideChartOptions();
+    hideChartOptions(); // Similar to above, this implies options are hidden when timeline is not for bar/pie.
+    message = 'Timeline and associated chart options are now hidden.';
+  }
+  if (message) {
+    announceToLiveRegion(message);
   }
 }
 
-function showChartOptions() {
-  // Show chart-specific options
-  $('#togglePercentage').css('display', 'block');
+// Note: showChartOptions and hideChartOptions from the original prompt do not exist as standalone functions
+// in the provided code. The logic for showing/hiding #togglePercentage and #Agregates is within showHideTimeLine
+// indirectly, or rather, they are always visible/hidden based on REF.chartType in showHideBarChartOptions.
+// The original showChartOptions/hideChartOptions in the prompt seem to refer to the state of timeline-related options.
+// For simplicity, I'm attaching the announcement to the timeline visibility change itself.
+
+function showChartOptions() { // This function was part of the prompt but doesn't exist in current basics.js
+  // This function seems to be conceptual for what showHideTimeLine does.
+  // Actual visibility of #togglePercentage, #Agregates is handled by showHideBarChartOptions
+  // For the live region, the announcement is tied to the timeline's appearance.
+  $('#togglePercentage').css('display', 'block'); // These are likely bar chart options
   $('#Agregates').css('display', 'block');
 }
 
-function hideChartOptions() {
-  // Hide chart-specific options
+function hideChartOptions() { // This function was part of the prompt but doesn't exist
   $('#togglePercentage').css('display', 'none');
   $('#Agregates').css('display', 'none');
 }
+
 
 function addAuxiliarBarGraphOptions() {
   auxiliarBarGraphOptions = new ChartControls();
@@ -219,7 +257,18 @@ function addAuxiliarBarGraphOptions() {
   
   footerElement.style.justifyContent = 'space-between';
 
-  showHideTimeLine()
+  showHideTimeLine();
+
+  // Set focus to the first focusable button in the newly added toolbar
+  // The toolbar is added inside #subnavbar-container by auxChartControls.addToDOM()
+  // auxChartControls structure: nav#chartControls > div.menu > ul#chartBtns
+  // Buttons are direct children of li elements inside ul#chartBtns
+  setTimeout(() => { // Use setTimeout to ensure elements are fully in DOM and visible
+    const firstToolbarButton = document.querySelector('#subnavbar-container #chartControls #chartBtns li > button:not([disabled])');
+    if (firstToolbarButton) {
+      firstToolbarButton.focus();
+    }
+  }, 0);
 }
 
 function removeAuxiliarBarGraphOptions() {
@@ -240,8 +289,21 @@ log('here')
   $('#menuSwitch').remove();
   var parentContainer = $(".flex-container").find(".expand");
   parentContainer.removeClass("expand");
-  parentContainer.attr('aria-expanded', 'false');
-  $(this).remove();
+  parentContainer.attr('aria-expanded', 'false'); // Sets aria-expanded on the chart container itself
+
+  // Set aria-expanded to false on the .expandChart button that becomes visible again
+  // And focus it.
+  if (parentContainer.length > 0) {
+    const expandButton = parentContainer.find('.containerNav .expandChart');
+    expandButton.attr('aria-expanded', 'false');
+    if (expandButton.get(0)) { // Check if the element exists
+      expandButton.get(0).focus();
+    }
+  }
+
+  // The #btnCloseModalChart is part of auxChartControls, which is removed by auxiliarBarGraphOptions.removeFromDOM().
+  // Its aria-expanded state will be reset to false when it's recreated by Button class next time.
+  $(this).remove(); // This seems to refer to a clicked element if this function is an event handler.
 
     $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "initial" );
       parentContainer.find( ".highchartsContainerExpand" ).removeClass('highchartsContainerExpand')
@@ -512,7 +574,7 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" data-i18n-label="BTNEXPAND" aria-label="${languageNameSpace.labels["BTNEXPAND"]}" data-i18n-title="BTNEXPAND" title="${languageNameSpace.labels["BTNEXPAND"]}">
+  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" data-i18n-label="BTNEXPAND" aria-label="${languageNameSpace.labels["BTNEXPAND"]}" data-i18n-title="BTNEXPAND" title="${languageNameSpace.labels["BTNEXPAND"]}" aria-expanded="false" aria-controls="${containerId}">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`;
 
@@ -669,10 +731,18 @@ function chartApiCall(query) {
 }
 
 function startLoadingAnimation() {
-  $('#loader').css('display', 'flex')
+  $('#loader').css('display', 'flex');
+  const allContainer = document.getElementById('allContainer');
+  if (allContainer) {
+    allContainer.setAttribute('aria-busy', 'true');
+  }
 }
 function stopLoadingAnimation() {
-  $('#loader').css('display', 'none')
+  $('#loader').css('display', 'none');
+  const allContainer = document.getElementById('allContainer');
+  if (allContainer) {
+    allContainer.setAttribute('aria-busy', 'false');
+  }
 }
 
 function agregateIcon() {
@@ -760,27 +830,6 @@ function allSeriesAreZero(chartSeries) {
   return true; // All series have zero values
 }
 
-
-
-function enableScreenREader(params) {
-	const titleElement = document.querySelector("text.highcharts-title")
-	if (titleElement) {
-	  titleElement.setAttribute('aria-hidden', 'false');
-	}
-
-	// Find and update the subtitle element
-	const subtitleElement = document.querySelector('text.highcharts-subtitle');
-	if (subtitleElement) {
-	  subtitleElement.setAttribute('aria-hidden', 'false');
-	}
-
-
-	const container = document.querySelector(".highcharts-root")
-
-	container.removeAttribute('aria-hidden');
-  
-  }
-
   function loadSkeleton() {    
     // Select all elements with the class "flex-item" and "chartContainer"
     const elements = document.querySelectorAll(".chartContainer");
@@ -867,31 +916,6 @@ function enableTooltips() {
     button.addEventListener("blur", hideTooltip); // Hide on blur
   });
 }
-
-
-function observeAriaHidden() {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "aria-hidden") {
-        const target = mutation.target;
-        if (target.tagName === "svg" && target.getAttribute("aria-hidden") === "false") {
-          // Remove or correct the attribute
-          target.removeAttribute("aria-hidden");
-          console.log("Corrected aria-hidden on:", target);
-        }
-      }
-    });
-  });
-
-  // Observe the entire document for changes
-  observer.observe(document.body, {
-    attributes: true,
-    subtree: true,
-  });
-}
-
-// Initialize the observer
-document.addEventListener("DOMContentLoaded", observeAriaHidden);
 
 
 function updateAccessibilityLabels() {

@@ -1,22 +1,94 @@
 
-function exportIframe() {
-    REF.share = true
+// Store the element that triggered the modal
+let iframeModalTriggerElement = null;
+// Store the keydown event listener for focus trapping
+let iframeModalKeydownListener = null;
 
-    $(".ecl-modal__header-content").html(languageNameSpace.labels["EMBEDDED"]);
-    $('.targetUrl').html(window.location.href)     
- 
+function exportIframe() {
+    REF.share = true;
+
+    iframeModalTriggerElement = document.activeElement; // Store focused element before opening
+
     const modal = document.getElementById('iframeModal');
+    const modalTitleElement = document.getElementById('iframeModalTitle');
+    const modalCloseButton = modal.querySelector('.ecl-modal__close');
+    const copyUrlButton = modal.querySelector('#share'); // Assuming #share is the "Copy the URL" button
+    const footerCloseButton = modal.querySelector('#close');
+
+
+    if (modalTitleElement) {
+        modalTitleElement.textContent = languageNameSpace.labels["EMBEDDED"] || 'Embed Chart';
+    }
+
+    $('.targetUrl').html(window.location.href); // This sets the body content
 
     // Open the modal
-    modal.showModal();
+    if (modal && typeof modal.showModal === 'function') {
+        modal.showModal();
+    } else {
+        console.error('iframeModal not found or showModal is not a function');
+        return;
+    }
 
-    ECL.autoInit();
+    ECL.autoInit(); // Re-initialize ECL components if necessary, though dialog.showModal() is standard
+
+    // Set initial focus
+    if (modalCloseButton) {
+        modalCloseButton.focus();
+    }
+
+    // Focus Trapping
+    const focusableElements = [modalCloseButton, copyUrlButton, footerCloseButton].filter(el => el); // Add other focusable elements if any
+
+    iframeModalKeydownListener = function(event) {
+        if (event.key === 'Tab') {
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstElement) {
+                    event.preventDefault();
+                    lastElement.focus();
+                }
+            } else { // Tab
+                if (document.activeElement === lastElement) {
+                    event.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        } else if (event.key === 'Escape') {
+            // ECL should handle closing on Escape.
+            // The 'close' event on the dialog will handle focus return.
+        }
+    };
+
+    modal.addEventListener('keydown', iframeModalKeydownListener);
+
+    // Listen for the native dialog 'close' event
+    modal.addEventListener('close', function handleDialogClose() {
+        closeModalUrl(); // Ensure our cleanup logic is called
+        // Remove this specific listener after it runs to avoid multiple bindings if modal is reopened
+        modal.removeEventListener('close', handleDialogClose);
+    }, { once: true }); // Ensure it only runs once per modal opening
 }
 
 
+function closeModalUrl() {
+    REF.share = false;
+    const modal = document.getElementById('iframeModal');
 
-function closeModalUrl(params) {
-    REF.share = false
+    if (modal && iframeModalKeydownListener) {
+        modal.removeEventListener('keydown', iframeModalKeydownListener);
+        iframeModalKeydownListener = null;
+    }
+
+    if (iframeModalTriggerElement) {
+        iframeModalTriggerElement.focus();
+        iframeModalTriggerElement = null;
+    }
+    // Note: If modal.close() is called by ECL, this function might be called again by the 'close' event.
+    // The REF.share = false and focus return should be idempotent or handled carefully.
+    // The native dialog's close() method doesn't recursively trigger 'close' events if already closed.
 }
 
 function copyUrl() {

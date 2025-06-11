@@ -40,7 +40,14 @@ class Button {
         this.buttonElement.setAttribute("data-i18n-label", this.ariaLabel);
         this.buttonElement.setAttribute("data-i18n-title", this.ariaLabel);
         this.buttonElement.innerHTML = this.innerHtml;
+
         // Apply other accessibility parameters as needed
+        if (this.otherAccessibilityParams) {
+          for (const [key, value] of Object.entries(this.otherAccessibilityParams)) {
+            this.buttonElement.setAttribute(key, value);
+          }
+        }
+
         if (this.clickHandler) {
           this.buttonElement.addEventListener("click", this.clickHandler);
         }

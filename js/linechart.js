@@ -99,6 +99,7 @@ function createLineChart() {
     
   
       const chartOptions = {
+        accessibility: { enabled: true, description: "Line chart with accessibility enabled." },
         containerId: "chart",
         type: "spline",
         title: lineTitle,
