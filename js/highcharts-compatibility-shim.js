@@ -6,8 +6,6 @@
 // Add missing AST functionality for older Highcharts versions
 if (typeof Highcharts !== 'undefined' && (!Highcharts.AST || !Highcharts.AST.emptyHTML)) {
   
-  console.log('🔧 Adding Highcharts compatibility shim for AST functions');
-  
   // Initialize AST object if it doesn't exist
   if (!Highcharts.AST) {
     Highcharts.AST = {};
@@ -53,8 +51,4 @@ if (typeof Highcharts !== 'undefined' && (!Highcharts.AST || !Highcharts.AST.emp
       'x', 'x1', 'x2', 'xlink:href', 'y', 'y1', 'y2', 'zIndex'
     ];
   }
-  
-  console.log('✅ Highcharts compatibility shim applied');
-} else if (typeof Highcharts !== 'undefined') {
-  console.log('✅ Native Highcharts AST functions available');
 }

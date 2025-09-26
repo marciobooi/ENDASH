@@ -116,18 +116,9 @@ function sanitizeHTMLFallback(html) {
   return tempDiv.innerHTML;
 }
 
-// Check Highcharts version and capabilities
+// Initialize security configuration
 if (typeof Highcharts !== 'undefined') {
-  console.log('Highcharts version:', Highcharts.version || 'unknown');
-  
-  if (Highcharts.AST && typeof Highcharts.AST.emptyHTML === 'function') {
-    console.log('✅ Highcharts AST security features available');
-  } else {
-    console.warn('⚠️ Highcharts AST security features not available - using fallback sanitization');
-    console.info('💡 Consider updating to Highcharts 10.2+ for better security features');
+  if (!Highcharts.AST || typeof Highcharts.AST.emptyHTML !== 'function') {
+    console.warn('Highcharts AST security features not available - using fallback sanitization');
   }
-} else {
-  console.warn('⚠️ Highcharts not yet loaded when security config ran');
 }
-
-console.log('Highcharts security configuration loaded');

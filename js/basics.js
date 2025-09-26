@@ -909,18 +909,53 @@ function observeAriaHidden() {
 document.addEventListener("DOMContentLoaded", observeAriaHidden);
 
 
-function updateAccessibilityLabels() {
-
-  const elements = document.querySelectorAll('.highcharts-a11y-proxy-element');
-  elements.forEach((element) => {
-    let ariaLabel = element.getAttribute('aria-label');
-    if (ariaLabel && (ariaLabel.includes("Show") || ariaLabel.includes("Anzeigen") || ariaLabel.includes("Afficher"))) {
-      const updatedLabel = ariaLabel
-        .replace(/Show/g, translationsCache["SHOW"])
-        .replace(/Anzeigen/g, translationsCache["SHOW"])
-        .replace(/Afficher/g, translationsCache["SHOW"]);
-      element.setAttribute('aria-label', updatedLabel);
-    }
-  });
+// Utility function to check if language namespace is ready
+function isLanguageNameSpaceReady() {
+  return typeof languageNameSpace !== 'undefined' && 
+         languageNameSpace.labels && 
+         typeof languageNameSpace.labels === 'object';
 }
-  document.addEventListener('DOMContentLoaded', updateAccessibilityLabels);
+
+function updateAccessibilityLabels() {
+  try {
+    // Check if language namespace is available
+    if (!isLanguageNameSpaceReady()) {
+      // Retry once after a delay in case language data is still loading
+      setTimeout(updateAccessibilityLabels, 1000);
+      return;
+    }
+
+    const elements = document.querySelectorAll('.highcharts-a11y-proxy-element');
+    if (elements.length === 0) {
+      // No elements found yet, might be too early - try again
+      setTimeout(updateAccessibilityLabels, 500);
+      return;
+    }
+
+    elements.forEach((element) => {
+      let ariaLabel = element.getAttribute('aria-label');
+      if (ariaLabel && (ariaLabel.includes("Show") || ariaLabel.includes("Anzeigen") || ariaLabel.includes("Afficher"))) {
+        // Get the translated "Show" text, with fallbacks
+        const showText = languageNameSpace.labels["SHOW"] || 
+                        languageNameSpace.labels["show"] || 
+                        "Show"; // Ultimate fallback
+        
+        const updatedLabel = ariaLabel
+          .replace(/Show/g, showText)
+          .replace(/Anzeigen/g, showText)
+          .replace(/Afficher/g, showText);
+        
+        element.setAttribute('aria-label', updatedLabel);
+      }
+    });
+  } catch (error) {
+    console.error('Error updating accessibility labels:', error);
+  }
+}
+  // Set up event listener for DOM ready, but also handle case where DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateAccessibilityLabels);
+  } else {
+    // DOM is already loaded, call the function after a short delay
+    setTimeout(updateAccessibilityLabels, 100);
+  }
