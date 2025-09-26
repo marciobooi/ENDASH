@@ -66,7 +66,176 @@
       padding: 0;
       font-family: 'Montserrat', sans-serif;
       color: var(--second-c);
+      animation: simpleFade 30s ease-in-out infinite;
     }
+
+    @keyframes simpleFade {
+      0% {
+        background-color: #F5F5DC; /* Beige/egg color */
+      }
+      50% {
+        background-color: #191970; /* Midnight blue */
+      }
+      100% {
+        background-color: #F5F5DC; /* Back to beige/egg */
+      }
+    }
+
+    /* Celestial elements */
+    .celestial-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sun-moon {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      top: 15%;
+      right: 20%;
+      border-radius: 50%;
+      animation: sunMoonTransition 30s ease-in-out infinite;
+    }
+
+    @keyframes sunMoonTransition {
+      0% {
+        background: radial-gradient(circle, #40E0D0 0%, #009688 70%);
+        box-shadow: 0 0 30px #40E0D0;
+        opacity: 1;
+      }
+      50% {
+        background: radial-gradient(circle at 30% 30%, #F0F8FF 0%, #E6E6FA 50%, #D3D3D3 100%);
+        box-shadow: 0 0 20px #E6E6FA, inset 15px 15px 0 rgba(169, 169, 169, 0.3);
+        opacity: 1;
+      }
+      100% {
+        background: radial-gradient(circle, #40E0D0 0%, #009688 70%);
+        box-shadow: 0 0 30px #40E0D0;
+        opacity: 1;
+      }
+    }
+
+    /* Stars */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: starsVisibility 30s ease-in-out infinite;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white;
+      animation: twinkle 2s ease-in-out infinite alternate;
+    }
+
+    .star:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .star:nth-child(2) { top: 15%; left: 80%; animation-delay: 0.5s; }
+    .star:nth-child(3) { top: 30%; left: 60%; animation-delay: 1s; }
+    .star:nth-child(4) { top: 10%; left: 40%; animation-delay: 1.5s; }
+    .star:nth-child(5) { top: 25%; left: 90%; animation-delay: 2s; }
+    .star:nth-child(6) { top: 35%; left: 30%; animation-delay: 0.7s; }
+    .star:nth-child(7) { top: 18%; left: 70%; animation-delay: 1.2s; }
+    .star:nth-child(8) { top: 28%; left: 50%; animation-delay: 1.8s; }
+    .star:nth-child(9) { top: 12%; left: 25%; animation-delay: 0.3s; }
+    .star:nth-child(10) { top: 22%; left: 85%; animation-delay: 0.9s; }
+    .star:nth-child(11) { top: 8%; left: 65%; animation-delay: 1.4s; }
+    .star:nth-child(12) { top: 32%; left: 15%; animation-delay: 0.6s; }
+    .star:nth-child(13) { top: 16%; left: 45%; animation-delay: 1.7s; }
+    .star:nth-child(14) { top: 26%; left: 75%; animation-delay: 0.2s; }
+    .star:nth-child(15) { top: 14%; left: 55%; animation-delay: 1.3s; }
+    .star:nth-child(16) { top: 38%; left: 20%; animation-delay: 0.8s; }
+    .star:nth-child(17) { top: 11%; left: 35%; animation-delay: 1.6s; }
+    .star:nth-child(18) { top: 24%; left: 95%; animation-delay: 0.4s; }
+    .star:nth-child(19) { top: 19%; left: 5%; animation-delay: 1.1s; }
+    .star:nth-child(20) { top: 33%; left: 42%; animation-delay: 1.9s; }
+
+    @keyframes starsVisibility {
+      0% { opacity: 0; }
+      40% { opacity: 0; }
+      50% { opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.5); }
+    }
+
+    /* Text color transitions using your palette */
+    .heading, .subheading {
+      animation: textColorTransition 30s ease-in-out infinite;
+    }
+
+    /* Define darker shades for night */
+    :root {
+      --main-c-night: #2a9b8a; /* Darker shade of #40e0d0 */
+      --second-c-night: #5a5a5a; /* Darker shade of #818181 */
+      --tree-1-night: #286d60; /* Darker shade of #398b82 */
+      --tree-2-night: #254a4a; /* Darker shade of #346d66 */
+      --tree-3-night: #285955; /* Darker shade of #398078 */
+      --tree-4-night: #1d4842; /* Darker shade of #29645e */
+      --tree-5-night: #204b5e; /* Darker shade of #2e8f84 */
+    }
+
+    @keyframes textColorTransition {
+      0% {
+        color: var(--second-c); /* Day: Original gray */
+      }
+      50% {
+        color: var(--second-c-night); /* Night: Darker gray */
+      }
+      100% {
+        color: var(--second-c); /* Back to original */
+      }
+    }
+
+    /* Main color elements transition */
+    .svgimg path[style*="fill: var(--main-c)"],
+    .svgimg [fill*="#40e0d0"] {
+      animation: mainColorTransition 30s ease-in-out infinite;
+    }
+
+    @keyframes mainColorTransition {
+      0% {
+        fill: var(--main-c) !important; /* Day: Original turquoise */
+      }
+      50% {
+        fill: var(--main-c-night) !important; /* Night: Darker turquoise */
+      }
+      100% {
+        fill: var(--main-c) !important; /* Back to original */
+      }
+    }
+
+    /* SVG elements general transition */
+    .svgimg {
+      animation: svgBrightnessTransition 30s ease-in-out infinite;
+    }
+
+    @keyframes svgBrightnessTransition {
+      0% {
+        filter: brightness(1) contrast(1);
+      }
+      50% {
+        filter: brightness(0.7) contrast(1.2);
+      }
+      100% {
+        filter: brightness(1) contrast(1);
+      }
+    }
+
+
 
     .heading {
       margin: 0;
@@ -292,6 +461,32 @@
 
   </style>
   <body>
+    <!-- Sun/Moon and Stars -->
+    <div class="celestial-container">
+      <div class="sun-moon"></div>
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+    </div>
     
     <div class="container">
       <div class="inner-content">
@@ -648,17 +843,7 @@
             <path transform="translate(-2063 -875)" d="M2248.05 1069.68l21.27 36.6-.31 1.4-21.64-37.17z" class="cls-11" data-name="Shape 550 copy 8" id="Shape_550_copy_8-2" />
           </g>
         </svg>
-        <svg id="Layer_1" height="80" width="80" x="1150px" y="-250px" viewBox="0 0 122.88 122.67" style="enable-background: new 0 0 122.88 122.67" xml:space="preserve">
-          <style type="text/css">
-            .st0 {
-              fill-rule: evenodd;
-              clip-rule: evenodd;
-            }
-          </style>
-          <g>
-            <path fill="url('#myGradient')" fill-opacity="1" class="st0" d="M122.88,62.58l-12.91,8.71l7.94,13.67l-15.03,3.23l2.72,15.92l-15.29-2.25l-2.76,15.58l-14.18-8.11 l-7.94,13.33l-10.32-11.93l-12.23,9.55l-4.97-15.16l-15.54,4.59l1.23-15.54L7.69,92.43l6.75-13.93L0,71.03l11.29-10.95L0.38,48.66 l14.65-6.5L9.42,27.51l15.58-0.76l0-15.8l14.78,5.22l5.99-14.82l11.93,9.98L68.15,0l7.6,13.33l14.18-6.5l2.12,15.07l15.8-1.15 l-3.86,15.46l15.41,4.2l-9.21,12.95L122.88,62.58L122.88,62.58z M104.96,61.1c0-12.14-4.29-22.46-12.87-31 c-8.58-8.54-18.94-12.82-31.04-12.82c-12.1,0-22.42,4.29-30.96,12.82c-8.54,8.53-12.82,18.85-12.82,31 c0,12.1,4.29,22.46,12.82,31.08c8.53,8.62,18.85,12.95,30.96,12.95c12.1,0,22.46-4.33,31.04-12.95 C100.67,83.56,104.96,73.2,104.96,61.1L104.96,61.1L104.96,61.1z" />
-          </g>
-        </svg>
+
         <svg id="oil-pump" height="20" width="20" x="1190" y="3" viewBox="0 0 2800 2900">
           <g id="g6" style="fill: #85bbb6" transform="matrix(1.1544 0 0 1.1544 -300.11 -47.332)">
             <polygon id="polygon8" points="702 2471 1408 778 1549 837 843 2530" />
