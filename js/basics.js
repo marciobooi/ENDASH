@@ -870,6 +870,11 @@ function enableTooltips() {
       button.getAttribute("title") || button.getAttribute("aria-label");
     if (!tooltipText) return; // Skip if neither attribute exists
 
+    // Remove the title attribute to prevent default browser tooltip
+    if (button.hasAttribute("title")) {
+      button.removeAttribute("title");
+    }
+
     // Create tooltip element
     const tooltip = document.createElement("div");
     tooltip.className = "tooltip";
