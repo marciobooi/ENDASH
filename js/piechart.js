@@ -105,8 +105,7 @@ function piechartdata() {
 
   d = chartApiCall();
 
-  log(REF.indicator)
-  log(d)
+  console.log(d)
 
   if(REF.indicator.length == 0) {
 
@@ -123,12 +122,26 @@ function piechartdata() {
   } else {
 
     for (i = 0; i < REF.indicator.length; i++) {
-      if (d.value[i] != null || d.value[i] > 0) {
-          piedata.push(
-            [d.__tree__.dimension[REF.indicator_type].category.label[REF.indicator[i]],
-              d.value[i]]
-          );
+      // Get the correct index for this indicator from the dataset
+      const indicatorCode = REF.indicator[i];
+      const valueIndex = d.__tree__.dimension[REF.indicator_type].category.index[indicatorCode];
+      const value = d.value[valueIndex];
+      
+      if (value != null && value > 0) {        
+        // Get the label from the correct data structure
+        let indicatorLabel;
+        try {
+          indicatorLabel = d.__tree__.dimension[REF.indicator_type].category.label[indicatorCode];
+        } catch (error) {
+          console.warn('Could not get label for indicator:', indicatorCode, error);
+        }
         
+        // Fallback to indicator code if label not found
+        if (!indicatorLabel) {
+          indicatorLabel = indicatorCode;
+        }
+        
+        piedata.push([indicatorLabel, value]);
       }
     }
 
