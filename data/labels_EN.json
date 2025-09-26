@@ -446,7 +446,18 @@
   "OTHER_THIRD_COUNTRY_CODES":"Other Third Countries",
 
   "SELECTLANGUAGE": "Select language",
-"OFFICIAL": "Official EU languages:"
+"OFFICIAL": "Official EU languages:",
+
+  "MTOE": "Million tonnes of oil equivalent",
+  "I05": "Index, 2005=100",
+  "PC": "Percentage",
+  "KGOE_TEUR": "Kilograms of oil equivalent per thousand euro",
+  "KGOE_TEUR_PPS": "Kilograms of oil equivalent per thousand euro in purchasing power standards",
+  "THS_T": "Thousand tonnes",
+  "KOE": "kilograms of oil equivalent",
+  "KTOE": "Thousand tonnes of oil equivalent",
+  "GWH": "Gigawatt-hour",
+  "TJ": "Terajoule"
 
 
 }

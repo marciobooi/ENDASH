@@ -417,7 +417,18 @@
   "ENLARGEMENT_COUNTRY_CODES": "Erweiterungsländer",
   "OTHER_THIRD_COUNTRY_CODES": "Andere Drittstaaten",
       "SELECTLANGUAGE": "Sprache auswählen",
-    "OFFICIAL": "Offizielle EU-Sprachen:"
+    "OFFICIAL": "Offizielle EU-Sprachen:",
+
+      "MTOE": "Millionen Tonnen Rohöleinheiten",
+  "I05": "Index, 2005=100",
+  "PC": "Prozent",
+  "KGOE_TEUR": "Kilogramm Rohöleinheiten pro tausend Euro",
+  "KGOE_TEUR_PPS": "Kilogramm Rohöleinheiten pro tausend Euro in Kaufkraftstandards",
+  "THS_T": "Tausend Tonnen",
+  "KOE": "Kilogramm Rohöleinheiten",
+  "KTOE": "Tausend Tonnen Rohöleinheiten",
+  "GWH": "Gigawattstunde",
+  "TJ": "Terajoule"
 
  
 

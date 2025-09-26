@@ -424,7 +424,18 @@
     "ENLARGEMENT_COUNTRY_CODES": "Pays en voie d'adhésion",
     "OTHER_THIRD_COUNTRY_CODES": "Autres pays tiers",
         "SELECTLANGUAGE": "Sélectionner la langue",
-    "OFFICIAL": "Langues officielles de l'UE :"
+    "OFFICIAL": "Langues officielles de l'UE :",
+
+    "MTOE": "Millions de tonnes équivalent pétrole",
+  "I05": "Indice, 2005=100",
+  "PC": "Pourcentage",
+  "KGOE_TEUR": "Kilogrammes équivalent pétrole par millier d'euros",
+  "KGOE_TEUR_PPS": "Kilogrammes équivalent pétrole par millier d'euros en standards de pouvoir d'achat",
+  "THS_T": "Milliers de tonnes",
+  "KOE": "kilogrammes équivalent pétrole",
+  "KTOE": "Milliers de tonnes équivalent pétrole",
+  "GWH": "Gigawatt-heure",
+  "TJ": "Térajoule"
 
 
 

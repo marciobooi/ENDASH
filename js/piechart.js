@@ -51,7 +51,6 @@ function createPieChart() {
     }
 }
 
-
   function pieChartNormalTooltip(point) {
     const unit = REF.unit;
     const na = languageNameSpace.labels['FLAG_NA'];
@@ -101,57 +100,41 @@ function createPieChart() {
 }
 
 function piechartdata() {
-  piedata = [];
-
-  d = chartApiCall();
-
-  console.log(d)
-
-  if(REF.indicator.length == 0) {
-
-  for (i = 0; i < 1; i++) {
-    if (d.value[i] != null || d.value[i] > 0) {
-        piedata.push(
-          [d.__tree__.label,
-            d.value[i]]
-        );
-      
+  const data = chartApiCall();
+  
+  // Helper function to get indicator label safely
+  const getIndicatorLabel = (indicatorCode) => {
+    try {
+      return data.__tree__.dimension[REF.indicator_type].category.label[indicatorCode] || indicatorCode;
+    } catch (error) {
+      console.warn('Could not get label for indicator:', indicatorCode, error);
+      return indicatorCode;
     }
-  }
+  };
 
-  } else {
+  // Generate pie data based on whether we have specific indicators or not
+  piedata = REF.indicator.length === 0 
+    ? // No specific indicators - use the first value with dataset label
+      data.value[0] != null && data.value[0] > 0 
+        ? [[data.__tree__.label, data.value[0]]] 
+        : []
+    : // Map indicators to their corresponding values and labels
+      REF.indicator
+        .map(indicatorCode => {
+          const valueIndex = data.__tree__.dimension[REF.indicator_type].category.index[indicatorCode];
+          const value = data.value[valueIndex];
+          
+          return value != null && value > 0 
+            ? [getIndicatorLabel(indicatorCode), value]
+            : null;
+        })
+        .filter(Boolean); // Remove null entries
 
-    for (i = 0; i < REF.indicator.length; i++) {
-      // Get the correct index for this indicator from the dataset
-      const indicatorCode = REF.indicator[i];
-      const valueIndex = d.__tree__.dimension[REF.indicator_type].category.index[indicatorCode];
-      const value = d.value[valueIndex];
-      
-      if (value != null && value > 0) {        
-        // Get the label from the correct data structure
-        let indicatorLabel;
-        try {
-          indicatorLabel = d.__tree__.dimension[REF.indicator_type].category.label[indicatorCode];
-        } catch (error) {
-          console.warn('Could not get label for indicator:', indicatorCode, error);
-        }
-        
-        // Fallback to indicator code if label not found
-        if (!indicatorLabel) {
-          indicatorLabel = indicatorCode;
-        }
-        
-        piedata.push([indicatorLabel, value]);
-      }
-    }
-
-  }
-
-  if(REF.chartCreated === true){
+  // Update existing chart if it's already created
+  if (REF.chartCreated === true) {
     pieChart.series[0].setData(piedata);
-  }  
+  }
 
-  getTitle()
-
+  getTitle();
 }
 
