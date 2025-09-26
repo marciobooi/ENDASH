@@ -357,7 +357,10 @@ function hideChartMenuOptions() {
 
 
 tooltip = function () {
-  const unit = REF.unit; 
+  // Get the proper unit label - for pie charts use the global unit label, otherwise translate the unit code
+  const unit = REF.chartType === "pieChart" 
+    ? (window.pieChartUnitLabel || languageNameSpace.labels[REF.unit] || REF.unit)
+    : (languageNameSpace.labels[REF.unit] || REF.unit);
   const na = languageNameSpace.labels['FLAG_NA'];
 
   const formatPointTooltip = function (point) {
@@ -404,10 +407,15 @@ function tooltipTable(points) {
   
   if(REF.percentage == 1 ){
     let html = "";
+    // Get the actual category value - try multiple approaches
+    const categoryValue = points[0].point.category || 
+                         (points[0].series && points[0].series.xAxis && points[0].series.xAxis.categories && points[0].series.xAxis.categories[points[0].x]) ||
+                         points[0].key || 
+                         points[0].x;
     html += `<table id="tooltipTable" class="table_component">                
                 <thead>
                   <tr>
-                    <th scope="cols">${points[0].x}</th>                    
+                    <th scope="cols">${categoryValue}</th>                    
                     <th scope="cols"></th>                    
                   </tr>
                 </thead>`
@@ -437,10 +445,15 @@ function tooltipTable(points) {
 
 
     
+    // Get the actual category value - try multiple approaches
+    const categoryValue = sortedPoints[0].point.category || 
+                         (sortedPoints[0].series && sortedPoints[0].series.xAxis && sortedPoints[0].series.xAxis.categories && sortedPoints[0].series.xAxis.categories[sortedPoints[0].x]) ||
+                         sortedPoints[0].key || 
+                         sortedPoints[0].x;
     html += `<table id="tooltipTable" class="table_component">                
       <thead>
         <tr>
-          <th scope="cols">${sortedPoints[0].key}</th>                    
+          <th scope="cols">${categoryValue}</th>                    
           <th scope="cols"></th>                    
         </tr>
       </thead>`;
@@ -470,11 +483,15 @@ function tooltipTable(points) {
     });
    
     if (allValuesZero) {
+      const categoryValue = sortedPoints[0].point.category || 
+                           (sortedPoints[0].series && sortedPoints[0].series.xAxis && sortedPoints[0].series.xAxis.categories && sortedPoints[0].series.xAxis.categories[sortedPoints[0].x]) ||
+                           sortedPoints[0].key || 
+                           sortedPoints[0].x;
       html = 
     `<table id="tooltipTable" class="table_component">                
     <thead>
       <tr>
-        <th scope="cols">${sortedPoints[0].key}</th>                                    
+        <th scope="cols">${categoryValue}</th>                                    
       </tr>
     </thead><tr>      
     <td>${languageNameSpace.labels["FLAG_NA"]}</td>
@@ -503,6 +520,8 @@ function tooltipTable(points) {
     return `<div>${html}</div>`;
     
   }
+
+
 }
 
 function getTitle(yAxisTitle) {

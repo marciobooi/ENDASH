@@ -5,10 +5,10 @@ function lineData() {
 
   const taxs = REF.component == 1 ?  d.Dimension('nrg_prc').id  : d.Dimension('tax').id;
 
-  lineCat = []
   linedata = [];
   
   const year = d.Dimension("time").id;
+  lineCat = year; // Use the year array directly as categories
   dec = REF.unit == "MWH" ? 0 : 4;
   factor = REF.unit == "MWH" ? 1000 : 1;
 
@@ -24,10 +24,6 @@ function lineData() {
         }
 
         d.value.shift();
-
-        if (lineCat.length < year.length) {
-          lineCat.push(year[j]);
-        }
       }
       obj = {
         name: languageNameSpace.labels[taxs[item]],
@@ -103,7 +99,15 @@ function createLineChart() {
         type: "spline",
         title: lineTitle,
         subtitle: null,
-        xAxis: {"categories": categoriesAndStacks.map((e) => e.x),},
+        xAxis: {
+          "categories": categoriesAndStacks.map((e) => e.x),
+          labels: {
+            rotation: -45,
+            style: {
+              textOverflow: 'none'
+            }
+          }
+        },
         yAxisFormat: "{value:.0f}",
         tooltipFormatter: tooltipFormatter,
         creditsText: credits(),

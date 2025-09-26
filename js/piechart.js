@@ -46,24 +46,21 @@ function createPieChart() {
           
           return '<b>' + safeName + '</b>:<br>' +
               'Percentage: ' + Highcharts.numberFormat(this.point.percentage, 1) + '%<br>' +
-              languageNameSpace.labels["VAL"] + ': ' + Highcharts.numberFormat(this.point.y, 4) + ' ' + languageNameSpace.labels[REF.unit];
+              languageNameSpace.labels["VAL"] + ': ' + Highcharts.numberFormat(this.point.y, 4) + ' ' + (window.pieChartUnitLabel || REF.unit);
       }
     }
 }
 
-  function pieChartNormalTooltip(point) {
-    const unit = REF.unit;
-    const na = languageNameSpace.labels['FLAG_NA'];
 
-    return `<b>${point.name}:</b> ${point.y} ${unit}<br>`;
-}
+
+
 
 
 
    const chartOptions = {
     containerId: containerId,
     type: "pie",
-    title: getTitle(),
+    title: getTitle(window.pieChartUnitLabel || languageNameSpace.labels[REF.unit] || REF.unit),
     subtitle: null,
     xAxis: null,
     yAxisFormat: "",
@@ -102,6 +99,14 @@ function createPieChart() {
 function piechartdata() {
   const data = chartApiCall();
   
+  // Get the unit label from the data structure and store it globally for chart formatting
+  try {
+    window.pieChartUnitLabel = data.__tree__.dimension.unit.category.label[REF.unit] || REF.unit;
+  } catch (error) {
+    console.warn('Could not get unit label:', REF.unit, error);
+    window.pieChartUnitLabel = REF.unit;
+  }
+  
   // Helper function to get indicator label safely
   const getIndicatorLabel = (indicatorCode) => {
     try {
@@ -135,6 +140,6 @@ function piechartdata() {
     pieChart.series[0].setData(piedata);
   }
 
-  getTitle();
+  getTitle(window.pieChartUnitLabel || languageNameSpace.labels[REF.unit] || REF.unit);
 }
 
