@@ -104,20 +104,22 @@ class Chart {
               marginRight: 100,
               events: {
                 load: function () {                  
-                  this.renderer.image(
+                  this.customImage = this.renderer.image(
                     'https://ec.europa.eu/eurostat/statistics-explained/images/0/09/Logo_RGB-POS.png', 
-                    1100, 
-                    750, 
+                    this.chartWidth - 100, 
+                    this.chartHeight - 40, 
                     90, 
                     50
                   ).add();
                 },
                 redraw: function () {
                   const chart = this;
-                  const images = chart.container.getElementsByTagName('image');
-                  if (images.length > 0) {
-                    images[0].setAttribute('x', chart.chartWidth - 100);
-                    images[0].setAttribute('y', chart.chartHeight - 40);
+                  // Use Highcharts renderer approach instead of direct DOM manipulation
+                  if (chart.customImage) {
+                    chart.customImage.attr({
+                      x: chart.chartWidth - 100,
+                      y: chart.chartHeight - 40
+                    });
                   }
                 }
               }

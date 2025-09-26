@@ -557,22 +557,37 @@ switch (REF.chartType) {
 function credits() {
   const datasetURL = `https://ec.europa.eu/eurostat/databrowser/view/${REF.dataset}/default/table?lang=${REF.language}`;
 
-  // Return SVG-compatible credits text
+  // Return SVG-compatible credits text (without onclick for security)
   const chartCredits = `
     <tspan id="credits" style="font-size: 0.9rem;">
       Eurostat - 
       <tspan
+        id="dataset-link-${REF.chartId || 'default'}"
         tabindex="1"
         role="link"
         aria-label="Eurostat dataset link: ${datasetURL}"
         title="Eurostat dataset link"
         style="cursor: pointer; fill: blue; text-decoration: underline;"
-        onclick="window.open('${datasetURL}', '_blank')"
+        data-url="${datasetURL}"
       >
       ${languageNameSpace.labels['DB']}
       </tspan>
     </tspan>
   `;
+
+  // Set up event listener for the dataset link after chart is rendered
+  setTimeout(() => {
+    const linkElement = document.querySelector(`#dataset-link-${REF.chartId || 'default'}`);
+    if (linkElement && !linkElement.hasAttribute('data-listener-added')) {
+      linkElement.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        if (url) {
+          window.open(url, '_blank');
+        }
+      });
+      linkElement.setAttribute('data-listener-added', 'true');
+    }
+  }, 100);
 
   return chartCredits
 }
@@ -877,7 +892,7 @@ function observeAriaHidden() {
         if (target.tagName === "svg" && target.getAttribute("aria-hidden") === "false") {
           // Remove or correct the attribute
           target.removeAttribute("aria-hidden");
-          console.log("Corrected aria-hidden on:", target);
+          // console.log("Corrected aria-hidden on:", target);
         }
       }
     });

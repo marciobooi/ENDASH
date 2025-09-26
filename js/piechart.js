@@ -34,12 +34,17 @@ function createPieChart() {
         formatter: function () {
           // Split the name by spaces
           const nameParts = this.point.name.split(' ');
-          // Insert <br> after the second word
-          nameParts.splice(2, 0, '<br>');
+          // Insert <br> after the second word if there are enough parts
+          if (nameParts.length > 2) {
+            nameParts.splice(2, 0, '<br>');
+          }
           // Join the parts back together
           const formattedName = nameParts.join(' ');
           
-          return '<b>' + formattedName + '</b>:<br>' +
+          // Use safe HTML sanitization that works with older Highcharts versions
+          const safeName = createSafeHTML ? createSafeHTML(formattedName) : formattedName;
+          
+          return '<b>' + safeName + '</b>:<br>' +
               'Percentage: ' + Highcharts.numberFormat(this.point.percentage, 1) + '%<br>' +
               languageNameSpace.labels["VAL"] + ': ' + Highcharts.numberFormat(this.point.y, 4) + ' ' + languageNameSpace.labels[REF.unit];
       }
@@ -99,6 +104,9 @@ function piechartdata() {
   piedata = [];
 
   d = chartApiCall();
+
+  log(REF.indicator)
+  log(d)
 
   if(REF.indicator.length == 0) {
 
