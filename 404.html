@@ -361,7 +361,18 @@
       }
     }
 
+    /* Window lighting animation */
+    .window {
+      animation: windowLighting 30s ease-in-out infinite;
+    }
 
+    @keyframes windowLighting {
+      0% { fill: var(--window-color); }
+      40% { fill: var(--window-color); }
+      50% { fill: #FFD700; } /* Warm yellow during night */
+      60% { fill: var(--window-color); }
+      100% { fill: var(--window-color); }
+    }
 
     .heading {
       margin: 0;
@@ -611,8 +622,19 @@
         <div class="star"></div>
         <div class="star"></div>
         <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
       </div>
       <div class="birds">
+        <div class="bird"></div>
+        <div class="bird"></div>
         <div class="bird"></div>
         <div class="bird"></div>
         <div class="bird"></div>
@@ -1228,7 +1250,212 @@
               </svg>            
               <animateMotion path="M -10 0 H 30 Z" dur="20s" repeatCount="indefinite" />
             </g>
-          
+
+        <!-- City skyline -->
+        <g class="city">
+          <!-- Background layer (lightest shade) -->
+          <g class="background-buildings" style="--window-color: #457B9D">
+            <!-- Building 1 - Modern glass tower -->
+            <g class="building">
+              <rect x="200" y="250" width="15" height="50" fill="#A8DADC" />
+              <rect x="202" y="255" width="2" height="3" class="window" />
+              <rect x="206" y="255" width="2" height="3" class="window" />
+              <rect x="210" y="255" width="2" height="3" class="window" />
+              <rect x="202" y="260" width="2" height="3" class="window" />
+              <rect x="206" y="260" width="2" height="3" class="window" />
+              <rect x="210" y="260" width="2" height="3" class="window" />
+              <rect x="202" y="265" width="2" height="3" class="window" />
+              <rect x="206" y="265" width="2" height="3" class="window" />
+              <rect x="210" y="265" width="2" height="3" class="window" />
+              <!-- Antenna -->
+              <rect x="207" y="248" width="1" height="4" fill="#457B9D" />
+            </g>
+
+            <!-- Building 4 - Postmodern with angles -->
+            <g class="building">
+              <polygon points="290,250 304,250 300,240 294,240" fill="#A8DADC" />
+              <rect x="290" y="250" width="14" height="50" fill="#A8DADC" />
+              <rect x="292" y="255" width="1" height="2" class="window" />
+              <rect x="294" y="255" width="1" height="2" class="window" />
+              <rect x="296" y="255" width="1" height="2" class="window" />
+              <rect x="298" y="255" width="1" height="2" class="window" />
+              <rect x="300" y="255" width="1" height="2" class="window" />
+            </g>
+
+            <!-- Building 9 - Hotel with distinctive shape -->
+            <g class="building">
+              <rect x="440" y="240" width="12" height="40" fill="#A8DADC" />
+              <rect x="442" y="245" width="1" height="2" class="window" />
+              <rect x="444" y="245" width="1" height="2" class="window" />
+              <rect x="446" y="245" width="1" height="2" class="window" />
+              <rect x="448" y="245" width="1" height="2" class="window" />
+              <rect x="450" y="245" width="1" height="2" class="window" />
+              <!-- Upper curved section -->
+              <ellipse cx="446" cy="235" rx="6" ry="5" fill="#A8DADC" />
+            </g>
+
+            <!-- Building 12 - Condo with stepped design -->
+            <g class="building">
+              <polygon points="530,235 545,235 545,250 540,250 540,255 535,255 535,260 530,260" fill="#A8DADC" />
+              <rect x="530" y="260" width="15" height="40" fill="#A8DADC" />
+              <rect x="532" y="265" width="1.5" height="2" class="window" />
+              <rect x="535" y="265" width="1.5" height="2" class="window" />
+              <rect x="538" y="265" width="1.5" height="2" class="window" />
+              <rect x="541" y="265" width="1.5" height="2" class="window" />
+            </g>
+          </g>
+
+          <!-- Middle layer (medium shade) -->
+          <g class="middle-buildings" style="--window-color: #2E8B85">
+            <!-- Building 2 - Art Deco style -->
+            <g class="building">
+              <polygon points="230,240 242,240 242,300 230,300" fill="#6BB6B3" />
+              <polygon points="230,240 236,235 242,240" fill="#6BB6B3" />
+              <rect x="232" y="245" width="1.5" height="2" class="window" />
+              <rect x="235" y="245" width="1.5" height="2" class="window" />
+              <rect x="238" y="245" width="1.5" height="2" class="window" />
+              <rect x="232" y="250" width="1.5" height="2" class="window" />
+              <rect x="235" y="250" width="1.5" height="2" class="window" />
+              <rect x="238" y="250" width="1.5" height="2" class="window" />
+            </g>
+
+            <!-- Building 5 - Commercial with setbacks -->
+            <g class="building">
+              <rect x="320" y="230" width="16" height="40" fill="#6BB6B3" />
+              <rect x="322" y="235" width="2" height="3" class="window" />
+              <rect x="326" y="235" width="2" height="3" class="window" />
+              <rect x="330" y="235" width="2" height="3" class="window" />
+              <rect x="334" y="235" width="2" height="3" class="window" />
+              <!-- Upper section -->
+              <rect x="324" y="210" width="8" height="20" fill="#6BB6B3" />
+              <rect x="326" y="215" width="1.5" height="2" class="window" />
+              <rect x="329" y="215" width="1.5" height="2" class="window" />
+            </g>
+
+            <!-- Building 8 - Mixed use with retail base -->
+            <g class="building">
+              <rect x="410" y="235" width="15" height="45" fill="#6BB6B3" />
+              <rect x="412" y="240" width="1.5" height="2" class="window" />
+              <rect x="415" y="240" width="1.5" height="2" class="window" />
+              <rect x="418" y="240" width="1.5" height="2" class="window" />
+              <rect x="421" y="240" width="1.5" height="2" class="window" />
+              <!-- Retail base -->
+              <rect x="410" y="280" width="15" height="20" fill="#2E8B85" />
+              <rect x="412" y="282" width="2" height="3" fill="#6BB6B3" />
+              <rect x="416" y="282" width="2" height="3" fill="#6BB6B3" />
+              <rect x="420" y="282" width="2" height="3" fill="#6BB6B3" />
+            </g>
+
+            <!-- Building 10 - Government building with columns -->
+            <g class="building">
+              <rect x="470" y="250" width="14" height="50" fill="#6BB6B3" />
+              <rect x="472" y="255" width="2" height="3" class="window" />
+              <rect x="476" y="255" width="2" height="3" class="window" />
+              <rect x="480" y="255" width="2" height="3" class="window" />
+              <!-- Columns -->
+              <rect x="471" y="250" width="1" height="50" fill="#2E8B85" />
+              <rect x="472" y="250" width="1" height="50" fill="#2E8B85" />
+              <rect x="481" y="250" width="1" height="50" fill="#2E8B85" />
+              <rect x="482" y="250" width="1" height="50" fill="#2E8B85" />
+            </g>
+
+            <!-- Building 13 - Office complex with atrium -->
+            <g class="building">
+              <rect x="560" y="225" width="13" height="55" fill="#6BB6B3" />
+              <rect x="562" y="230" width="1.5" height="2" class="window" />
+              <rect x="565" y="230" width="1.5" height="2" class="window" />
+              <rect x="568" y="230" width="1.5" height="2" class="window" />
+              <rect x="562" y="235" width="1.5" height="2" class="window" />
+              <!-- Atrium -->
+              <rect x="563" y="240" width="5" height="15" fill="#2E8B85" />
+            </g>
+
+            <!-- Building 15 - Modern complex with cantilever -->
+            <g class="building">
+              <rect x="620" y="245" width="14" height="45" fill="#6BB6B3" />
+              <rect x="622" y="250" width="2" height="3" class="window" />
+              <rect x="626" y="250" width="2" height="3" class="window" />
+              <rect x="630" y="250" width="2" height="3" class="window" />
+              <!-- Cantilever -->
+              <rect x="615" y="240" width="9" height="5" fill="#6BB6B3" />
+              <rect x="617" y="242" width="1.5" height="1" class="window" />
+              <rect x="620" y="242" width="1.5" height="1" class="window" />
+            </g>
+          </g>
+
+          <!-- Foreground layer (darkest shade) -->
+          <g class="foreground-buildings" style="--window-color: #1D3557">
+            <!-- Building 3 - Skyscraper with crown -->
+            <g class="building">
+              <rect x="260" y="220" width="18" height="80" fill="#2E8B85" />
+              <rect x="262" y="225" width="2" height="3" class="window" />
+              <rect x="266" y="225" width="2" height="3" class="window" />
+              <rect x="270" y="225" width="2" height="3" class="window" />
+              <rect x="274" y="225" width="2" height="3" class="window" />
+              <rect x="262" y="230" width="2" height="3" class="window" />
+              <rect x="266" y="230" width="2" height="3" class="window" />
+              <rect x="270" y="230" width="2" height="3" class="window" />
+              <rect x="274" y="230" width="2" height="3" class="window" />
+              <!-- Crown -->
+              <polygon points="260,220 278,220 276,215 274,220 272,215 270,220 268,215 266,220 264,215 262,220" fill="#2E8B85" />
+            </g>
+
+            <!-- Building 6 - Residential tower with balconies -->
+            <g class="building">
+              <rect x="350" y="245" width="13" height="55" fill="#2E8B85" />
+              <rect x="352" y="250" width="1.5" height="2" class="window" />
+              <rect x="355" y="250" width="1.5" height="2" class="window" />
+              <rect x="358" y="250" width="1.5" height="2" class="window" />
+              <!-- Balconies -->
+              <rect x="351" y="255" width="11" height="1" class="window" />
+              <rect x="351" y="260" width="11" height="1" class="window" />
+            </g>
+
+            <!-- Building 7 - Corporate headquarters with spire -->
+            <g class="building">
+              <rect x="380" y="225" width="17" height="75" fill="#2E8B85" />
+              <rect x="382" y="230" width="2" height="3" class="window" />
+              <rect x="386" y="230" width="2" height="3" class="window" />
+              <rect x="390" y="230" width="2" height="3" class="window" />
+              <rect x="394" y="230" width="2" height="3" class="window" />
+              <rect x="382" y="235" width="2" height="3" class="window" />
+              <rect x="386" y="235" width="2" height="3" class="window" />
+              <!-- Spire -->
+              <polygon points="388,220 392,220 390,210" fill="#2E8B85" />
+            </g>
+
+            <!-- Building 11 - High-rise with observation deck -->
+            <g class="building">
+              <rect x="500" y="220" width="16" height="60" fill="#2E8B85" />
+              <rect x="502" y="225" width="2" height="3" class="window" />
+              <rect x="506" y="225" width="2" height="3" class="window" />
+              <rect x="510" y="225" width="2" height="3" class="window" />
+              <rect x="514" y="225" width="2" height="3" class="window" />
+              <rect x="502" y="230" width="2" height="3" class="window" />
+              <rect x="506" y="230" width="2" height="3" class="window" />
+              <!-- Observation deck -->
+              <rect x="500" y="215" width="16" height="5" fill="#1D3557" />
+              <rect x="502" y="217" width="2" height="1" fill="#2E8B85" />
+              <rect x="506" y="217" width="2" height="1" fill="#2E8B85" />
+              <rect x="510" y="217" width="2" height="1" fill="#2E8B85" />
+              <rect x="514" y="217" width="2" height="1" fill="#2E8B85" />
+            </g>
+
+            <!-- Building 14 - Residential with rooftop garden -->
+            <g class="building">
+              <rect x="590" y="240" width="17" height="50" fill="#2E8B85" />
+              <rect x="592" y="245" width="2" height="3" class="window" />
+              <rect x="596" y="245" width="2" height="3" class="window" />
+              <rect x="600" y="245" width="2" height="3" class="window" />
+              <rect x="604" y="245" width="2" height="3" class="window" />
+              <!-- Rooftop garden -->
+              <rect x="590" y="235" width="17" height="5" fill="#1D3557" />
+              <circle cx="595" cy="237" r="1" fill="#2E8B85" />
+              <circle cx="600" cy="237" r="1" fill="#2E8B85" />
+              <circle cx="605" cy="237" r="1" fill="#2E8B85" />
+            </g>
+          </g>
+        </g>
 
       </svg>
 
