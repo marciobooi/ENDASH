@@ -1,54 +1,45 @@
 /**
  * Highcharts Compatibility Shim
  * Provides missing functions for older Highcharts versions
+ * Note: Highcharts 12.4.0+ has full AST support - this is only for fallback
  */
 
-// Add missing AST functionality for older Highcharts versions
-if (typeof Highcharts !== 'undefined' && (!Highcharts.AST || !Highcharts.AST.emptyHTML)) {
+// Only add polyfills for very old Highcharts versions without AST
+(function() {
+  'use strict';
   
-  // Initialize AST object if it doesn't exist
-  if (!Highcharts.AST) {
-    Highcharts.AST = {};
+  // Exit early if Highcharts is not loaded or already has full AST support
+  if (typeof Highcharts === 'undefined') {
+    console.warn('Highcharts not loaded yet - compatibility shim skipped');
+    return;
   }
   
-  // Add emptyHTML function if missing
-  if (!Highcharts.AST.emptyHTML) {
-    Highcharts.AST.emptyHTML = function(html) {
-      // Simple fallback implementation
-      if (!html || typeof html !== 'string') {
-        return html;
-      }
-      
-      // Remove script tags and dangerous attributes
-      let sanitized = html
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-        .replace(/\son\w+\s*=\s*["'][^"']*["']/gi, '')
-        .replace(/\son\w+\s*=\s*[^>\s]+/gi, '');
-      
-      return sanitized;
+  // Highcharts 12.x has full AST support, no polyfills needed
+  if (Highcharts.AST && typeof Highcharts.AST.prototype !== 'undefined') {
+    console.log('Highcharts AST available - no polyfills needed');
+    return;
+  }
+  
+  // Only for older versions without AST
+  if (!Highcharts.AST) {
+    console.log('Adding AST polyfills for older Highcharts version');
+    
+    Highcharts.AST = {
+      allowedTags: [
+        'a', 'abbr', 'b', 'br', 'button', 'caption', 'circle', 'code', 'dd', 'defs',
+        'div', 'dl', 'dt', 'em', 'g', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i',
+        'img', 'li', 'linearGradient', 'ol', 'p', 'path', 'span', 'stop', 'strong',
+        'style', 'sub', 'sup', 'svg', 'table', 'text', 'tbody', 'td', 'tspan', 'th',
+        'thead', 'title', 'tr', 'u', 'ul', 'image'
+      ],
+      allowedAttributes: [
+        'alt', 'aria-describedby', 'aria-hidden', 'aria-label', 'aria-labelledby',
+        'aria-live', 'class', 'clip-path', 'color', 'colspan', 'cx', 'cy', 'd',
+        'dx', 'dy', 'fill', 'fillOpacity', 'height', 'href', 'id', 'opacity', 'r',
+        'role', 'rowspan', 'rx', 'ry', 'stroke', 'stroke-linecap', 'stroke-width',
+        'style', 'tabindex', 'text-anchor', 'title', 'transform', 'valign', 'width',
+        'x', 'x1', 'x2', 'xlink:href', 'y', 'y1', 'y2', 'zIndex'
+      ]
     };
   }
-  
-  // Add allowedTags if missing
-  if (!Highcharts.AST.allowedTags) {
-    Highcharts.AST.allowedTags = [
-      'a', 'abbr', 'b', 'br', 'button', 'caption', 'circle', 'code', 'dd', 'defs',
-      'div', 'dl', 'dt', 'em', 'g', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i',
-      'img', 'li', 'linearGradient', 'ol', 'p', 'path', 'span', 'stop', 'strong',
-      'style', 'sub', 'sup', 'svg', 'table', 'text', 'tbody', 'td', 'tspan', 'th',
-      'thead', 'title', 'tr', 'u', 'ul', 'image'
-    ];
-  }
-  
-  // Add allowedAttributes if missing
-  if (!Highcharts.AST.allowedAttributes) {
-    Highcharts.AST.allowedAttributes = [
-      'alt', 'aria-describedby', 'aria-hidden', 'aria-label', 'aria-labelledby',
-      'aria-live', 'class', 'clip-path', 'color', 'colspan', 'cx', 'cy', 'd',
-      'dx', 'dy', 'fill', 'fillOpacity', 'height', 'href', 'id', 'opacity', 'r',
-      'role', 'rowspan', 'rx', 'ry', 'stroke', 'stroke-linecap', 'stroke-width',
-      'style', 'tabindex', 'text-anchor', 'title', 'transform', 'valign', 'width',
-      'x', 'x1', 'x2', 'xlink:href', 'y', 'y1', 'y2', 'zIndex'
-    ];
-  }
-}
+})();

@@ -811,7 +811,9 @@ function enableScreenREader(params) {
 
 	const container = document.querySelector(".highcharts-root")
 
-	container.removeAttribute('aria-hidden');
+	if (container) {
+	  container.removeAttribute('aria-hidden');
+	}
   
   }
 

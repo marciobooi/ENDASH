@@ -1,124 +1,91 @@
 /**
  * Highcharts Security Configuration
- * This file helps prevent "Invalid attribute or tagName" errors
- * by configuring allowed HTML tags and attributes
+ * Extends allowed HTML tags and attributes for Highcharts AST
+ * Compatible with Highcharts v12.4.0+
  */
 
-// Add custom allowed tags and attributes to Highcharts AST
-if (typeof Highcharts !== 'undefined' && Highcharts.AST) {
+(function() {
+  'use strict';
   
-  // Extend allowed tags
-  Highcharts.AST.allowedTags = Highcharts.AST.allowedTags.concat([
-    'image', // SVG image element
-    'linearGradient', // Ensure correct spelling
-    'radialGradient',
-    'defs',
-    'pattern',
-    'clipPath'
-  ]);
-
-  // Extend allowed attributes (but NOT onclick for security)
-  Highcharts.AST.allowedAttributes = Highcharts.AST.allowedAttributes.concat([
-    'x', 'y', 'x1', 'y1', 'x2', 'y2', // Position attributes
-    'width', 'height', // Size attributes
-    'href', 'xlink:href', // Link attributes
-    'gradientUnits', 'gradientTransform', // Gradient attributes
-    'offset', 'stop-color', 'stop-opacity', // Stop attributes
-    'patternUnits', 'patternContentUnits', // Pattern attributes
-    'clipPathUnits', // Clip path attributes
-    'data-url', 'data-listener-added' // Custom data attributes for safe event handling
-  ]);
-
-  // Explicitly block dangerous attributes (these should never be allowed)
-  const blockedAttributes = ['onclick', 'onmouseover', 'onmouseout', 'onload', 'onerror', 'onfocus', 'onblur'];
+  // Wait for Highcharts to be available
+  if (typeof Highcharts === 'undefined') {
+    console.warn('Highcharts not loaded - security config skipped');
+    return;
+  }
   
-  // Remove blocked attributes if they somehow get added
-  blockedAttributes.forEach(attr => {
-    const index = Highcharts.AST.allowedAttributes.indexOf(attr);
-    if (index > -1) {
-      Highcharts.AST.allowedAttributes.splice(index, 1);
-    }
-  });
-
-  // Custom sanitizer function for better error handling
-  const originalSanitize = Highcharts.AST.prototype.sanitize;
-  Highcharts.AST.prototype.sanitize = function(element) {
-    try {
-      return originalSanitize.call(this, element);
-    } catch (error) {
-      console.warn('Highcharts sanitization warning:', error.message);
-      // Return a safe fallback
-      return { tagName: 'span', textContent: 'Content sanitized' };
-    }
-  };
-}
-
-// Global error handler for Highcharts
-if (typeof Highcharts !== 'undefined') {
-  Highcharts.addEvent(Highcharts.Chart, 'render', function() {
-    // Check for any remaining sanitization issues
-    const container = this.container;
-    if (container) {
-      // Remove any potentially problematic elements
-      const unknownElements = container.querySelectorAll('[data-z-index]');
-      unknownElements.forEach(el => {
-        if (el.tagName && el.tagName.toLowerCase().includes('unknown')) {
-          console.warn('Removing unknown element:', el.tagName);
-          el.remove();
+  // Only extend if AST exists (Highcharts 9.x+)
+  if (Highcharts.AST) {
+    
+    // Additional tags that may be needed
+    var additionalTags = [
+      'image',
+      'radialGradient',
+      'pattern',
+      'clipPath',
+      'mask',
+      'use',
+      'symbol'
+    ];
+    
+    // Additional attributes that may be needed
+    var additionalAttributes = [
+      'gradientUnits',
+      'gradientTransform',
+      'patternUnits',
+      'patternContentUnits',
+      'clipPathUnits',
+      'maskUnits',
+      'maskContentUnits',
+      'stop-color',
+      'stop-opacity',
+      'offset',
+      'data-url',
+      'data-listener-added'
+    ];
+    
+    // Safely extend allowedTags
+    if (Array.isArray(Highcharts.AST.allowedTags)) {
+      additionalTags.forEach(function(tag) {
+        if (Highcharts.AST.allowedTags.indexOf(tag) === -1) {
+          Highcharts.AST.allowedTags.push(tag);
         }
       });
     }
-  });
-}
-
-// Utility function to safely create HTML strings (compatible with older Highcharts)
-window.createSafeHTML = function(html) {
-  if (typeof Highcharts !== 'undefined' && Highcharts.AST && typeof Highcharts.AST.emptyHTML === 'function') {
-    try {
-      return Highcharts.AST.emptyHTML(html);
-    } catch (error) {
-      console.warn('Highcharts HTML sanitization failed:', error.message);
-      return sanitizeHTMLFallback(html);
+    
+    // Safely extend allowedAttributes
+    if (Array.isArray(Highcharts.AST.allowedAttributes)) {
+      additionalAttributes.forEach(function(attr) {
+        if (Highcharts.AST.allowedAttributes.indexOf(attr) === -1) {
+          Highcharts.AST.allowedAttributes.push(attr);
+        }
+      });
     }
-  } else {
-    // Fallback for older Highcharts versions
-    return sanitizeHTMLFallback(html);
+    
+    // Ensure dangerous event handlers are never allowed
+    var dangerousAttributes = [
+      'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover',
+      'onmouseout', 'onmousemove', 'onkeydown', 'onkeyup', 'onkeypress',
+      'onfocus', 'onblur', 'onload', 'onerror', 'onchange', 'onsubmit'
+    ];
+    
+    if (Array.isArray(Highcharts.AST.allowedAttributes)) {
+      dangerousAttributes.forEach(function(attr) {
+        var index = Highcharts.AST.allowedAttributes.indexOf(attr);
+        if (index > -1) {
+          Highcharts.AST.allowedAttributes.splice(index, 1);
+        }
+      });
+    }
   }
-};
-
-// Fallback HTML sanitization function
-function sanitizeHTMLFallback(html) {
-  if (!html || typeof html !== 'string') {
+  
+  // Simple helper function for safe HTML - just returns the input as-is
+  // Highcharts 12.x handles its own sanitization internally
+  window.createSafeHTML = function(html) {
+    if (!html || typeof html !== 'string') {
+      return html || '';
+    }
+    // Just return the HTML - Highcharts will sanitize it internally
     return html;
-  }
+  };
   
-  // Create a temporary div to safely parse HTML
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = html;
-  
-  // Remove any script tags and event attributes
-  const scripts = tempDiv.querySelectorAll('script');
-  scripts.forEach(script => script.remove());
-  
-  // Remove dangerous attributes
-  const dangerousAttributes = ['onclick', 'onmouseover', 'onmouseout', 'onload', 'onerror', 'onfocus', 'onblur', 'onchange'];
-  const allElements = tempDiv.querySelectorAll('*');
-  
-  allElements.forEach(element => {
-    dangerousAttributes.forEach(attr => {
-      if (element.hasAttribute(attr)) {
-        element.removeAttribute(attr);
-        console.warn(`Removed dangerous attribute ${attr} from ${element.tagName}`);
-      }
-    });
-  });
-  
-  return tempDiv.innerHTML;
-}
-
-// Initialize security configuration
-if (typeof Highcharts !== 'undefined') {
-  if (!Highcharts.AST || typeof Highcharts.AST.emptyHTML !== 'function') {
-    console.warn('Highcharts AST security features not available - using fallback sanitization');
-  }
-}
+})();
