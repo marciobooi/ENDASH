@@ -206,12 +206,16 @@ class ChartContainer {
         containerNav.style.visibility = "initial";
         containerNav.style.height = "4rem";
         containerNav.style.fontSize = ".4em";
-        containerNav.innerHTML = `${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`;
+        const titleLabel = languageNameSpace.labels[REF.title] || REF.title || "";
+        const geoLabel = languageNameSpace.labels[REF.geos] || REF.geos || "";
+        containerNav.innerHTML = `${titleLabel} - ${geoLabel}`;
       }
 
       const titleElement = document.querySelector("#title");
       if (titleElement) {
-        titleElement.innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`;
+        const titleLabel = languageNameSpace.labels[REF.title] || REF.title || "";
+        const geoLabel = languageNameSpace.labels[REF.geos] || REF.geos || "";
+        titleElement.innerHTML = `${titleLabel} - ${geoLabel}`;
       }
       
     } 

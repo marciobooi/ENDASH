@@ -3,8 +3,6 @@
 
 function initEndash(d = null) {
  
-  languageNameSpace.initLanguage(REF.language);
-
   $("#links").empty();
 
   linksContent = 	"<div class='modalHeader'>"

@@ -10,21 +10,27 @@ document.addEventListener('DOMContentLoaded', function() {
     header.insertBefore(euGlobanContainer, header.firstChild);
   }
 
-  $wt.render("euGlobanContainer", {
-    utility: "globan",
-    lang: REF.language.toLowerCase(),
-    theme: "dark",
-    logo: true,
-    link: true,
-    mode: false,
-    zindex : 40
+  if (window.$wt && typeof window.$wt.render === "function") {
+    window.$wt.render("euGlobanContainer", {
+      utility: "globan",
+      lang: REF.language.toLowerCase(),
+      theme: "dark",
+      logo: true,
+      link: true,
+      mode: false,
+      zindex : 40
+    });
+  }
+
+  // Load labels first, then build components so charts render with translated strings.
+  languageNameSpace.initLanguage(REF.language).then(() => {
+    buildComponents();
+    checkAndShowTutorial();
+  }).catch((err) => {
+    console.error("initLanguage failed on startup", err);
+    buildComponents();
+    checkAndShowTutorial();
   });
-
-  buildComponents();
-
-  languageNameSpace.initLanguage(REF.language);
-
-  checkAndShowTutorial()
 });
 
 function buildComponents() {

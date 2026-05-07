@@ -188,7 +188,6 @@ class ChartControls {
     document.getElementById("closeChart").appendChild(closeChart.createButton());
 
     lineChart.setDisabled(true);
-    languageNameSpace.initLanguage(REF.language);
   }
 
   removeFromDOM() {

@@ -64,8 +64,6 @@ class FloatingChartControls {
 
     document.getElementById("togglePercentage").appendChild(percentageElement);
     document.getElementById("Agregates").appendChild(agregatesElement);
-    
-    languageNameSpace.initLanguage(REF.language);
   }
 
   removeFromDOM(targetElement) {

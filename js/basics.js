@@ -543,31 +543,38 @@ function getTitle(yAxisTitle) {
   let title
   let unit = yAxisTitle
 
-  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" data-i18n-label="BTNEXPAND" aria-label="${languageNameSpace.labels["BTNEXPAND"]}" data-i18n-title="BTNEXPAND" title="${languageNameSpace.labels["BTNEXPAND"]}">
+  const safeLabel = (key, fallback = "") => {
+    if (!key) return fallback;
+    return languageNameSpace.labels[key] || fallback || key;
+  };
+
+  const btnExpand = safeLabel("BTNEXPAND", "Expand");
+
+  const btn = `<button class="ecl-button ecl-button--primary round-btn expandChart" data-i18n-label="BTNEXPAND" aria-label="${btnExpand}" data-i18n-title="BTNEXPAND" title="${btnExpand}">
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`;
 
 switch (REF.chartType) {
   case "barChart":
-    title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels['BOX_SELECTION_ALL_COUNTRY']} - ${REF.year}`
+    title = `${safeLabel(REF.title, REF.title)} - ${safeLabel('BOX_SELECTION_ALL_COUNTRY', 'All countries')} - ${REF.year}`
     const titleLabelBar = document.querySelector("#title");
     if (titleLabelBar) titleLabelBar.innerHTML = title;
     break;
   case "pieChart":
-    title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
+    title = `${safeLabel(REF.title, REF.title)} - ${safeLabel(REF.geos, REF.geos)} - ${REF.year}`
     const titleLabelPie = document.querySelector("#title");
     if (titleLabelPie) titleLabelPie.innerHTML = title;
     break;
 
   default:
-      title = `${languageNameSpace.labels[REF.title]}`   
+      title = `${safeLabel(REF.title, REF.title)}`   
       unit = `${unit}`
       if(REF.chartExpanded == true) {
         const titleExpanded = document.querySelector("#title");
-        if (titleExpanded) titleExpanded.innerHTML = `${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`;
+        if (titleExpanded) titleExpanded.innerHTML = `${safeLabel(REF.title, REF.title)} - ${safeLabel(REF.geos, REF.geos)}`;
       } else {
         const titleDefault = document.querySelector("#title");
-        if (titleDefault) titleDefault.innerHTML = `${languageNameSpace.labels[REF.geos]}`;
+        if (titleDefault) titleDefault.innerHTML = `${safeLabel(REF.geos, REF.geos)}`;
       }
       
     break;
