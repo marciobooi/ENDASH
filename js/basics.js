@@ -537,7 +537,8 @@ function tooltipTable(points) {
 
 function getTitle(yAxisTitle) {
 
-  const titleElement = $(`#${containerId}`).prev();
+  const chartContainerElement = document.getElementById(containerId);
+  const titleElement = chartContainerElement ? chartContainerElement.previousElementSibling : null;
 
   let title
   let unit = yAxisTitle
@@ -549,33 +550,37 @@ function getTitle(yAxisTitle) {
 switch (REF.chartType) {
   case "barChart":
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels['BOX_SELECTION_ALL_COUNTRY']} - ${REF.year}`
-    $("#title").html(title)
+    const titleLabelBar = document.querySelector("#title");
+    if (titleLabelBar) titleLabelBar.innerHTML = title;
     break;
   case "pieChart":
     title = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]} - ${REF.year}`
-    $("#title").html(title) 
+    const titleLabelPie = document.querySelector("#title");
+    if (titleLabelPie) titleLabelPie.innerHTML = title;
     break;
 
   default:
       title = `${languageNameSpace.labels[REF.title]}`   
       unit = `${unit}`
       if(REF.chartExpanded == true) {
-        $("#title").html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)
+        const titleExpanded = document.querySelector("#title");
+        if (titleExpanded) titleExpanded.innerHTML = `${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`;
       } else {
-        $("#title").html(`${languageNameSpace.labels[REF.geos]}`)
+        const titleDefault = document.querySelector("#title");
+        if (titleDefault) titleDefault.innerHTML = `${languageNameSpace.labels[REF.geos]}`;
       }
       
     break;
 }
-  titleElement.html(`<div class="textGroup">
-  <h2>${title}</h2><p>${unit}</p></div>`).append(btn);
+  if (titleElement) {
+    titleElement.innerHTML = `<div class="textGroup"><h2>${title}</h2><p>${unit}</p></div>${btn}`;
+  }
 
 
-  if ($('.chartContainer').hasClass('expand')) {
-    $(".expandChart").css('display', 'none');
-} else {
-    $(".expandChart").css('display', 'initial');
-}
+  const hasExpanded = document.querySelector('.chartContainer.expand') !== null;
+  document.querySelectorAll('.expandChart').forEach((element) => {
+    element.style.display = hasExpanded ? 'none' : 'initial';
+  });
 
   return title;
  
