@@ -1,33 +1,31 @@
 
-$( document ).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
   dataNameSpace.getRefURL();
 
-  const euGlobanContainer = $('<div>').attr('id', 'euGlobanContainer')
+  const euGlobanContainer = document.createElement('div');
+  euGlobanContainer.id = 'euGlobanContainer';
+  
+  const header = document.querySelector('header');
+  if (header) {
+    header.insertBefore(euGlobanContainer, header.firstChild);
+  }
 
-  euGlobanContainer.prependTo('header');
-
-    $wt.render("euGlobanContainer", {
-      utility: "globan",
-      lang: REF.language.toLowerCase(),
-      theme: "dark",
-      logo: true,
-      link: true,
-      mode: false,
-      zindex : 40
-    });
-
-
-
-
+  $wt.render("euGlobanContainer", {
+    utility: "globan",
+    lang: REF.language.toLowerCase(),
+    theme: "dark",
+    logo: true,
+    link: true,
+    mode: false,
+    zindex : 40
+  });
 
   buildComponents();
 
-
   languageNameSpace.initLanguage(REF.language);
 
-
   checkAndShowTutorial()
-})
+});
 
 function buildComponents() {
   const components = [
@@ -44,13 +42,21 @@ ECL.autoInit();
 }
 
 function removeComponents() {
-  $('#navbar-container').empty();
-  $('#subnavbar-container').empty();
-  $('#endash').empty();
-  $('#menuSwitch').remove();
-  $('#floatingMenu').empty();
-  $('#componentFooter').empty();
-  $('#menuToolbar').css('display', "flex");
+  const navbarContainer = document.querySelector('#navbar-container');
+  const subnavbarContainer = document.querySelector('#subnavbar-container');
+  const endash = document.querySelector('#endash');
+  const menuSwitch = document.querySelector('#menuSwitch');
+  const floatingMenu = document.querySelector('#floatingMenu');
+  const componentFooter = document.querySelector('#componentFooter');
+  const menuToolbar = document.querySelector('#menuToolbar');
+
+  if (navbarContainer) navbarContainer.innerHTML = '';
+  if (subnavbarContainer) subnavbarContainer.innerHTML = '';
+  if (endash) endash.innerHTML = '';
+  if (menuSwitch) menuSwitch.remove();
+  if (floatingMenu) floatingMenu.innerHTML = '';
+  if (componentFooter) componentFooter.innerHTML = '';
+  if (menuToolbar) menuToolbar.style.display = 'flex';
 }
 
 

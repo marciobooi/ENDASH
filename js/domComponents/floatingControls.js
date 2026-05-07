@@ -69,7 +69,10 @@ class FloatingChartControls {
   }
 
   removeFromDOM(targetElement) {
-    $('#menuSwitch').remove();
+    const menuSwitch = document.querySelector('#menuSwitch');
+    if (menuSwitch) {
+      menuSwitch.remove();
+    }
   }
 
 	

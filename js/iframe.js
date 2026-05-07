@@ -96,12 +96,20 @@ function hideForIframe() {
     REF.year= url.searchParams.get("year");
     
     
-    $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
+    const chartContainers = document.querySelectorAll(".flex-container .flex-item.chartContainer");
+    chartContainers.forEach(container => {
+      container.style.display = "none";
+    });
+    
     chartContainer.classList.add('expand');
     chartContainer.setAttribute('aria-expanded', 'true');
-    $(chartContainer).css( "display", "initial" );
+    chartContainer.style.display = "initial";
     chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
-    $(".containerNav").css('visibility', 'hidden')
+    
+    const navContainer = document.querySelector(".containerNav");
+    if (navContainer) {
+      navContainer.style.visibility = 'hidden';
+    }
 
     log(REF.chartType)
 
@@ -122,14 +130,22 @@ function hideForIframe() {
     document.getElementById("componentFooter").style.display = "none";
     document.getElementById("timelineContainer").style.display = "none";
     setTimeout(() => {
-        $('#cookie-consent-banner').css('display', 'none !important');
+        const banner = document.querySelector('#cookie-consent-banner');
+        if (banner) {
+          banner.style.display = 'none';
+          banner.style.setProperty('display', 'none', 'important');
+        }
     }, 1400);
     
 
-
-    $(".containerNav").attr("id", "title")
-    .css({'visibility': 'initial', "height": "4rem", "font-size": ".4em"})      
-    .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)   
+    const containerNav = document.querySelector(".containerNav");
+    if (containerNav) {
+      containerNav.id = "title";
+      containerNav.style.visibility = "initial";
+      containerNav.style.height = "4rem";
+      containerNav.style.fontSize = ".4em";
+      containerNav.innerHTML = `${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`;
+    }
 
     document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
 

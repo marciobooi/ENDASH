@@ -200,12 +200,19 @@ class ChartContainer {
       addAuxiliarBarGraphOptions()
       compareCountries()
 
-      $(".containerNav").attr("id", "title")
-      .css({'visibility': 'initial', "height": "4rem", "font-size": ".4em"})      
-      .html(`${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`)   
+      const containerNav = document.querySelector(".containerNav");
+      if (containerNav) {
+        containerNav.id = "title";
+        containerNav.style.visibility = "initial";
+        containerNav.style.height = "4rem";
+        containerNav.style.fontSize = ".4em";
+        containerNav.innerHTML = `${languageNameSpace.labels[REF.title]} - ${languageNameSpace.labels[REF.geos]}`;
+      }
 
-      document.querySelector("#title").innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`
-      
+      const titleElement = document.querySelector("#title");
+      if (titleElement) {
+        titleElement.innerHTML = `${languageNameSpace.labels[REF.title] } - ${languageNameSpace.labels[REF.geos]}`;
+      }
       
     } 
 

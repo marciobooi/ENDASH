@@ -22,22 +22,7 @@ class ChartControls {
 						<li class="nav-item button px-1" id="downloadExcel" role="none"></li>
 						<li class="nav-item button px-1" id="embebedChart" role="none"></li>
 						<li class="nav-item dropdown px-1" id="infoBtnChart" role="none"  style="margin-right: 2rem;">
-							<button class="btn btn-primary min-with--nav round-btn" type="button" data-i18n-label="INFO" data-bs-toggle="dropdown" role="menuitem" data-i18n-title="INFO" aria-haspopup="true" aria-expanded="true" id="infoBtn">
-								<i class="fas fa-info"></i>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">     					
-								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels["meta"]}" value="Metadata" >${languageNameSpace.labels["meta"]}</button>
-								<button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels["DB"]}" value="Dataset">${languageNameSpace.labels["DB"]}</button>          		
-							</ul>
-						</li>
-						<li class="nav-item button" id="closeChart" role="none"></li>
-					</ul>
-
-			
-			</div>
-		  </nav>
-		`;
-  
+							<button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-ecl-toggle="dropdown" role="menuitem" data-i18n-title="INFO" aria-haspopup="true" aria-expanded="false" id="infoBtn">
 	  const mobileContent = /*html*/`
 		<div id="chartOptions">
 		  <div class="col-12 subNavOne auxChartbtn">
@@ -148,16 +133,19 @@ class ChartControls {
 
 				const charts = ["barChart", "pieChart", "lineChart"];  
 				charts.forEach(chart => {
-					$("#" + chart).attr("disabled", "disabled")
-					$("#" + chart).attr("aria-disabled", "true")
+					const element = document.getElementById(chart);
+					if (element) {
+						element.setAttribute("disabled", "disabled");
+						element.setAttribute("aria-disabled", "true");
+					}
 				})
 
-				
+				const chartElement = document.getElementById(REF.chartType);
+				if (chartElement) {
+					chartElement.classList.add('highlighDisbleBtn');
+				}
 
-				$("#"+REF.chartType).addClass('highlighDisbleBtn');
-				
-
-				log($("#"+REF.chartType))
+				log(document.getElementById(REF.chartType));
 
 				$('#floatingMenu').css('display','none')
 			

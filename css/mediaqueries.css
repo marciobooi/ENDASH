@@ -225,13 +225,20 @@ i.fas.fa-caret-down {
   min-height: 80vh;
 }
 
-/* bootstrap overritsssss */
-.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+/* ECL-compatible button and focus styles */
+.btn-check:checked + .btn, 
+.btn.active, 
+.btn.show, 
+.btn:first-child:active, 
+:not(.btn-check) + .btn:active,
+.ecl-button.active,
+.ecl-button:active {
   background-color: #0a58ca7d !important;
   border-color: #0a58ca7d !important;
 }
 
-button:focus, .input:focus {
+button:focus, 
+.input:focus {
   box-shadow: none !important;
 }
 

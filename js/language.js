@@ -32,13 +32,13 @@ var languageNameSpace = {
         populateCountries();
 
     const translateElements = (selector, attribute, targetAttr = "text") => {
-      $(selector).each(function () {
-        let key = $(this).data(attribute);
+      document.querySelectorAll(selector).forEach(element => {
+        let key = element.dataset[attribute];
         let translation = languageNameSpace.labels[key] || key;
-        if (targetAttr == "text") {
-          $(this).text(translation);
+        if (targetAttr === "text") {
+          element.textContent = translation;
         } else {
-          $(this).attr(targetAttr, translation);
+          element.setAttribute(targetAttr, translation);
         }
       });
     };

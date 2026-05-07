@@ -237,27 +237,38 @@ log('here')
 
   showHideTimeLine()
 
-  $('#menuSwitch').remove();
-  var parentContainer = $(".flex-container").find(".expand");
-  parentContainer.removeClass("expand");
-  parentContainer.attr('aria-expanded', 'false');
-  $(this).remove();
+  const menuSwitch = document.querySelector('#menuSwitch');
+  if (menuSwitch) menuSwitch.remove();
+  
+  const parentContainer = document.querySelector(".flex-container .expand");
+  if (parentContainer) {
+    parentContainer.classList.remove("expand");
+    parentContainer.setAttribute('aria-expanded', 'false');
+  }
 
-    $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "initial" );
-      parentContainer.find( ".highchartsContainerExpand" ).removeClass('highchartsContainerExpand')
-
-
-      Highcharts.charts.forEach(chart => {
-        if (chart) {
-          chart.update({ legend: legendHide }, true); 
-            chart.reflow();
-        }
+  const chartContainers = document.querySelectorAll(".flex-container .flex-item.chartContainer");
+  chartContainers.forEach(container => {
+    container.style.display = "initial";
+  });
+  
+  if (parentContainer) {
+    const expandedCharts = parentContainer.querySelectorAll(".highchartsContainerExpand");
+    expandedCharts.forEach(chart => {
+      chart.classList.remove('highchartsContainerExpand');
     });
+  }
 
-    const chartContainer = document.getElementById("endash");
+  Highcharts.charts.forEach(chart => {
+    if (chart) {
+      chart.update({ legend: legendHide }, true); 
+      chart.reflow();
+    }
+  });
 
-    // Empty the content of the div
+  const chartContainer = document.getElementById("endash");
+  if (chartContainer) {
     chartContainer.innerHTML = "";
+  }
 
     const rebuiltCharts = new ChartContainer();
     rebuiltCharts.addToDOM("#endash");

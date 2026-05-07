@@ -124,60 +124,79 @@ function tutorial(buttonTimer) {
 
 		currentStep = this._currentStep
 
-		if (currentStep === 0) {
-			document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['FINISH']
+	if (currentStep === 0) {
+		const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+		if (prevButton) {
+			prevButton.innerHTML = languageNameSpace.labels['FINISH'];
 			setTimeout(() => {
-				$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton.introjs-disabled").addClass( "close" )
+				prevButton.classList.add("close");
 			}, 100);
-		} else {
-			document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['BACK']
-			$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").removeClass( "close" )
+		}
+	} else {
+		const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+		if (prevButton) {
+			prevButton.innerHTML = languageNameSpace.labels['BACK'];
+			prevButton.classList.remove("close");
+		}
 
-			$(".introjs-tooltip.customTooltip.introjs-auto").css({
-				"left": "50% !important",
-				"top": "50%",
-				"margin-left": "auto",
-				"margin-top": "auto",
-				"transform": "translate(-50%,-50%)"
-			})
+		const tooltip = document.querySelector(".introjs-tooltip.customTooltip.introjs-auto");
+		if (tooltip) {
+			tooltip.style.left = "50% !important";
+			tooltip.style.top = "50%";
+			tooltip.style.marginLeft = "auto";
+			tooltip.style.marginTop = "auto";
+			tooltip.style.transform = "translate(-50%,-50%)";
+		}
 	}
 
 			});
 
-	$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltip-header > a").attr({
-		"alt": "Close",
-		"id": "tutorialClose",
-		"tabindex": "0",
-		"href": "javascript:",
-		"class": "btn btn-primary min-with--nav"
-	});
+	const headerButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltip-header > a");
+	if (headerButton) {
+		headerButton.setAttribute("alt", "Close");
+		headerButton.setAttribute("id", "tutorialClose");
+		headerButton.setAttribute("tabindex", "0");
+		headerButton.setAttribute("href", "javascript:");
+		headerButton.setAttribute("class", "btn btn-primary min-with--nav");
+	}
 
-	document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").innerHTML = languageNameSpace.labels['FINISH']
-	$("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton").addClass( "close " )
+	const prevButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-prevbutton");
+	if (prevButton) {
+		prevButton.innerHTML = languageNameSpace.labels['FINISH'];
+		prevButton.classList.add("close");
+	}
 
 	traptutorialfocus()
 }
 
 function closeTutorial() {
 	buttonTimer = setTimeout("introJs().exit()", 4000);	
-	isOpen = false
-	$('button#infoBtn').focus();
+	isOpen = false;
+	const infoBtn = document.querySelector('button#infoBtn');
+	if (infoBtn) {
+		infoBtn.focus();
+	}
 }
 
-btn = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton")
-$(document).on('click', btn, function() {
-	clearTimeout(buttonTimer)	
-});
+const nextButton = document.querySelector("body > div.introjs-tooltipReferenceLayer > div > div.introjs-tooltipbuttons > a.introjs-button.introjs-nextbutton");
+if (nextButton) {
+	nextButton.addEventListener('click', function() {
+		clearTimeout(buttonTimer);
+	});
+}
 
 function closeProcess(params) {
 	event.preventDefault();
-	introJs().exit()
+	introJs().exit();
 	buttonTimer = setTimeout("introJs().exit()", 4000);
 	clearTimeout(buttonTimer);
 	document.querySelector("#tb-tutorial-btn");
 	// const button = document.getElementById('tb-tutorial-btn');
 	// button.focus();
-	$('button#infoBtn').focus();
+	const infoBtn = document.querySelector('button#infoBtn');
+	if (infoBtn) {
+		infoBtn.focus();
+	}
 	isOpen = false
 }
 
