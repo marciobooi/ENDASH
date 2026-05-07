@@ -834,10 +834,10 @@ function enableScreenREader(params) {
 
       elements.forEach(element => {
           // Select elements within the current element
-          $(".containerNav > div > h2").addClass('pulsate')
-          $(".containerNav > div > p").addClass('pulsate')
-          $(".containerNav > button").addClass('pulsate')
-          $("div.skeletonContainer").removeClass('d-none')
+        document.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.add('pulsate'));
+        document.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.add('pulsate'));
+        document.querySelectorAll(".containerNav > button").forEach(el => el.classList.add('pulsate'));
+        document.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.remove('d-none'));
       });
 }
 
@@ -849,11 +849,11 @@ function unloadSkeleton() {
 
   elements.forEach(element => {
       // Deactivate pulsate effect
-      $(".containerNav > div > h2").removeClass('pulsate');
-      $(".containerNav > div > p").removeClass('pulsate');
-      $(".containerNav > button").removeClass('pulsate');
+      document.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.remove('pulsate'));
+      document.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.remove('pulsate'));
+      document.querySelectorAll(".containerNav > button").forEach(el => el.classList.remove('pulsate'));
       // Hide skeleton container
-      $("div.skeletonContainer").addClass('d-none');
+      document.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.add('d-none'));
   });
 }
 

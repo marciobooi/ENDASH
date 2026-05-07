@@ -1,4 +1,4 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Function to perform a custom smooth scroll animation
     function customSmoothScroll(targetY, duration) {
         const startingY = window.scrollY;

@@ -12,24 +12,18 @@ var languageNameSpace = {
     
     languageNameSpace.languageSelected = language;
 
-    $.ajaxSetup({
-      async: false,
-    });  
-    $.getJSON("data/translations.json", function (data) {
-      for (let key in data) {
-        if (data[key][language]) {
-          languageNameSpace.labels[key] = data[key][language];
+    Promise.all([
+      fetch("data/translations.json").then(response => response.json()),
+      fetch("data/tutorial_" + language + ".json").then(response => response.json())
+    ]).then(([translations, tutorial]) => {
+      for (let key in translations) {
+        if (translations[key][language]) {
+          languageNameSpace.labels[key] = translations[key][language];
         }
       }
-    }).then(
-      $.getJSON("data/tutorial_" + language + ".json", function (data) {
-        languageNameSpace.tutorial = data;
-      })
-    );
-    $.ajaxSetup({
-      async: true,
-    }); 
-        populateCountries();
+
+      languageNameSpace.tutorial = tutorial;
+      populateCountries();
 
     const translateElements = (selector, attribute, targetAttr = "text") => {
       document.querySelectorAll(selector).forEach(element => {
@@ -43,18 +37,21 @@ var languageNameSpace = {
       });
     };
 
-    translateElements("[data-i18n]", "i18n", "text");
-    translateElements("[data-i18n-label]", "i18n-label", "aria-label");
-    translateElements("[data-i18n-labelledby]","i18n-labelledby","aria-labelledby");
-    translateElements("[data-i18n-title]", "i18n-title", "title");
-    translateElements("optgroup[data-i18n-label]", "i18n-label", "label");   
+      translateElements("[data-i18n]", "i18n", "text");
+      translateElements("[data-i18n-label]", "i18n-label", "aria-label");
+      translateElements("[data-i18n-labelledby]","i18n-labelledby","aria-labelledby");
+      translateElements("[data-i18n-title]", "i18n-title", "title");
+      translateElements("optgroup[data-i18n-label]", "i18n-label", "label");   
 
 
-    document.documentElement.lang = language.toLowerCase();
+      document.documentElement.lang = language.toLowerCase();
 
-setTimeout(() => {
-      enableTooltips()
-}, 500);
+      setTimeout(() => {
+        enableTooltips()
+      }, 500);
+    }).catch((error) => {
+      console.error("Language loading error:", error);
+    });
   },
 
 

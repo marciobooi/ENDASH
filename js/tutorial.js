@@ -185,8 +185,10 @@ if (nextButton) {
 	});
 }
 
-function closeProcess(params) {
-	event.preventDefault();
+function closeProcess(evt) {
+	if (evt) {
+		evt.preventDefault();
+	}
 	introJs().exit();
 	buttonTimer = setTimeout("introJs().exit()", 4000);
 	clearTimeout(buttonTimer);
@@ -200,20 +202,16 @@ function closeProcess(params) {
 	isOpen = false
 }
 
-$(document).on("click keydown", "#tutorialClose", function(event) {
-	const isClickEvent = event.type === "click";
-	const isKeyEvent = event.type === "keydown" && (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13);
-	if (isClickEvent || isKeyEvent) {
-		closeProcess();
+document.addEventListener("click", function(event) {
+	if (event.target.closest("#tutorialClose") || event.target.closest(".close")) {
+		closeProcess(event);
 	}
-  });
+});
 
-
-$(document).on("click keydown", ".close", function(event) {
-	const isClickEvent = event.type === "click";
-	const isKeyEvent = event.type === "keydown" && (event.key === "Escape" || event.key === "Enter" || event.keyCode === 13);
-	if (isClickEvent || isKeyEvent) {
-		closeProcess();
+document.addEventListener("keydown", function(event) {
+	const isKeyEvent = event.key === "Escape" || event.key === "Enter" || event.keyCode === 13;
+	if (isKeyEvent && (event.target.closest("#tutorialClose") || event.target.closest(".close"))) {
+		closeProcess(event);
 	}
 });
 
