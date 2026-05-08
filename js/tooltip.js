@@ -157,7 +157,6 @@ class TooltipManager {
     tooltip.textContent = text;
     tooltip.setAttribute('role', 'tooltip');
     tooltip.setAttribute('aria-hidden', 'true');
-    tooltip.setAttribute('tabindex', '0'); // Make tooltip focusable
     tooltip.id = `tooltip-${buttonId || Math.random().toString(36).substr(2, 9)}`;
     
     // Apply styles
@@ -198,8 +197,9 @@ class TooltipManager {
       this.hideTooltip(tooltip);
     });
     
-    // Append to body to keep fixed-position coordinates stable.
-    document.body.appendChild(tooltip);
+    // Append to main landmark when available to keep content within landmark regions.
+    const landmarkContainer = document.querySelector('main') || document.body;
+    landmarkContainer.appendChild(tooltip);
     return tooltip;
   }
 

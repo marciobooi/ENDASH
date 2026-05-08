@@ -85,11 +85,8 @@ class ChartContainer {
       const chartItem = document.createElement('div');
       chartItem.classList.add('flex-item', 'chartContainer');
       chartItem.id = `chart_${i + 1}`;
-      chartItem.tabIndex = 0;
       chartItem.draggable = true;
-      // Acts as an interactive expander; button role supports aria-expanded.
-      chartItem.setAttribute('role', 'button');
-      chartItem.setAttribute('aria-expanded', 'false');
+      chartItem.setAttribute('data-expanded', 'false');
       chartItem.addEventListener('dragstart', this.handleDragStart.bind(this));
       chartItem.addEventListener('dragover', this.handleDragOver.bind(this));
       chartItem.addEventListener('drop', this.handleDrop.bind(this));
@@ -186,7 +183,7 @@ class ChartContainer {
       if(!$(chartContainer).hasClass('expand')){       
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
         chartContainer.classList.add('expand');
-        chartContainer.setAttribute('aria-expanded', 'true');
+        chartContainer.setAttribute('data-expanded', 'true');
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  
         // REF.compare = true

@@ -89,6 +89,12 @@ select:focus option:focus {
     cursor: pointer;
 }
 
+.ecl-site-header__language-item.ecl-site-header__language-link--active .ecl-site-header__language-link-label,
+.ecl-site-header__language-item.ecl-site-header__language-link--active .ecl-site-header__language-link-code {
+  color: #1f1f1f;
+  font-weight: 600;
+}
+
 
 
 
