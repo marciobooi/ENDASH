@@ -372,7 +372,7 @@ text.highcharts-axis-title {
    text-decoration: underline
  }
 
- .tooltip {
+ .endash-tooltip {
   position: absolute;
   background:rgba(255, 255, 255, 0.94);
   padding: 5px 10px;
@@ -386,7 +386,9 @@ text.highcharts-axis-title {
   border-radius: 10px;
 }
 
-.tooltip.visible {
+.endash-tooltip.visible,
+.endash-tooltip.show,
+.endash-tooltip[data-show="true"] {
   opacity: 1;
   pointer-events: auto;
 }

@@ -9,6 +9,17 @@ var languageNameSpace = {
   // Apply translations to all data-i18n* elements currently in the DOM.
   // Safe to call multiple times (e.g. after dynamic components are injected).
   applyTranslations: function () {
+    const updateLanguageToggleAriaLabel = () => {
+      const toggleBtn = document.getElementById("toggleLanguageBtn");
+      if (!toggleBtn) return;
+
+      const selectedTextElement = document.getElementById("lang-selection-text");
+      const selectedLanguage = selectedTextElement ? selectedTextElement.textContent.trim() : "";
+      const prefix = languageNameSpace.labels["SELECTLANGUAGELABEL"] || "Change language, current language is ";
+
+      toggleBtn.setAttribute("aria-label", `${prefix}${selectedLanguage}`);
+    };
+
     const translateElements = (selector, attribute, targetAttr = "text") => {
       document.querySelectorAll(selector).forEach(element => {
         const key = element.getAttribute("data-" + attribute);
@@ -26,6 +37,9 @@ var languageNameSpace = {
     translateElements("[data-i18n-labelledby]", "i18n-labelledby", "aria-labelledby");
     translateElements("[data-i18n-title]", "i18n-title", "title");
     translateElements("optgroup[data-i18n-label]", "i18n-label", "label");
+
+    // The language toggle aria-label needs dynamic suffix with current language.
+    updateLanguageToggleAriaLabel();
 
     document.documentElement.lang = languageNameSpace.languageSelected.toLowerCase();
   },
@@ -54,6 +68,9 @@ var languageNameSpace = {
       languageNameSpace.applyTranslations();
 
       setTimeout(() => {
+        if (typeof cleanupTooltips === "function") {
+          cleanupTooltips();
+        }
         enableTooltips();
       }, 500);
     }).catch((error) => {

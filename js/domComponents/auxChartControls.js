@@ -18,8 +18,8 @@ class ChartControls {
                 <i class="fas fa-info"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" data-i18n="METADATA" data-i18n-label="METADATA" value="Metadata"></button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" data-i18n="DB" data-i18n-label="DB" value="Dataset"></button>
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" data-i18n="METADATA" data-i18n-label="METADATA" aria-label="Metadata" value="Metadata">Metadata</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" data-i18n="DB" data-i18n-label="DB" aria-label="Dataset" value="Dataset">Dataset</button>
               </ul>
             </li>
             <li class="nav-item button" id="closeChart" role="none"></li>
@@ -188,6 +188,11 @@ class ChartControls {
     document.getElementById("closeChart").appendChild(closeChart.createButton());
 
     lineChart.setDisabled(true);
+
+    // Chart controls are dynamic (created on expand), so attach tooltip handlers now.
+    if (typeof enableTooltips === "function") {
+      setTimeout(() => enableTooltips(), 0);
+    }
   }
 
   removeFromDOM() {

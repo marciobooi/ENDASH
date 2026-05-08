@@ -219,7 +219,17 @@ function addAuxiliarBarGraphOptions() {
   
   footerElement.style.justifyContent = 'space-between';
 
+  // Expanded controls are dynamic, so translate them immediately.
+  if (typeof languageNameSpace !== "undefined" && typeof languageNameSpace.applyTranslations === "function") {
+    languageNameSpace.applyTranslations();
+  }
+
   showHideTimeLine()
+
+  // Aux chart controls are injected dynamically on expand, so bind tooltips now.
+  if (typeof enableTooltips === "function") {
+    setTimeout(() => enableTooltips(), 0);
+  }
 }
 
 function removeAuxiliarBarGraphOptions() {
@@ -278,6 +288,11 @@ log('here')
   auxiliarBarGraphOptions.removeFromDOM("#subnavbar-container");
 
   getTitle()
+
+  // Rebuilt chart cards recreate expand buttons, so bind tooltips again.
+  if (typeof enableTooltips === "function") {
+    setTimeout(() => enableTooltips(), 0);
+  }
 
   $(".containerNav").css('visibility', 'initial')
   const footerElement = document.querySelector("#componentFooter > footer");  
@@ -587,6 +602,11 @@ switch (REF.chartType) {
   document.querySelectorAll('.expandChart').forEach((element) => {
     element.style.display = hasExpanded ? 'none' : 'initial';
   });
+
+  // Expand button is injected by this function, so ensure tooltip handler is attached.
+  if (typeof enableTooltips === "function") {
+    setTimeout(() => enableTooltips(), 0);
+  }
 
   return title;
  

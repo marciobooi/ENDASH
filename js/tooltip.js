@@ -6,6 +6,7 @@
 
 class TooltipManager {
   constructor() {
+    this.tooltipClassName = 'endash-tooltip';
     this.visibleTooltips = new Set();
     this.tooltipElements = new Map(); // Cache tooltip elements
     this.escListenerAdded = false;
@@ -34,7 +35,7 @@ class TooltipManager {
     }
     
     // Remove all existing tooltip elements
-    const existingTooltips = document.querySelectorAll('.tooltip');
+    const existingTooltips = document.querySelectorAll(`.${this.tooltipClassName}`);
     existingTooltips.forEach(tooltip => tooltip.remove());
     
     // Clear caches and reset state
@@ -53,7 +54,7 @@ class TooltipManager {
     this.escListenerAdded = false;
     
     // Clean up specific chart-related buttons
-    const buttonsToClean = document.querySelectorAll(".chartIcon, #auxChartControls button, #dataTableContainer button");
+    const buttonsToClean = document.querySelectorAll(".button");
     buttonsToClean.forEach(button => {
       const newButton = button.cloneNode(true);
       button.parentNode?.replaceChild(newButton, button);
@@ -119,25 +120,25 @@ class TooltipManager {
    */
   positionTooltip(tooltip, button) {
     const rect = button.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    const scrollX = window.scrollX;
     const tooltipRect = tooltip.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    let left = rect.left + scrollX + rect.width / 2 - tooltipRect.width / 2;
-    let top = rect.top + scrollY - tooltipRect.height - this.TOOLTIP_OFFSET;
+    // Use viewport coordinates with fixed positioning to avoid offset bugs
+    // caused by positioned/translated ancestors.
+    let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
+    let top = rect.top - tooltipRect.height - this.TOOLTIP_OFFSET;
 
     // Horizontal boundary checking
-    if (left < scrollX + 5) {
-      left = scrollX + 5; // Left edge with padding
-    } else if (left + tooltipRect.width > scrollX + viewportWidth - 5) {
-      left = scrollX + viewportWidth - tooltipRect.width - 5; // Right edge with padding
+    if (left < 5) {
+      left = 5; // Left edge with padding
+    } else if (left + tooltipRect.width > viewportWidth - 5) {
+      left = viewportWidth - tooltipRect.width - 5; // Right edge with padding
     }
 
     // Vertical boundary checking - show below if no space above
-    if (top < scrollY + 5) {
-      top = rect.bottom + scrollY + this.TOOLTIP_OFFSET;
+    if (top < 5) {
+      top = rect.bottom + this.TOOLTIP_OFFSET;
       tooltip.classList.add('tooltip-below');
     } else {
       tooltip.classList.remove('tooltip-below');
@@ -152,7 +153,7 @@ class TooltipManager {
    */
   createTooltip(text, buttonId) {
     const tooltip = document.createElement("div");
-    tooltip.className = "tooltip";
+    tooltip.className = this.tooltipClassName;
     tooltip.textContent = text;
     tooltip.setAttribute('role', 'tooltip');
     tooltip.setAttribute('aria-hidden', 'true');
@@ -161,7 +162,7 @@ class TooltipManager {
     
     // Apply styles
     Object.assign(tooltip.style, {
-      position: "absolute",
+      position: "fixed",
       visibility: "hidden",
       opacity: "0",
       transition: "opacity 0.1s ease-in-out",
@@ -197,14 +198,8 @@ class TooltipManager {
       this.hideTooltip(tooltip);
     });
     
-    // Append to main landmark to ensure content is contained by landmarks (WCAG 2.1)
-    const mainElement = document.querySelector('main');
-    if (mainElement) {
-      mainElement.appendChild(tooltip);
-    } else {
-      // Fallback to body if main element doesn't exist
-      document.body.appendChild(tooltip);
-    }
+    // Append to body to keep fixed-position coordinates stable.
+    document.body.appendChild(tooltip);
     return tooltip;
   }
 
@@ -301,11 +296,17 @@ class TooltipManager {
     }
 
     buttons.forEach((button) => {
-      // Skip if already processed
-      if (this.tooltipElements.has(button)) return;
-
       const tooltipText = button.getAttribute("title") || button.getAttribute("aria-label");
       if (!tooltipText) return;
+
+      // If this button already has a tooltip, refresh its text and keep handlers.
+      if (this.tooltipElements.has(button)) {
+        const existingTooltip = this.tooltipElements.get(button);
+        if (existingTooltip) {
+          existingTooltip.textContent = tooltipText;
+        }
+        return;
+      }
 
       // Ensure button has an ID for accessibility
       if (!button.id) {
