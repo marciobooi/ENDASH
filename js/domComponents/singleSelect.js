@@ -23,8 +23,9 @@ class Singleselect {
 
         const singleSelectHTML = `
             <div class="ecl-form-group" role="application">
+                <label for="${this.elementId}" class="ecl-u-sr-only" data-i18n="MENU_COUNTRY"></label>
                 <div class="ecl-select__container ecl-select__container--l">
-                    <select class="ecl-select" id="${this.elementId}" name="country" required="">
+                    <select class="ecl-select" id="${this.elementId}" name="country" required="" data-i18n-label="MENU_COUNTRY" aria-label="Country">
                         <optgroup data-i18n-label="AGGREGATE">
                             ${AGGREGATES_COUNTRY_CODES.map(elm => `<option value="${elm}" ${this.activeElement[0] === elm  || this.activeElement === elm ? 'selected' : ''} data-i18n=${elm}></option>`).join('')}
                         </optgroup>

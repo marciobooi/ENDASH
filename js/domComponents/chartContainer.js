@@ -87,7 +87,8 @@ class ChartContainer {
       chartItem.id = `chart_${i + 1}`;
       chartItem.tabIndex = 0;
       chartItem.draggable = true;
-      chartItem.setAttribute('role', 'option');
+      // Acts as an interactive expander; button role supports aria-expanded.
+      chartItem.setAttribute('role', 'button');
       chartItem.setAttribute('aria-expanded', 'false');
       chartItem.addEventListener('dragstart', this.handleDragStart.bind(this));
       chartItem.addEventListener('dragover', this.handleDragOver.bind(this));
