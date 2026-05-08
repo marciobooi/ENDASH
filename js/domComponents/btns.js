@@ -39,6 +39,10 @@ class Button {
         this.buttonElement.setAttribute("value", this.value);
         this.buttonElement.setAttribute("data-i18n-label", this.ariaLabel);
         this.buttonElement.setAttribute("data-i18n-title", this.ariaLabel);
+        // Resolve label immediately (labels are already loaded when components build)
+        const resolvedLabel = (languageNameSpace && languageNameSpace.labels && languageNameSpace.labels[this.ariaLabel]) || this.ariaLabel;
+        this.buttonElement.setAttribute("aria-label", resolvedLabel);
+        this.buttonElement.setAttribute("title", resolvedLabel);
         this.buttonElement.innerHTML = this.innerHtml;
         // Apply other accessibility parameters as needed
         if (this.clickHandler) {

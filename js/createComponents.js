@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Load labels first, then build components so charts render with translated strings.
   languageNameSpace.initLanguage(REF.language).then(() => {
     buildComponents();
+    // Re-run translation pass so dynamically-created components (footer, navbar)
+    // get their data-i18n text filled in.
+    languageNameSpace.applyTranslations();
     checkAndShowTutorial();
   }).catch((err) => {
     console.error("initLanguage failed on startup", err);

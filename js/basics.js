@@ -474,7 +474,6 @@ function tooltipTable(points) {
       const value = point.y.toFixed(2); // Limit decimals to three places
       const category = point.series.name;    
 
-      log(category)
 
       if(REF.details != 0) {
         html += `<tr>
@@ -881,54 +880,6 @@ function sortByName(array) {
           return 1; // a should come after b
       }
       return 0; // a and b are equal
-  });
-}
-
-
-function enableTooltips() {
-  // Select all button elements with data-i18n-title or data-i18n-label attributes
-  const buttons = document.querySelectorAll("button[title], button[aria-label]");
-
-  buttons.forEach((button) => {
-    // Get the tooltip content from data-i18n-title or data-i18n-label
-    const tooltipText =
-      button.getAttribute("title") || button.getAttribute("aria-label");
-    if (!tooltipText) return; // Skip if neither attribute exists
-
-    // Remove the title attribute to prevent default browser tooltip
-    if (button.hasAttribute("title")) {
-      button.removeAttribute("title");
-    }
-
-    // Create tooltip element
-    const tooltip = document.createElement("div");
-    tooltip.className = "tooltip";
-    tooltip.textContent = tooltipText; // Add the content
-    document.body.appendChild(tooltip);
-
-    // Position tooltip
-    const positionTooltip = (element) => {
-      const rect = element.getBoundingClientRect();
-      tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
-      tooltip.style.top = `${rect.top - tooltip.offsetHeight - 6}px`;
-    };
-
-    // Show tooltip
-    const showTooltip = (event) => {
-      tooltip.classList.add("visible");
-      positionTooltip(event.target);
-    };
-
-    // Hide tooltip
-    const hideTooltip = () => {
-      tooltip.classList.remove("visible");
-    };
-
-    // Event listeners for both mouse and keyboard interactions
-    button.addEventListener("mouseover", showTooltip);
-    button.addEventListener("mouseout", hideTooltip);
-    button.addEventListener("focus", showTooltip); // For keyboard focus
-    button.addEventListener("blur", hideTooltip); // Hide on blur
   });
 }
 

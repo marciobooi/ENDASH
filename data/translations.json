@@ -556,6 +556,11 @@
     "DE": "Datensatz",
     "FR": "Jeu de données"
   },
+  "METADATA": {
+    "EN": "Metadata",
+    "DE": "Metadaten",
+    "FR": "Métadonnées"
+  },
   "MSG_BROWSER": {
     "EN": "Browser does not support HTML5.",
     "FR": "Le navigateur ne prend pas en charge HTML5.",

@@ -18,8 +18,8 @@ class ChartControls {
                 <i class="fas fa-info"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" role="menu" aria-labelledby="infoBtn">
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" aria-label="${languageNameSpace.labels["meta"]}" value="Metadata">${languageNameSpace.labels["meta"]}</button>
-                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" aria-label="${languageNameSpace.labels["DB"]}" value="Dataset">${languageNameSpace.labels["DB"]}</button>
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openMeta()" data-i18n="METADATA" data-i18n-label="METADATA" value="Metadata"></button>
+                <button class="dropdown-item ecl-link ecl-link--standalone" role="menuitem" onclick="openDataset()" data-i18n="DB" data-i18n-label="DB" value="Dataset"></button>
               </ul>
             </li>
             <li class="nav-item button" id="closeChart" role="none"></li>
