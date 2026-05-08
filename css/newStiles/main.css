@@ -392,3 +392,7 @@ text.highcharts-axis-title {
   opacity: 1;
   pointer-events: auto;
 }
+
+#globan .wt-globan--invalid-domain {
+  display: none;
+}

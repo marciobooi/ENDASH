@@ -5,7 +5,7 @@ class ChartControls {
     const notMobileContent = /*html*/ `
       <nav aria-label="Chart controls" id="chartControls" class="navbar navbar-expand-sm navChartControls">
         <div class="menu">
-          <ul id="chartBtns" aria-label="options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
             <li class="nav-item button px-1" id="toggleBarChart" role="none"></li>
             <li class="nav-item button px-1" id="togglePieChart" role="none"></li>
             <li class="nav-item button px-1" id="toggleLineChart" role="none"></li>
