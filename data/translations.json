@@ -289,6 +289,16 @@
     "DE": "Diagramm einbetten (iframe)",
     "FR": "Intégrer le graphique (iframe)"
   },
+  "MODAL_COPY_URL": {
+    "EN": "Copy the URL",
+    "DE": "URL kopieren",
+    "FR": "Copier l'URL"
+  },
+  "BTNCLOSECHART": {
+    "EN": "Close",
+    "DE": "Schließen",
+    "FR": "Fermer"
+  },
   "AGGREGATE": {
     "EN": "Aggregates",
     "DE": "Aggregate",

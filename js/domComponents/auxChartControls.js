@@ -178,14 +178,38 @@ class ChartControls {
       removeAuxiliarBarGraphOptions();
     });
 
-    document.getElementById("toggleBarChart").appendChild(barChart.createButton());
-    document.getElementById("togglePieChart").appendChild(pieChart.createButton());
-    document.getElementById("toggleLineChart").appendChild(lineChart.createButton());
-    document.getElementById("toggleAuxTable").appendChild(table.createButton());
-    document.getElementById("downloadChart").appendChild(downloadChart.createButton());
-    document.getElementById("downloadExcel").appendChild(downloadExcel.createButton());
-    document.getElementById("embebedChart").appendChild(embebedeChart.createButton());
-    document.getElementById("closeChart").appendChild(closeChart.createButton());
+    const barChartButton = barChart.createButton();
+    const pieChartButton = pieChart.createButton();
+    const lineChartButton = lineChart.createButton();
+    const tableButton = table.createButton();
+    const downloadChartButton = downloadChart.createButton();
+    const downloadExcelButton = downloadExcel.createButton();
+    const embebedeChartButton = embebedeChart.createButton();
+    const closeChartButton = closeChart.createButton();
+
+    // Defensive fallback: keep an inline onclick attribute so modal opening
+    // still works even if external DOM re-inits replace event listeners.
+    embebedeChartButton.setAttribute("onclick", "exportIframe()");
+
+    [
+      barChartButton,
+      pieChartButton,
+      lineChartButton,
+      tableButton,
+      downloadChartButton,
+      downloadExcelButton,
+      embebedeChartButton,
+      closeChartButton,
+    ].forEach((button) => button.setAttribute("role", "menuitem"));
+
+    document.getElementById("toggleBarChart").appendChild(barChartButton);
+    document.getElementById("togglePieChart").appendChild(pieChartButton);
+    document.getElementById("toggleLineChart").appendChild(lineChartButton);
+    document.getElementById("toggleAuxTable").appendChild(tableButton);
+    document.getElementById("downloadChart").appendChild(downloadChartButton);
+    document.getElementById("downloadExcel").appendChild(downloadExcelButton);
+    document.getElementById("embebedChart").appendChild(embebedeChartButton);
+    document.getElementById("closeChart").appendChild(closeChartButton);
 
     lineChart.setDisabled(true);
 

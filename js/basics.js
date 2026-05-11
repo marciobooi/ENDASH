@@ -624,7 +624,7 @@ function credits() {
       Eurostat - 
       <tspan
         id="dataset-link-${REF.chartId || 'default'}"
-        tabindex="1"
+        tabindex="0"
         role="link"
         aria-label="Eurostat dataset link: ${datasetURL}"
         title="Eurostat dataset link"

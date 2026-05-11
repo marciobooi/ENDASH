@@ -90,7 +90,7 @@ i.fas.fa-caret-down {
 .dropdown-item:focus-visible {
   color: black;
   background-color: var(--tool-3);
-  outline: -webkit-focus-ring-color auto 0px;
+  /* outline: -webkit-focus-ring-color auto 0px; */
 }
 
 a.dropdown-item.selected {
@@ -120,9 +120,7 @@ ul.dropdown-menu {
   border: none;
   font-size: 31px;
   color: #000;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  
   background-color: transparent;
   border-color: var(--bs-btn-active-border-color);
   width: 2rem;

@@ -1,22 +1,43 @@
 
 function exportIframe() {
-    REF.share = true
+    REF.share = true;
 
-    $(".ecl-modal__header-content").html(languageNameSpace.labels["EMBEDDED"]);
-    $('.targetUrl').html(window.location.href)     
- 
     const modal = document.getElementById('iframeModal');
+    if (!modal) return;
 
-    // Open the modal
-    modal.showModal();
+    const header = modal.querySelector('.ecl-modal__header-content');
+    const targetUrl = modal.querySelector('.targetUrl');
+    const embeddedTitle =
+      (typeof languageNameSpace !== 'undefined' &&
+        languageNameSpace.labels &&
+        languageNameSpace.labels["EMBEDDED"]) ||
+      "Embedded chart iframe";
 
-    ECL.autoInit();
+    if (header) {
+      header.textContent = embeddedTitle;
+    }
+    if (targetUrl) {
+      targetUrl.textContent = window.location.href;
+    }
+
+    // Open the modal only if not already open.
+    if (!modal.open) {
+      modal.showModal();
+    }
+
+    if (typeof ECL !== 'undefined' && typeof ECL.autoInit === 'function') {
+      ECL.autoInit();
+    }
 }
 
 
 
 function closeModalUrl(params) {
-    REF.share = false
+    REF.share = false;
+    const modal = document.getElementById('iframeModal');
+    if (modal && modal.open) {
+      modal.close();
+    }
 }
 
 function copyUrl() {

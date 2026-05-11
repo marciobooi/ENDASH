@@ -146,7 +146,10 @@ toggleDropdown() {
   var dropdown = this.langSelection.nextElementSibling;
   dropdown.classList.toggle("visible");
 
-  document.querySelector("#toggleLanguageBtn").focus()
+  const isNowVisible = dropdown.classList.contains("visible");
+  if (!isNowVisible) {
+    document.querySelector("#toggleLanguageBtn").focus();
+  }
 }
 
 handleButtonKeyDown(event) {

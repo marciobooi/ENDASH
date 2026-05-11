@@ -95,7 +95,7 @@ li > button {
 button:focus,
 .input:focus {
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    border: 2px solid #0e47cb;
+    /* border: 2px solid #0e47cb; */
     background-color: white;
     color: #0e47cb;
     opacity: 1;
@@ -282,7 +282,7 @@ li > button {
 button:focus,
 .input:focus {
     box-shadow: 0 0 0 0.15rem #cca30000 !important;
-    border: 2px solid #0e47cb !important;
+    /* border: 2px solid #0e47cb !important; */
     background-color: white;
     color: #0e47cb !important;
     opacity: 1;
@@ -597,7 +597,7 @@ button#menu:focus, button#menu:active, button#menu:hover {
 .dropdown-item:focus, .dropdown-item:hover, .dropdown-item:focus-visible {
     color: white;
     background-color: var(--eublue);
-    outline: -webkit-focus-ring-color auto 0px;
+    /* outline: -webkit-focus-ring-color auto 0px; */
 }
 
 
@@ -627,10 +627,11 @@ button.tableRowIcon:focus {
 
 
   button#close:focus, button#close:hover {
-    color: white;
-    background-color: #3e6cd5;
-    border-color: #3e6cd5;
+    color: white !important;
+    background-color: #3e6cd5 !important;
+    border-color: #3e6cd5 !important;
   }
+
   button#share:focus, button#share:hover {
     background-color: #fff;
     color: #0e47cb;
@@ -648,7 +649,7 @@ button.tableRowIcon:focus {
 .ecl-button--primary:active, .ecl-button--primary:hover {
     background-color: #3e6cd5 !important;
     background-color: #fff;
-    border: 2px solid #0e47cb !important;
+    /* border: 2px solid #0e47cb !important; */
     color: #0e47cb !important;
 }
 
@@ -712,5 +713,12 @@ button.tableRowIcon:focus {
     opacity:0.7;
 }
 
+
+
+
+
+#share{
+
+}
 
 /* document.querySelector("#tb-togle-details > span > i:nth-child(2)") */

@@ -391,8 +391,40 @@ text.highcharts-axis-title {
 .endash-tooltip[data-show="true"] {
   opacity: 1;
   pointer-events: auto;
+      z-index: 99999999999999999999 !important;
+
 }
 
 #globan .wt-globan--invalid-domain {
   display: none;
+}
+
+
+
+.ecl-button:hover:not(:disabled), .round-btn:active {
+    box-shadow: 0 2px 4px rgba(9, 49, 142, .08), 0 0 10px rgba(9, 49, 142, .04), 0 4px 5px rgba(9, 49, 142, .04), 0 -4px 4px rgba(9, 49, 142, .04);
+    background-color: #fff;
+    color: #0e47cb;
+    border: 2px solid #0e47cb;
+    box-shadow: 0 0 0 0.15rem #cca30000 !important;
+    border: 1px solid #0e47cb !important;
+    background-color: white !important;
+    color: #0e47cb !important;
+    opacity: 1;
+    pointer-events: auto;
+}
+[type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.ecl-button:active, .ecl-button:hover {
+    box-shadow: 0 2px 4px rgb(9 49 142 / 8%), 0 0 10px rgb(9 49 142 / 4%), 0 4px 5px rgb(9 49 142 / 4%), 0 -4px 4px rgb(9 49 142 / 4%);
+    text-decoration: none;
+}
+
+
+    
+    .ecl-button--primary[disabled] {
+
+    opacity: .7;
+     border: 2px solid #0e47cb;
 }

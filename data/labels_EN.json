@@ -427,6 +427,7 @@
 "BTNCLOSECHART": "Close",
 "BTNPRINTCHART": "Download chart as image",
 "BTNEXCELCHART": "Download chart data",
+"MODAL_COPY_URL": "Copy the URL",
 
 
 
