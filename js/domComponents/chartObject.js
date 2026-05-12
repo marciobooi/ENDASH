@@ -65,6 +65,7 @@ class Chart {
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
           useHTML: true,    
+          outside: !REF.chartExpanded,
           padding: 0,         
         },
         accessibility: {

@@ -430,6 +430,7 @@ tooltip = function () {
 
 
 function tooltipTable(points) {
+  const valueColumnHeader = REF.percentage == 1 ? '%' : (REF.unit || '');
   
   if(REF.percentage == 1 ){
     let html = "";
@@ -442,7 +443,7 @@ function tooltipTable(points) {
                 <thead>
                   <tr>
                     <th scope="cols">${categoryValue}</th>                    
-                    <th scope="cols"></th>                    
+                    <th scope="cols">${valueColumnHeader}</th>                    
                   </tr>
                 </thead>`
       points.forEach(element => {
@@ -480,7 +481,7 @@ function tooltipTable(points) {
       <thead>
         <tr>
           <th scope="cols">${categoryValue}</th>                    
-          <th scope="cols"></th>                    
+          <th scope="cols">${valueColumnHeader}</th>                    
         </tr>
       </thead>`;
     
