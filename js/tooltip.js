@@ -13,7 +13,7 @@ class TooltipManager {
     this.resizeHandler = null;
     this.TOOLTIP_OFFSET = 10;
     this.SHOW_DELAY = 200; // Delay before showing tooltip
-    this.HIDE_DELAY = 100;  // Delay before hiding tooltip
+    this.HIDE_DELAY = 20;  // Keep tiny delay to avoid flicker while moving quickly
     this.showTimeout = null;
     this.hideTimeout = null;
     this.currentMode = null; // Track current interaction mode: 'mouse' or 'keyboard'
@@ -164,7 +164,7 @@ class TooltipManager {
       position: "fixed",
       visibility: "hidden",
       opacity: "0",
-      transition: "opacity 0.1s ease-in-out",
+      transition: "opacity 0.04s linear",
       zIndex: "10000"
     });
     

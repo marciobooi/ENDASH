@@ -64,6 +64,8 @@ class Chart {
           footerFormat: 'Sum: <b>{point.total}</b>',
           valueDecimals: REF.dataset == "demo_pjan" ? 0 : 3,
           shared: true,
+          hideDelay: 0,
+          animation: false,
           useHTML: true,    
           outside: !REF.chartExpanded,
           padding: 0,         
