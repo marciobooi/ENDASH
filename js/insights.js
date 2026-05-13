@@ -1,7 +1,8 @@
 /*
  * insights.js
  * Lightweight insights views for selected chart context.
- * - Energy insights: summary cards and global overview
+ * - Energy insights: chart-level summary cards
+ * - Global insights: data-story / infographic overview using codesDataset metadata
  */
 
 function formatInsightNumber(value) {
@@ -16,6 +17,283 @@ function escapeInsightText(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+const chartStoryConfig = {
+  chart_1: {
+    group: "headline",
+    icon: "⚡",
+    storyTitle: "Energy efficiency",
+    insightRole: "Tracks final and primary energy consumption against policy indicators.",
+    preferredMetric: "latest-and-change",
+    sentiment: "lower-is-better"
+  },
+  chart_2: {
+    group: "headline",
+    icon: "🌱",
+    storyTitle: "Renewable energy",
+    insightRole: "Shows the share of renewable energy across total, transport, electricity and heating/cooling.",
+    preferredMetric: "percentage-point-change",
+    sentiment: "higher-is-better"
+  },
+  chart_3: {
+    group: "environment",
+    icon: "🌍",
+    storyTitle: "Energy-related greenhouse gas emissions",
+    insightRole: "Shows greenhouse gas emissions by source category.",
+    preferredMetric: "contributor-and-trend",
+    sentiment: "lower-is-better"
+  },
+  chart_4: {
+    group: "performance",
+    icon: "📉",
+    storyTitle: "Energy intensity",
+    insightRole: "Shows how much energy is used per unit of economic output.",
+    preferredMetric: "latest-and-change",
+    sentiment: "lower-is-better"
+  },
+  chart_5: {
+    group: "performance",
+    icon: "📈",
+    storyTitle: "Energy productivity",
+    insightRole: "Shows economic output generated per unit of energy used.",
+    preferredMetric: "latest-and-change",
+    sentiment: "higher-is-better"
+  },
+  chart_6: {
+    group: "security",
+    icon: "🛢️",
+    storyTitle: "Energy import dependency",
+    insightRole: "Shows dependency on energy imports by product.",
+    preferredMetric: "dependency-risk",
+    sentiment: "lower-is-better"
+  },
+  chart_7: {
+    group: "security",
+    icon: "⛽",
+    storyTitle: "Fossil fuels in gross available energy",
+    insightRole: "Shows the share of fossil fuels in gross available energy.",
+    preferredMetric: "percentage-point-change",
+    sentiment: "lower-is-better"
+  },
+  chart_8: {
+    group: "context",
+    icon: "👥",
+    storyTitle: "Population context",
+    insightRole: "Provides demographic context for energy indicators.",
+    preferredMetric: "context",
+    sentiment: "neutral"
+  },
+  chart_9: {
+    group: "consumption",
+    icon: "🔥",
+    storyTitle: "Final energy consumption by product",
+    insightRole: "Shows which energy products dominate final consumption.",
+    preferredMetric: "top-driver-and-share",
+    sentiment: "contextual"
+  },
+  chart_10: {
+    group: "consumption",
+    icon: "🏭",
+    storyTitle: "Final energy consumption by sector",
+    insightRole: "Shows which sectors consume the most final energy.",
+    preferredMetric: "top-driver-and-share",
+    sentiment: "contextual"
+  },
+  chart_11: {
+    group: "households",
+    icon: "🏠",
+    storyTitle: "Household energy use",
+    insightRole: "Breaks down household energy consumption by end use.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_12: {
+    group: "transport",
+    icon: "🚆",
+    storyTitle: "Transport energy by fuel",
+    insightRole: "Shows the fuel mix used in transport.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_13: {
+    group: "transport",
+    icon: "🚗",
+    storyTitle: "Road transport energy by fuel",
+    insightRole: "Shows the fuel mix used in road transport.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_14: {
+    group: "consumption",
+    icon: "🏢",
+    storyTitle: "Services energy consumption",
+    insightRole: "Shows energy use in commercial and public services.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_15: {
+    group: "industry",
+    icon: "🏭",
+    storyTitle: "Industry energy consumption",
+    insightRole: "Shows the fuel mix used by industry.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_16: {
+    group: "industry",
+    icon: "🧪",
+    storyTitle: "Final non-energy consumption",
+    insightRole: "Shows products used for non-energy purposes.",
+    preferredMetric: "top-driver-and-trend",
+    sentiment: "contextual"
+  },
+  chart_17: {
+    group: "electricity",
+    icon: "🔌",
+    storyTitle: "Electricity and heat production",
+    insightRole: "Shows gross electricity and derived heat production by source.",
+    preferredMetric: "generation-mix",
+    sentiment: "contextual"
+  },
+  chart_18: {
+    group: "electricity",
+    icon: "⚙️",
+    storyTitle: "Electricity from combustible fuels",
+    insightRole: "Shows electricity production from combustible fuel types.",
+    preferredMetric: "generation-mix",
+    sentiment: "contextual"
+  },
+  chart_19: {
+    group: "social",
+    icon: "🏠",
+    storyTitle: "Energy poverty",
+    insightRole: "Shows population unable to keep home adequately warm.",
+    preferredMetric: "social-risk",
+    sentiment: "lower-is-better"
+  },
+  chart_20: {
+    group: "market",
+    icon: "🏦",
+    storyTitle: "Electricity market structure",
+    insightRole: "Shows market concentration and electricity market indicators.",
+    preferredMetric: "market-structure",
+    sentiment: "contextual"
+  },
+  chart_21: {
+    group: "supply",
+    icon: "📦",
+    storyTitle: "Gross available energy",
+    insightRole: "Shows available energy by product.",
+    preferredMetric: "top-driver-and-share",
+    sentiment: "contextual"
+  },
+  chart_22: {
+    group: "supply",
+    icon: "🔋",
+    storyTitle: "Total energy supply",
+    insightRole: "Shows total energy supply by product.",
+    preferredMetric: "top-driver-and-share",
+    sentiment: "contextual"
+  }
+};
+
+const insightGroups = {
+  headline: {
+    title: "Headline policy indicators",
+    description: "Core indicators used to understand energy transition progress.",
+    color: "#1f6fba",
+    order: 1
+  },
+  security: {
+    title: "Energy security and dependency",
+    description: "Dependence on imports and fossil fuels.",
+    color: "#b85c00",
+    order: 2
+  },
+  supply: {
+    title: "Energy supply",
+    description: "Gross available energy and total energy supply.",
+    color: "#4a5568",
+    order: 3
+  },
+  consumption: {
+    title: "Energy consumption patterns",
+    description: "How final energy consumption is distributed by product and sector.",
+    color: "#6b4eff",
+    order: 4
+  },
+  transport: {
+    title: "Transport energy",
+    description: "Fuel use in transport and road transport.",
+    color: "#007c89",
+    order: 5
+  },
+  industry: {
+    title: "Industry and non-energy use",
+    description: "Energy and non-energy consumption in industrial activities.",
+    color: "#595959",
+    order: 6
+  },
+  electricity: {
+    title: "Electricity production",
+    description: "Electricity and heat generation by source and fuel.",
+    color: "#0e8a3d",
+    order: 7
+  },
+  environment: {
+    title: "Emissions and environment",
+    description: "Greenhouse gas emissions linked to energy activity.",
+    color: "#2f855a",
+    order: 8
+  },
+  performance: {
+    title: "Energy performance",
+    description: "Energy intensity and productivity indicators.",
+    color: "#805ad5",
+    order: 9
+  },
+  households: {
+    title: "Households",
+    description: "Household energy consumption patterns.",
+    color: "#dd6b20",
+    order: 10
+  },
+  social: {
+    title: "Social indicators",
+    description: "Energy-related living condition indicators.",
+    color: "#c53030",
+    order: 11
+  },
+  market: {
+    title: "Energy market",
+    description: "Electricity market structure and concentration indicators.",
+    color: "#2b6cb0",
+    order: 12
+  },
+  context: {
+    title: "Context",
+    description: "Demographic and contextual indicators.",
+    color: "#718096",
+    order: 13
+  },
+  other: {
+    title: "Other indicators",
+    description: "Additional indicators in the current view.",
+    color: "#718096",
+    order: 99
+  }
+};
+
+function getChartStory(chartId) {
+  return chartStoryConfig[chartId] || {
+    group: "other",
+    icon: "📊",
+    storyTitle: chartId || "Indicator",
+    insightRole: "Additional indicator in the current view.",
+    preferredMetric: "generic",
+    sentiment: "neutral"
+  };
 }
 
 function getValidTimeSeriesPoints(values, categories) {
@@ -265,7 +543,7 @@ function renderGlobalSparklines(summary) {
       chart: {
         animation: false,
         backgroundColor: "transparent",
-        height: 30,
+        height: 32,
         margin: [2, 0, 2, 0],
         spacing: [0, 0, 0, 0],
         type: "spline"
@@ -425,6 +703,7 @@ function createEnergyInsights() {
 
   const top = insightsSeries[0];
   const second = insightsSeries[1] || null;
+  const story = getChartStory(REF.chartId);
 
   const latestLabel = top.latestYear == null
     ? "Latest value"
@@ -449,8 +728,14 @@ function createEnergyInsights() {
     (second ? " The next highest series is " + second.name + "." : "");
 
   const html = [
-    '<section class="insights-page insights-main">',
-    '<h3 class="insights-title">' + escapeInsightText(getInsightTitle()) + '</h3>',
+    '<section class="insights-page insights-main story-local-insight">',
+    '<div class="local-story-header">',
+    '<span class="story-icon">' + escapeInsightText(story.icon || "📊") + '</span>',
+    '<div>',
+    '<h3 class="insights-title">' + escapeInsightText(story.storyTitle || getInsightTitle()) + '</h3>',
+    '<p>' + escapeInsightText(story.insightRole || getInsightTitle()) + '</p>',
+    '</div>',
+    '</div>',
 
     '<div class="insights-cards">',
 
@@ -540,6 +825,9 @@ function collectGlobalInsightsData() {
 
   chartIds.forEach((chartId) => {
     try {
+      const chartConfig = codesDataset[chartId];
+      const story = getChartStory(chartId);
+
       updateREFFromCodesDataset(chartId);
 
       const d = chartApiCall();
@@ -557,10 +845,26 @@ function collectGlobalInsightsData() {
 
       const total = insightsSeries.reduce((sum, item) => sum + item.total, 0);
       const top = insightsSeries[0];
+      const chartLabel = labels[chartConfig.title] || chartConfig.title || chartId;
+      const unitLabel = getInsightUnitLabel();
 
       summary.push({
         chartId,
-        chartLabel: labels[codesDataset[chartId].title] || codesDataset[chartId].title || chartId,
+        chartLabel,
+        dataset: chartConfig.dataset || "-",
+        meta: chartConfig.meta || "-",
+        indicatorType: chartConfig.indicator_type || "-",
+        indicator2Type: chartConfig.indicator2_type || "-",
+        indicatorCount: Array.isArray(chartConfig.indicator) ? chartConfig.indicator.length : 0,
+        unitLabel,
+
+        storyGroup: story.group || "other",
+        storyTitle: story.storyTitle || chartLabel,
+        storyIcon: story.icon || "📊",
+        insightRole: story.insightRole || "Additional indicator in the current view.",
+        preferredMetric: story.preferredMetric || "generic",
+        sentiment: story.sentiment || "neutral",
+
         total,
         topName: top ? top.name : "-",
         topLatest: top ? top.latest : null,
@@ -570,7 +874,6 @@ function collectGlobalInsightsData() {
         topShare: top && total ? (top.total / total) * 100 : null,
         seriesCount: insightsSeries.length,
         trendPoints: top && Array.isArray(top.data) ? top.data.slice(-20) : [],
-        unitLabel: getInsightUnitLabel(),
         latestYear: top ? top.latestYear : null,
         trendDirection: top ? top.trendDirection : "flat",
         trendLabel: top ? top.trendLabel : "stable"
@@ -583,14 +886,14 @@ function collectGlobalInsightsData() {
   restoreRefState(initialState, savedContainerId);
 
   return summary.sort((a, b) => {
-    const unitA = String(a.unitLabel || "");
-    const unitB = String(b.unitLabel || "");
+    const groupA = insightGroups[a.storyGroup] || insightGroups.other;
+    const groupB = insightGroups[b.storyGroup] || insightGroups.other;
 
-    if (unitA !== unitB) {
-      return unitA.localeCompare(unitB);
+    if (groupA.order !== groupB.order) {
+      return groupA.order - groupB.order;
     }
 
-    return Math.abs(b.total) - Math.abs(a.total);
+    return String(a.storyTitle || "").localeCompare(String(b.storyTitle || ""));
   });
 }
 
@@ -616,6 +919,185 @@ function buildMiniBar(label, value, maxValue, className) {
     '</span>',
     '<strong>' + formatInsightNumber(value) + '</strong>',
     '</div>'
+  ].join("");
+}
+
+function getDirectionAssessment(item) {
+  const sentiment = item.sentiment || "neutral";
+  const direction = item.trendDirection || "flat";
+
+  if (sentiment === "neutral" || sentiment === "contextual") {
+    return "contextual";
+  }
+
+  if (direction === "flat") {
+    return "stable";
+  }
+
+  if (sentiment === "higher-is-better") {
+    return direction === "up" ? "favourable" : "unfavourable";
+  }
+
+  if (sentiment === "lower-is-better") {
+    return direction === "down" ? "favourable" : "unfavourable";
+  }
+
+  return "contextual";
+}
+
+function buildStackedBar(items, classPrefix) {
+  const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+
+  const segments = items.map((item) => {
+    const width = item.value > 0 ? Math.max(2, Math.round((item.value / total) * 100)) : 0;
+
+    return [
+      '<span class="' + escapeInsightText(classPrefix + "-" + item.key) + '"',
+      ' style="width:' + width + '%"',
+      ' title="' + escapeInsightText(item.label + ": " + item.value) + '">',
+      '</span>'
+    ].join("");
+  }).join("");
+
+  const legend = items.map((item) => {
+    return [
+      '<span class="stacked-legend-item">',
+      '<i class="' + escapeInsightText(classPrefix + "-" + item.key) + '"></i>',
+      escapeInsightText(item.label) + ' <strong>' + item.value + '</strong>',
+      '</span>'
+    ].join("");
+  }).join("");
+
+  return [
+    '<div class="stacked-chart">',
+    '<div class="stacked-track">' + segments + '</div>',
+    '<div class="stacked-legend">' + legend + '</div>',
+    '</div>'
+  ].join("");
+}
+
+function buildTrendStackedBlock(summary) {
+  const rising = summary.filter((item) => item.trendDirection === "up").length;
+  const falling = summary.filter((item) => item.trendDirection === "down").length;
+  const stable = summary.filter((item) => item.trendDirection === "flat").length;
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Trend direction</h4>',
+    '<p>Direction of the leading series across visible charts.</p>',
+    '</div>',
+    buildStackedBar([
+      { key: "up", label: "Rising", value: rising },
+      { key: "down", label: "Falling", value: falling },
+      { key: "flat", label: "Stable", value: stable }
+    ], "trend-segment"),
+    '</section>'
+  ].join("");
+}
+
+function buildPolicyDirectionBlock(summary) {
+  const favourable = summary.filter((item) => getDirectionAssessment(item) === "favourable").length;
+  const unfavourable = summary.filter((item) => getDirectionAssessment(item) === "unfavourable").length;
+  const stable = summary.filter((item) => getDirectionAssessment(item) === "stable").length;
+  const contextual = summary.filter((item) => getDirectionAssessment(item) === "contextual").length;
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Policy direction</h4>',
+    '<p>Trend direction interpreted according to the indicator role.</p>',
+    '</div>',
+    buildStackedBar([
+      { key: "good", label: "Favourable", value: favourable },
+      { key: "bad", label: "Unfavourable", value: unfavourable },
+      { key: "stable", label: "Stable", value: stable },
+      { key: "neutral", label: "Contextual", value: contextual }
+    ], "policy-segment"),
+    '</section>'
+  ].join("");
+}
+
+function buildDatasetCoverageBlock(summary) {
+  const datasetMap = {};
+
+  summary.forEach((item) => {
+    const dataset = item.dataset || "Unknown dataset";
+    datasetMap[dataset] = (datasetMap[dataset] || 0) + 1;
+  });
+
+  const datasets = Object.keys(datasetMap)
+    .map((name) => ({
+      name,
+      count: datasetMap[name]
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+
+  const maxValue = Math.max.apply(null, datasets.map((item) => item.count).concat([1]));
+
+  const bars = datasets
+    .map((item) => buildMiniBar(item.name, item.count, maxValue, "is-dataset"))
+    .join("");
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Dataset coverage</h4>',
+    '<p>Eurostat datasets contributing to the current view.</p>',
+    '</div>',
+    bars,
+    '</section>'
+  ].join("");
+}
+
+function buildInsightAlerts(summary) {
+  const missingDrivers = summary.filter((item) => !hasUsableDriverName(item.topName));
+  const missingLatest = summary.filter((item) => item.topLatest == null);
+  const unfavourable = summary.filter((item) => getDirectionAssessment(item) === "unfavourable");
+
+  const latestYears = summary
+    .map((item) => Number(item.latestYear))
+    .filter((year) => !Number.isNaN(year));
+
+  const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
+
+  const olderData = latestYearMax == null
+    ? []
+    : summary.filter((item) => {
+      const year = Number(item.latestYear);
+      return !Number.isNaN(year) && year < latestYearMax - 1;
+    });
+
+  const alerts = [];
+
+  if (missingDrivers.length) {
+    alerts.push(missingDrivers.length + " charts have no clear top driver.");
+  }
+
+  if (missingLatest.length) {
+    alerts.push(missingLatest.length + " charts have no latest value available.");
+  }
+
+  if (unfavourable.length) {
+    alerts.push(unfavourable.length + " indicators move in an unfavourable direction based on their interpretation rule.");
+  }
+
+  if (olderData.length) {
+    alerts.push(olderData.length + " charts have latest data older than the newest year in this view.");
+  }
+
+  if (!alerts.length) {
+    alerts.push("No major data quality or interpretation alerts detected.");
+  }
+
+  return [
+    '<section class="insight-alert-panel">',
+    '<h4>Data and interpretation alerts</h4>',
+    '<ul>',
+    alerts.map((alert) => '<li>' + escapeInsightText(alert) + '</li>').join(""),
+    '</ul>',
+    '</section>'
   ].join("");
 }
 
@@ -691,19 +1173,26 @@ function buildTopDriversBlock(summary) {
 
 function buildCategoryDistributionBlock(summary) {
   const categoryLabels = {
-    "percentage": "Percentage indicators",
-    "electricity": "Electricity",
-    "emissions": "Emissions",
-    "energy-volume": "Energy volumes",
-    "productivity": "Productivity",
-    "intensity": "Intensity",
-    "generic": "Other indicators"
+    headline: "Headline indicators",
+    security: "Security and dependency",
+    supply: "Energy supply",
+    consumption: "Consumption",
+    transport: "Transport",
+    industry: "Industry",
+    electricity: "Electricity",
+    environment: "Environment",
+    performance: "Performance",
+    households: "Households",
+    social: "Social",
+    market: "Market",
+    context: "Context",
+    other: "Other"
   };
 
   const categoryMap = {};
 
   summary.forEach((item) => {
-    const category = getInsightCategory(item.chartLabel, item.unitLabel);
+    const category = item.storyGroup || "other";
     categoryMap[category] = (categoryMap[category] || 0) + 1;
   });
 
@@ -713,7 +1202,11 @@ function buildCategoryDistributionBlock(summary) {
       label: categoryLabels[category] || category,
       count: categoryMap[category]
     }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => {
+      const groupA = insightGroups[a.category] || insightGroups.other;
+      const groupB = insightGroups[b.category] || insightGroups.other;
+      return groupA.order - groupB.order;
+    });
 
   const maxValue = Math.max.apply(null, categories.map((item) => item.count).concat([1]));
 
@@ -724,8 +1217,8 @@ function buildCategoryDistributionBlock(summary) {
   return [
     '<section class="insight-infographic-block">',
     '<div class="infographic-block-head">',
-    '<h4>Indicator categories</h4>',
-    '<p>Visible charts grouped by indicator type.</p>',
+    '<h4>Story themes</h4>',
+    '<p>Visible charts grouped by analytical theme.</p>',
     '</div>',
     bars,
     '</section>'
@@ -734,6 +1227,7 @@ function buildCategoryDistributionBlock(summary) {
 
 function buildGlobalTakeaways(summary) {
   const uniqueUnits = new Set(summary.map((item) => item.unitLabel || "Unknown unit")).size;
+  const uniqueDatasets = new Set(summary.map((item) => item.dataset || "Unknown dataset")).size;
 
   const latestYears = summary
     .map((item) => Number(item.latestYear))
@@ -742,22 +1236,25 @@ function buildGlobalTakeaways(summary) {
   const latestYearMin = latestYears.length ? Math.min.apply(null, latestYears) : null;
   const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
 
-  const rising = summary.filter((item) => item.trendDirection === "up").length;
-  const falling = summary.filter((item) => item.trendDirection === "down").length;
+  const favourable = summary.filter((item) => getDirectionAssessment(item) === "favourable").length;
+  const unfavourable = summary.filter((item) => getDirectionAssessment(item) === "unfavourable").length;
+  const contextual = summary.filter((item) => getDirectionAssessment(item) === "contextual").length;
 
-  const mainTrendText = rising > falling
-    ? "More leading series are rising than falling."
-    : falling > rising
-      ? "More leading series are falling than rising."
-      : "Rising and falling leading series are balanced.";
+  const policyDirectionText = favourable > unfavourable
+    ? "More interpretable indicators move in a favourable direction than an unfavourable one."
+    : unfavourable > favourable
+      ? "More interpretable indicators move in an unfavourable direction than a favourable one."
+      : "Favourable and unfavourable movements are balanced among interpretable indicators.";
 
   return [
     '<section class="insight-takeaways">',
     '<h4>Key takeaways</h4>',
     '<ul>',
     '<li>' + summary.length + ' charts are analysed in the current view.</li>',
-    '<li>' + uniqueUnits + ' different units are present, so cross-chart totals should not be compared directly.</li>',
-    '<li>' + escapeInsightText(mainTrendText) + '</li>',
+    '<li>' + uniqueDatasets + ' Eurostat datasets and ' + uniqueUnits + ' units are present.</li>',
+    '<li>Cross-chart totals should not be compared directly because units differ.</li>',
+    '<li>' + escapeInsightText(policyDirectionText) + '</li>',
+    '<li>' + contextual + ' charts are contextual indicators where direction should not be judged as good or bad automatically.</li>',
     '<li>Latest available years range from ' +
       (latestYearMin && latestYearMax ? latestYearMin + ' to ' + latestYearMax : 'not available') +
       '.</li>',
@@ -766,10 +1263,420 @@ function buildGlobalTakeaways(summary) {
   ].join("");
 }
 
+function buildDataCoveragePanel(summary) {
+  const datasetMap = {};
+  const metaMap = {};
+  const unitMap = {};
+
+  summary.forEach((item) => {
+    datasetMap[item.dataset || "Unknown dataset"] = (datasetMap[item.dataset || "Unknown dataset"] || 0) + 1;
+    metaMap[item.meta || "Unknown metadata"] = (metaMap[item.meta || "Unknown metadata"] || 0) + 1;
+    unitMap[item.unitLabel || "Unknown unit"] = (unitMap[item.unitLabel || "Unknown unit"] || 0) + 1;
+  });
+
+  return [
+    '<section class="data-coverage-panel">',
+    '<div>',
+    '<h3>Data coverage</h3>',
+    '<p>The current view combines multiple Eurostat datasets, indicator groups and units.</p>',
+    '</div>',
+    '<div class="coverage-kpis">',
+    '<article><span>Charts</span><strong>' + summary.length + '</strong></article>',
+    '<article><span>Datasets</span><strong>' + Object.keys(datasetMap).length + '</strong></article>',
+    '<article><span>Metadata groups</span><strong>' + Object.keys(metaMap).length + '</strong></article>',
+    '<article><span>Units</span><strong>' + Object.keys(unitMap).length + '</strong></article>',
+    '</div>',
+    '</section>'
+  ].join("");
+}
+
+function buildStoryCard(item) {
+  const trendClass = item.trendDirection === "up"
+    ? "is-up"
+    : item.trendDirection === "down"
+      ? "is-down"
+      : "is-flat";
+
+  const sparklineId = "storySparkline_" + String(item.chartId || "chart").replace(/[^a-zA-Z0-9_-]/g, "");
+  item.sparklineId = sparklineId;
+
+  const latestText = item.topLatest == null
+    ? "No latest value"
+    : formatInsightNumber(item.topLatest) + " " + item.unitLabel;
+
+  const changeText = item.topLongTermChange == null
+    ? "Change not available"
+    : formatSignedNumber(item.topLongTermChange, item.unitLabel);
+
+  return [
+    '<article class="story-card story-group-' + escapeInsightText(item.storyGroup) + '">',
+    '<div class="story-card-header">',
+    '<span class="story-icon">' + escapeInsightText(item.storyIcon) + '</span>',
+    '<div>',
+    '<h4>' + escapeInsightText(item.storyTitle) + '</h4>',
+    '<p>' + escapeInsightText(item.insightRole) + '</p>',
+    '</div>',
+    '</div>',
+
+    '<div class="story-card-sparkline">',
+    item.trendPoints && item.trendPoints.length > 1
+      ? '<div class="global-sparkline-hc" id="' + sparklineId + '"></div>'
+      : '<span class="global-sparkline-empty">No trend line</span>',
+    '</div>',
+
+    '<div class="story-card-kpis">',
+    '<div>',
+    '<span>Latest</span>',
+    '<strong>' + escapeInsightText(latestText) + '</strong>',
+    '<small>' + escapeInsightText(item.latestYear || "-") + '</small>',
+    '</div>',
+    '<div>',
+    '<span>Long-term change</span>',
+    '<strong>' + escapeInsightText(changeText) + '</strong>',
+    '<small>' + escapeInsightText(item.trendLabel || "-") + '</small>',
+    '</div>',
+    '</div>',
+
+    '<div class="story-card-footer">',
+    '<span>Top driver: ' + escapeInsightText(getSafeDriverName(item.topName)) + '</span>',
+    '<span class="global-trend ' + trendClass + '">' + escapeInsightText(item.trendLabel) + '</span>',
+    '</div>',
+
+    '</article>'
+  ].join("");
+}
+
+function buildStoryGroupSections(summary) {
+  const grouped = summary.reduce((acc, item) => {
+    const group = item.storyGroup || "other";
+    if (!acc[group]) acc[group] = [];
+    acc[group].push(item);
+    return acc;
+  }, {});
+
+  return Object.keys(grouped)
+    .sort((a, b) => {
+      const groupA = insightGroups[a] || insightGroups.other;
+      const groupB = insightGroups[b] || insightGroups.other;
+      return groupA.order - groupB.order;
+    })
+    .map((groupKey) => {
+      const group = insightGroups[groupKey] || insightGroups.other;
+      const items = grouped[groupKey];
+
+      const rising = items.filter((item) => item.trendDirection === "up").length;
+      const falling = items.filter((item) => item.trendDirection === "down").length;
+      const stable = items.filter((item) => item.trendDirection === "flat").length;
+      const cards = items.map(buildStoryCard).join("");
+
+      return [
+        '<section class="story-group-section" style="--story-color:' + escapeInsightText(group.color) + '">',
+        '<div class="story-group-header">',
+        '<div>',
+        '<h3>' + escapeInsightText(group.title) + '</h3>',
+        '<p>' + escapeInsightText(group.description) + '</p>',
+        '</div>',
+        '<div class="story-group-stats">',
+        '<span><strong>' + items.length + '</strong> charts</span>',
+        '<span><strong>' + rising + '</strong> rising</span>',
+        '<span><strong>' + falling + '</strong> falling</span>',
+        '<span><strong>' + stable + '</strong> stable</span>',
+        '</div>',
+        '</div>',
+        '<div class="story-card-grid">',
+        cards,
+        '</div>',
+        '</section>'
+      ].join("");
+    })
+    .join("");
+}
+
+function buildEvidenceRows(summary) {
+  return summary.map((item, index) => {
+    const group = insightGroups[item.storyGroup] || insightGroups.other;
+
+    return [
+      '<tr>',
+      '<td>' + (index + 1) + '</td>',
+      '<td>' + escapeInsightText(group.title) + '</td>',
+      '<td>' + escapeInsightText(item.storyTitle || item.chartLabel) + '</td>',
+      '<td>' + escapeInsightText(item.dataset || "-") + '</td>',
+      '<td>' + escapeInsightText(item.meta || "-") + '</td>',
+      '<td>' + escapeInsightText(item.unitLabel || "-") + '</td>',
+      '<td>' + escapeInsightText(getSafeDriverName(item.topName)) + '</td>',
+      '<td>' + (item.topLatest == null ? "-" : formatInsightNumber(item.topLatest) + " " + escapeInsightText(item.unitLabel)) + '</td>',
+      '<td>' + escapeInsightText(item.trendLabel || "-") + '</td>',
+      '</tr>'
+    ].join("");
+  }).join("");
+}
+
+function injectInsightsStoryStyles() {
+  if (document.getElementById("insightsStoryStyles")) return;
+
+  const style = document.createElement("style");
+  style.id = "insightsStoryStyles";
+  style.textContent = `
+    .story-hero {
+      background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 100%);
+      border: 1px solid #d8e8fb;
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-hero h2 {
+      margin: 0.25rem 0;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .data-coverage-panel,
+    .story-group-section,
+    .insight-infographic-block,
+    .insight-takeaways {
+      background: #fff;
+      border: 1px solid #e3e7ed;
+      border-radius: 16px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .data-coverage-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .data-coverage-panel h3,
+    .story-group-header h3,
+    .insight-takeaways h4,
+    .infographic-block-head h4 {
+      margin: 0;
+    }
+
+    .data-coverage-panel p,
+    .story-group-header p,
+    .infographic-block-head p,
+    .story-card p {
+      color: #5a7184;
+      margin: 0.25rem 0 0;
+    }
+
+    .coverage-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .coverage-kpis article {
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 0.75rem;
+    }
+
+    .coverage-kpis span,
+    .story-card-kpis span,
+    .story-card-kpis small {
+      display: block;
+      color: #5a7184;
+      font-size: 0.78rem;
+    }
+
+    .coverage-kpis strong {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 1.5rem;
+    }
+
+    .story-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .insight-mini-bar {
+      display: grid;
+      grid-template-columns: minmax(120px, 1fr) 2fr auto;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0.5rem 0;
+    }
+
+    .mini-bar-label {
+      font-size: 0.875rem;
+      color: #243b53;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-bar-track {
+      height: 8px;
+      background: #edf2f7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .mini-bar-fill {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: #5a7184;
+    }
+
+    .mini-bar-fill.is-up { background: #0e8a3d; }
+    .mini-bar-fill.is-down { background: #b3263a; }
+    .mini-bar-fill.is-flat,
+    .mini-bar-fill.is-neutral { background: #5a7184; }
+    .mini-bar-fill.is-driver { background: #1f6fba; }
+    .mini-bar-fill.is-category { background: #6b4eff; }
+
+    .story-group-section {
+      border-top: 4px solid var(--story-color, #718096);
+    }
+
+    .story-group-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-group-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+
+    .story-group-stats span {
+      background: #f7f9fc;
+      border-radius: 999px;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .story-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .story-card {
+      background: #fbfcfe;
+      border: 1px solid #e8edf5;
+      border-radius: 14px;
+      padding: 0.9rem;
+    }
+
+    .story-card-header,
+    .local-story-header {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .story-icon {
+      min-width: 2rem;
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef2f7;
+      border-radius: 999px;
+      font-size: 1.1rem;
+    }
+
+    .story-card h4 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .story-card-sparkline {
+      margin-top: 0.75rem;
+      min-height: 32px;
+    }
+
+    .story-card-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .story-card-kpis div {
+      background: #fff;
+      border-radius: 10px;
+      padding: 0.6rem;
+    }
+
+    .story-card-kpis strong {
+      display: block;
+      margin: 0.2rem 0;
+      font-size: 0.95rem;
+    }
+
+    .story-card-footer {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .insight-takeaways ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    .insight-takeaways li {
+      margin-bottom: 0.35rem;
+    }
+
+    .story-local-insight .local-story-header {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .data-coverage-panel,
+      .coverage-kpis,
+      .story-overview-grid,
+      .story-card-grid,
+      .story-card-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .story-group-header {
+        flex-direction: column;
+      }
+
+      .story-group-stats {
+        justify-content: flex-start;
+      }
+
+      .insight-mini-bar {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
 function openGlobalInsights() {
   if (REF.chartExpanded) return;
 
   closeGlobalInsights();
+  injectInsightsStoryStyles();
 
   const labels = (languageNameSpace && languageNameSpace.labels) || {};
   const title = labels.GLOBAL_INSIGHTS || "Global insights";
@@ -822,107 +1729,45 @@ function openGlobalInsights() {
 
     try {
       const summary = collectGlobalInsightsData();
-
-      const uniqueUnits = new Set(summary.map((item) => item.unitLabel || "Unknown unit")).size;
-
-      const risingCount = summary.filter((item) => item.trendDirection === "up").length;
-      const fallingCount = summary.filter((item) => item.trendDirection === "down").length;
-      const stableCount = summary.filter((item) => item.trendDirection === "flat").length;
-
-      const latestYears = summary
-        .map((item) => Number(item.latestYear))
-        .filter((year) => !Number.isNaN(year));
-
-      const latestYearMin = latestYears.length ? Math.min.apply(null, latestYears) : null;
-      const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
-
-      const rankingCards = summary.slice(0, 6).map((item, index) => {
-        const slopeDirection = item.trendDirection || getSparklineDirection(item.trendPoints);
-        const trendClass = slopeDirection === "up" ? "is-up" : (slopeDirection === "down" ? "is-down" : "is-flat");
-        const trendLabel = item.trendLabel || getTrendLabel(slopeDirection);
-        const sparklineId = "globalSparkline_" + index + "_" + String(item.chartId || "chart").replace(/[^a-zA-Z0-9_-]/g, "");
-
-        item.sparklineId = sparklineId;
-
-        return [
-          '<article class="global-chart-card">',
-          '<div class="global-chart-card-head">',
-          '<span class="global-rank">#' + (index + 1) + '</span>',
-          '<h4>' + escapeInsightText(item.chartLabel) + '</h4>',
-          '<span class="global-trend ' + trendClass + '">' + escapeInsightText(trendLabel) + '</span>',
-          '</div>',
-
-          '<div class="global-sparkline-wrap">',
-          item.trendPoints && item.trendPoints.length > 1
-            ? '<div class="global-sparkline-hc" id="' + sparklineId + '"></div>'
-            : '<span class="global-sparkline-empty">-</span>',
-          '</div>',
-
-          '<div class="global-chart-metrics">',
-          '<span><strong>' +
-            (item.latestYear ? escapeInsightText(item.latestYear) + ": " : "") +
-            formatInsightNumber(item.topLatest) +
-            " " +
-            escapeInsightText(item.unitLabel) +
-          '</strong> latest leading value</span>',
-          '<span>Top: ' + escapeInsightText(getSafeDriverName(item.topName)) + '</span>',
-          '<span>Trend: ' + escapeInsightText(trendLabel) + '</span>',
-          '</div>',
-
-          '</article>'
-        ].join("");
-      }).join("");
-
-      const rows = summary.slice(0, 22).map((item, index) => {
-        return [
-          '<tr>',
-          '<td>' + (index + 1) + '</td>',
-          '<td>' + escapeInsightText(item.chartLabel) + '</td>',
-          '<td>' + formatInsightNumber(item.total) + ' ' + escapeInsightText(item.unitLabel) + '</td>',
-          '<td>' + escapeInsightText(getSafeDriverName(item.topName)) + '</td>',
-          '<td>' + (item.topLatest == null ? "-" : formatInsightNumber(item.topLatest) + ' ' + escapeInsightText(item.unitLabel)) + '</td>',
-          '<td>' + escapeInsightText(item.trendLabel || "-") + '</td>',
-          '</tr>'
-        ].join("");
-      }).join("");
+      const rows = buildEvidenceRows(summary);
 
       body.innerHTML = summary.length
         ? [
-            '<section class="global-insights-hero">',
-            '<p class="global-insights-kicker">Overview</p>',
-            '<p class="global-insights-text">This infographic summarises the visible charts for the current filters. Values keep their original units and should not be compared directly across different units.</p>',
+            '<section class="global-insights-hero story-hero">',
+            '<p class="global-insights-kicker">Energy dashboard overview</p>',
+            '<h2>Energy indicators at a glance</h2>',
+            '<p class="global-insights-text">This view summarises the visible charts using Eurostat datasets, indicator groups and units. Values keep their original units and should not be compared directly across different units.</p>',
             '</section>',
 
-            '<section class="global-kpis">',
-            '<article class="global-kpi-card"><span class="kpi-label">Charts analysed</span><strong>' + summary.length + '</strong></article>',
-            '<article class="global-kpi-card"><span class="kpi-label">Units present</span><strong>' + uniqueUnits + '</strong></article>',
-            '<article class="global-kpi-card"><span class="kpi-label">Latest year range</span><strong>' + (latestYearMin && latestYearMax ? latestYearMin + "-" + latestYearMax : "-") + '</strong></article>',
-            '<article class="global-kpi-card"><span class="kpi-label">Rising / falling / stable</span><strong>' + risingCount + ' / ' + fallingCount + ' / ' + stableCount + '</strong></article>',
-            '</section>',
+            buildDataCoveragePanel(summary),
 
-            '<div class="insight-infographic-grid">',
-            buildTrendBalanceBlock(summary),
+            '<section class="story-overview-grid">',
+            buildTrendStackedBlock(summary),
+            buildPolicyDirectionBlock(summary),
             buildUnitDistributionBlock(summary),
+            buildDatasetCoverageBlock(summary),
             buildTopDriversBlock(summary),
             buildCategoryDistributionBlock(summary),
-            '</div>',
+            '</section>',
+
+            buildInsightAlerts(summary),
 
             buildGlobalTakeaways(summary),
 
-            '<section>',
-            '<p class="global-section-title">Spotlight charts</p>',
-            '<div class="global-ranking-grid">' + rankingCards + '</div>',
-            '</section>',
+            buildStoryGroupSections(summary),
 
             '<details class="global-insights-details">',
-            '<summary>Open detailed table</summary>',
+            '<summary>Open detailed evidence table</summary>',
             '<div class="insights-table-wrap">',
             '<table class="insights-table">',
             '<thead>',
             '<tr>',
             '<th>#</th>',
+            '<th>Theme</th>',
             '<th>Chart</th>',
-            '<th>Total</th>',
+            '<th>Dataset</th>',
+            '<th>Metadata</th>',
+            '<th>Unit</th>',
             '<th>Top driver</th>',
             '<th>Latest</th>',
             '<th>Trend</th>',
