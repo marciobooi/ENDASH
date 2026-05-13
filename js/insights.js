@@ -36,6 +36,12 @@ function getValidTimeSeriesPoints(values, categories) {
     .filter(Boolean);
 }
 
+function hasMeaningfulValues(values) {
+  return Array.isArray(values) && values.some((value) => {
+    return typeof value === "number" && !Number.isNaN(value) && value !== 0;
+  });
+}
+
 function getPercentChange(first, latest) {
   if (first == null || latest == null || first === 0) return null;
   return ((latest - first) / Math.abs(first)) * 100;
@@ -66,6 +72,158 @@ function formatSignedPercent(value) {
   return (value >= 0 ? "+" : "") + formatInsightNumber(value) + "%";
 }
 
+function getSafeDriverName(value) {
+  const text = String(value == null ? "" : value).trim();
+  return text && text !== "-" ? text : "Not available";
+}
+
+function hasUsableDriverName(value) {
+  const text = String(value == null ? "" : value).trim();
+  return !!text && text !== "-";
+}
+
+function getInsightCategory(chartLabel, unitLabel) {
+  const title = String(chartLabel || "").toLowerCase();
+  const unit = String(unitLabel || "").toUpperCase();
+
+  if (
+    unit === "PC" ||
+    title.includes("share") ||
+    title.includes("dependency") ||
+    title.includes("market share") ||
+    title.includes("unable to keep home")
+  ) {
+    return "percentage";
+  }
+
+  if (title.includes("electricity") || unit === "GWH") {
+    return "electricity";
+  }
+
+  if (title.includes("emission") || unit === "THS_T") {
+    return "emissions";
+  }
+
+  if (
+    title.includes("consumption") ||
+    title.includes("supply") ||
+    title.includes("energy") ||
+    unit === "KTOE" ||
+    unit === "MTOE" ||
+    unit === "TJ"
+  ) {
+    return "energy-volume";
+  }
+
+  if (title.includes("productivity") || unit === "EUR_KGOE") {
+    return "productivity";
+  }
+
+  if (title.includes("intensity") || unit === "KGOE_TEUR") {
+    return "intensity";
+  }
+
+  return "generic";
+}
+
+function buildCategoryInsightText(item, unit, chartLabel) {
+  const category = getInsightCategory(chartLabel, unit);
+  const name = item.name || "The selected series";
+  const latestYearText = item.latestYear ? " in " + item.latestYear : "";
+
+  if (category === "percentage") {
+    return (
+      name +
+      " reached " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". The long-term change is " +
+      formatSignedNumber(item.longTermChange, "percentage points") +
+      "."
+    );
+  }
+
+  if (category === "electricity") {
+    return (
+      name +
+      " recorded " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ", with a " +
+      item.trendLabel +
+      " long-term trend."
+    );
+  }
+
+  if (category === "emissions") {
+    return (
+      name +
+      " is the main contributor in the selected context, with " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". The long-term trend is " +
+      item.trendLabel +
+      "."
+    );
+  }
+
+  if (category === "energy-volume") {
+    return (
+      name +
+      " is the leading energy component, with " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". The long-term change is " +
+      formatSignedNumber(item.longTermChange, unit) +
+      "."
+    );
+  }
+
+  if (category === "productivity") {
+    return (
+      name +
+      " reached " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". A rising trend usually indicates more economic output per unit of energy."
+    );
+  }
+
+  if (category === "intensity") {
+    return (
+      name +
+      " reached " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". A falling trend usually indicates lower energy use per unit of output."
+    );
+  }
+
+  return (
+    name +
+    " has a latest value of " +
+    formatInsightNumber(item.latest) +
+    " " +
+    unit +
+    latestYearText +
+    " and shows a " +
+    item.trendLabel +
+    " trend."
+  );
+}
+
 let globalInsightsMiniCharts = [];
 
 function getSparklineDirection(points) {
@@ -93,6 +251,7 @@ function renderGlobalSparklines(summary) {
       chart.destroy();
     }
   });
+
   globalInsightsMiniCharts = [];
 
   summary.forEach((item) => {
@@ -101,6 +260,7 @@ function renderGlobalSparklines(summary) {
     }
 
     const direction = getSparklineDirection(item.trendPoints);
+
     const chart = Highcharts.chart(item.sparklineId, {
       chart: {
         animation: false,
@@ -112,6 +272,7 @@ function renderGlobalSparklines(summary) {
       },
       title: { text: null },
       credits: { enabled: false },
+      exporting: { enabled: false },
       legend: { enabled: false },
       tooltip: { enabled: false },
       accessibility: { enabled: false },
@@ -160,6 +321,7 @@ function getInsightTitle() {
   const chartTitle = labels[REF.title] || REF.title || "Energy";
   const geo = labels[REF.geos] || REF.geos || "";
   const suffix = "Energy insights";
+
   return geo ? chartTitle + " - " + geo + " - " + suffix : chartTitle + " - " + suffix;
 }
 
@@ -171,7 +333,12 @@ function buildInsightSeriesFromChartSeries(categories) {
       const points = getValidTimeSeriesPoints(serie.data, categories);
       const values = points.map((point) => point.value);
 
+      if (!hasMeaningfulValues(values)) {
+        return null;
+      }
+
       const total = values.reduce((sum, value) => sum + value, 0);
+
       const firstPoint = points.length ? points[0] : null;
       const latestPoint = points.length ? points[points.length - 1] : null;
       const previousPoint = points.length > 1 ? points[points.length - 2] : null;
@@ -216,6 +383,7 @@ function buildInsightSeriesFromChartSeries(categories) {
         points: points.length
       };
     })
+    .filter(Boolean)
     .sort((a, b) => {
       const aLatest = a.latest == null ? -Infinity : a.latest;
       const bLatest = b.latest == null ? -Infinity : b.latest;
@@ -226,6 +394,7 @@ function buildInsightSeriesFromChartSeries(categories) {
 function renderInsightsToChartContainer(html) {
   const targetContainerId = (codesDataset[REF.chartId] && codesDataset[REF.chartId].container) || containerId;
   const target = document.getElementById(targetContainerId);
+
   if (!target) return;
 
   target.innerHTML = html;
@@ -235,6 +404,7 @@ function createEnergyInsights() {
   updateREFFromCodesDataset(REF.chartId);
 
   const d = chartApiCall();
+
   if (!d) {
     renderInsightsToChartContainer('<div class="insights-page"><p class="insights-empty">No data available.</p></div>');
     return;
@@ -242,6 +412,7 @@ function createEnergyInsights() {
 
   const timeDim = d.Dimension("time");
   const categories = timeDim ? timeDim.id : [];
+
   handleData(d, categories, categories);
 
   const insightsSeries = buildInsightSeriesFromChartSeries(categories);
@@ -271,45 +442,48 @@ function createEnergyInsights() {
   const longTermText = formatSignedNumber(top.longTermChange, unit);
   const percentText = top.percentChange == null ? "" : " (" + formatSignedPercent(top.percentChange) + ")";
 
+  const chartLabel = getInsightTitle();
+
   const summaryText =
-    (top.name || "The leading series") +
-    " is currently " +
-    top.trendLabel +
-    ". The latest available value is " +
-    formatInsightNumber(top.latest) +
-    (unit ? " " + unit : "") +
-    (top.latestYear ? " in " + top.latestYear : "") +
-    "." +
+    buildCategoryInsightText(top, unit, chartLabel) +
     (second ? " The next highest series is " + second.name + "." : "");
 
   const html = [
     '<section class="insights-page insights-main">',
     '<h3 class="insights-title">' + escapeInsightText(getInsightTitle()) + '</h3>',
+
     '<div class="insights-cards">',
+
     '<article class="insight-card">',
     '<div class="insight-label">' + escapeInsightText(latestLabel) + '</div>',
     '<div class="insight-value">' + formatInsightNumber(top.latest) + ' ' + escapeInsightText(unit) + '</div>',
-    '<div class="insight-sub">' + escapeInsightText(top.name || '-') + '</div>',
+    '<div class="insight-sub">' + escapeInsightText(getSafeDriverName(top.name)) + '</div>',
     '</article>',
+
     '<article class="insight-card">',
     '<div class="insight-label">' + escapeInsightText(deltaLabel) + '</div>',
     '<div class="insight-value">' + escapeInsightText(deltaText) + '</div>',
     '<div class="insight-sub">Recent annual change</div>',
     '</article>',
+
     '<article class="insight-card">',
     '<div class="insight-label">' + escapeInsightText(longTermLabel) + '</div>',
     '<div class="insight-value">' + escapeInsightText(longTermText + percentText) + '</div>',
     '<div class="insight-sub">' + escapeInsightText(top.trendLabel) + ' trend</div>',
     '</article>',
+
     '<article class="insight-card">',
     '<div class="insight-label">Highest value</div>',
     '<div class="insight-value">' + formatInsightNumber(top.maxValue) + ' ' + escapeInsightText(unit) + '</div>',
-    '<div class="insight-sub">Observed in ' + escapeInsightText(top.maxYear || '-') + '</div>',
+    '<div class="insight-sub">Observed in ' + escapeInsightText(top.maxYear || "-") + '</div>',
     '</article>',
+
     '</div>',
+
     '<div class="insights-summary">',
     '<strong>Summary:</strong> ' + escapeInsightText(summaryText),
     '</div>',
+
     '</section>'
   ].join("");
 
@@ -322,9 +496,11 @@ function closeGlobalInsights() {
       chart.destroy();
     }
   });
+
   globalInsightsMiniCharts = [];
 
   const overlay = document.getElementById("globalInsightsOverlay");
+
   if (overlay) {
     overlay.remove();
   }
@@ -338,10 +514,12 @@ function getMainViewChartIds() {
 
 function cloneRefState() {
   const state = {};
+
   Object.keys(REF).forEach((key) => {
     const value = REF[key];
     state[key] = Array.isArray(value) ? value.slice() : value;
   });
+
   return state;
 }
 
@@ -349,6 +527,7 @@ function restoreRefState(state, savedContainerId) {
   Object.keys(state).forEach((key) => {
     REF[key] = state[key];
   });
+
   containerId = savedContainerId;
 }
 
@@ -362,14 +541,18 @@ function collectGlobalInsightsData() {
   chartIds.forEach((chartId) => {
     try {
       updateREFFromCodesDataset(chartId);
+
       const d = chartApiCall();
+
       if (!d) return;
 
       const timeDim = d.Dimension("time");
       const categories = timeDim ? timeDim.id : [];
+
       handleData(d, categories, categories);
 
       const insightsSeries = buildInsightSeriesFromChartSeries(categories);
+
       if (!insightsSeries.length) return;
 
       const total = insightsSeries.reduce((sum, item) => sum + item.total, 0);
@@ -399,7 +582,188 @@ function collectGlobalInsightsData() {
 
   restoreRefState(initialState, savedContainerId);
 
-  return summary.sort((a, b) => b.total - a.total);
+  return summary.sort((a, b) => {
+    const unitA = String(a.unitLabel || "");
+    const unitB = String(b.unitLabel || "");
+
+    if (unitA !== unitB) {
+      return unitA.localeCompare(unitB);
+    }
+
+    return Math.abs(b.total) - Math.abs(a.total);
+  });
+}
+
+function groupSummaryByUnit(summary) {
+  return summary.reduce((acc, item) => {
+    const unit = item.unitLabel || "Unknown unit";
+
+    if (!acc[unit]) acc[unit] = [];
+    acc[unit].push(item);
+
+    return acc;
+  }, {});
+}
+
+function buildMiniBar(label, value, maxValue, className) {
+  const width = maxValue > 0 ? Math.max(4, Math.round((value / maxValue) * 100)) : 0;
+
+  return [
+    '<div class="insight-mini-bar">',
+    '<span class="mini-bar-label" title="' + escapeInsightText(label) + '">' + escapeInsightText(label) + '</span>',
+    '<span class="mini-bar-track">',
+    '<span class="mini-bar-fill ' + escapeInsightText(className || "") + '" style="width:' + width + '%"></span>',
+    '</span>',
+    '<strong>' + formatInsightNumber(value) + '</strong>',
+    '</div>'
+  ].join("");
+}
+
+function buildTrendBalanceBlock(summary) {
+  const rising = summary.filter((item) => item.trendDirection === "up").length;
+  const falling = summary.filter((item) => item.trendDirection === "down").length;
+  const stable = summary.filter((item) => item.trendDirection === "flat").length;
+  const maxValue = Math.max(rising, falling, stable, 1);
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Trend balance</h4>',
+    '<p>Direction of the leading series in visible charts.</p>',
+    '</div>',
+    buildMiniBar("Rising", rising, maxValue, "is-up"),
+    buildMiniBar("Falling", falling, maxValue, "is-down"),
+    buildMiniBar("Stable", stable, maxValue, "is-flat"),
+    '</section>'
+  ].join("");
+}
+
+function buildUnitDistributionBlock(summary) {
+  const grouped = groupSummaryByUnit(summary);
+  const units = Object.keys(grouped).sort();
+  const maxValue = Math.max.apply(null, units.map((unit) => grouped[unit].length).concat([1]));
+
+  const bars = units
+    .map((unit) => buildMiniBar(unit, grouped[unit].length, maxValue, "is-neutral"))
+    .join("");
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Units in current view</h4>',
+    '<p>Charts are grouped by their original unit.</p>',
+    '</div>',
+    bars,
+    '</section>'
+  ].join("");
+}
+
+function buildTopDriversBlock(summary) {
+  const driverMap = {};
+
+  summary.forEach((item) => {
+    const key = String(item.topName || "").trim();
+    if (!key || key === "-") return;
+    driverMap[key] = (driverMap[key] || 0) + 1;
+  });
+
+  const drivers = Object.keys(driverMap)
+    .map((name) => ({ name, count: driverMap[name] }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 6);
+
+  const maxValue = Math.max.apply(null, drivers.map((driver) => driver.count).concat([1]));
+
+  const bars = drivers.length
+    ? drivers.map((driver) => buildMiniBar(driver.name, driver.count, maxValue, "is-driver")).join("")
+    : '<p class="insights-empty">No leading drivers available.</p>';
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Most frequent top drivers</h4>',
+    '<p>Leading series appearing most often across visible charts.</p>',
+    '</div>',
+    bars,
+    '</section>'
+  ].join("");
+}
+
+function buildCategoryDistributionBlock(summary) {
+  const categoryLabels = {
+    "percentage": "Percentage indicators",
+    "electricity": "Electricity",
+    "emissions": "Emissions",
+    "energy-volume": "Energy volumes",
+    "productivity": "Productivity",
+    "intensity": "Intensity",
+    "generic": "Other indicators"
+  };
+
+  const categoryMap = {};
+
+  summary.forEach((item) => {
+    const category = getInsightCategory(item.chartLabel, item.unitLabel);
+    categoryMap[category] = (categoryMap[category] || 0) + 1;
+  });
+
+  const categories = Object.keys(categoryMap)
+    .map((category) => ({
+      category,
+      label: categoryLabels[category] || category,
+      count: categoryMap[category]
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  const maxValue = Math.max.apply(null, categories.map((item) => item.count).concat([1]));
+
+  const bars = categories
+    .map((item) => buildMiniBar(item.label, item.count, maxValue, "is-category"))
+    .join("");
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Indicator categories</h4>',
+    '<p>Visible charts grouped by indicator type.</p>',
+    '</div>',
+    bars,
+    '</section>'
+  ].join("");
+}
+
+function buildGlobalTakeaways(summary) {
+  const uniqueUnits = new Set(summary.map((item) => item.unitLabel || "Unknown unit")).size;
+
+  const latestYears = summary
+    .map((item) => Number(item.latestYear))
+    .filter((year) => !Number.isNaN(year));
+
+  const latestYearMin = latestYears.length ? Math.min.apply(null, latestYears) : null;
+  const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
+
+  const rising = summary.filter((item) => item.trendDirection === "up").length;
+  const falling = summary.filter((item) => item.trendDirection === "down").length;
+
+  const mainTrendText = rising > falling
+    ? "More leading series are rising than falling."
+    : falling > rising
+      ? "More leading series are falling than rising."
+      : "Rising and falling leading series are balanced.";
+
+  return [
+    '<section class="insight-takeaways">',
+    '<h4>Key takeaways</h4>',
+    '<ul>',
+    '<li>' + summary.length + ' charts are analysed in the current view.</li>',
+    '<li>' + uniqueUnits + ' different units are present, so cross-chart totals should not be compared directly.</li>',
+    '<li>' + escapeInsightText(mainTrendText) + '</li>',
+    '<li>Latest available years range from ' +
+      (latestYearMin && latestYearMax ? latestYearMin + ' to ' + latestYearMax : 'not available') +
+      '.</li>',
+    '</ul>',
+    '</section>'
+  ].join("");
 }
 
 function openGlobalInsights() {
@@ -409,16 +773,17 @@ function openGlobalInsights() {
 
   const labels = (languageNameSpace && languageNameSpace.labels) || {};
   const title = labels.GLOBAL_INSIGHTS || "Global insights";
+
   const html = [
     '<div id="globalInsightsOverlay" class="global-insights-overlay" role="dialog" aria-modal="true">',
     '<div class="global-insights-panel">',
     '<div class="global-insights-header">',
-    '<h3 class="insights-title">', title, '</h3>',
-    '<button type="button" class="global-insights-close ecl-button ecl-button--secondary" onclick="closeGlobalInsights()">', (labels.CLOSE || "Close"), '</button>',
+    '<h3 class="insights-title">' + escapeInsightText(title) + '</h3>',
+    '<button type="button" class="global-insights-close ecl-button ecl-button--secondary" onclick="closeGlobalInsights()">' + escapeInsightText(labels.CLOSE || "Close") + '</button>',
     '</div>',
     '<div id="globalInsightsBody" class="global-insights-loading">',
     '<div class="global-insights-spinner" aria-hidden="true"></div>',
-    '<p>', escapeInsightText(labels.LOADING || 'Loading insights...'), '</p>',
+    '<p>' + escapeInsightText(labels.LOADING || "Loading insights...") + '</p>',
     '</div>',
     '</div>',
     '</div>'
@@ -427,118 +792,152 @@ function openGlobalInsights() {
   document.body.insertAdjacentHTML("beforeend", html);
 
   const overlay = document.getElementById("globalInsightsOverlay");
-  if (overlay) {
-    overlay.addEventListener("click", function (event) {
-      if (event.target === overlay) {
-        closeGlobalInsights();
-      }
-    });
 
-    setTimeout(function () {
-      const body = document.getElementById("globalInsightsBody");
-      if (!body) return;
+  if (!overlay) return;
 
-      try {
-        const summary = collectGlobalInsightsData();
-        const maxAbsTotal = Math.max.apply(null, summary.map((item) => Math.abs(item.total)).concat([1]));
-        const uniqueUnits = new Set(summary.map((item) => item.unitLabel)).size;
-        const risingCount = summary.filter((item) => getSparklineDirection(item.trendPoints) === "up").length;
+  overlay.addEventListener("click", function (event) {
+    if (event.target === overlay) {
+      closeGlobalInsights();
+    }
+  });
 
-        const latestYears = summary
-          .map((item) => Number(item.latestYear))
-          .filter((year) => !Number.isNaN(year));
+  document.addEventListener("keydown", function globalInsightsEscHandler(event) {
+    const currentOverlay = document.getElementById("globalInsightsOverlay");
 
-        const latestYearMin = latestYears.length ? Math.min.apply(null, latestYears) : null;
-        const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
+    if (!currentOverlay) {
+      document.removeEventListener("keydown", globalInsightsEscHandler);
+      return;
+    }
 
-        const driverMap = {};
-        summary.forEach((item) => {
-          const key = item.topName || "-";
-          driverMap[key] = (driverMap[key] || 0) + 1;
-        });
+    if (event.key === "Escape") {
+      closeGlobalInsights();
+      document.removeEventListener("keydown", globalInsightsEscHandler);
+    }
+  });
 
-        const driverChips = Object.keys(driverMap)
-          .map((name) => ({ name: name, count: driverMap[name] }))
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 8)
-          .map((driver) => {
-            return '<span class="global-driver-chip">' + escapeInsightText(driver.name) + ' <strong>' + driver.count + '</strong></span>';
-          })
-          .join("");
+  setTimeout(function () {
+    const body = document.getElementById("globalInsightsBody");
 
-        const rankingCards = summary.slice(0, 12).map((item, index) => {
-          const normalized = Math.max(6, Math.round((Math.abs(item.total) / maxAbsTotal) * 100));
-          const slopeDirection = item.trendDirection || getSparklineDirection(item.trendPoints);
-          const trendClass = slopeDirection === "up" ? "is-up" : (slopeDirection === "down" ? "is-down" : "is-flat");
-          const trendLabel = item.trendLabel || getTrendLabel(slopeDirection);
-          const sparklineId = "globalSparkline_" + index + "_" + String(item.chartId || "chart").replace(/[^a-zA-Z0-9_-]/g, "");
-          item.sparklineId = sparklineId;
+    if (!body) return;
 
-          return [
-            '<article class="global-chart-card">',
-            '<div class="global-chart-card-head">',
-            '<span class="global-rank">#', (index + 1), '</span>',
-            '<h4>', escapeInsightText(item.chartLabel), '</h4>',
-            '<span class="global-trend ', trendClass, '">', escapeInsightText(trendLabel), '</span>',
+    try {
+      const summary = collectGlobalInsightsData();
+
+      const uniqueUnits = new Set(summary.map((item) => item.unitLabel || "Unknown unit")).size;
+
+      const risingCount = summary.filter((item) => item.trendDirection === "up").length;
+      const fallingCount = summary.filter((item) => item.trendDirection === "down").length;
+      const stableCount = summary.filter((item) => item.trendDirection === "flat").length;
+
+      const latestYears = summary
+        .map((item) => Number(item.latestYear))
+        .filter((year) => !Number.isNaN(year));
+
+      const latestYearMin = latestYears.length ? Math.min.apply(null, latestYears) : null;
+      const latestYearMax = latestYears.length ? Math.max.apply(null, latestYears) : null;
+
+      const rankingCards = summary.slice(0, 6).map((item, index) => {
+        const slopeDirection = item.trendDirection || getSparklineDirection(item.trendPoints);
+        const trendClass = slopeDirection === "up" ? "is-up" : (slopeDirection === "down" ? "is-down" : "is-flat");
+        const trendLabel = item.trendLabel || getTrendLabel(slopeDirection);
+        const sparklineId = "globalSparkline_" + index + "_" + String(item.chartId || "chart").replace(/[^a-zA-Z0-9_-]/g, "");
+
+        item.sparklineId = sparklineId;
+
+        return [
+          '<article class="global-chart-card">',
+          '<div class="global-chart-card-head">',
+          '<span class="global-rank">#' + (index + 1) + '</span>',
+          '<h4>' + escapeInsightText(item.chartLabel) + '</h4>',
+          '<span class="global-trend ' + trendClass + '">' + escapeInsightText(trendLabel) + '</span>',
+          '</div>',
+
+          '<div class="global-sparkline-wrap">',
+          item.trendPoints && item.trendPoints.length > 1
+            ? '<div class="global-sparkline-hc" id="' + sparklineId + '"></div>'
+            : '<span class="global-sparkline-empty">-</span>',
+          '</div>',
+
+          '<div class="global-chart-metrics">',
+          '<span><strong>' +
+            (item.latestYear ? escapeInsightText(item.latestYear) + ": " : "") +
+            formatInsightNumber(item.topLatest) +
+            " " +
+            escapeInsightText(item.unitLabel) +
+          '</strong> latest leading value</span>',
+          '<span>Top: ' + escapeInsightText(getSafeDriverName(item.topName)) + '</span>',
+          '<span>Trend: ' + escapeInsightText(trendLabel) + '</span>',
+          '</div>',
+
+          '</article>'
+        ].join("");
+      }).join("");
+
+      const rows = summary.slice(0, 22).map((item, index) => {
+        return [
+          '<tr>',
+          '<td>' + (index + 1) + '</td>',
+          '<td>' + escapeInsightText(item.chartLabel) + '</td>',
+          '<td>' + formatInsightNumber(item.total) + ' ' + escapeInsightText(item.unitLabel) + '</td>',
+          '<td>' + escapeInsightText(getSafeDriverName(item.topName)) + '</td>',
+          '<td>' + (item.topLatest == null ? "-" : formatInsightNumber(item.topLatest) + ' ' + escapeInsightText(item.unitLabel)) + '</td>',
+          '<td>' + escapeInsightText(item.trendLabel || "-") + '</td>',
+          '</tr>'
+        ].join("");
+      }).join("");
+
+      body.innerHTML = summary.length
+        ? [
+            '<section class="global-insights-hero">',
+            '<p class="global-insights-kicker">Overview</p>',
+            '<p class="global-insights-text">This infographic summarises the visible charts for the current filters. Values keep their original units and should not be compared directly across different units.</p>',
+            '</section>',
+
+            '<section class="global-kpis">',
+            '<article class="global-kpi-card"><span class="kpi-label">Charts analysed</span><strong>' + summary.length + '</strong></article>',
+            '<article class="global-kpi-card"><span class="kpi-label">Units present</span><strong>' + uniqueUnits + '</strong></article>',
+            '<article class="global-kpi-card"><span class="kpi-label">Latest year range</span><strong>' + (latestYearMin && latestYearMax ? latestYearMin + "-" + latestYearMax : "-") + '</strong></article>',
+            '<article class="global-kpi-card"><span class="kpi-label">Rising / falling / stable</span><strong>' + risingCount + ' / ' + fallingCount + ' / ' + stableCount + '</strong></article>',
+            '</section>',
+
+            '<div class="insight-infographic-grid">',
+            buildTrendBalanceBlock(summary),
+            buildUnitDistributionBlock(summary),
+            buildTopDriversBlock(summary),
+            buildCategoryDistributionBlock(summary),
             '</div>',
-            '<div class="global-sparkline-wrap">',
-            item.trendPoints && item.trendPoints.length > 1
-              ? '<div class="global-sparkline-hc" id="' + sparklineId + '"></div>'
-              : '<span class="global-sparkline-empty">-</span>',
-            '</div>',
-            '<div class="global-intensity-track"><span style="width:', normalized, '%"></span></div>',
-            '<div class="global-chart-metrics">',
-            '<span><strong>', item.latestYear ? escapeInsightText(item.latestYear) + ': ' : '', formatInsightNumber(item.topLatest), ' ', escapeInsightText(item.unitLabel), '</strong> latest leading value</span>',
-            '<span>Top: ', escapeInsightText(item.topName), '</span>',
-            '<span>Trend: ', escapeInsightText(item.trendLabel || getTrendLabel(getSparklineDirection(item.trendPoints))), '</span>',
-            '</div>',
-            '</article>'
-          ].join("");
-        }).join("");
 
-        const rows = summary.slice(0, 22).map((item, index) => {
-          return [
+            buildGlobalTakeaways(summary),
+
+            '<section>',
+            '<p class="global-section-title">Spotlight charts</p>',
+            '<div class="global-ranking-grid">' + rankingCards + '</div>',
+            '</section>',
+
+            '<details class="global-insights-details">',
+            '<summary>Open detailed table</summary>',
+            '<div class="insights-table-wrap">',
+            '<table class="insights-table">',
+            '<thead>',
             '<tr>',
-            '<td>', (index + 1), '</td>',
-            '<td>', escapeInsightText(item.chartLabel), '</td>',
-            '<td>', formatInsightNumber(item.total), ' ', escapeInsightText(item.unitLabel), '</td>',
-            '<td>', escapeInsightText(item.topName), '</td>',
-            '<td>', item.topLatest == null ? '-' : (formatInsightNumber(item.topLatest) + ' ' + escapeInsightText(item.unitLabel)), '</td>',
-            '</tr>'
-          ].join('');
-        }).join('');
+            '<th>#</th>',
+            '<th>Chart</th>',
+            '<th>Total</th>',
+            '<th>Top driver</th>',
+            '<th>Latest</th>',
+            '<th>Trend</th>',
+            '</tr>',
+            '</thead>',
+            '<tbody>' + rows + '</tbody>',
+            '</table>',
+            '</div>',
+            '</details>'
+          ].join("")
+        : '<p class="insights-empty">No data available.</p>';
 
-        body.innerHTML = summary.length
-          ? [
-              '<section class="global-insights-hero">',
-              '<p class="global-insights-kicker">Overview</p>',
-              '<p class="global-insights-text">This view summarizes all visible charts for the current filters. Values are grouped per chart and keep their original units.</p>',
-              '</section>',
-              '<section class="global-kpis">',
-              '<article class="global-kpi-card"><span class="kpi-label">Charts analyzed</span><strong>', summary.length, '</strong></article>',
-              '<article class="global-kpi-card"><span class="kpi-label">Units present</span><strong>', uniqueUnits, '</strong></article>',
-              '<article class="global-kpi-card"><span class="kpi-label">Rising leaders</span><strong>', risingCount, '</strong></article>',
-              '<article class="global-kpi-card"><span class="kpi-label">Latest year range</span><strong>', latestYearMin && latestYearMax ? latestYearMin + '-' + latestYearMax : '-', '</strong></article>',
-              '</section>',
-              '<section class="global-driver-strip">',
-              '<p class="global-section-title">Most frequent top drivers</p>',
-              '<div class="global-driver-chips">', driverChips || '<span class="global-driver-chip">-</span>', '</div>',
-              '</section>',
-              '<section>',
-              '<p class="global-section-title">Chart overview by selected filters</p>',
-              '<div class="global-ranking-grid">', rankingCards, '</div>',
-              '</section>',
-              '<details class="global-insights-details">',
-              '<summary>Open detailed table</summary>',
-              '<div class="insights-table-wrap"><table class="insights-table"><thead><tr><th>#</th><th>Chart</th><th>Total</th><th>Top driver</th><th>Latest</th></tr></thead><tbody>', rows, '</tbody></table></div>',
-              '</details>'
-            ].join('')
-          : '<p class="insights-empty">No data available.</p>';
-
-        renderGlobalSparklines(summary);
-      } catch (error) {
-        body.innerHTML = '<p class="insights-empty">Unable to load insights right now.</p>';
-      }
-    }, 0);
-  }
+      renderGlobalSparklines(summary);
+    } catch (error) {
+      body.innerHTML = '<p class="insights-empty">Unable to load insights right now.</p>';
+    }
+  }, 0);
 }

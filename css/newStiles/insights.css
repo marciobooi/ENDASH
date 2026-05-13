@@ -331,3 +331,107 @@
   font-weight: 700;
   margin-bottom: 0.55rem;
 }
+
+.insight-infographic-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.insight-infographic-block,
+.insight-takeaways,
+.global-kpi-card,
+.global-chart-card {
+  background: #fff;
+  border: 1px solid #e3e7ed;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.infographic-block-head h4,
+.insight-takeaways h4 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.infographic-block-head p {
+  color: #5a7184;
+  font-size: 0.875rem;
+  margin: 0 0 0.75rem;
+}
+
+.insight-mini-bar {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(120px, 1fr) 2fr auto;
+  margin: 0.5rem 0;
+}
+
+.mini-bar-label {
+  color: #243b53;
+  font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mini-bar-track {
+  background: #edf2f7;
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.mini-bar-fill {
+  background: #5a7184;
+  border-radius: 999px;
+  display: block;
+  height: 100%;
+}
+
+.mini-bar-fill.is-up {
+  background: #0e8a3d;
+}
+
+.mini-bar-fill.is-down {
+  background: #b3263a;
+}
+
+.mini-bar-fill.is-flat,
+.mini-bar-fill.is-neutral {
+  background: #5a7184;
+}
+
+.mini-bar-fill.is-driver {
+  background: #1f6fba;
+}
+
+.mini-bar-fill.is-category {
+  background: #6b4eff;
+}
+
+.insight-takeaways {
+  margin-top: 1rem;
+}
+
+.insight-takeaways ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.insight-takeaways li {
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 768px) {
+  .insight-infographic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-mini-bar {
+    gap: 0.35rem;
+    grid-template-columns: 1fr;
+  }
+}
