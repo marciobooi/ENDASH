@@ -217,7 +217,7 @@ function addAuxiliarBarGraphOptions() {
   
   footerElement.insertBefore(menuSwitchElement, footerElement.firstChild);
   
-  footerElement.style.justifyContent = 'space-between';
+  footerElement.style.justifyContent = 'flex-end';
 
   // Expanded controls are dynamic, so translate them immediately.
   if (typeof languageNameSpace !== "undefined" && typeof languageNameSpace.applyTranslations === "function") {
