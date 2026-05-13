@@ -239,11 +239,7 @@ function compareCountries() {
             createPieChart();
             break;
         case "insightsChart":
-            if (REF.chartExpanded) {
-                createEnergyDetailsInsights();
-            } else {
-                createEnergyInsights();
-            }
+            createEnergyInsights();
             break;
         default:
             let chartType = "spline";

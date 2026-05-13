@@ -112,6 +112,34 @@
   min-width: 6rem;
 }
 
+.global-insights-loading {
+  align-items: center;
+  color: #23485f;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.global-insights-loading p {
+  margin: 0;
+}
+
+.global-insights-spinner {
+  animation: globalInsightsSpin 0.85s linear infinite;
+  border: 3px solid #d4e5f3;
+  border-radius: 50%;
+  border-top-color: #1d6c9b;
+  height: 30px;
+  width: 30px;
+}
+
+@keyframes globalInsightsSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .global-insights-hero {
   background: radial-gradient(circle at top right, #dceeff 0%, #eef6ff 35%, #f8fbff 100%);
   border: 1px solid #d5e6f8;
