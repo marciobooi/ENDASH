@@ -238,6 +238,13 @@ function compareCountries() {
         case "pieChart":
             createPieChart();
             break;
+        case "insightsChart":
+            if (REF.chartExpanded) {
+                createEnergyDetailsInsights();
+            } else {
+                createEnergyInsights();
+            }
+            break;
         default:
             let chartType = "spline";
             if (REF.dataset === "demo_pjan") {

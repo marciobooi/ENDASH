@@ -11,6 +11,11 @@ class SubNavbar {
     const notMobileContent = /*html*/ `
       <div class="container-fluid">
         <ul id="chartBtns" role="menubar" data-i18n-label="OPTIONS_GRAPH_TOOLBOX" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+          <li class="nav-item button px-1" id="globalInsightsBtnWrap" role="menuitem">
+            <button class="ecl-button ecl-button--primary round-btn" type="button" onclick="openGlobalInsights()" data-i18n-label="GLOBAL_INSIGHTS" data-i18n-title="GLOBAL_INSIGHTS" aria-label="Global insights">
+              <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            </button>
+          </li>
           <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
             <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-ecl-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" id="infoBtn">
               <i class="fas fa-info"></i>
@@ -65,6 +70,11 @@ class SubNavbar {
         </div>
         <div class="chartMenuMobile d-none">
           <ul id="chartBtns" role="menubar" aria-label="Options graph toolbox" class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 50vw;">
+            <li class="nav-item button px-1" id="globalInsightsBtnWrap" role="menuitem">
+              <button class="ecl-button ecl-button--primary round-btn" type="button" onclick="openGlobalInsights()" data-i18n-label="GLOBAL_INSIGHTS" data-i18n-title="GLOBAL_INSIGHTS" aria-label="Global insights">
+                <i class="fas fa-lightbulb" aria-hidden="true"></i>
+              </button>
+            </li>
             <li class="nav-item dropdown px-1" id="infoBtnChart" role="menuitem">
               <button class="ecl-button ecl-button--primary round-btn" type="button" data-i18n-label="INFO" data-i18n-title="INFO" data-ecl-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" id="infoBtn">
                 <i class="fas fa-info"></i>

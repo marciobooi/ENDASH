@@ -509,6 +509,16 @@
     "FR": "Afficher le graphique linéaire",
     "DE": "Liniendiagramm anzeigen"
   },
+  "SHOW_INSIGHTS": {
+    "EN": "Show energy insights",
+    "FR": "Afficher les insights energie",
+    "DE": "Energie-Insights anzeigen"
+  },
+  "GLOBAL_INSIGHTS": {
+    "EN": "Global insights",
+    "FR": "Insights globaux",
+    "DE": "Globale Insights"
+  },
   "SHOW_TABLE": {
     "EN": "Show table view",
     "FR": "Afficher la vue en tableau",

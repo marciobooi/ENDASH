@@ -105,6 +105,12 @@ var languageNameSpace = {
           showHideBarChartOptions();
           compareCountries();
           break;
+        case "insightsChart":
+          dataNameSpace.setRefURL();
+          showHideTimeLine();
+          showHideBarChartOptions();
+          compareCountries();
+          break;
         default:
           dataNameSpace.setRefURL();
           removeComponents();
