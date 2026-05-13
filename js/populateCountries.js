@@ -16,7 +16,28 @@ function populateCountries() {
   const singleSelect = new Singleselect(elementId, optionsArray, labelDescription, activeElement, textChange, selectedValue => {
     REF.geos = selectedValue;      
     dataNameSpace.setRefURL();
-      REF.chartExpanded == false ? removeAuxiliarBarGraphOptions() : compareCountries();
+    if (REF.chartExpanded == false) {
+      const chartItems = document.querySelectorAll('.chartContainer');
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      chartItems.forEach((chartItem) => {
+        chartItem.removeAttribute('data-render-key');
+
+        const rect = chartItem.getBoundingClientRect();
+        const isVisible = rect.bottom > 0 && rect.top < viewportHeight;
+
+        if (isVisible) {
+          REF.chartId = chartItem.id;
+          loadSkeleton(chartItem);
+          endash();
+          setTimeout(() => {
+            unloadSkeleton(chartItem);
+          }, 600);
+        }
+      });
+    } else {
+      compareCountries();
+    }
   });
 
   const singleSelectHTML = singleSelect.createSingleSelect();

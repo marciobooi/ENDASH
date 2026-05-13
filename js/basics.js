@@ -275,14 +275,6 @@ log('here')
     }
   });
 
-  const chartContainer = document.getElementById("endash");
-  if (chartContainer) {
-    chartContainer.innerHTML = "";
-  }
-
-    const rebuiltCharts = new ChartContainer();
-    rebuiltCharts.addToDOM("#endash");
-
 
   const auxiliarBarGraphOptions = new ChartControls();
   auxiliarBarGraphOptions.removeFromDOM("#subnavbar-container");
@@ -863,33 +855,22 @@ function enableScreenREader(params) {
   
   }
 
-  function loadSkeleton() {    
-    // Select all elements with the class "flex-item" and "chartContainer"
-    const elements = document.querySelectorAll(".chartContainer");
-
-      elements.forEach(element => {
-          // Select elements within the current element
-        document.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.add('pulsate'));
-        document.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.add('pulsate'));
-        document.querySelectorAll(".containerNav > button").forEach(el => el.classList.add('pulsate'));
-        document.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.remove('d-none'));
-      });
+  function loadSkeleton(chartItem = null) {    
+    const scope = chartItem || document;
+    scope.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.add('pulsate'));
+    scope.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.add('pulsate'));
+    scope.querySelectorAll(".containerNav > button").forEach(el => el.classList.add('pulsate'));
+    scope.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.remove('d-none'));
 }
 
 
 
-function unloadSkeleton() {    
-  // Select all elements with the class "chartContainer"
-  const elements = document.querySelectorAll(".chartContainer");
-
-  elements.forEach(element => {
-      // Deactivate pulsate effect
-      document.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.remove('pulsate'));
-      document.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.remove('pulsate'));
-      document.querySelectorAll(".containerNav > button").forEach(el => el.classList.remove('pulsate'));
-      // Hide skeleton container
-      document.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.add('d-none'));
-  });
+function unloadSkeleton(chartItem = null) {    
+  const scope = chartItem || document;
+  scope.querySelectorAll(".containerNav > div > h2").forEach(el => el.classList.remove('pulsate'));
+  scope.querySelectorAll(".containerNav > div > p").forEach(el => el.classList.remove('pulsate'));
+  scope.querySelectorAll(".containerNav > button").forEach(el => el.classList.remove('pulsate'));
+  scope.querySelectorAll("div.skeletonContainer").forEach(el => el.classList.add('d-none'));
 }
 
 

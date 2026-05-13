@@ -28,11 +28,36 @@ class ChartContainer {
     });
   }
 
+  getRenderKey(chartId) {
+    const chartData = codesDataset[chartId] || {};
+    const geos = Array.isArray(REF.geos) ? REF.geos.join(',') : REF.geos;
+    const indicator = Array.isArray(chartData.indicator) ? chartData.indicator.join(',') : chartData.indicator;
+    const indicator2 = Array.isArray(chartData.indicator2) ? chartData.indicator2.join(',') : chartData.indicator2;
+
+    return [
+      chartId,
+      REF.language,
+      geos,
+      REF.year,
+      REF.percentage,
+      REF.chartType,
+      chartData.dataset,
+      chartData.unit,
+      indicator,
+      indicator2
+    ].join('|');
+  }
+
  handleIntersection(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const chartItem = entry.target;
             REF.chartId = chartItem.id;
+            const highchartsContainer = chartItem.querySelector('.highchartsContainer');
+            const renderKey = this.getRenderKey(chartItem.id);
+            const previousRenderKey = chartItem.getAttribute('data-render-key');
+            const hasChartDom = highchartsContainer && highchartsContainer.childElementCount > 0;
+            const shouldRender = previousRenderKey !== renderKey || !hasChartDom;
 
             const url = new URL(window.location.href);    
             const shareParam = url.searchParams.get("share");
@@ -42,16 +67,19 @@ class ChartContainer {
                 hideForIframe();
                 this.intersectionObserver.disconnect();
             } else {
-                loadSkeleton(); 
-                endash();
-                this.intersectionObserver.unobserve(chartItem);
+                if (shouldRender) {
+                  loadSkeleton(chartItem);
+                  endash();
+                  chartItem.setAttribute('data-rendered', 'true');
+                  chartItem.setAttribute('data-render-key', renderKey);
+                }
                 setTimeout(() => {
-                  unloadSkeleton();
+                  unloadSkeleton(chartItem);
                 }, 2500);
             }
         } else {
           setTimeout(() => {
-            unloadSkeleton();
+            unloadSkeleton(entry.target);
           }, 2500);
         }
     });
