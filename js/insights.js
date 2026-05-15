@@ -503,6 +503,7 @@ function buildCategoryInsightText(item, unit, chartLabel) {
 }
 
 let globalInsightsMiniCharts = [];
+let globalInsightsThemeDonutChart = null;
 
 function getSparklineDirection(points) {
   if (!Array.isArray(points) || points.length < 2) return "flat";
@@ -784,6 +785,11 @@ function closeGlobalInsights() {
 
   globalInsightsMiniCharts = [];
 
+  if (globalInsightsThemeDonutChart && typeof globalInsightsThemeDonutChart.destroy === "function") {
+    globalInsightsThemeDonutChart.destroy();
+  }
+  globalInsightsThemeDonutChart = null;
+
   const overlay = document.getElementById("globalInsightsOverlay");
 
   if (overlay) {
@@ -876,7 +882,22 @@ function collectGlobalInsightsData() {
         trendPoints: top && Array.isArray(top.data) ? top.data.slice(-20) : [],
         latestYear: top ? top.latestYear : null,
         trendDirection: top ? top.trendDirection : "flat",
-        trendLabel: top ? top.trendLabel : "stable"
+        trendLabel: top ? top.trendLabel : "stable",
+        seriesSummary: insightsSeries.slice(0, 8).map((item) => ({
+          name: item.name,
+          latest: item.latest,
+          latestYear: item.latestYear,
+          first: item.first,
+          firstYear: item.firstYear,
+          longTermChange: item.longTermChange,
+          percentChange: item.percentChange,
+          minValue: item.minValue,
+          minYear: item.minYear,
+          maxValue: item.maxValue,
+          maxYear: item.maxYear,
+          trendDirection: item.trendDirection,
+          trendLabel: item.trendLabel
+        }))
       });
     } catch (err) {
       // Ignore broken chart payloads so one chart does not block the global summary.
@@ -1290,6 +1311,412 @@ function buildDataCoveragePanel(summary) {
   ].join("");
 }
 
+function getThemeLabelFromGroup(group) {
+  const map = {
+    headline: "Headline policy indicators",
+    security: "Security",
+    supply: "Supply",
+    consumption: "Consumption",
+    transport: "Transport",
+    electricity: "Electricity",
+    environment: "Environment",
+    social: "Social",
+    market: "Market"
+  };
+
+  return map[group] || "Other";
+}
+
+function buildThemeDistributionData(summary) {
+  const counts = {};
+
+  summary.forEach((item) => {
+    const label = getThemeLabelFromGroup(item.storyGroup);
+    counts[label] = (counts[label] || 0) + 1;
+  });
+
+  return Object.keys(counts)
+    .map((label) => ({ name: label, y: counts[label] }))
+    .sort((a, b) => b.y - a.y);
+}
+
+function buildThemeDonutBlock(summary) {
+  const totalThemes = buildThemeDistributionData(summary).length;
+
+  return [
+    '<section class="insight-infographic-block theme-donut-card">',
+    '<div class="infographic-block-head">',
+    '<h4>Theme distribution</h4>',
+    '<p>How visible charts are distributed across dashboard themes.</p>',
+    '</div>',
+    '<div id="themeDistributionDonut" class="theme-donut"></div>',
+    '<p class="global-insights-note">',
+    totalThemes + ' themes represented in this view.',
+    '</p>',
+    '</section>'
+  ].join("");
+}
+
+function renderThemeDonut(summary) {
+  if (typeof Highcharts === "undefined") return;
+
+  if (globalInsightsThemeDonutChart && typeof globalInsightsThemeDonutChart.destroy === "function") {
+    globalInsightsThemeDonutChart.destroy();
+  }
+
+  const container = document.getElementById("themeDistributionDonut");
+  if (!container) return;
+
+  const donutData = buildThemeDistributionData(summary);
+
+  globalInsightsThemeDonutChart = Highcharts.chart("themeDistributionDonut", {
+    chart: {
+      type: "pie",
+      backgroundColor: "transparent",
+      height: 280,
+      spacing: [0, 0, 0, 0]
+    },
+    title: { text: null },
+    credits: { enabled: false },
+    exporting: { enabled: false },
+    tooltip: {
+      pointFormat: "<b>{point.y}</b> charts ({point.percentage:.1f}%)"
+    },
+    accessibility: { enabled: false },
+    plotOptions: {
+      pie: {
+        innerSize: "62%",
+        dataLabels: {
+          enabled: true,
+          format: "{point.name}: {point.y}",
+          style: {
+            fontSize: "10px",
+            textOutline: "none"
+          }
+        },
+        showInLegend: false
+      }
+    },
+    series: [{
+      data: donutData
+    }]
+  });
+}
+
+function buildThemeMiniSummaries(summary) {
+  const grouped = summary.reduce((acc, item) => {
+    const label = getThemeLabelFromGroup(item.storyGroup);
+    if (!acc[label]) {
+      acc[label] = { total: 0, up: 0, down: 0, flat: 0 };
+    }
+
+    acc[label].total += 1;
+    acc[label][item.trendDirection === "up" ? "up" : item.trendDirection === "down" ? "down" : "flat"] += 1;
+
+    return acc;
+  }, {});
+
+  const cards = Object.keys(grouped)
+    .map((label) => ({ label, stats: grouped[label] }))
+    .sort((a, b) => b.stats.total - a.stats.total)
+    .slice(0, 9)
+    .map((entry) => {
+      return [
+        '<article class="theme-summary-card">',
+        '<h5>' + escapeInsightText(entry.label) + '</h5>',
+        '<p>' + entry.stats.total + ' charts</p>',
+        '<small>' + entry.stats.up + ' rising · ' + entry.stats.down + ' falling · ' + entry.stats.flat + ' stable</small>',
+        '</article>'
+      ].join("");
+    })
+    .join("");
+
+  return [
+    '<section class="insight-infographic-block">',
+    '<div class="infographic-block-head">',
+    '<h4>Theme-level mini summaries</h4>',
+    '<p>Quick trend distribution per dashboard theme.</p>',
+    '</div>',
+    '<div class="theme-mini-summaries">' + cards + '</div>',
+    '</section>'
+  ].join("");
+}
+
+function buildPolicyAlertsByGroup(summary) {
+  const grouped = summary.reduce((acc, item) => {
+    const group = getThemeLabelFromGroup(item.storyGroup);
+    if (!acc[group]) {
+      acc[group] = { favourable: 0, unfavourable: 0, stable: 0, contextual: 0 };
+    }
+
+    const assessment = getDirectionAssessment(item);
+    if (assessment === "favourable") acc[group].favourable += 1;
+    if (assessment === "unfavourable") acc[group].unfavourable += 1;
+    if (assessment === "stable") acc[group].stable += 1;
+    if (assessment === "contextual") acc[group].contextual += 1;
+
+    return acc;
+  }, {});
+
+  const alerts = Object.keys(grouped)
+    .map((label) => {
+      const stat = grouped[label];
+      if (stat.unfavourable > stat.favourable) {
+        return label + ': ' + stat.unfavourable + ' unfavourable vs ' + stat.favourable + ' favourable indicators.';
+      }
+      return null;
+    })
+    .filter(Boolean);
+
+  if (!alerts.length) {
+    alerts.push('No theme currently has more unfavourable than favourable interpreted indicators.');
+  }
+
+  return [
+    '<section class="insight-alert-panel">',
+    '<h4>Policy alerts by theme</h4>',
+    '<ul>',
+    alerts.map((alert) => '<li>' + escapeInsightText(alert) + '</li>').join(''),
+    '</ul>',
+    '</section>'
+  ].join("");
+}
+
+function buildLatestCoverageTimeline(summary) {
+  const yearMap = {};
+
+  summary.forEach((item) => {
+    const year = Number(item.latestYear);
+    if (!Number.isNaN(year)) {
+      yearMap[year] = (yearMap[year] || 0) + 1;
+    }
+  });
+
+  const years = Object.keys(yearMap)
+    .map((year) => Number(year))
+    .sort((a, b) => a - b);
+
+  if (!years.length) {
+    return [
+      '<section class="insight-infographic-block coverage-timeline">',
+      '<div class="infographic-block-head">',
+      '<h4>Latest data coverage timeline</h4>',
+      '<p>No latest-year information available for visible charts.</p>',
+      '</div>',
+      '</section>'
+    ].join('');
+  }
+
+  const maxValue = Math.max.apply(null, years.map((year) => yearMap[year]).concat([1]));
+
+  const rows = years.map((year) => {
+    return buildMiniBar(String(year), yearMap[year], maxValue, "is-neutral");
+  }).join("");
+
+  return [
+    '<section class="insight-infographic-block coverage-timeline">',
+    '<div class="infographic-block-head">',
+    '<h4>Latest data coverage timeline</h4>',
+    '<p>How many charts have their latest observation in each year.</p>',
+    '</div>',
+    rows,
+    '</section>'
+  ].join('');
+}
+
+function buildSeriesBreakdownBars(item) {
+  if (!Array.isArray(item.seriesSummary) || !item.seriesSummary.length) {
+    return "";
+  }
+
+  const validSeries = item.seriesSummary
+    .filter((serie) => serie.latest != null && !Number.isNaN(serie.latest))
+    .slice(0, 5);
+
+  if (!validSeries.length) {
+    return "";
+  }
+
+  const maxValue = Math.max.apply(
+    null,
+    validSeries.map((serie) => Math.abs(serie.latest)).concat([1])
+  );
+
+  const bars = validSeries.map((serie) => {
+    const width = Math.max(4, Math.round((Math.abs(serie.latest) / maxValue) * 100));
+
+    return [
+      '<div class="story-breakdown-row">',
+      '<span class="story-breakdown-label" title="' + escapeInsightText(serie.name || "-") + '">' +
+        escapeInsightText(serie.name || "-") +
+      '</span>',
+      '<span class="story-breakdown-track">',
+      '<span class="story-breakdown-fill" style="width:' + width + '%"></span>',
+      '</span>',
+      '<strong>' + formatInsightNumber(serie.latest) + ' ' + escapeInsightText(item.unitLabel || "") + '</strong>',
+      '</div>'
+    ].join("");
+  }).join("");
+
+  return [
+    '<div class="story-breakdown">',
+    '<p class="story-card-section-title">Latest breakdown</p>',
+    bars,
+    '</div>'
+  ].join("");
+}
+
+function buildStoryCardDeepFacts(item) {
+  const mainSeries = Array.isArray(item.seriesSummary) && item.seriesSummary.length
+    ? item.seriesSummary[0]
+    : null;
+
+  if (!mainSeries) return "";
+
+  return [
+    '<div class="story-deep-facts">',
+    '<div>',
+    '<span>First value</span>',
+    '<strong>' +
+      formatInsightNumber(mainSeries.first) +
+      ' ' +
+      escapeInsightText(item.unitLabel || "") +
+    '</strong>',
+    '<small>' + escapeInsightText(mainSeries.firstYear || "-") + '</small>',
+    '</div>',
+
+    '<div>',
+    '<span>Peak value</span>',
+    '<strong>' +
+      formatInsightNumber(mainSeries.maxValue) +
+      ' ' +
+      escapeInsightText(item.unitLabel || "") +
+    '</strong>',
+    '<small>' + escapeInsightText(mainSeries.maxYear || "-") + '</small>',
+    '</div>',
+
+    '<div>',
+    '<span>Lowest value</span>',
+    '<strong>' +
+      formatInsightNumber(mainSeries.minValue) +
+      ' ' +
+      escapeInsightText(item.unitLabel || "") +
+    '</strong>',
+    '<small>' + escapeInsightText(mainSeries.minYear || "-") + '</small>',
+    '</div>',
+    '</div>'
+  ].join("");
+}
+
+function buildStoryInterpretation(item) {
+  const metric = item.preferredMetric || "generic";
+  const topDriver = getSafeDriverName(item.topName);
+  const unit = item.unitLabel || "";
+  const latest = item.topLatest == null ? "-" : formatInsightNumber(item.topLatest) + " " + unit;
+  const year = item.latestYear || "-";
+
+  if (metric === "percentage-point-change") {
+    return (
+      topDriver +
+      " is the leading component in " +
+      year +
+      ". The latest value is " +
+      latest +
+      ", with a long-term change of " +
+      formatSignedNumber(item.topLongTermChange, "percentage points") +
+      "."
+    );
+  }
+
+  if (metric === "dependency-risk") {
+    return (
+      topDriver +
+      " has the highest dependency value in the selected view. Latest value: " +
+      latest +
+      " in " +
+      year +
+      "."
+    );
+  }
+
+  if (metric === "top-driver-and-share") {
+    return (
+      topDriver +
+      " is the leading component. Latest value: " +
+      latest +
+      " in " +
+      year +
+      "."
+    );
+  }
+
+  if (metric === "top-driver-and-trend") {
+    return (
+      topDriver +
+      " is the leading component and shows a " +
+      item.trendLabel +
+      " long-term trend. Latest value: " +
+      latest +
+      " in " +
+      year +
+      "."
+    );
+  }
+
+  if (metric === "generation-mix") {
+    return (
+      topDriver +
+      " is the leading electricity or heat source. Latest value: " +
+      latest +
+      " in " +
+      year +
+      "."
+    );
+  }
+
+  if (metric === "social-risk") {
+    return (
+      "The latest value is " +
+      latest +
+      " in " +
+      year +
+      ". Lower values generally indicate better living conditions."
+    );
+  }
+
+  if (metric === "market-structure") {
+    return (
+      "The latest market indicator value is " +
+      latest +
+      " in " +
+      year +
+      ". This indicator should be interpreted together with the market structure definition."
+    );
+  }
+
+  if (metric === "latest-and-change") {
+    return (
+      "The latest value is " +
+      latest +
+      " in " +
+      year +
+      ", with a long-term change of " +
+      formatSignedNumber(item.topLongTermChange, unit) +
+      "."
+    );
+  }
+
+  return (
+    "The leading series is " +
+    topDriver +
+    ", with a latest value of " +
+    latest +
+    " in " +
+    year +
+    "."
+  );
+}
+
 function buildStoryCard(item) {
   const trendClass = item.trendDirection === "up"
     ? "is-up"
@@ -1310,6 +1737,7 @@ function buildStoryCard(item) {
 
   return [
     '<article class="story-card story-group-' + escapeInsightText(item.storyGroup) + '">',
+
     '<div class="story-card-header">',
     '<span class="story-icon">' + escapeInsightText(item.storyIcon) + '</span>',
     '<div>',
@@ -1335,6 +1763,14 @@ function buildStoryCard(item) {
     '<strong>' + escapeInsightText(changeText) + '</strong>',
     '<small>' + escapeInsightText(item.trendLabel || "-") + '</small>',
     '</div>',
+    '</div>',
+
+    buildStoryCardDeepFacts(item),
+
+    buildSeriesBreakdownBars(item),
+
+    '<div class="story-interpretation">',
+    '<p>' + escapeInsightText(buildStoryInterpretation(item)) + '</p>',
     '</div>',
 
     '<div class="story-card-footer">',
@@ -1741,6 +2177,12 @@ function openGlobalInsights() {
 
             buildDataCoveragePanel(summary),
 
+            buildThemeDonutBlock(summary),
+
+            buildLatestCoverageTimeline(summary),
+
+            buildThemeMiniSummaries(summary),
+
             '<section class="story-overview-grid">',
             buildTrendStackedBlock(summary),
             buildPolicyDirectionBlock(summary),
@@ -1749,6 +2191,8 @@ function openGlobalInsights() {
             buildTopDriversBlock(summary),
             buildCategoryDistributionBlock(summary),
             '</section>',
+
+            buildPolicyAlertsByGroup(summary),
 
             buildInsightAlerts(summary),
 
@@ -1781,6 +2225,7 @@ function openGlobalInsights() {
         : '<p class="insights-empty">No data available.</p>';
 
       renderGlobalSparklines(summary);
+      renderThemeDonut(summary);
     } catch (error) {
       body.innerHTML = '<p class="insights-empty">Unable to load insights right now.</p>';
     }
