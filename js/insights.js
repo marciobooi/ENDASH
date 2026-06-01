@@ -504,6 +504,7 @@ function buildCategoryInsightText(item, unit, chartLabel) {
 
 let globalInsightsMiniCharts = [];
 let globalInsightsThemeDonutChart = null;
+let globalInsightsLastFocusedElement = null;
 
 function getSparklineDirection(points) {
   if (!Array.isArray(points) || points.length < 2) return "flat";
@@ -795,6 +796,12 @@ function closeGlobalInsights() {
   if (overlay) {
     overlay.remove();
   }
+
+  if (globalInsightsLastFocusedElement && typeof globalInsightsLastFocusedElement.focus === "function") {
+    globalInsightsLastFocusedElement.focus();
+  }
+
+  globalInsightsLastFocusedElement = null;
 }
 
 function getMainViewChartIds() {
@@ -2113,16 +2120,17 @@ function openGlobalInsights() {
 
   closeGlobalInsights();
   injectInsightsStoryStyles();
+  globalInsightsLastFocusedElement = document.activeElement;
 
   const labels = (languageNameSpace && languageNameSpace.labels) || {};
   const title = labels.GLOBAL_INSIGHTS || "Global insights";
 
   const html = [
-    '<div id="globalInsightsOverlay" class="global-insights-overlay" role="dialog" aria-modal="true">',
+    '<div id="globalInsightsOverlay" class="global-insights-overlay" role="dialog" aria-modal="true" aria-labelledby="globalInsightsTitle">',
     '<div class="global-insights-panel">',
     '<div class="global-insights-header">',
-    '<h3 class="insights-title">' + escapeInsightText(title) + '</h3>',
-    '<button type="button" class="global-insights-close ecl-button ecl-button--secondary" onclick="closeGlobalInsights()">' + escapeInsightText(labels.CLOSE || "Close") + '</button>',
+    '<h3 class="insights-title" id="globalInsightsTitle">' + escapeInsightText(title) + '</h3>',
+    '<button type="button" class="global-insights-close ecl-button ecl-button--secondary" onclick="closeGlobalInsights()" aria-label="' + escapeInsightText(labels.CLOSE || "Close") + '">' + escapeInsightText(labels.CLOSE || "Close") + '</button>',
     '</div>',
     '<div id="globalInsightsBody" class="global-insights-loading">',
     '<div class="global-insights-spinner" aria-hidden="true"></div>',
@@ -2135,12 +2143,41 @@ function openGlobalInsights() {
   document.body.insertAdjacentHTML("beforeend", html);
 
   const overlay = document.getElementById("globalInsightsOverlay");
+  const closeButton = overlay ? overlay.querySelector(".global-insights-close") : null;
 
   if (!overlay) return;
+
+  if (closeButton) {
+    closeButton.focus();
+  }
 
   overlay.addEventListener("click", function (event) {
     if (event.target === overlay) {
       closeGlobalInsights();
+    }
+  });
+
+  overlay.addEventListener("keydown", function (event) {
+    if (event.key !== "Tab") return;
+
+    const focusable = overlay.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
   });
 
@@ -2166,6 +2203,9 @@ function openGlobalInsights() {
     try {
       const summary = collectGlobalInsightsData();
       const rows = buildEvidenceRows(summary);
+
+      // Switch from centered loading layout to normal document flow before rendering content.
+      body.classList.remove("global-insights-loading");
 
       body.innerHTML = summary.length
         ? [
@@ -2224,10 +2264,15 @@ function openGlobalInsights() {
           ].join("")
         : '<p class="insights-empty">No data available.</p>';
 
+      // Always start from the top when fresh content is injected.
+      body.scrollTop = 0;
+
       renderGlobalSparklines(summary);
       renderThemeDonut(summary);
     } catch (error) {
+      body.classList.remove("global-insights-loading");
       body.innerHTML = '<p class="insights-empty">Unable to load insights right now.</p>';
+      body.scrollTop = 0;
     }
   }, 0);
 }
