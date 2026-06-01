@@ -315,7 +315,7 @@
 
 .global-trend.is-up {
   background: #e5f8ea;
-  color: #0e6a2f;
+  color: #0c5b28;
 }
 
 .global-trend.is-down {
@@ -402,7 +402,7 @@
 }
 
 .infographic-block-head p {
-  color: #5a7184;
+  color: #445766;
   font-size: 0.875rem;
   margin: 0 0 0.75rem;
 }
@@ -431,7 +431,7 @@
 }
 
 .mini-bar-fill {
-  background: #5a7184;
+  background: #445766;
   border-radius: 999px;
   display: block;
   height: 100%;
@@ -447,7 +447,7 @@
 
 .mini-bar-fill.is-flat,
 .mini-bar-fill.is-neutral {
-  background: #5a7184;
+  background: #445766;
 }
 
 .mini-bar-fill.is-driver {
@@ -507,7 +507,7 @@
 
 .story-deep-facts span,
 .story-deep-facts small {
-  color: #5a7184;
+  color: #445766;
   display: block;
   font-size: 0.72rem;
 }
@@ -604,7 +604,7 @@
 
 .theme-summary-card p,
 .theme-summary-card small {
-  color: #5a7184;
+  color: #445766;
   display: block;
   margin: 0;
 }
@@ -672,7 +672,7 @@
 
 .trend-segment-flat,
 .stacked-legend-item i.trend-segment-flat {
-  background: #5a7184;
+  background: #445766;
 }
 
 .policy-segment-good,
@@ -687,7 +687,7 @@
 
 .policy-segment-stable,
 .stacked-legend-item i.policy-segment-stable {
-  background: #5a7184;
+  background: #445766;
 }
 
 .policy-segment-neutral,

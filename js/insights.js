@@ -857,7 +857,7 @@ function getSparklineDirection(points) {
 function getSparklineColor(direction) {
   if (direction === "up") return "#0e8a3d";
   if (direction === "down") return "#b3263a";
-  return "#5a7184";
+  return "#445766";
 }
 
 function renderGlobalSparklines(summary) {
@@ -2250,7 +2250,7 @@ function injectInsightsStoryStyles() {
     .story-group-header p,
     .infographic-block-head p,
     .story-card p {
-      color: #5a7184;
+      color: #445766;
       margin: 0.25rem 0 0;
     }
 
@@ -2270,7 +2270,7 @@ function injectInsightsStoryStyles() {
     .story-card-kpis span,
     .story-card-kpis small {
       display: block;
-      color: #5a7184;
+      color: #445766;
       font-size: 0.78rem;
     }
 
@@ -2314,13 +2314,13 @@ function injectInsightsStoryStyles() {
       display: block;
       height: 100%;
       border-radius: 999px;
-      background: #5a7184;
+      background: #445766;
     }
 
     .mini-bar-fill.is-up { background: #0e8a3d; }
     .mini-bar-fill.is-down { background: #b3263a; }
     .mini-bar-fill.is-flat,
-    .mini-bar-fill.is-neutral { background: #5a7184; }
+    .mini-bar-fill.is-neutral { background: #445766; }
     .mini-bar-fill.is-driver { background: #1f6fba; }
     .mini-bar-fill.is-category { background: #6b4eff; }
 
