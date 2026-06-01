@@ -876,6 +876,20 @@ function renderGlobalSparklines(summary) {
       return;
     }
 
+    const sparklineLabel =
+      "Sparkline for " +
+      (item.storyTitle || item.chartLabel || "chart") +
+      ". Trend is " +
+      (item.trendLabel || "stable") +
+      ".";
+
+    const sparklineContainer = document.getElementById(item.sparklineId);
+    if (sparklineContainer) {
+      sparklineContainer.setAttribute("role", "img");
+      sparklineContainer.setAttribute("aria-label", sparklineLabel);
+      sparklineContainer.setAttribute("title", sparklineLabel);
+    }
+
     const direction = getSparklineDirection(item.trendPoints);
 
     const chart = Highcharts.chart(item.sparklineId, {
@@ -1691,6 +1705,7 @@ function buildThemeDistributionData(summary) {
 
 function buildThemeDonutBlock(summary) {
   const totalThemes = buildThemeDistributionData(summary).length;
+  const donutLabel = "Donut chart showing how visible charts are distributed across dashboard themes.";
 
   return [
     '<section class="insight-infographic-block theme-donut-card">',
@@ -1698,7 +1713,7 @@ function buildThemeDonutBlock(summary) {
     '<h4>Theme distribution</h4>',
     '<p>How visible charts are distributed across dashboard themes.</p>',
     '</div>',
-    '<div id="themeDistributionDonut" class="theme-donut"></div>',
+    '<div id="themeDistributionDonut" class="theme-donut" role="img" aria-label="' + escapeInsightText(donutLabel) + '" title="' + escapeInsightText(donutLabel) + '"></div>',
     '<p class="global-insights-note">',
     totalThemes + ' themes represented in this view.',
     '</p>',
@@ -1715,6 +1730,11 @@ function renderThemeDonut(summary) {
 
   const container = document.getElementById("themeDistributionDonut");
   if (!container) return;
+
+  const donutLabel = "Donut chart showing how visible charts are distributed across dashboard themes.";
+  container.setAttribute("role", "img");
+  container.setAttribute("aria-label", donutLabel);
+  container.setAttribute("title", donutLabel);
 
   const donutData = buildThemeDistributionData(summary);
 
@@ -2084,6 +2104,13 @@ function buildStoryCard(item) {
     ? "Change not available"
     : formatSignedNumber(item.topLongTermChange, item.unitLabel);
 
+  const sparklineLabel =
+    "Sparkline for " +
+    (item.storyTitle || "chart") +
+    ". Trend is " +
+    (item.trendLabel || "stable") +
+    ".";
+
   return [
     '<article class="story-card story-group-' + escapeInsightText(item.storyGroup) + '">',
 
@@ -2100,7 +2127,11 @@ function buildStoryCard(item) {
 
     '<div class="story-card-sparkline">',
     item.trendPoints && item.trendPoints.length > 1
-      ? '<div class="global-sparkline-hc" id="' + sparklineId + '"></div>'
+      ? '<div class="global-sparkline-hc" id="' + sparklineId + '" role="img" aria-label="' +
+        escapeInsightText(sparklineLabel) +
+        '" title="' +
+        escapeInsightText(sparklineLabel) +
+        '"></div>'
       : '<span class="global-sparkline-empty">No trend line</span>',
     '</div>',
 
