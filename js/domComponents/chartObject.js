@@ -33,9 +33,21 @@ class Chart {
             duration: 1000,
           },
            events: {
+            render() {
+              const chart = this;
+              if (chart.tooltip && chart.tooltip.container) {
+                // Outside HTML tooltip is UI-only; keep it out of landmark/content scans.
+                chart.tooltip.container.setAttribute('aria-hidden', 'true');
+                chart.tooltip.container.setAttribute('role', 'presentation');
+              }
+            },
             load() {
               const chart = this;
               chart.showLoading();
+              if (chart.tooltip && chart.tooltip.container) {
+                chart.tooltip.container.setAttribute('aria-hidden', 'true');
+                chart.tooltip.container.setAttribute('role', 'presentation');
+              }
               setTimeout(function() {
                 chart.hideLoading();
               }, 800);
@@ -67,6 +79,7 @@ class Chart {
           hideDelay: 0,
           animation: false,
           useHTML: true,    
+          // Keep large tooltips readable by allowing them to overflow outside plot bounds.
           outside: !REF.chartExpanded,
           padding: 0,         
         },

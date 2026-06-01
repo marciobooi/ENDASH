@@ -436,8 +436,8 @@ function tooltipTable(points) {
     html += `<table id="tooltipTable" class="table_component">                
                 <thead>
                   <tr>
-                    <th scope="cols">${categoryValue}</th>                    
-                    <th scope="cols">${valueColumnHeader}</th>                    
+                    <th scope="col">${categoryValue}</th>                    
+                    <th scope="col">${valueColumnHeader}</th>                    
                   </tr>
                 </thead>`
       points.forEach(element => {
@@ -474,8 +474,8 @@ function tooltipTable(points) {
     html += `<table id="tooltipTable" class="table_component">                
       <thead>
         <tr>
-          <th scope="cols">${categoryValue}</th>                    
-          <th scope="cols">${valueColumnHeader}</th>                    
+          <th scope="col">${categoryValue}</th>                    
+          <th scope="col">${valueColumnHeader}</th>                    
         </tr>
       </thead>`;
     
@@ -511,7 +511,7 @@ function tooltipTable(points) {
     `<table id="tooltipTable" class="table_component">                
     <thead>
       <tr>
-        <th scope="cols">${categoryValue}</th>                                    
+        <th scope="col">${categoryValue}</th>                                    
       </tr>
     </thead><tr>      
     <td>${languageNameSpace.labels["FLAG_NA"]}</td>
