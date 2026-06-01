@@ -26,7 +26,12 @@ const chartStoryConfig = {
     storyTitle: "Energy efficiency",
     insightRole: "Tracks final and primary energy consumption against policy indicators.",
     preferredMetric: "latest-and-change",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Compares final and primary energy consumption levels and their recent direction.",
+      how: "Reads the latest value, yearly change and long-term change from the time series.",
+      read: "Lower consumption for similar activity usually indicates better efficiency."
+    }
   },
   chart_2: {
     group: "headline",
@@ -34,7 +39,12 @@ const chartStoryConfig = {
     storyTitle: "Renewable energy",
     insightRole: "Shows the share of renewable energy across total, transport, electricity and heating/cooling.",
     preferredMetric: "percentage-point-change",
-    sentiment: "higher-is-better"
+    sentiment: "higher-is-better",
+    simpleExplain: {
+      what: "Shows how much of energy demand is covered by renewables.",
+      how: "Uses percentage shares and their change in percentage points over time.",
+      read: "Higher renewable shares generally signal progress in transition."
+    }
   },
   chart_3: {
     group: "environment",
@@ -42,7 +52,12 @@ const chartStoryConfig = {
     storyTitle: "Energy-related greenhouse gas emissions",
     insightRole: "Shows greenhouse gas emissions by source category.",
     preferredMetric: "contributor-and-trend",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Identifies which source contributes most to energy-related emissions.",
+      how: "Ranks source categories by latest value and checks their trend over time.",
+      read: "Falling emissions are usually favourable for climate objectives."
+    }
   },
   chart_4: {
     group: "performance",
@@ -50,7 +65,12 @@ const chartStoryConfig = {
     storyTitle: "Energy intensity",
     insightRole: "Shows how much energy is used per unit of economic output.",
     preferredMetric: "latest-and-change",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Measures energy used to produce one unit of economic output.",
+      how: "Tracks the intensity indicator level and its short- and long-term changes.",
+      read: "Lower intensity means less energy needed for the same output."
+    }
   },
   chart_5: {
     group: "performance",
@@ -58,7 +78,12 @@ const chartStoryConfig = {
     storyTitle: "Energy productivity",
     insightRole: "Shows economic output generated per unit of energy used.",
     preferredMetric: "latest-and-change",
-    sentiment: "higher-is-better"
+    sentiment: "higher-is-better",
+    simpleExplain: {
+      what: "Measures how much economic value is created per unit of energy.",
+      how: "Tracks the productivity indicator and compares current vs past values.",
+      read: "Higher productivity usually means energy is used more efficiently."
+    }
   },
   chart_6: {
     group: "security",
@@ -66,7 +91,12 @@ const chartStoryConfig = {
     storyTitle: "Energy import dependency",
     insightRole: "Shows dependency on energy imports by product.",
     preferredMetric: "dependency-risk",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Shows how much the energy system relies on imported energy.",
+      how: "Calculates dependency ratios and compares them over time by product.",
+      read: "Lower dependency generally implies lower exposure to external shocks."
+    }
   },
   chart_7: {
     group: "security",
@@ -74,7 +104,12 @@ const chartStoryConfig = {
     storyTitle: "Fossil fuels in gross available energy",
     insightRole: "Shows the share of fossil fuels in gross available energy.",
     preferredMetric: "percentage-point-change",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Shows the fossil fuel share in total available energy.",
+      how: "Uses share indicators and percentage-point changes across years.",
+      read: "A declining fossil share indicates a cleaner supply mix."
+    }
   },
   chart_8: {
     group: "context",
@@ -82,7 +117,12 @@ const chartStoryConfig = {
     storyTitle: "Population context",
     insightRole: "Provides demographic context for energy indicators.",
     preferredMetric: "context",
-    sentiment: "neutral"
+    sentiment: "neutral",
+    simpleExplain: {
+      what: "Provides population context to interpret energy indicators fairly.",
+      how: "Displays demographic levels and trends that can explain energy demand shifts.",
+      read: "Use as background context, not as a good-or-bad performance metric."
+    }
   },
   chart_9: {
     group: "consumption",
@@ -90,7 +130,12 @@ const chartStoryConfig = {
     storyTitle: "Final energy consumption by product",
     insightRole: "Shows which energy products dominate final consumption.",
     preferredMetric: "top-driver-and-share",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows which fuels/products contribute most to final energy use.",
+      how: "Ranks products by latest value and their share of the total.",
+      read: "Interpret changes with structural and policy context, not direction alone."
+    }
   },
   chart_10: {
     group: "consumption",
@@ -98,7 +143,12 @@ const chartStoryConfig = {
     storyTitle: "Final energy consumption by sector",
     insightRole: "Shows which sectors consume the most final energy.",
     preferredMetric: "top-driver-and-share",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows sectoral distribution of final energy consumption.",
+      how: "Compares sector series and highlights top contributors and shares.",
+      read: "Use to identify demand structure before judging trend quality."
+    }
   },
   chart_11: {
     group: "households",
@@ -106,7 +156,12 @@ const chartStoryConfig = {
     storyTitle: "Household energy use",
     insightRole: "Breaks down household energy consumption by end use.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Explains where household energy is used (heating, appliances, etc.).",
+      how: "Finds leading end uses and follows their trend over time.",
+      read: "Direction depends on weather, efficiency and social context."
+    }
   },
   chart_12: {
     group: "transport",
@@ -114,7 +169,12 @@ const chartStoryConfig = {
     storyTitle: "Transport energy by fuel",
     insightRole: "Shows the fuel mix used in transport.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows which fuels power the transport sector.",
+      how: "Compares fuel series, identifies the top fuel and its trend.",
+      read: "Assess with mobility demand and decarbonisation context together."
+    }
   },
   chart_13: {
     group: "transport",
@@ -122,7 +182,12 @@ const chartStoryConfig = {
     storyTitle: "Road transport energy by fuel",
     insightRole: "Shows the fuel mix used in road transport.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Focuses on fuel use specifically in road transport.",
+      how: "Ranks road-fuel series by latest values and tracks their trend.",
+      read: "Use with fleet and technology context to interpret shifts."
+    }
   },
   chart_14: {
     group: "consumption",
@@ -130,7 +195,12 @@ const chartStoryConfig = {
     storyTitle: "Services energy consumption",
     insightRole: "Shows energy use in commercial and public services.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows how service activities consume energy by product/fuel.",
+      how: "Highlights top consuming products and their trend over time.",
+      read: "Interpret with activity growth and efficiency changes together."
+    }
   },
   chart_15: {
     group: "industry",
@@ -138,7 +208,12 @@ const chartStoryConfig = {
     storyTitle: "Industry energy consumption",
     insightRole: "Shows the fuel mix used by industry.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows which fuels are most used in industrial activity.",
+      how: "Compares fuel contributions and their long-term movement.",
+      read: "Judge trends with industrial output and technology context."
+    }
   },
   chart_16: {
     group: "industry",
@@ -146,7 +221,12 @@ const chartStoryConfig = {
     storyTitle: "Final non-energy consumption",
     insightRole: "Shows products used for non-energy purposes.",
     preferredMetric: "top-driver-and-trend",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Tracks products used as feedstock or materials rather than fuel.",
+      how: "Identifies dominant non-energy products and their trend.",
+      read: "Changes often reflect industrial structure, not only efficiency."
+    }
   },
   chart_17: {
     group: "electricity",
@@ -154,7 +234,12 @@ const chartStoryConfig = {
     storyTitle: "Electricity and heat production",
     insightRole: "Shows gross electricity and derived heat production by source.",
     preferredMetric: "generation-mix",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows how electricity and heat generation are split by source.",
+      how: "Compares source contributions and changes in the generation mix.",
+      read: "Use to monitor diversification and decarbonisation patterns."
+    }
   },
   chart_18: {
     group: "electricity",
@@ -162,7 +247,12 @@ const chartStoryConfig = {
     storyTitle: "Electricity from combustible fuels",
     insightRole: "Shows electricity production from combustible fuel types.",
     preferredMetric: "generation-mix",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Details electricity output from combustible fuel categories.",
+      how: "Breaks down generation by fuel type and tracks trend shifts.",
+      read: "Interpret with transition pace and security constraints in mind."
+    }
   },
   chart_19: {
     group: "social",
@@ -170,7 +260,12 @@ const chartStoryConfig = {
     storyTitle: "Energy poverty",
     insightRole: "Shows population unable to keep home adequately warm.",
     preferredMetric: "social-risk",
-    sentiment: "lower-is-better"
+    sentiment: "lower-is-better",
+    simpleExplain: {
+      what: "Measures social exposure to insufficient home heating conditions.",
+      how: "Uses survey-based population shares and their trend over time.",
+      read: "Lower values indicate lower energy poverty risk."
+    }
   },
   chart_20: {
     group: "market",
@@ -178,7 +273,12 @@ const chartStoryConfig = {
     storyTitle: "Electricity market structure",
     insightRole: "Shows market concentration and electricity market indicators.",
     preferredMetric: "market-structure",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Describes competition and concentration in electricity markets.",
+      how: "Tracks structure indicators and compares their change over time.",
+      read: "Interpret alongside regulation and market design context."
+    }
   },
   chart_21: {
     group: "supply",
@@ -186,7 +286,12 @@ const chartStoryConfig = {
     storyTitle: "Gross available energy",
     insightRole: "Shows available energy by product.",
     preferredMetric: "top-driver-and-share",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows total available energy split by product categories.",
+      how: "Finds largest product contributions and their relative share.",
+      read: "Use to understand supply structure before comparing levels."
+    }
   },
   chart_22: {
     group: "supply",
@@ -194,7 +299,12 @@ const chartStoryConfig = {
     storyTitle: "Total energy supply",
     insightRole: "Shows total energy supply by product.",
     preferredMetric: "top-driver-and-share",
-    sentiment: "contextual"
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows how total energy supply is distributed across products.",
+      how: "Ranks product series by latest value and share of total supply.",
+      read: "Interpret trends with structural changes in energy mix."
+    }
   }
 };
 
@@ -285,8 +395,77 @@ const insightGroups = {
   }
 };
 
+const preferredMetricExplainers = {
+  "latest-and-change": "Uses the latest value and compares it with the previous and first available years.",
+  "percentage-point-change": "Measures changes in share values in percentage points over time.",
+  "contributor-and-trend": "Finds the largest contributor and then checks whether it rises, falls or stays stable.",
+  "dependency-risk": "Highlights import dependence and whether reliance is increasing or decreasing.",
+  context: "Provides context indicators to support interpretation of the energy data.",
+  "top-driver-and-share": "Selects the leading series and its relative weight in the selected scope.",
+  "top-driver-and-trend": "Selects the leading series and evaluates its time trend.",
+  "generation-mix": "Compares the contribution of different generation sources in the energy mix.",
+  "social-risk": "Tracks social exposure and direction of change over time.",
+  "market-structure": "Summarises concentration and structure indicators for the electricity market.",
+  generic: "Summarises the leading values and trend in the available series."
+};
+
+const sentimentReadingGuide = {
+  "higher-is-better": "Read upward movement as generally positive progress for this indicator.",
+  "lower-is-better": "Read downward movement as generally positive progress for this indicator.",
+  neutral: "Read movement as descriptive context, not as good or bad by default.",
+  contextual: "Interpret using policy context; direction alone is not enough to judge performance."
+};
+
+const groupPurposeGuide = {
+  headline: "These indicators provide the main policy signal for energy transition progress.",
+  security: "This theme highlights exposure to external supply risks and fossil reliance.",
+  supply: "This theme explains the composition and level of available energy supply.",
+  consumption: "This theme explains where final energy is used and by whom.",
+  transport: "This theme shows how transport demand is met by different fuels.",
+  industry: "This theme tracks industrial demand and non-energy uses of products.",
+  electricity: "This theme describes electricity and heat generation structure.",
+  environment: "This theme links energy activity to environmental pressure.",
+  performance: "This theme measures how efficiently energy supports economic activity.",
+  households: "This theme focuses on residential demand and end-use patterns.",
+  social: "This theme reflects household living-condition risks linked to energy.",
+  market: "This theme captures market concentration and competition signals.",
+  context: "This theme provides supporting context for interpreting other indicators.",
+  other: "This theme contains additional indicators not mapped to a primary category."
+};
+
+function enrichStoryExplain(story) {
+  const source = story || {};
+  const simpleExplain = source.simpleExplain || {};
+
+  source.simpleExplain = {
+    what: simpleExplain.what || source.insightRole || "Shows the main value and trend of this indicator.",
+    how: simpleExplain.how || preferredMetricExplainers[source.preferredMetric] || preferredMetricExplainers.generic,
+    read: simpleExplain.read || sentimentReadingGuide[source.sentiment] || sentimentReadingGuide.contextual
+  };
+
+  return source;
+}
+
+function getInsightGroupConfig(groupKey) {
+  const group = insightGroups[groupKey] || insightGroups.other;
+
+  if (!group.whyThisThemeMatters) {
+    group.whyThisThemeMatters = groupPurposeGuide[groupKey] || groupPurposeGuide.other;
+  }
+
+  return group;
+}
+
+Object.keys(chartStoryConfig).forEach((chartId) => {
+  chartStoryConfig[chartId] = enrichStoryExplain(chartStoryConfig[chartId]);
+});
+
+Object.keys(insightGroups).forEach((groupKey) => {
+  getInsightGroupConfig(groupKey);
+});
+
 function getChartStory(chartId) {
-  return chartStoryConfig[chartId] || {
+  const story = chartStoryConfig[chartId] || {
     group: "other",
     icon: "📊",
     storyTitle: chartId || "Indicator",
@@ -294,6 +473,164 @@ function getChartStory(chartId) {
     preferredMetric: "generic",
     sentiment: "neutral"
   };
+
+  return enrichStoryExplain(story);
+}
+
+function getInsightInfoId(seed) {
+  const safeSeed = String(seed || "insight")
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return "insightInfo_" + (safeSeed || "insight");
+}
+
+function buildSimpleExplainHtml(simpleExplain, className, idSeed) {
+  if (!simpleExplain) return "";
+
+  const popoverId = getInsightInfoId(idSeed);
+  const wrapClass = className || "story-explain";
+
+  return [
+    '<span class="insight-info-wrap ' + escapeInsightText(wrapClass) + '">',
+    '<button type="button" class="insight-info-button" aria-label="Open chart explanation" aria-controls="' +
+      escapeInsightText(popoverId) +
+      '" aria-expanded="false">i</button>',
+    '<span id="' + escapeInsightText(popoverId) + '" class="insight-info-popover" role="dialog" aria-modal="false" tabindex="-1" hidden>',
+    '<button type="button" class="insight-info-close" aria-label="Close chart explanation">Close</button>',
+    '<strong>What it shows</strong>',
+    '<span>' + escapeInsightText(simpleExplain.what || "-") + '</span>',
+    '<strong>How calculated</strong>',
+    '<span>' + escapeInsightText(simpleExplain.how || "-") + '</span>',
+    '<strong>How to read</strong>',
+    '<span>' + escapeInsightText(simpleExplain.read || "-") + '</span>',
+    '</span>',
+    '</span>'
+  ].join("");
+}
+
+function closeInsightPopover(button, shouldRefocus) {
+  if (!button) return;
+
+  const popoverId = button.getAttribute("aria-controls");
+  const popover = popoverId ? document.getElementById(popoverId) : null;
+
+  button.setAttribute("aria-expanded", "false");
+
+  if (popover) {
+    popover.hidden = true;
+  }
+
+  if (shouldRefocus) {
+    button.focus();
+  }
+}
+
+function closeAllInsightPopovers(exceptButton) {
+  document.querySelectorAll(".insight-info-button[aria-expanded='true']").forEach((button) => {
+    if (button !== exceptButton) {
+      closeInsightPopover(button, false);
+    }
+  });
+}
+
+function bindInsightInfoInteractions(root) {
+  if (!root) return;
+
+  const buttons = Array.from(root.querySelectorAll(".insight-info-button"));
+
+  buttons.forEach((button) => {
+    if (button.dataset.insightBound === "true") return;
+
+    button.dataset.insightBound = "true";
+
+    button.addEventListener("click", function () {
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+      const popoverId = button.getAttribute("aria-controls");
+      const popover = popoverId ? document.getElementById(popoverId) : null;
+
+      if (!popover) return;
+
+      if (isExpanded) {
+        closeInsightPopover(button, false);
+        return;
+      }
+
+      closeAllInsightPopovers(button);
+      button.setAttribute("aria-expanded", "true");
+      popover.hidden = false;
+
+      const closeButton = popover.querySelector(".insight-info-close");
+      if (closeButton) {
+        closeButton.focus();
+      } else {
+        popover.focus();
+      }
+    });
+
+    button.addEventListener("keydown", function (event) {
+      if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) return;
+
+      event.preventDefault();
+
+      const allButtons = Array.from(document.querySelectorAll(".insight-info-button"));
+      if (!allButtons.length) return;
+
+      const currentIndex = allButtons.indexOf(button);
+      if (currentIndex === -1) return;
+
+      const isForward = event.key === "ArrowRight" || event.key === "ArrowDown";
+      const nextIndex = isForward
+        ? (currentIndex + 1) % allButtons.length
+        : (currentIndex - 1 + allButtons.length) % allButtons.length;
+
+      allButtons[nextIndex].focus();
+    });
+  });
+
+  const closeButtons = Array.from(root.querySelectorAll(".insight-info-close"));
+
+  closeButtons.forEach((closeButton) => {
+    if (closeButton.dataset.insightBound === "true") return;
+
+    closeButton.dataset.insightBound = "true";
+
+    closeButton.addEventListener("click", function () {
+      const popover = closeButton.closest(".insight-info-popover");
+      if (!popover) return;
+
+      const trigger = document.querySelector('.insight-info-button[aria-controls="' + popover.id + '"]');
+      closeInsightPopover(trigger, true);
+    });
+  });
+
+  const popovers = Array.from(root.querySelectorAll(".insight-info-popover"));
+
+  popovers.forEach((popover) => {
+    if (popover.dataset.insightBound === "true") return;
+
+    popover.dataset.insightBound = "true";
+
+    popover.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+
+      event.preventDefault();
+      const trigger = document.querySelector('.insight-info-button[aria-controls="' + popover.id + '"]');
+      closeInsightPopover(trigger, true);
+    });
+  });
+
+  if (!window.__insightInfoOutsideBound) {
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest(".insight-info-wrap")) {
+        closeAllInsightPopovers(null);
+      }
+    });
+
+    window.__insightInfoOutsideBound = true;
+  }
 }
 
 function getValidTimeSeriesPoints(values, categories) {
@@ -678,6 +1015,7 @@ function renderInsightsToChartContainer(html) {
   if (!target) return;
 
   target.innerHTML = html;
+  bindInsightInfoInteractions(target);
 }
 
 function createEnergyInsights() {
@@ -734,7 +1072,10 @@ function createEnergyInsights() {
     '<div class="local-story-header">',
     '<span class="story-icon">' + escapeInsightText(story.icon || "📊") + '</span>',
     '<div>',
+    '<div class="story-title-row">',
     '<h3 class="insights-title">' + escapeInsightText(story.storyTitle || getInsightTitle()) + '</h3>',
+    buildSimpleExplainHtml(story.simpleExplain, "local-insight-explain", "local_" + (REF.chartId || "chart")),
+    '</div>',
     '<p>' + escapeInsightText(story.insightRole || getInsightTitle()) + '</p>',
     '</div>',
     '</div>',
@@ -877,6 +1218,7 @@ function collectGlobalInsightsData() {
         insightRole: story.insightRole || "Additional indicator in the current view.",
         preferredMetric: story.preferredMetric || "generic",
         sentiment: story.sentiment || "neutral",
+        simpleExplain: story.simpleExplain || null,
 
         total,
         topName: top ? top.name : "-",
@@ -914,8 +1256,8 @@ function collectGlobalInsightsData() {
   restoreRefState(initialState, savedContainerId);
 
   return summary.sort((a, b) => {
-    const groupA = insightGroups[a.storyGroup] || insightGroups.other;
-    const groupB = insightGroups[b.storyGroup] || insightGroups.other;
+    const groupA = getInsightGroupConfig(a.storyGroup);
+    const groupB = getInsightGroupConfig(b.storyGroup);
 
     if (groupA.order !== groupB.order) {
       return groupA.order - groupB.order;
@@ -1231,8 +1573,8 @@ function buildCategoryDistributionBlock(summary) {
       count: categoryMap[category]
     }))
     .sort((a, b) => {
-      const groupA = insightGroups[a.category] || insightGroups.other;
-      const groupB = insightGroups[b.category] || insightGroups.other;
+      const groupA = getInsightGroupConfig(a.category);
+      const groupB = getInsightGroupConfig(b.category);
       return groupA.order - groupB.order;
     });
 
@@ -1748,7 +2090,10 @@ function buildStoryCard(item) {
     '<div class="story-card-header">',
     '<span class="story-icon">' + escapeInsightText(item.storyIcon) + '</span>',
     '<div>',
+    '<div class="story-title-row">',
     '<h4>' + escapeInsightText(item.storyTitle) + '</h4>',
+    buildSimpleExplainHtml(item.simpleExplain, "story-explain", "global_" + (item.chartId || "chart")),
+    '</div>',
     '<p>' + escapeInsightText(item.insightRole) + '</p>',
     '</div>',
     '</div>',
@@ -1799,12 +2144,12 @@ function buildStoryGroupSections(summary) {
 
   return Object.keys(grouped)
     .sort((a, b) => {
-      const groupA = insightGroups[a] || insightGroups.other;
-      const groupB = insightGroups[b] || insightGroups.other;
+      const groupA = getInsightGroupConfig(a);
+      const groupB = getInsightGroupConfig(b);
       return groupA.order - groupB.order;
     })
     .map((groupKey) => {
-      const group = insightGroups[groupKey] || insightGroups.other;
+      const group = getInsightGroupConfig(groupKey);
       const items = grouped[groupKey];
 
       const rising = items.filter((item) => item.trendDirection === "up").length;
@@ -1818,6 +2163,7 @@ function buildStoryGroupSections(summary) {
         '<div>',
         '<h3>' + escapeInsightText(group.title) + '</h3>',
         '<p>' + escapeInsightText(group.description) + '</p>',
+        '<p class="story-group-why">Why this theme matters: ' + escapeInsightText(group.whyThisThemeMatters || "") + '</p>',
         '</div>',
         '<div class="story-group-stats">',
         '<span><strong>' + items.length + '</strong> charts</span>',
@@ -1837,7 +2183,7 @@ function buildStoryGroupSections(summary) {
 
 function buildEvidenceRows(summary) {
   return summary.map((item, index) => {
-    const group = insightGroups[item.storyGroup] || insightGroups.other;
+    const group = getInsightGroupConfig(item.storyGroup);
 
     return [
       '<tr>',
@@ -1883,7 +2229,7 @@ function injectInsightsStoryStyles() {
       border: 1px solid #e3e7ed;
       border-radius: 16px;
       padding: 1rem;
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
 
     .data-coverage-panel {
@@ -2042,6 +2388,101 @@ function injectInsightsStoryStyles() {
       font-size: 0.95rem;
     }
 
+    .story-title-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      max-width: 100%;
+    }
+
+    .insight-info-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .insight-info-button {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 999px;
+      border: 1px solid #bfd3e8;
+      background: #eef5fd;
+      color: #13466f;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .insight-info-button:hover {
+      background: #dfefff;
+    }
+
+    .insight-info-button:focus {
+      outline: 2px solid #0e47cb;
+      outline-offset: 2px;
+    }
+
+    .insight-info-popover {
+      position: absolute;
+      top: calc(100% + 0.45rem);
+      right: 0;
+      z-index: 40;
+      min-width: 230px;
+      max-width: min(320px, 86vw);
+      background: #ffffff;
+      border: 1px solid #d4e2f0;
+      border-radius: 10px;
+      box-shadow: 0 10px 28px rgba(8, 33, 58, 0.16);
+      padding: 0.6rem 0.65rem;
+    }
+
+    .insight-info-close {
+      border: 1px solid #d4e2f0;
+      border-radius: 999px;
+      background: #f7fbff;
+      color: #17466a;
+      font-size: 0.74rem;
+      padding: 0.18rem 0.48rem;
+      margin-left: auto;
+      margin-bottom: 0.35rem;
+      display: block;
+      cursor: pointer;
+    }
+
+    .insight-info-close:focus {
+      outline: 2px solid #0e47cb;
+      outline-offset: 1px;
+    }
+
+    .story-group-why {
+      margin-top: 0.4rem;
+      font-size: 0.82rem;
+      color: #3b5368;
+    }
+
+    .insight-info-popover strong {
+      display: block;
+      margin-top: 0.35rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #1f3f5c;
+    }
+
+    .insight-info-popover strong:first-of-type {
+      margin-top: 0;
+    }
+
+    .insight-info-popover span {
+      display: block;
+      color: #3a546a;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      margin-top: 0.12rem;
+    }
+
     .story-card-sparkline {
       margin-top: 0.75rem;
       min-height: 32px;
@@ -2103,6 +2544,11 @@ function injectInsightsStoryStyles() {
 
       .story-group-stats {
         justify-content: flex-start;
+      }
+
+      .insight-info-popover {
+        right: auto;
+        left: 0;
       }
 
       .insight-mini-bar {
@@ -2232,9 +2678,11 @@ function openGlobalInsights() {
             buildCategoryDistributionBlock(summary),
             '</section>',
 
+         
+            '<section class="insights-row">',
             buildPolicyAlertsByGroup(summary),
-
             buildInsightAlerts(summary),
+            '</section>',
 
             buildGlobalTakeaways(summary),
 
@@ -2266,6 +2714,7 @@ function openGlobalInsights() {
 
       // Always start from the top when fresh content is injected.
       body.scrollTop = 0;
+      bindInsightInfoInteractions(body);
 
       renderGlobalSparklines(summary);
       renderThemeDonut(summary);
