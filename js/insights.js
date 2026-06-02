@@ -617,6 +617,7 @@ function bindInsightInfoInteractions(root) {
       if (event.key !== "Escape") return;
 
       event.preventDefault();
+      event.stopPropagation();
       const trigger = document.querySelector('.insight-info-button[aria-controls="' + popover.id + '"]');
       closeInsightPopover(trigger, true);
     });
@@ -1670,6 +1671,16 @@ function buildDataCoveragePanel(summary) {
     '<article><span>Metadata groups</span><strong>' + Object.keys(metaMap).length + '</strong></article>',
     '<article><span>Units</span><strong>' + Object.keys(unitMap).length + '</strong></article>',
     '</div>',
+    '<div class="coverage-global-explain">',
+    '<p><strong>How to read this globally:</strong> this section summarises direction and leading contributors across all visible charts, not a single indicator.</p>',
+    '<ul>',
+    '<li><strong>Rising</strong>: the latest value is moving up versus earlier years.</li>',
+    '<li><strong>Falling</strong>: the latest value is moving down versus earlier years.</li>',
+    '<li><strong>Stable</strong>: no clear increase or decrease is detected.</li>',
+    '<li><strong>Top driver</strong>: the category or series with the largest weight in that chart.</li>',
+    '<li>Interpret direction with each indicator context, because a rise is not always good or bad.</li>',
+    '</ul>',
+    '</div>',
     '</section>'
   ].join("");
 }
@@ -2311,6 +2322,30 @@ function injectInsightsStoryStyles() {
       font-size: 1.5rem;
     }
 
+    .coverage-global-explain {
+      grid-column: 1 / -1;
+      margin-top: 0.25rem;
+      padding: 0.85rem 0.95rem;
+      border-radius: 12px;
+      background: #f7f9fc;
+      border: 1px solid #e3e7ed;
+    }
+
+    .coverage-global-explain p {
+      margin: 0;
+      color: #243b53;
+    }
+
+    .coverage-global-explain ul {
+      margin: 0.55rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .coverage-global-explain li {
+      margin-bottom: 0.25rem;
+      color: #445766;
+    }
+
     .story-overview-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2393,6 +2428,9 @@ function injectInsightsStoryStyles() {
       border: 1px solid #e8edf5;
       border-radius: 14px;
       padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .story-card-header,
@@ -2667,6 +2705,14 @@ function openGlobalInsights() {
     }
 
     if (event.key === "Escape") {
+      const openPopoverTrigger = currentOverlay.querySelector('.insight-info-button[aria-expanded="true"]');
+
+      if (openPopoverTrigger) {
+        event.preventDefault();
+        closeInsightPopover(openPopoverTrigger, true);
+        return;
+      }
+
       closeGlobalInsights();
       document.removeEventListener("keydown", globalInsightsEscHandler);
     }
