@@ -45,6 +45,10 @@ function getDriverFactory() {
 }
 
 function tutorial() {
+  if (window.eclDropdownHandler) {
+    window.eclDropdownHandler.closeDropdown();
+  }
+
   const factory = getDriverFactory();
   if (!factory) {
     console.error("Driver.js is not available.");
@@ -53,16 +57,13 @@ function tutorial() {
 
   const rawSteps = [
     {
-      element: "#find-more-menu-icon",
       popover: {
         title: languageNameSpace.tutorial["TUTO_1"],
-        description: languageNameSpace.tutorial["TUTO_2"],
-        side: "bottom",
-        align: "start"
+        description: languageNameSpace.tutorial["TUTO_2"]
       }
     },
     {
-      element: ".flex-container",
+      element: "#endash",
       popover: {
         title: languageNameSpace.tutorial["TUTO_3"],
         description: languageNameSpace.tutorial["TUTO_4"],
@@ -108,7 +109,7 @@ function tutorial() {
     }
   ];
 
-  const steps = rawSteps.filter((step) => document.querySelector(step.element));
+  const steps = rawSteps.filter((step) => !step.element || document.querySelector(step.element));
   if (!steps.length) {
     return;
   }
@@ -118,6 +119,8 @@ function tutorial() {
     animate: true,
     allowClose: true,
     overlayClickBehavior: "close",
+    overlayColor: "#0e1c3c",
+    overlayOpacity: 0.45,
     nextBtnText: languageNameSpace.labels["NEXT"],
     prevBtnText: languageNameSpace.labels["BACK"],
     doneBtnText: languageNameSpace.labels["FINISH"],

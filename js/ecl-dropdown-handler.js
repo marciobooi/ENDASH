@@ -107,8 +107,8 @@ class ECLDropdownHandler {
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new ECLDropdownHandler();
+    window.eclDropdownHandler = new ECLDropdownHandler();
   });
 } else {
-  new ECLDropdownHandler();
+  window.eclDropdownHandler = new ECLDropdownHandler();
 }

@@ -7,10 +7,6 @@
   --driver-shadow: 0 16px 36px rgba(9, 49, 142, 0.18);
 }
 
-.driver-overlay {
-  background: rgba(14, 28, 60, 0.62) !important;
-  backdrop-filter: blur(1px);
-}
 
 .driver-popover {
   background: var(--driver-surface) !important;
@@ -49,6 +45,7 @@
   text-shadow: none !important;
   box-shadow: none !important;
   padding: 0.45rem 0.75rem !important;
+  margin: 5px;
 }
 
 .driver-popover-next-btn {
@@ -76,11 +73,20 @@
   font-size: 0.8rem !important;
 }
 
-.driver-popover-arrow-side-left.driver-popover-arrow,
-.driver-popover-arrow-side-right.driver-popover-arrow,
-.driver-popover-arrow-side-top.driver-popover-arrow,
+.driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: var(--driver-surface) !important;
+}
+
+.driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: var(--driver-surface) !important;
+}
+
+.driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: var(--driver-surface) !important;
+}
+
 .driver-popover-arrow-side-bottom.driver-popover-arrow {
-  border-color: var(--driver-surface) !important;
+  border-bottom-color: var(--driver-surface) !important;
 }
 
 @media (max-width: 768px) {
@@ -91,6 +97,7 @@
 
   .driver-popover-title {
     font-size: 1rem !important;
+    margin-bottom: 15px !important;
   }
 
   .driver-popover-description {
