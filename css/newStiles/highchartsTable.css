@@ -125,8 +125,13 @@ th.highcharts-text {
 
 .table_component {
     overflow: auto;
-    width: 24rem !important;
-    
+    width: 24rem;
+    /* A hard 24rem (!important, forcing it regardless of available space)
+       let the tooltip get positioned assuming a width Highcharts never
+       actually measured, so it could render past the edge of the window
+       with no way to scroll to it. Capping to the viewport lets Highcharts'
+       own boundary-avoidance measure and account for the real size instead. */
+    max-width: calc(100vw - 2rem);
 }
 
 .table_component table {
@@ -167,6 +172,8 @@ tbody, td, tfoot, th, thead, tr {
 
 .table_component td:first-child {
     display: flex;
+    align-content: center;
+    align-items: center;
 }
 
 tr > td:nth-child(2) {
@@ -174,4 +181,6 @@ tr > td:nth-child(2) {
     white-space: nowrap;
 }
 
-
+td > svg {
+    margin-right: 5px;
+}
