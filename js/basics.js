@@ -675,6 +675,13 @@ function buildApiUrl() {
 
   switch (REF.chartType) {
     case "lineChart":
+    // The local insights view (lightbulb toggle) queries the same
+    // country/unit/indicators as the line chart it replaces. Without this
+    // case, "insightsChart" matched nothing here, so the request went out
+    // with no &geo=/&unit=/indicator filters at all - the whole dataset
+    // (every country, every category) - and the "latest value"/"highest
+    // value" cards ended up reading arbitrary, unrelated data points.
+    case "insightsChart":
       url += "&unit=" + REF.unit;
       url += "&geo=" + REF.geos;
       if (REF.indicator.length > 0) {
