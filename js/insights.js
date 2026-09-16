@@ -2604,6 +2604,10 @@ function injectInsightsStoryStyles() {
 
     .story-local-insight .local-story-header {
       margin-bottom: 1rem;
+      /* The per-chart header is just an icon next to a single title line (no
+         description below it like the story cards have), so center them
+         instead of the shared top-alignment used there. */
+      align-items: center;
     }
 
     @media (max-width: 900px) {
