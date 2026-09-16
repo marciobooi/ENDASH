@@ -1,3 +1,12 @@
+// Bar/pie recombine a chart's series into a single-year breakdown, which
+// isn't meaningful for every chart:
+// - chart_2 (renewable energy) mixes indicators that aren't a real
+//   part-of-whole breakdown, so neither bar nor pie makes sense.
+// - these charts only ever resolve to a single series/indicator for pie, so
+//   the pie chart is always just one 100% slice.
+const BAR_AND_PIE_DISABLED_CHARTS = ["chart_2"];
+const PIE_ONLY_DISABLED_CHARTS = ["chart_4", "chart_5", "chart_7", "chart_10", "chart_11", "chart_19"];
+
 class ChartControls {
   constructor() {
     this.controls = document.createElement("div");
@@ -186,9 +195,10 @@ class ChartControls {
 
     closeChart.setClickHandler(function() {
       REF.chartExpanded = false;
-      if (REF.chartType !== "insightsChart") {
-        REF.chartType = "lineChart";
-      }
+      // Always return to the normal chart on close, even from the insights
+      // view - otherwise it stays on "insightsChart" and re-renders the
+      // insights text into the card/highchartsContainer instead of the chart.
+      REF.chartType = "lineChart";
       showHideTimeLine();
       removeAuxiliarBarGraphOptions();
     });
@@ -233,6 +243,13 @@ class ChartControls {
 
     lineChart.setDisabled(true);
 
+    if (BAR_AND_PIE_DISABLED_CHARTS.includes(REF.chartId)) {
+      barChart.setDisabled(true);
+      pieChart.setDisabled(true);
+    } else if (PIE_ONLY_DISABLED_CHARTS.includes(REF.chartId)) {
+      pieChart.setDisabled(true);
+    }
+
     // Chart controls are dynamic (created on expand), so attach tooltip handlers now.
     if (typeof enableTooltips === "function") {
       setTimeout(() => enableTooltips(), 0);
@@ -264,10 +281,17 @@ class ChartControls {
 function disableChatOptionsBtn(chart) {
   REF.chartType = chart;
   const btns = ["barChart", "pieChart", "lineChart", "insightsChart"];
+  const barPieRestricted = BAR_AND_PIE_DISABLED_CHARTS.includes(REF.chartId);
+  const pieRestricted = barPieRestricted || PIE_ONLY_DISABLED_CHARTS.includes(REF.chartId);
+
   btns.forEach((btn) => {
     const element = document.getElementById(btn);
     if (element) {
-      element.disabled = REF.chartType === btn;
+      // The currently active view's own button is always disabled (no point
+      // re-clicking it); on top of that, keep bar/pie disabled for charts
+      // where they don't make sense, regardless of which view is now active.
+      const restricted = (btn === "barChart" && barPieRestricted) || (btn === "pieChart" && pieRestricted);
+      element.disabled = REF.chartType === btn || restricted;
     }
   });
 }

@@ -208,6 +208,9 @@ li {
   width: auto;
   height: 55vh;
   margin: 0 auto;
+  /* The insights view injects content taller than the chart it replaces
+     (stat cards + summary text); let it scroll instead of getting clipped. */
+  overflow-y: auto;
 }
 
 

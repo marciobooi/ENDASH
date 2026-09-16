@@ -29,6 +29,7 @@ class Button {
     setDisabled(disabled) {
         if (this.buttonElement) {
           this.buttonElement.disabled = disabled;
+          this.buttonElement.setAttribute("aria-disabled", disabled ? "true" : "false");
         }
       }
   

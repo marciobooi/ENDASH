@@ -234,10 +234,8 @@ function addAuxiliarBarGraphOptions() {
 
 function removeAuxiliarBarGraphOptions() {
 log('here')
-  
-  if (REF.chartType !== "insightsChart") {
-    REF.chartType = "lineChart";
-  }
+
+  REF.chartType = "lineChart";
   REF.percentage = 0
   REF.chartExpanded = false
 

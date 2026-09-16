@@ -4,6 +4,12 @@
   border-radius: 12px;
   margin: 0.5rem;
   padding: 1rem;
+  /* .flex-item (the card this gets injected into) sets font-size: 3em as an
+     ambient base for its own content; reset it here so unstyled tags in the
+     insights markup (plain <p>, the story icon, etc.) don't inherit that and
+     render huge instead of at normal text size. */
+  font-size: 1rem;
+  text-align: left;
 }
 
 .insights-title {

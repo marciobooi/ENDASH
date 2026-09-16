@@ -1034,6 +1034,14 @@ function renderInsightsToChartContainer(html) {
 }
 
 function createEnergyInsights() {
+  // The per-chart insight markup below reuses the .story-icon/.local-story-header/
+  // .story-title-row classes styled by injectInsightsStoryStyles(), but that
+  // was previously only called when opening the separate Global Insights
+  // modal - so this view rendered with no styling at all (giant inherited
+  // font-size from .flex-item, unstyled icon) unless that modal had already
+  // been opened. It's idempotent, so calling it here is safe.
+  injectInsightsStoryStyles();
+
   updateREFFromCodesDataset(REF.chartId);
 
   const d = chartApiCall();

@@ -360,6 +360,9 @@ ul#footerCredits {
   width: 20rem;
   height: 25rem;
   margin: 0 auto;
+  /* The insights view injects content taller than the chart it replaces
+     (stat cards + summary text); let it scroll instead of getting clipped. */
+  overflow-y: auto;
 }
 
 th.highcharts-text {
