@@ -2,7 +2,10 @@ class Timeline {
     constructor(targetElement) {
         this.targetElement = targetElement;
         this.minYear = 1990;
-        this.maxYear = 2022;
+        // Eurostat's annual energy datasets are typically published with about
+        // a year's lag, so "last year" tracks real data availability without
+        // needing a hardcoded year that goes stale (it was stuck at 2022).
+        this.maxYear = new Date().getFullYear() - 1;
         this.currentYear = Number(REF.year) || this.minYear;
         this.createTimeline();
         this.addToDOM();
