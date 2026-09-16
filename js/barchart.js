@@ -6,7 +6,18 @@ function createBarChart() {
   showHideBarChartOptions()
   updateREFFromCodesDataset(REF.chartId);
 
-  REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();                    
+  REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();
+
+  if (!d) {
+    // The Eurostat API call failed (dataset unavailable, network error,
+    // etc.) - fall back to the "no data" chart instead of crashing on
+    // d.Dimension(...) below. nullishChart() bypasses getTitle(), so call
+    // it here too - otherwise the title stays on its stale/placeholder text.
+    getTitle();
+    nullishChart(containerId, []);
+    stopLoadingAnimation();
+    return;
+  }
 
   const series = d.Dimension("geo").id;
   let categories = d.Dimension("geo").id;  

@@ -9,7 +9,13 @@ function createPieChart() {
   updateREFFromCodesDataset(REF.chartId);
 
   piechartdata()
-  
+
+  if (!piedata.length) {
+    nullishChart(containerId, []);
+    stopLoadingAnimation();
+    return;
+  }
+
   const seriesOpt = {
     showInLegend: true,
     dataLabels: {
@@ -98,7 +104,19 @@ function createPieChart() {
 
 function piechartdata() {
   const data = chartApiCall();
-  
+
+  if (!data) {
+    // The Eurostat API call failed (dataset unavailable, network error,
+    // etc.) - leave piedata empty instead of crashing on data.value[0]/
+    // data.__tree__ below; createPieChart() shows the "no data" chart for
+    // an empty result. Still call getTitle() so the card shows its real
+    // title instead of being stuck on the placeholder text.
+    piedata = [];
+    window.pieChartUnitLabel = REF.unit;
+    getTitle(window.pieChartUnitLabel || languageNameSpace.labels[REF.unit] || REF.unit);
+    return;
+  }
+
   // Get the unit label from the data structure and store it globally for chart formatting
   try {
     window.pieChartUnitLabel = data.__tree__.dimension.unit.category.label[REF.unit] || REF.unit;

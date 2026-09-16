@@ -15,6 +15,21 @@ function endash(d = null) {
     buildChart(categories, containerId, yAxisTitle, type, unit);
   } else {
     d = chartApiCall();
+
+    if (!d) {
+      // The Eurostat API call failed (dataset unavailable, network error,
+      // etc.) - fall back to the existing "no data" chart instead of
+      // crashing on d.Dimension(...) below and leaving the card stuck
+      // mid-render (skeleton never clears, and a thrown error here can also
+      // abort any other cards batched in the same intersection callback).
+      // nullishChart() bypasses the Chart class (and its getTitle() call),
+      // so call it here too - otherwise the card keeps showing its initial
+      // "Chart Item N" placeholder instead of the real chart title.
+      getTitle();
+      nullishChart(containerId, []);
+      return;
+    }
+
     const series = d.Dimension("time").id;
     const categories = d.Dimension("time").id;
 
@@ -250,13 +265,23 @@ function compareCountries() {
                 const yAxisTitle = 'kilograms of oil equivalent';
                 const categories = d.Dimension("time").id;
                 buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);
-            } else {               
+            } else {
                 const d = chartApiCall();
+
+                if (!d) {
+                    // REF.containerId is never actually set anywhere - use the
+                    // container id updateREFFromCodesDataset() just resolved
+                    // (same one buildChart() below would fall back to).
+                    getTitle();
+                    nullishChart(containerId, []);
+                    break;
+                }
+
                 const series = d.Dimension("time").id;
                 const categories = d.Dimension("time").id;
                 handleData(d, series, categories);
                 const yAxisTitle = d.__tree__.dimension.unit.category.label[REF.unit];
-                buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);                
+                buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);
             }
             break;
     }

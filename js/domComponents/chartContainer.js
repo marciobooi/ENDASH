@@ -26,6 +26,34 @@ class ChartContainer {
     this.chartItems.forEach(item => {
       this.intersectionObserver.observe(item);
     });
+
+    // Fallback for fast scrolling: chartApiCall() is a synchronous XHR, so
+    // while one chart is loading the main thread can't run layout/intersection
+    // checks at all. A card that scrolls fully into and back out of view
+    // during that block never gets an "isIntersecting" event and is
+    // permanently skipped. After scrolling settles, sweep for any item
+    // that's currently visible but was never rendered, and catch it up.
+    this.handleScrollSettle = this.handleScrollSettle.bind(this);
+    window.addEventListener('scroll', () => {
+      clearTimeout(this.scrollSettleTimer);
+      this.scrollSettleTimer = setTimeout(this.handleScrollSettle, 200);
+    }, { passive: true });
+  }
+
+  isChartItemVisible(chartItem) {
+    const rect = chartItem.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    return rect.bottom > 0 && rect.right > 0 && rect.top < viewportHeight && rect.left < viewportWidth;
+  }
+
+  handleScrollSettle() {
+    this.chartItems.forEach(chartItem => {
+      if (chartItem.getAttribute('data-rendered') === 'true') return;
+      if (this.isChartItemVisible(chartItem)) {
+        this.renderChartItem(chartItem);
+      }
+    });
   }
 
   getRenderKey(chartId) {
@@ -51,32 +79,7 @@ class ChartContainer {
  handleIntersection(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            const chartItem = entry.target;
-            REF.chartId = chartItem.id;
-            const highchartsContainer = chartItem.querySelector('.highchartsContainer');
-            const renderKey = this.getRenderKey(chartItem.id);
-            const previousRenderKey = chartItem.getAttribute('data-render-key');
-            const hasChartDom = highchartsContainer && highchartsContainer.childElementCount > 0;
-            const shouldRender = previousRenderKey !== renderKey || !hasChartDom;
-
-            const url = new URL(window.location.href);    
-            const shareParam = url.searchParams.get("share");
-  
-            if (shareParam == "true") {
-                REF.share = shareParam;
-                hideForIframe();
-                this.intersectionObserver.disconnect();
-            } else {
-                if (shouldRender) {
-                  loadSkeleton(chartItem);
-                  endash();
-                  chartItem.setAttribute('data-rendered', 'true');
-                  chartItem.setAttribute('data-render-key', renderKey);
-                }
-                setTimeout(() => {
-                  unloadSkeleton(chartItem);
-                }, 2500);
-            }
+            this.renderChartItem(entry.target);
         } else {
           setTimeout(() => {
             unloadSkeleton(entry.target);
@@ -84,6 +87,34 @@ class ChartContainer {
         }
     });
 }
+
+  renderChartItem(chartItem) {
+    REF.chartId = chartItem.id;
+    const highchartsContainer = chartItem.querySelector('.highchartsContainer');
+    const renderKey = this.getRenderKey(chartItem.id);
+    const previousRenderKey = chartItem.getAttribute('data-render-key');
+    const hasChartDom = highchartsContainer && highchartsContainer.childElementCount > 0;
+    const shouldRender = previousRenderKey !== renderKey || !hasChartDom;
+
+    const url = new URL(window.location.href);
+    const shareParam = url.searchParams.get("share");
+
+    if (shareParam == "true") {
+        REF.share = shareParam;
+        hideForIframe();
+        this.intersectionObserver.disconnect();
+    } else {
+        if (shouldRender) {
+          loadSkeleton(chartItem);
+          endash();
+          chartItem.setAttribute('data-rendered', 'true');
+          chartItem.setAttribute('data-render-key', renderKey);
+        }
+        setTimeout(() => {
+          unloadSkeleton(chartItem);
+        }, 2500);
+    }
+  }
 
   createTarget(targetSelector) {
     const existingTarget = document.querySelector(targetSelector);
