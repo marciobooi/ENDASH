@@ -243,11 +243,15 @@ log('here')
 
   dataNameSpace.setRefURL();
 
-  compareCountries() 
+  compareCountries()
 
   closeTable()
 
   showHideTimeLine()
+
+  // Restore the country selector (hidden while in barChart mode, since that
+  // view shows all countries at once) now that we're back to lineChart.
+  showHideBarChartOptions()
 
   const menuSwitch = document.querySelector('#menuSwitch');
   if (menuSwitch) menuSwitch.remove();
