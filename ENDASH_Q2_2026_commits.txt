@@ -1,0 +1,28 @@
+﻿f43f3bf | 2026-06-02 | marcio | feat: Enhance global insights with improved coverage explanation and styling
+182e499 | 2026-06-01 | marcio | feat: Improve accessibility of tooltips by adding ARIA attributes in chart rendering
+ec786ef | 2026-06-01 | marcio | feat: Enhance accessibility of sparklines and donut chart with ARIA attributes
+479b1b3 | 2026-06-01 | marcio | feat: Update color scheme in insights styles for improved visual consistency
+a9c406a | 2026-06-01 | marcio | added css fine tune
+29b0449 | 2026-06-01 | marcio | feat: Enhance global insights UI with improved styles and accessibility features
+ef4319a | 2026-05-15 | marcio | feat: Add theme distribution donut chart and enhance story card details for improved insights visualization
+caff2a9 | 2026-05-13 | marcio | Enhance insights.js with detailed chart-level summaries and global insights structure
+caac34f | 2026-05-13 | marcio | feat: Add infographic components and enhance insights rendering for improved data visualization
+4166081 | 2026-05-13 | marcio | feat: Enhance global insights loading experience with spinner and loading message
+7a68635 | 2026-05-13 | marcio | feat: Add energy insights feature with global insights overview and detailed breakdown
+6f1a9ea | 2026-05-13 | marcio | feat: Update footer alignment to flex-end for improved layout consistency
+3bb849e | 2026-05-13 | marcio | feat: Refactor timeline component and enhance slider functionality for improved user interaction
+2fadfb1 | 2026-05-13 | marcio | feat: Refactor chart rendering logic and enhance skeleton loading for improved performance
+38a8509 | 2026-05-13 | marcio | feat: Improve caching and API logic for enhanced performance and reliability
+d07e04d | 2026-05-12 | marcio | feat: Optimize tooltip hide delay and transition effects for improved performance
+5b13754 | 2026-05-12 | marcio | feat: Update tooltip headers to display value column based on reference and adjust chart padding based on expansion state
+a98c53a | 2026-05-11 | marcio | feat: Enhance accessibility and improve UI elements across various components
+5750760 | 2026-05-08 | marcio | feat: Update navigation styles and improve tooltip accessibility
+66ea82a | 2026-05-08 | marcio | feat: Enhance accessibility by adding roles to navigation elements and updating script versions
+c6d4771 | 2026-05-08 | marcio | feat: Update script versions and enhance accessibility features in components
+ed60605 | 2026-05-08 | marcio | feat: Refactor tooltip system to use 'endash-tooltip' class and improve positioning logic
+fd1bcb2 | 2026-05-08 | marcio | feat: Enhance tooltip management system and add metadata translations
+dd490f6 | 2026-05-07 | marcio | fix: Update scroll.js for improved smooth scrolling functionality and performance
+75fa708 | 2026-05-07 | marcio | Refactor language initialization and button labels; add new styles for driver tutorial
+619f11d | 2026-05-07 | marcio | Refactor tutorial functionality to use Driver.js for improved user experience
+e9bfc58 | 2026-05-07 | marcio | feat: Update modal stylesheet path and add legacy DOM shim for compatibility
+36ecb57 | 2026-05-07 | marcio | feat: Migrate from Bootstrap to European Commission Design System (ECL)

@@ -620,5 +620,50 @@
     "EN": "Show",
     "FR": "Afficher",
     "DE": "Anzeigen"
+  },
+  "PC": {
+    "EN": "Percentage",
+    "FR": "Pourcentage",
+    "DE": "Prozent"
+  },
+  "THS_T": {
+    "EN": "Thousand tonnes",
+    "FR": "Milliers de tonnes",
+    "DE": "Tausend Tonnen"
+  },
+  "KTOE": {
+    "EN": "Thousand tonnes of oil equivalent",
+    "FR": "Milliers de tonnes équivalent pétrole",
+    "DE": "Tausend Tonnen Rohöleinheiten"
+  },
+  "MTOE": {
+    "EN": "Million tonnes of oil equivalent",
+    "FR": "Millions de tonnes équivalent pétrole",
+    "DE": "Millionen Tonnen Rohöleinheiten"
+  },
+  "GWH": {
+    "EN": "Gigawatt-hour",
+    "FR": "Gigawatt-heure",
+    "DE": "Gigawattstunde"
+  },
+  "TJ": {
+    "EN": "Terajoule",
+    "FR": "Térajoule",
+    "DE": "Terajoule"
+  },
+  "KGOE_TEUR": {
+    "EN": "Kilograms of oil equivalent per thousand euro",
+    "FR": "Kilogrammes équivalent pétrole par millier d'euros",
+    "DE": "Kilogramm Rohöleinheiten pro tausend Euro"
+  },
+  "KGOE": {
+    "EN": "Kilograms of oil equivalent",
+    "FR": "Kilogrammes équivalent pétrole",
+    "DE": "Kilogramm Rohöleinheiten"
+  },
+  "EUR_KGOE": {
+    "EN": "Euro per kilogram of oil equivalent",
+    "FR": "Euro par kilogramme équivalent pétrole",
+    "DE": "Euro pro Kilogramm Rohöleinheit"
   }
 }

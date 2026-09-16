@@ -37,7 +37,7 @@ function createBarChart() {
   const chartOptions = {
     containerId: containerId,
     type: type,
-    title: getTitle(),
+    title: getTitle(yAxisTitle),
     subtitle: null,
     xAxis: xAxis,
     yAxisFormat: '{value:.0f}',

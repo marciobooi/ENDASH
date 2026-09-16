@@ -19,6 +19,33 @@ class Chart {
     }
   
     createChart() {
+      // Rotate x-axis category labels only in the expanded single-chart view,
+      // where every category is shown and long labels would otherwise be
+      // ellipsis-truncated. Gallery cards only show first/last labels, so
+      // they stay horizontal. REF.chartExpanded is a single global flag that
+      // stays true across every chart once any one chart has been expanded,
+      // so it can't tell "this card" apart from "the expanded card" - check
+      // the actual chart item's DOM state instead (set by toggleChartContainer).
+      const containerEl = document.getElementById(this.containerId);
+      const chartItemEl = containerEl ? containerEl.closest('.chartContainer') : null;
+      const isThisChartExpanded = !!(chartItemEl && chartItemEl.classList.contains('expand'));
+
+      const xAxisConfig = this.xAxis
+        ? {
+            ...this.xAxis,
+            labels: {
+              ...(this.xAxis.labels || {}),
+              ...(isThisChartExpanded
+                ? {
+                    rotation: -45,
+                    align: 'right',
+                    style: { ...((this.xAxis.labels || {}).style || {}), textOverflow: 'none' },
+                  }
+                : {}),
+            },
+          }
+        : this.xAxis;
+
       var chart = Highcharts.chart(this.containerId, {
         chart: {
           type: this.type,
@@ -60,15 +87,19 @@ class Chart {
         subtitle: {
           text: this.subtitle,
         },
-        xAxis: this.xAxis,
+        xAxis: xAxisConfig,
         yAxis: {
           labels: {
             format: this.yAxisFormat,
           },
           title: {
             enabled: true,
-            text: this.yAxisTitle,            
+            text: this.yAxisTitle,
           },
+          // Percentage shares read best on a fixed 0-100 scale; softMin/softMax
+          // still let the axis grow if an indicator's data ever exceeds that range.
+          softMin: REF.unit === 'PC' ? 0 : undefined,
+          softMax: REF.unit === 'PC' ? 100 : undefined,
         },
         colors: this.colors,
         tooltip: {
@@ -172,7 +203,7 @@ class Chart {
                 }
             }
         }
-      }
+      },
     }); // end of chart object
     
     enableScreenREader()

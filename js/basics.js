@@ -550,7 +550,7 @@ function getTitle(yAxisTitle) {
   const titleElement = chartContainerElement ? chartContainerElement.previousElementSibling : null;
 
   let title
-  let unit = yAxisTitle
+  let unit = yAxisTitle || languageNameSpace.labels[REF.unit] || REF.unit || ""
 
   const safeLabel = (key, fallback = "") => {
     if (!key) return fallback;
@@ -576,8 +576,7 @@ switch (REF.chartType) {
     break;
 
   default:
-      title = `${safeLabel(REF.title, REF.title)}`   
-      unit = `${unit}`
+      title = `${safeLabel(REF.title, REF.title)}`
       if(REF.chartExpanded == true) {
         const titleExpanded = document.querySelector("#title");
         if (titleExpanded) titleExpanded.innerHTML = `${safeLabel(REF.title, REF.title)} - ${safeLabel(REF.geos, REF.geos)}`;
