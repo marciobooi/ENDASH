@@ -14,7 +14,10 @@ const dataNameSpace = {
     indicator2_type:"",
     title:"",
     compare: false,
-    year: "2021",
+    // Default to last year, matching the Timeline's maxYear heuristic, so the
+    // bar/pie views open on the most recent year instead of a fixed year that
+    // goes stale as new data is published.
+    year: String(new Date().getFullYear() - 1),
     percentage: 0,
     chartType: "lineChart",
     chartCreated: false,

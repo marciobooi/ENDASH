@@ -326,12 +326,12 @@ codesDataset = {
 		"dataset":'ilc_mdes01',
 		"title": "chart_19",
 		"indicator": ["TOTAL"],
-		"indicator_type": "hhtyp",	
+		"indicator_type": "hhcomp",
 		"indicator2": ["TOTAL"],
-		"indicator2_type": "incgrp",	
-		"unit": "PC",	
-		"container": "highchartsContainer_19",	
-		"meta": "ilc_sieusilc"		
+		"indicator2_type": "rskpovth",
+		"unit": "PC",
+		"container": "highchartsContainer_19",
+		"meta": "ilc_sieusilc"
 	},
 	"chart_20": {
 		"dataset":'nrg_ind_market',
