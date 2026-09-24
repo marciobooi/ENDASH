@@ -1,3 +1,8 @@
+// Charts whose Eurostat source dataset is currently down upstream (errors on
+// every query). Hidden from the gallery entirely rather than showing a "no
+// data" card. Remove an id once its dataset is back.
+const HIDDEN_CHART_IDS = ["chart_20"];
+
 class ChartContainer {
   constructor(targetSelector) {
     this.target = this.createTarget(targetSelector);
@@ -139,11 +144,18 @@ class ChartContainer {
 
 
     const numberOfCharts = Object.keys(codesDataset).length;
-  
+
     for (let i = 0; i < numberOfCharts; i++) {
+      const chartId = `chart_${i + 1}`;
+
+      // Temporarily hidden: their Eurostat source dataset is down upstream
+      // (returns errors for every query, not something we can fix here).
+      // Remove from HIDDEN_CHART_IDS once the data is back.
+      if (HIDDEN_CHART_IDS.includes(chartId)) continue;
+
       const chartItem = document.createElement('div');
       chartItem.classList.add('flex-item', 'chartContainer');
-      chartItem.id = `chart_${i + 1}`;
+      chartItem.id = chartId;
       chartItem.draggable = true;
       chartItem.setAttribute('data-expanded', 'false');
       chartItem.addEventListener('dragstart', this.handleDragStart.bind(this));
