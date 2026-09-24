@@ -148,31 +148,6 @@ function handleData(d, series, categories ) {
         }
     }
 
-    if (REF.chartId == "chart_6") {
-        // Calculate the combined data for the new category
-        const combinedData = new Array(chartSeries[0].data.length).fill(0);
-        for (let series of chartSeries) {
-            if (series.indicator === 'C0110' || series.indicator === 'C0121' || series.indicator === 'C0129') {
-                series.data.forEach((value, index) => {
-                    combinedData[index] += value;
-                });
-            }
-        }
-
-        // Create a new category object for the combined data
-        const newCategory = {
-            name: languageNameSpace.labels['C0100'],
-            data: combinedData,
-            indicator: 'C0100'
-        };
-
-        // Remove indicators C0110, C0121, and C0129 from chartSeries
-        chartSeries = chartSeries.filter(item => item.indicator !== 'C0110' && item.indicator !== 'C0121' && item.indicator !== 'C0129');
-
-        // Push the new category to chartSeries
-        chartSeries.push(newCategory);
-    }
- 
     if(REF.chartId != 'chart_21' || REF.chartId != 'chart_22') {
         categories = categories
     } else {

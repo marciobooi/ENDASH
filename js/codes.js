@@ -184,13 +184,19 @@ codesDataset = {
 	"chart_6": {
 		"dataset":'nrg_ind_id',
 		"title": "chart_6",
-		"indicator": ["C0000X0350-0370","C0100","C0110","C0121","C0129", "G3000","O4000XBIO","O4100_TOT","O4200"],	
-		"indicator_type": "siec",	
+		// C0000X0350-0370 (Solid fossil fuels) removed - it's just an aggregate
+		// of the fuel types below, not its own valid dependency figure.
+		// C0100/C0110/C0121/C0129 (hard coal + its sub-types) removed - Eurostat
+		// doesn't have a hard coal series for this dataset yet, so it was being
+		// faked client-side (see the old chart_6 special case in handleData()).
+		// Re-add once a real hard coal source is linked in.
+		"indicator": ["G3000","O4000XBIO","O4100_TOT","O4200"],
+		"indicator_type": "siec",
 		"indicator2": '',
-		"indicator2_type": "",	
-		"unit": "PC",	
+		"indicator2_type": "",
+		"unit": "PC",
 		"container": "highchartsContainer_6",
-		"meta": "nrg_ind_id"		
+		"meta": "nrg_ind_id"
 	},
 	"chart_7": {
 		"dataset":'nrg_ind_ffgae',
