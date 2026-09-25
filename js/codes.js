@@ -128,12 +128,16 @@ codesDataset = {
 	"chart_1": {
 		"dataset":'nrg_ind_eff',
 		"title": "chart_1",
-		"indicator": ["FEC2020-2030", "PEC2020-2030"],
-		"indicator_type": "nrg_bal",		
+		// FEC2020-2030/PEC2020-2030 (Europe 2020-2030 tracking) no longer carry
+		// any data in this dataset - Eurostat replaced them with the Energy
+		// Efficiency Directive codes below (verified against the live API and
+		// the official data browser table).
+		"indicator": ["FEC_EED", "PEC_EED"],
+		"indicator_type": "nrg_bal",
 		"indicator2": '',
 		"indicator2_type": "",
-		"unit": "MTOE",	
-		"container": "highchartsContainer_1",		
+		"unit": "MTOE",
+		"container": "highchartsContainer_1",
 		"optionUrl": "",
 		"meta": "nrg_ind_eff"
 	},

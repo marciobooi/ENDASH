@@ -241,6 +241,27 @@ log('here')
 
   dataNameSpace.setRefURL();
 
+  // Clear the expanded-card DOM state (the 'expand'/'highchartsContainerExpand'
+  // classes) BEFORE rebuilding the chart below. chartObject.js's rotation
+  // logic checks whether the card's container still carries the 'expand'
+  // class at build time - rebuilding first and clearing this after left the
+  // just-closed card's x-axis labels rotated even back at gallery size.
+  const parentContainer = document.querySelector(".flex-container .expand");
+  if (parentContainer) {
+    parentContainer.classList.remove("expand");
+    parentContainer.setAttribute('aria-expanded', 'false');
+
+    const expandedCharts = parentContainer.querySelectorAll(".highchartsContainerExpand");
+    expandedCharts.forEach(chart => {
+      chart.classList.remove('highchartsContainerExpand');
+    });
+  }
+
+  const chartContainers = document.querySelectorAll(".flex-container .flex-item.chartContainer");
+  chartContainers.forEach(container => {
+    container.style.display = "initial";
+  });
+
   compareCountries()
 
   closeTable()
@@ -253,24 +274,6 @@ log('here')
 
   const menuSwitch = document.querySelector('#menuSwitch');
   if (menuSwitch) menuSwitch.remove();
-  
-  const parentContainer = document.querySelector(".flex-container .expand");
-  if (parentContainer) {
-    parentContainer.classList.remove("expand");
-    parentContainer.setAttribute('aria-expanded', 'false');
-  }
-
-  const chartContainers = document.querySelectorAll(".flex-container .flex-item.chartContainer");
-  chartContainers.forEach(container => {
-    container.style.display = "initial";
-  });
-  
-  if (parentContainer) {
-    const expandedCharts = parentContainer.querySelectorAll(".highchartsContainerExpand");
-    expandedCharts.forEach(chart => {
-      chart.classList.remove('highchartsContainerExpand');
-    });
-  }
 
   Highcharts.charts.forEach(chart => {
     if (chart) {
@@ -404,7 +407,10 @@ tooltip = function () {
 
   // Construct the complete tooltip content
   const tooltipRows = REF.chartType === "pieChart" ? formatPointTooltip(this.point) : this.points.map(formatPointTooltip).join('');
-  const totalRow = REF.chartType !== "pieChart" ? 
+  // Skip the total for percentage-based charts (e.g. import dependency,
+  // renewable share) - summing percentages across unrelated categories
+  // isn't a valid figure.
+  const totalRow = (REF.chartType !== "pieChart" && REF.unit !== 'PC') ?
   `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</td></tr>` : '';
 
   // Create the HTML table structure
@@ -425,9 +431,16 @@ tooltip = function () {
 
 
 
-function tooltipTable(points) {
-  const valueColumnHeader = REF.percentage == 1 ? '%' : (REF.unit || '');
-  
+function tooltipTable(points, chartUnit) {
+  // REF.unit is a shared global that gets overwritten every time ANY other
+  // chart renders - in the gallery view, several cards are alive at once, so
+  // by the time the user hovers a card built earlier, REF.unit usually
+  // reflects whatever chart rendered most recently, not this one. Callers
+  // pass the unit that was actually current when THIS chart was built;
+  // REF.unit is only a fallback for callers that don't.
+  const unit = chartUnit !== undefined ? chartUnit : REF.unit;
+  const valueColumnHeader = REF.percentage == 1 ? '%' : (unit || '');
+
   if(REF.percentage == 1 ){
     let html = "";
     // Get the actual category value - try multiple approaches
@@ -521,23 +534,25 @@ function tooltipTable(points) {
 
 
     } else {
-      // Add a row for the total if not already added
-      if (!totalAdded) {
+      // Add a row for the total if not already added. Skip it for
+      // percentage-based charts (e.g. import dependency, renewable share) -
+      // summing percentages across unrelated categories isn't a valid figure.
+      if (!totalAdded && unit !== 'PC') {
         // Calculate the total sum of all values
         const totalSum = sortedPoints.reduce(function (sum, point) {
           return sum + point.y;
         }, 0);
-    
+
         // Format the total sum with three decimal places
         const totalValue = totalSum.toFixed(2);
-    
+
         // Add a row for the total
         html += `<tr>
           <td><svg width="10" height="10" style="vertical-align: baseline;"><circle cx="5" cy="5" r="3" fill="${totalColor}" /></svg> ${languageNameSpace.labels['TOTAL']}</td>
           <td>${totalValue}</td>
         </tr>`;
       }
-    }    
+    }
     html += `</table>`; 
     return `<div>${html}</div>`;
     

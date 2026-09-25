@@ -87,7 +87,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         xAxis,
         yAxisFormat: '{value:,.0f}',
         yAxisTitle,
-        tooltipFormatter: function () { return tooltipTable(this.points); },    
+        tooltipFormatter: function () { return tooltipTable(this.points, unit); },
         creditsText: credits(),
         creditsHref: "",
         series: sortByName(chartSeries),
