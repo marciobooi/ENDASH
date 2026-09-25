@@ -53,7 +53,7 @@ var languageNameSpace = {
     languageNameSpace.tutorial = {};
 
     return Promise.all([
-      fetch("data/translations.json").then(response => response.json()),
+      fetch("data/translations.json?v=2").then(response => response.json()),
       fetch("data/tutorial_" + resolvedLanguage + ".json").then(response => response.json())
     ]).then(([translations, tutorial]) => {
       for (let key in translations) {

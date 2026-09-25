@@ -132,6 +132,17 @@ th.highcharts-text {
        with no way to scroll to it. Capping to the viewport lets Highcharts'
        own boundary-avoidance measure and account for the real size instead. */
     max-width: calc(100vw - 2rem);
+    /* Charts with many series (fuel-type breakdowns etc.) can produce a
+       tooltip taller than the viewport; cap height so it scrolls internally
+       instead of extending off-screen with no way to reach the remaining
+       rows. calc(100vh - 2rem) was too generous: the tooltip is anchored at
+       the hover point, usually somewhere mid-page, not at the viewport top,
+       so "almost the full viewport" still ran off the bottom relative to
+       that anchor. A modest fixed cap fits in the space around the cursor
+       regardless of where on the page it's anchored.
+       (Also don't rely on browser caching being stale if this looks
+       unchanged - hard refresh to confirm.) */
+    max-height: 20rem;
 }
 
 .table_component table {
@@ -161,6 +172,10 @@ tbody, td, tfoot, th, thead, tr {
     color: #ffffff;
     padding: 5px;
     text-align: center;
+    /* Keep the year/unit header visible while scrolling through a long
+       (many-series) tooltip instead of it scrolling out of view first. */
+    position: sticky;
+    top: 0;
 }
 
 .table_component td {

@@ -78,6 +78,19 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         return
     }      
 
+    let orderedSeries = sortByName(chartSeries);
+
+    if (REF.chartId === 'chart_2') {
+        // "Renewable energy - overall" (REN) is the headline figure - show
+        // it first in the legend/tooltip instead of wherever it falls
+        // alphabetically among the other categories.
+        const overallIndex = orderedSeries.findIndex(item => item.indicator === 'REN');
+        if (overallIndex > 0) {
+            const [overall] = orderedSeries.splice(overallIndex, 1);
+            orderedSeries.unshift(overall);
+        }
+    }
+
     // Define the chart options
     const chartOptions = {
         containerId,
@@ -90,7 +103,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         tooltipFormatter: function () { return tooltipTable(this.points, unit); },
         creditsText: credits(),
         creditsHref: "",
-        series: sortByName(chartSeries),
+        series: orderedSeries,
         colors: colors,
         legend: {},
         seriesOptions,
