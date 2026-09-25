@@ -409,8 +409,9 @@ tooltip = function () {
   const tooltipRows = REF.chartType === "pieChart" ? formatPointTooltip(this.point) : this.points.map(formatPointTooltip).join('');
   // Skip the total for percentage-based charts (e.g. import dependency,
   // renewable share) - summing percentages across unrelated categories
-  // isn't a valid figure.
-  const totalRow = (REF.chartType !== "pieChart" && REF.unit !== 'PC') ?
+  // isn't a valid figure - and skip it for a single series, where "Total"
+  // is just a duplicate of that one value.
+  const totalRow = (REF.chartType !== "pieChart" && REF.unit !== 'PC' && this.points.length > 1) ?
   `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</td></tr>` : '';
 
   // Create the HTML table structure
@@ -439,7 +440,8 @@ function tooltipTable(points, chartUnit) {
   // pass the unit that was actually current when THIS chart was built;
   // REF.unit is only a fallback for callers that don't.
   const unit = chartUnit !== undefined ? chartUnit : REF.unit;
-  const valueColumnHeader = REF.percentage == 1 ? '%' : (unit || '');
+  const unitLabel = languageNameSpace.labels[unit] || unit;
+  const valueColumnHeader = REF.percentage == 1 ? '%' : (unitLabel || '');
 
   if(REF.percentage == 1 ){
     let html = "";
@@ -536,8 +538,10 @@ function tooltipTable(points, chartUnit) {
     } else {
       // Add a row for the total if not already added. Skip it for
       // percentage-based charts (e.g. import dependency, renewable share) -
-      // summing percentages across unrelated categories isn't a valid figure.
-      if (!totalAdded && unit !== 'PC') {
+      // summing percentages across unrelated categories isn't a valid figure -
+      // and skip it whenever there's only one series, where "Total" is just
+      // a duplicate of that single value.
+      if (!totalAdded && unit !== 'PC' && sortedPoints.length > 1) {
         // Calculate the total sum of all values
         const totalSum = sortedPoints.reduce(function (sum, point) {
           return sum + point.y;

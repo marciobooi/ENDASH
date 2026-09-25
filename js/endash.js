@@ -119,11 +119,15 @@ function handleData(d, series, categories ) {
 
     let indicator
 
-    if(REF.chartId == 'chart_20') {
-        indicator = REF.indicator
-    } else {
-        indicator = d.Dimension('siec') !== null ? d.Dimension('siec').id : REF.indicator 
-    }
+    // Prefer whatever the API actually returned for the chart's own primary
+    // breakdown dimension (indicator_type) over our static config list, in
+    // case some configured codes got silently dropped. This used to
+    // hardcode 'siec' regardless of indicator_type, which broke every chart
+    // where siec is only the SECONDARY/fixed dimension (e.g. chart_10/11:
+    // indicator_type "nrg_bal" with siec fixed to TOTAL) - it would use
+    // siec's single "TOTAL" category as if it were the series breakdown,
+    // collapsing multiple series into one mislabeled "Series 1".
+    indicator = d.Dimension(indicator_type) !== null ? d.Dimension(indicator_type).id : REF.indicator
 
     chartSeries = []
 
