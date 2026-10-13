@@ -52,10 +52,24 @@ const dataNameSpace = {
     }  
 
     if (refURL.geos !== undefined) {
-        this.ref.geos = refURL.geos.split(",");      
+        this.ref.geos = refURL.geos.split(",");
     }
-    
-  },  
+
+    // URLSearchParams always yields strings, but these are boolean fields
+    // (default false) - without this, a reloaded/shared URL containing
+    // "...&chartExpanded=false&..." (which setRefURL() always writes) sets
+    // REF.chartExpanded to the STRING "false", which is truthy in JS. Every
+    // `if (REF.chartExpanded)` check in the app then behaves as if a chart
+    // were expanded even though none is - breaking the global insights
+    // button (silent no-op) and the gallery-wide refresh on language change
+    // (it took the "just refresh the expanded chart" path instead).
+    ["chartExpanded", "compare", "chartCreated"].forEach((key) => {
+      if (refURL[key] !== undefined) {
+        this.ref[key] = refURL[key] === "true";
+      }
+    });
+
+  },
   changeUrl(title, url) {
     if (typeof history.pushState !== "undefined") {
       var obj = {

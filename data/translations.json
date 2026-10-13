@@ -1573,5 +1573,10 @@
     "EN": "This theme will track strategic oil reserves once the underlying data is linked in.",
     "FR": "Ce thème suivra les réserves stratégiques de pétrole une fois les données correspondantes intégrées.",
     "DE": "Dieses Thema wird die strategischen Ölreserven verfolgen, sobald die entsprechenden Daten eingebunden sind."
+  },
+  "GLOBAL_INSIGHTS_LOADING": {
+    "EN": "Loading insights...",
+    "FR": "Chargement des informations...",
+    "DE": "Erkenntnisse werden geladen..."
   }
 }

@@ -2642,7 +2642,7 @@ function openGlobalInsights() {
     '</div>',
     '<div id="globalInsightsBody" class="global-insights-loading">',
     '<div class="global-insights-spinner" aria-hidden="true"></div>',
-    '<p>' + escapeInsightText(labels.LOADING || "Loading insights...") + '</p>',
+    '<p>' + escapeInsightText(labels.GLOBAL_INSIGHTS_LOADING || "Loading insights...") + '</p>',
     '</div>',
     '</div>',
     '</div>'

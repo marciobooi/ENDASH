@@ -53,7 +53,7 @@ var languageNameSpace = {
     languageNameSpace.tutorial = {};
 
     return Promise.all([
-      fetch("data/translations.json?v=5").then(response => response.json()),
+      fetch("data/translations.json?v=6").then(response => response.json()),
       fetch("data/tutorial_" + resolvedLanguage + ".json").then(response => response.json())
     ]).then(([translations, tutorial]) => {
       for (let key in translations) {
@@ -82,42 +82,30 @@ var languageNameSpace = {
   ChangeLanguage: function (val) {
     REF.language = val;
 
-    // Load labels first, then re-render charts so titles/tooltips use fresh strings.
+    // Load labels first, then re-render so titles/tooltips use fresh strings.
     languageNameSpace.initLanguage(REF.language).then(() => {
-      switch (REF.chartType) {
-        case "barChart":
-          dataNameSpace.setRefURL();
-          showHideTimeLine();
-          compareCountries();
-          showHideBarChartOptions();
-          break;
-        case "pieChart":
+      dataNameSpace.setRefURL();
+
+      if (REF.chartExpanded) {
+        // One chart is expanded (bar/pie/line/insights) - refresh just that
+        // chart's own content/controls, matching its current view type.
+        // REF.chartType is always one of these four, so a switch here can
+        // never miss a case the way the old chartType-based dispatch could.
+        showHideTimeLine();
+        showHideBarChartOptions();
+        if (REF.chartType === "pieChart") {
           REF.chartCreated = false;
-          dataNameSpace.setRefURL();
-          showHideTimeLine();
-          compareCountries();
-          showHideBarChartOptions();
-          break;
-        case "lineChart":
-          REF.chartType = "lineChart";
-          dataNameSpace.setRefURL();
-          showHideTimeLine();
-          showHideBarChartOptions();
-          compareCountries();
-          break;
-        case "insightsChart":
-          dataNameSpace.setRefURL();
-          showHideTimeLine();
-          showHideBarChartOptions();
-          compareCountries();
-          break;
-        default:
-          dataNameSpace.setRefURL();
-          removeComponents();
-          buildComponents();
-          languageNameSpace.applyTranslations();
-          compareCountries();
-          break;
+        }
+        compareCountries();
+      } else {
+        // Gallery view: every card manages its own render/translation state
+        // independently (via data-render-key, checked on scroll), not
+        // through REF.chartId/compareCountries() - so refreshing "the
+        // current chart" alone left every other visible card showing stale,
+        // untranslated content. Rebuild the whole gallery instead.
+        removeComponents();
+        buildComponents();
+        languageNameSpace.applyTranslations();
       }
     }).catch((err) => {
       console.error("ChangeLanguage: language init failed", err);
