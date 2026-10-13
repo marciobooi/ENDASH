@@ -6,7 +6,7 @@ function createBarChart() {
   showHideBarChartOptions()
   updateREFFromCodesDataset(REF.chartId);
 
-  REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCall();
+  REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCallWithYearFallback();
 
   if (!d) {
     // The Eurostat API call failed (dataset unavailable, network error,

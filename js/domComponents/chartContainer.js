@@ -286,8 +286,17 @@ class ChartContainer {
 
       REF.chartExpanded = true
 
-      REF.chartId = chartContainer.id    
-      
+      REF.chartId = chartContainer.id
+
+      // REF.year/REF.yearManuallySet are shared globals, not per-chart - a
+      // year picked on a previous chart's timeline (and the "respect it,
+      // don't fall back" flag that comes with it) would otherwise leak into
+      // this freshly-opened chart's bar/pie view, even though its dataset
+      // may not have that year at all. Reset so every newly-opened chart
+      // starts with the automatic last-available-year safety net active
+      // again, same as a first load.
+      REF.yearManuallySet = false;
+
       if(!$(chartContainer).hasClass('expand')){
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
         // The gallery is grouped into themed sections with their own

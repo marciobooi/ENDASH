@@ -103,7 +103,7 @@ function createPieChart() {
 }
 
 function piechartdata() {
-  const data = chartApiCall();
+  const data = chartApiCallWithYearFallback();
 
   if (!data) {
     // The Eurostat API call failed (dataset unavailable, network error,

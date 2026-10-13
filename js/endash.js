@@ -3,9 +3,21 @@ function endash(d = null) {
 
   updateREFFromCodesDataset(REF.chartId);
 
-//   REF.chartType = "lineChart";
+  // endash() only ever renders gallery cards (always line/spline, never
+  // expanded) - every call site confirms this (chartContainer.js,
+  // populateCountries.js). buildApiUrl()/getTitle()/buildChart() all key off
+  // these two shared, mutable REF flags though, so if either was left over
+  // from an earlier expanded-chart interaction (or a reloaded URL), every
+  // subsequently-rendered gallery card inherited the stale value:
+  // - REF.chartType stuck as "barChart"/"pieChart" switched the fetch to the
+  //   single-year query shape and gave titles the bar/pie suffix.
+  // - REF.chartExpanded stuck as true made buildChart() label every single
+  //   year on the x-axis (the "expanded" step) instead of just a few,
+  //   leaving some gallery cards crowded while others looked normal.
+  REF.chartType = "lineChart";
+  REF.chartExpanded = false;
 
-  const type = "spline"; 
+  const type = "spline";
 
   if (REF.dataset === "demo_pjan") {
     d = chartEightCalculation(d);

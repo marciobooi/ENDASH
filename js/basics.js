@@ -179,8 +179,19 @@ function showHideTimeLine() {
   }
 
   if (REF.chartType === 'barChart' || REF.chartType === 'pieChart') {
+    const lastAvailableYear = getLastAvailableYear();
+
+    // Only pull REF.year back to the dataset's real last year on the
+    // automatic path - once the user has deliberately moved the slider
+    // (REF.yearManuallySet), leave their choice alone even if it's past
+    // what this particular dataset has data for; chartApiCallWithYearFallback()
+    // already shows "no data" for that case instead of silently changing it.
+    if (!REF.yearManuallySet && Number(REF.year) > Number(lastAvailableYear)) {
+      REF.year = lastAvailableYear;
+    }
+
     // Create and add the Timeline instance to the DOM
-    this.timeline = new Timeline(timelineContainer);
+    this.timeline = new Timeline(timelineContainer, Number(lastAvailableYear));
 
     // Display the timeline
     this.timeline.addToDOM();
@@ -774,6 +785,80 @@ function chartApiCall() {
     stopLoadingAnimation();
   }
   return d;
+}
+
+function hasRealData(d) {
+  if (!d || !Array.isArray(d.value)) return false;
+  return d.value.some(value => value != null && value !== 0);
+}
+
+const YEAR_FALLBACK_MAX_ATTEMPTS = 5;
+
+// Bar/pie charts query a single REF.year (the timeline slider). On first
+// automatic load, the most recent year often isn't published yet for every
+// country/indicator, which showed "No data to display" even though earlier
+// years have real data - so step back a year at a time and retry. Mutates
+// REF.year in place when a fallback is used, and re-syncs the timeline
+// slider so it reflects the year actually being shown.
+// Once the user has manually moved the timeline (REF.yearManuallySet), that
+// choice is deliberate - respect it and show "no data" for that exact year
+// instead of silently substituting an earlier one.
+function chartApiCallWithYearFallback() {
+  const d = chartApiCall();
+
+  if (REF.yearManuallySet) {
+    return hasRealData(d) ? d : null;
+  }
+
+  const originalYear = REF.year;
+  let result = d;
+  let attempts = 0;
+
+  while (!hasRealData(result) && attempts < YEAR_FALLBACK_MAX_ATTEMPTS) {
+    REF.year = String(Number(REF.year) - 1);
+    result = chartApiCall();
+    attempts++;
+  }
+
+  if (REF.year !== originalYear && typeof showHideTimeLine === "function") {
+    showHideTimeLine();
+  }
+
+  return result;
+}
+
+// The timeline's upper bound used to be a fixed "current year - 1" for
+// every chart, but different Eurostat datasets publish up to different
+// years (some lag by more than one year, some less) - so it could let the
+// user drag to a year nothing will ever have. Probe the dataset's own time
+// dimension instead, using the same full-series shape the line/gallery view
+// already fetches (usually already cached, so this rarely costs a real
+// network call), and return the most recent year with a real value.
+function getLastAvailableYear() {
+  const fallbackYear = String(new Date().getFullYear() - 1);
+  if (REF.dataset === "demo_pjan") return fallbackYear;
+
+  const previousChartType = REF.chartType;
+  REF.chartType = "lineChart";
+  const d = chartApiCall();
+  REF.chartType = previousChartType;
+
+  if (!d) return fallbackYear;
+
+  const timeDimension = d.Dimension("time");
+  const years = timeDimension ? timeDimension.id : null;
+  if (!years || !years.length) return fallbackYear;
+
+  const stride = years.length;
+  for (let yearIndex = years.length - 1; yearIndex >= 0; yearIndex--) {
+    for (let offset = yearIndex; offset < d.value.length; offset += stride) {
+      const value = d.value[offset];
+      if (value != null && value !== 0) {
+        return years[yearIndex];
+      }
+    }
+  }
+  return years[years.length - 1];
 }
 
 function startLoadingAnimation() {

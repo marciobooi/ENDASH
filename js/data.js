@@ -14,10 +14,16 @@ const dataNameSpace = {
     indicator2_type:"",
     title:"",
     compare: false,
-    // Default to last year, matching the Timeline's maxYear heuristic, so the
-    // bar/pie views open on the most recent year instead of a fixed year that
-    // goes stale as new data is published.
+    // Starting guess before any dataset-specific info is known. showHideTimeLine()
+    // (basics.js) corrects this per-chart to the dataset's actual last
+    // available year as soon as a bar/pie chart is opened.
     year: String(new Date().getFullYear() - 1),
+    // Flips true once the user explicitly moves the timeline slider. Lets
+    // chartApiCallWithYearFallback() tell "first automatic load" (fall back
+    // to the latest year with real data) apart from "user deliberately
+    // picked this year" (show "no data" for it instead of silently
+    // substituting an earlier year).
+    yearManuallySet: false,
     percentage: 0,
     chartType: "lineChart",
     chartCreated: false,
