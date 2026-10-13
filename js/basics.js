@@ -262,6 +262,13 @@ log('here')
     container.style.display = "initial";
   });
 
+  // Restore the theme section headings/"coming soon" text and the "Energy
+  // topics" jump-nav, hidden in chartContainer.js's toggleChartContainer()
+  // when this chart expanded.
+  document.querySelectorAll(".theme-section__heading, .theme-section__empty, .theme-nav").forEach(el => {
+    el.style.display = "";
+  });
+
   compareCountries()
 
   closeTable()

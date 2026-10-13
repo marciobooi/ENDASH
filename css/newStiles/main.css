@@ -32,6 +32,14 @@ html {
   font-family: Arial, sans-serif;
 }
 
+/* The "Energy topics" jump-nav (and any other same-page anchor link) relies
+   on this smooth scroll; respect motion-sensitive users' OS preference. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   touch-action: pan-y; 
   overscroll-behavior-x: none; 

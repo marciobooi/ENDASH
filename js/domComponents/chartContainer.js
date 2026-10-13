@@ -1,7 +1,9 @@
 // Charts whose Eurostat source dataset is currently down upstream (errors on
 // every query). Hidden from the gallery entirely rather than showing a "no
 // data" card. Remove an id once its dataset is back.
-const HIDDEN_CHART_IDS = ["chart_20"];
+// chart_20 was here (nrg_ind_market, permanently erroring) until it was
+// replaced with the "Rate of electrification" chart (nrg_ind_re).
+const HIDDEN_CHART_IDS = [];
 
 class ChartContainer {
   constructor(targetSelector) {
@@ -136,56 +138,91 @@ class ChartContainer {
 
   populateChartItems() {
 
+    const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+    const galleryRoot = document.createDocumentFragment();
 
+    THEME_SECTIONS.forEach(theme => {
+      const section = document.createElement('section');
+      section.classList.add('theme-section');
 
+      // The heading doubles as the jump-nav's scroll/focus target (id
+      // matches the nav link's href="#theme-id"); tabindex="-1" lets JS
+      // focus it after the jump so screen reader users land on it too,
+      // without adding it to the normal Tab order.
+      const heading = document.createElement('h2');
+      heading.id = theme.id;
+      heading.tabIndex = -1;
+      // ecl-u-type-heading-2 matches the ECL component library's heading
+      // scale exactly (H1-H6: ecl-u-type-heading-1..6); theme-section__heading
+      // only adds spacing/color/scroll-margin on top of it.
+      heading.classList.add('ecl-u-type-heading-2', 'theme-section__heading');
+      heading.setAttribute('data-i18n', theme.labelKey);
+      heading.textContent = labels[theme.labelKey] || theme.labelKey;
+      section.appendChild(heading);
 
-    const chartContainer = document.createElement('div');
-    chartContainer.classList.add('flex-container');
+      const chartIdsForTheme = theme.charts.filter(chartId => !HIDDEN_CHART_IDS.includes(chartId));
 
+      if (chartIdsForTheme.length === 0) {
+        const comingSoon = document.createElement('p');
+        comingSoon.classList.add('theme-section__empty');
+        comingSoon.setAttribute('data-i18n', 'THEME_COMING_SOON');
+        comingSoon.textContent = labels['THEME_COMING_SOON'] || 'THEME_COMING_SOON';
+        section.appendChild(comingSoon);
+        galleryRoot.appendChild(section);
+        return;
+      }
 
-    const numberOfCharts = Object.keys(codesDataset).length;
+      const chartContainer = document.createElement('div');
+      chartContainer.classList.add('flex-container');
 
-    for (let i = 0; i < numberOfCharts; i++) {
-      const chartId = `chart_${i + 1}`;
+      chartIdsForTheme.forEach(chartId => {
+        const chartData = codesDataset[chartId] || {};
 
-      // Temporarily hidden: their Eurostat source dataset is down upstream
-      // (returns errors for every query, not something we can fix here).
-      // Remove from HIDDEN_CHART_IDS once the data is back.
-      if (HIDDEN_CHART_IDS.includes(chartId)) continue;
+        const chartItem = document.createElement('div');
+        chartItem.classList.add('flex-item', 'chartContainer');
+        chartItem.id = chartId;
+        chartItem.draggable = true;
+        chartItem.setAttribute('data-expanded', 'false');
+        chartItem.addEventListener('dragstart', this.handleDragStart.bind(this));
+        chartItem.addEventListener('dragover', this.handleDragOver.bind(this));
+        chartItem.addEventListener('drop', this.handleDrop.bind(this));
 
-      const chartItem = document.createElement('div');
-      chartItem.classList.add('flex-item', 'chartContainer');
-      chartItem.id = chartId;
-      chartItem.draggable = true;
-      chartItem.setAttribute('data-expanded', 'false');
-      chartItem.addEventListener('dragstart', this.handleDragStart.bind(this));
-      chartItem.addEventListener('dragover', this.handleDragOver.bind(this));
-      chartItem.addEventListener('drop', this.handleDrop.bind(this));
-  
-      chartContainer.appendChild(chartItem);
-  
-      const containerNav = document.createElement('div');
-      containerNav.classList.add('containerNav');
-      containerNav.textContent = `Chart Item ${i + 1}`;
+        chartContainer.appendChild(chartItem);
 
-      const skeleton = document.createElement('div');
-      skeleton.classList.add('skeletonContainer', 'd-none');
+        const containerNav = document.createElement('div');
+        containerNav.classList.add('containerNav');
+        // Show the real (already-translated) title immediately instead of a
+        // generic "Chart Item N" placeholder - languageNameSpace.labels is
+        // already loaded by the time this runs (buildComponents() only runs
+        // after initLanguage() resolves), so there's no need to wait for
+        // endash() to replace it once the card scrolls into view.
+        containerNav.textContent = labels[chartData.title] || chartData.title || chartId;
 
-      const highchartsContainer = document.createElement('div');
-      highchartsContainer.classList.add('highchartsContainer');
-      highchartsContainer.id = `highchartsContainer_${i + 1}`;
-  
-      chartItem.appendChild(containerNav);
-      chartItem.appendChild(highchartsContainer);
-      chartItem.appendChild(skeleton);
-  
-      this.chartItems.push(chartItem); // Assuming you want to store chart items in this array
-    }
-  
-    this.target.appendChild(chartContainer);
+        const skeleton = document.createElement('div');
+        skeleton.classList.add('skeletonContainer', 'd-none');
+
+        const highchartsContainer = document.createElement('div');
+        highchartsContainer.classList.add('highchartsContainer');
+        // Use the chart's own configured container id rather than deriving
+        // it from loop position, since charts are no longer rendered in
+        // chart_1..chart_N order.
+        highchartsContainer.id = chartData.container || `highchartsContainer_${chartId.replace('chart_', '')}`;
+
+        chartItem.appendChild(containerNav);
+        chartItem.appendChild(highchartsContainer);
+        chartItem.appendChild(skeleton);
+
+        this.chartItems.push(chartItem);
+      });
+
+      section.appendChild(chartContainer);
+      galleryRoot.appendChild(section);
+    });
+
+    this.target.appendChild(galleryRoot);
   }
 
-  initializeItemClickListeners() {   
+  initializeItemClickListeners() {
     for (let i = 0; i < this.chartItems.length; i++) {
       const chartItem = this.chartItems[i];
       chartItem.addEventListener('click', () => this.handleItemClick(chartItem));
@@ -251,8 +288,14 @@ class ChartContainer {
 
       REF.chartId = chartContainer.id    
       
-      if(!$(chartContainer).hasClass('expand')){       
+      if(!$(chartContainer).hasClass('expand')){
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
+        // The gallery is grouped into themed sections with their own
+        // headings/"coming soon" text now - hide those too, or they're left
+        // floating above/below the expanded chart with no cards under them.
+        // Also hide the "Energy topics" jump-nav itself - jumping to a
+        // different theme while one chart is expanded doesn't make sense.
+        $( ".theme-section__heading, .theme-section__empty, .theme-nav" ).css( "display", "none" );
         chartContainer.classList.add('expand');
         chartContainer.setAttribute('data-expanded', 'true');
         $(chartContainer).css( "display", "initial" );
@@ -297,18 +340,24 @@ class ChartContainer {
     }
 
   swapChartItems(index1, index2) {
-    const tempItem = this.chartItems[index1];
-    this.chartItems[index1] = this.chartItems[index2];
-    this.chartItems[index2] = tempItem;
+    const item1 = this.chartItems[index1];
+    const item2 = this.chartItems[index2];
 
-    const chartContainer = this.chartItems[0].parentNode;
-    while (chartContainer.firstChild) {
-      chartContainer.removeChild(chartContainer.firstChild);
-    }
+    // Cards are now grouped into per-theme flex containers rather than one
+    // shared container, so only swap within the same theme section - the
+    // old "rebuild one shared container from this.chartItems" approach
+    // would otherwise yank cards out of their theme section.
+    if (!item1 || !item2 || item1.parentNode !== item2.parentNode) return;
 
-    for (const item of this.chartItems) {
-      chartContainer.appendChild(item);
-    }
+    this.chartItems[index1] = item2;
+    this.chartItems[index2] = item1;
+
+    const parent = item1.parentNode;
+    const placeholder = document.createComment('');
+    parent.insertBefore(placeholder, item1);
+    parent.insertBefore(item1, item2);
+    parent.insertBefore(item2, placeholder);
+    parent.removeChild(placeholder);
   }
 
     addToDOM(targetElementSelector) {

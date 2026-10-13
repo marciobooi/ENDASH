@@ -42,8 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
         smoothScrollTo(targetY);
     }
 
-    const flexContainer = document.querySelector('.flex-container');
-    if (flexContainer) {
+    // The gallery is now split into one .flex-container per themed section
+    // (see THEME_SECTIONS), not a single one - wire this up on all of them.
+    document.querySelectorAll('.flex-container').forEach((flexContainer) => {
         flexContainer.addEventListener('mouseenter', () => {
             flexContainer.addEventListener('wheel', onWheel, { passive: false });
         });
@@ -51,5 +52,5 @@ document.addEventListener("DOMContentLoaded", function () {
         flexContainer.addEventListener('mouseleave', () => {
             flexContainer.removeEventListener('wheel', onWheel);
         });
-    }
+    });
 });

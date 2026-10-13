@@ -1,0 +1,71 @@
+/* "Energy topics" jump-nav row (between the dark toolbar and the country
+   selector) and the themed section headings it links to in the gallery. */
+
+.theme-nav {
+  background: #ffffff;
+  border-bottom: 1px solid #d7e1eb;
+  padding: 1.25rem 1.5rem;
+}
+
+.theme-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.theme-nav__item {
+  margin: 0;
+}
+
+.theme-nav__link {
+  white-space: nowrap;
+}
+
+/* These are same-page jump links, not content links - they shouldn't look
+   different just because the user has already clicked one. The
+   ecl-link--no-visited modifier is applied in themeNavComponent.js too, but
+   this file loads after ecl-eu.css, so these rules are the ones guaranteed
+   to win regardless of how ECL's own internal rules are ordered. */
+.theme-nav__link:visited {
+  color: #0e47cb;
+}
+
+.theme-nav__link:hover,
+.theme-nav__link:visited:hover,
+.theme-nav__link:focus-visible,
+.theme-nav__link:visited:focus-visible {
+  color: #082b7a;
+}
+
+.theme-section {
+  padding: 0 0.5rem;
+}
+
+.theme-section__heading {
+  /* Font size/weight come from ecl-u-type-heading-2 (applied alongside this
+     class in chartContainer.js) to match the ECL component library's
+     heading scale exactly; only override its color and add spacing. */
+  color: #004494;
+  margin: 2rem 0.5rem 0.75rem;
+  /* Keep the heading from landing flush against the top of the viewport
+     (or under the fixed/sticky chrome above it) when jumped to. */
+  scroll-margin-top: 5rem;
+}
+
+.theme-section:first-of-type .theme-section__heading {
+  margin-top: 1rem;
+}
+
+.theme-section__heading:focus-visible {
+  outline: 2px solid #0e47cb;
+  outline-offset: 4px;
+}
+
+.theme-section__empty {
+  margin: 0 0.5rem 2rem;
+  color: #555555;
+  font-style: italic;
+}

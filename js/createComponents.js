@@ -41,6 +41,7 @@ function buildComponents() {
     { instance: new SubNavbar(), target: "#subnavbar-container" },
     { instance: new Navbar(), target: "#navbar-container" },
     { instance: new Footer(), target: "#componentFooter" },
+    { instance: new ThemeNav(), target: "#themeNavContainer" },
     { instance: new ChartContainer(), target: "#endash" },
   ];
 
@@ -48,11 +49,24 @@ function buildComponents() {
     instance.addToDOM(target);
   });
 ECL.autoInit();
+
+  // ChartContainer's IntersectionObserver fires its "initial state" callback
+  // asynchronously; relying on it alone after a full rebuild (e.g. a language
+  // switch, which wipes #endash and recreates every card from scratch) has
+  // shown to occasionally leave the first couple of already-visible cards
+  // stuck on stale content instead of getting a fresh render pass. The same
+  // ChartContainer already has a scroll-settle fallback sweep for exactly
+  // this class of "observer missed a visible card" issue (built for fast
+  // scrolling); trigger it here too, once the DOM has had a chance to paint.
+  setTimeout(() => {
+    window.dispatchEvent(new Event('scroll'));
+  }, 0);
 }
 
 function removeComponents() {
   const navbarContainer = document.querySelector('#navbar-container');
   const subnavbarContainer = document.querySelector('#subnavbar-container');
+  const themeNavContainer = document.querySelector('#themeNavContainer');
   const endash = document.querySelector('#endash');
   const menuSwitch = document.querySelector('#menuSwitch');
   const floatingMenu = document.querySelector('#floatingMenu');
@@ -61,6 +75,7 @@ function removeComponents() {
 
   if (navbarContainer) navbarContainer.innerHTML = '';
   if (subnavbarContainer) subnavbarContainer.innerHTML = '';
+  if (themeNavContainer) themeNavContainer.innerHTML = '';
   if (endash) endash.innerHTML = '';
   if (menuSwitch) menuSwitch.remove();
   if (floatingMenu) floatingMenu.innerHTML = '';

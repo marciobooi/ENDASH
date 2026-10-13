@@ -268,16 +268,16 @@ const chartStoryConfig = {
     }
   },
   chart_20: {
-    group: "market",
-    icon: "🏦",
-    storyTitle: "Electricity market structure",
-    insightRole: "Shows market concentration and electricity market indicators.",
-    preferredMetric: "market-structure",
-    sentiment: "contextual",
+    group: "electricity",
+    icon: "⚡",
+    storyTitle: "Rate of electrification",
+    insightRole: "Shows the share of final energy consumption that is electrified, by sector.",
+    preferredMetric: "percentage-point-change",
+    sentiment: "higher-is-better",
     simpleExplain: {
-      what: "Describes competition and concentration in electricity markets.",
-      how: "Tracks structure indicators and compares their change over time.",
-      read: "Interpret alongside regulation and market design context."
+      what: "Shows how much of final energy use is met directly by electricity, overall and by sector.",
+      how: "Tracks the electrification share for each sector and its change over time.",
+      read: "A rising share generally signals progress in electrifying energy demand."
     }
   },
   chart_21: {
@@ -308,88 +308,59 @@ const chartStoryConfig = {
   }
 };
 
+// Keyed by THEME_SECTIONS ids (codes.js) rather than a separate taxonomy, so
+// Global Insights groups charts the same way the gallery's "Energy topics"
+// nav does - a chart used to sit under a different category in each place
+// (e.g. "Transport energy" here vs "Final energy consumption" in the
+// gallery). labelKey reuses the THEME_X translation already used for the
+// nav link/section heading; descKey/whyKey are Global-Insights-specific.
 const insightGroups = {
-  headline: {
-    title: "Headline policy indicators",
-    description: "Core indicators used to understand energy transition progress.",
+  "theme-sustainability": {
+    labelKey: "THEME_SUSTAINABILITY",
+    descKey: "THEME_SUSTAINABILITY_DESC",
+    whyKey: "THEME_SUSTAINABILITY_WHY",
     color: "#1f6fba",
     order: 1
   },
-  security: {
-    title: "Energy security and dependency",
-    description: "Dependence on imports and fossil fuels.",
+  "theme-diversification": {
+    labelKey: "THEME_DIVERSIFICATION",
+    descKey: "THEME_DIVERSIFICATION_DESC",
+    whyKey: "THEME_DIVERSIFICATION_WHY",
     color: "#b85c00",
     order: 2
   },
-  supply: {
-    title: "Energy supply",
-    description: "Gross available energy and total energy supply.",
-    color: "#4a5568",
+  "theme-efficiency": {
+    labelKey: "THEME_EFFICIENCY",
+    descKey: "THEME_EFFICIENCY_DESC",
+    whyKey: "THEME_EFFICIENCY_WHY",
+    color: "#805ad5",
     order: 3
   },
-  consumption: {
-    title: "Energy consumption patterns",
-    description: "How final energy consumption is distributed by product and sector.",
-    color: "#6b4eff",
+  "theme-electrification": {
+    labelKey: "THEME_ELECTRIFICATION",
+    descKey: "THEME_ELECTRIFICATION_DESC",
+    whyKey: "THEME_ELECTRIFICATION_WHY",
+    color: "#0e8a3d",
     order: 4
   },
-  transport: {
-    title: "Transport energy",
-    description: "Fuel use in transport and road transport.",
-    color: "#007c89",
+  "theme-consumption": {
+    labelKey: "THEME_CONSUMPTION",
+    descKey: "THEME_CONSUMPTION_DESC",
+    whyKey: "THEME_CONSUMPTION_WHY",
+    color: "#6b4eff",
     order: 5
   },
-  industry: {
-    title: "Industry and non-energy use",
-    description: "Energy and non-energy consumption in industrial activities.",
-    color: "#595959",
+  "theme-oilstocks": {
+    labelKey: "THEME_OILSTOCKS",
+    descKey: "THEME_OILSTOCKS_DESC",
+    whyKey: "THEME_OILSTOCKS_WHY",
+    color: "#4a5568",
     order: 6
   },
-  electricity: {
-    title: "Electricity production",
-    description: "Electricity and heat generation by source and fuel.",
-    color: "#0e8a3d",
-    order: 7
-  },
-  environment: {
-    title: "Emissions and environment",
-    description: "Greenhouse gas emissions linked to energy activity.",
-    color: "#2f855a",
-    order: 8
-  },
-  performance: {
-    title: "Energy performance",
-    description: "Energy intensity and productivity indicators.",
-    color: "#805ad5",
-    order: 9
-  },
-  households: {
-    title: "Households",
-    description: "Household energy consumption patterns.",
-    color: "#dd6b20",
-    order: 10
-  },
-  social: {
-    title: "Social indicators",
-    description: "Energy-related living condition indicators.",
-    color: "#c53030",
-    order: 11
-  },
-  market: {
-    title: "Energy market",
-    description: "Electricity market structure and concentration indicators.",
-    color: "#2b6cb0",
-    order: 12
-  },
-  context: {
-    title: "Context",
-    description: "Demographic and contextual indicators.",
-    color: "#718096",
-    order: 13
-  },
   other: {
-    title: "Other indicators",
-    description: "Additional indicators in the current view.",
+    labelKey: "GROUP_OTHER_TITLE",
+    descKey: "GROUP_OTHER_DESC",
+    whyKey: "GROUP_OTHER_WHY",
     color: "#718096",
     order: 99
   }
@@ -416,23 +387,6 @@ const sentimentReadingGuide = {
   contextual: "Interpret using policy context; direction alone is not enough to judge performance."
 };
 
-const groupPurposeGuide = {
-  headline: "These indicators provide the main policy signal for energy transition progress.",
-  security: "This theme highlights exposure to external supply risks and fossil reliance.",
-  supply: "This theme explains the composition and level of available energy supply.",
-  consumption: "This theme explains where final energy is used and by whom.",
-  transport: "This theme shows how transport demand is met by different fuels.",
-  industry: "This theme tracks industrial demand and non-energy uses of products.",
-  electricity: "This theme describes electricity and heat generation structure.",
-  environment: "This theme links energy activity to environmental pressure.",
-  performance: "This theme measures how efficiently energy supports economic activity.",
-  households: "This theme focuses on residential demand and end-use patterns.",
-  social: "This theme reflects household living-condition risks linked to energy.",
-  market: "This theme captures market concentration and competition signals.",
-  context: "This theme provides supporting context for interpreting other indicators.",
-  other: "This theme contains additional indicators not mapped to a primary category."
-};
-
 function enrichStoryExplain(story) {
   const source = story || {};
   const simpleExplain = source.simpleExplain || {};
@@ -447,25 +401,39 @@ function enrichStoryExplain(story) {
 }
 
 function getInsightGroupConfig(groupKey) {
-  const group = insightGroups[groupKey] || insightGroups.other;
+  const key = (groupKey && insightGroups[groupKey]) ? groupKey : "other";
+  const base = insightGroups[key];
 
-  if (!group.whyThisThemeMatters) {
-    group.whyThisThemeMatters = groupPurposeGuide[groupKey] || groupPurposeGuide.other;
-  }
+  // Translations are looked up fresh on every call (not cached on the shared
+  // insightGroups entry) so this reflects REF.language correctly regardless
+  // of when the labels finished loading relative to module init.
+  const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
 
-  return group;
+  return {
+    ...base,
+    title: labels[base.labelKey] || base.labelKey,
+    description: labels[base.descKey] || "",
+    whyThisThemeMatters: labels[base.whyKey] || ""
+  };
 }
 
 Object.keys(chartStoryConfig).forEach((chartId) => {
   chartStoryConfig[chartId] = enrichStoryExplain(chartStoryConfig[chartId]);
 });
 
-Object.keys(insightGroups).forEach((groupKey) => {
-  getInsightGroupConfig(groupKey);
-});
+// Looks up which THEME_SECTIONS group (codes.js) a chart belongs to, so
+// Global Insights groups charts the same way the gallery's "Energy topics"
+// nav does, instead of the old separate 14-category taxonomy.
+function getThemeIdForChart(chartId) {
+  if (typeof THEME_SECTIONS !== "undefined") {
+    const theme = THEME_SECTIONS.find((section) => section.charts.includes(chartId));
+    if (theme) return theme.id;
+  }
+  return "other";
+}
 
 function getChartStory(chartId) {
-  const story = chartStoryConfig[chartId] || {
+  const baseStory = chartStoryConfig[chartId] || {
     group: "other",
     icon: "📊",
     storyTitle: chartId || "Indicator",
@@ -474,7 +442,28 @@ function getChartStory(chartId) {
     sentiment: "neutral"
   };
 
-  return enrichStoryExplain(story);
+  // enrichStoryExplain() mutates and returns the SAME chartStoryConfig[chartId]
+  // object every time it's called, so it must stay English-only (it's also
+  // the fallback used below if a translation is missing). The translated
+  // text is layered on top into a fresh object instead of overwriting it,
+  // so switching languages doesn't bake one language's text into the shared
+  // source and so getChartStory() reflects REF.language correctly on every
+  // call (translations are looked up fresh each time, not cached at
+  // chartStoryConfig definition time, which runs before labels are loaded).
+  const enriched = enrichStoryExplain(baseStory);
+  const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+  const keyPrefix = "STORY_" + String(chartId || "").toUpperCase() + "_";
+
+  return {
+    ...enriched,
+    storyTitle: labels[keyPrefix + "TITLE"] || enriched.storyTitle,
+    insightRole: labels[keyPrefix + "ROLE"] || enriched.insightRole,
+    simpleExplain: {
+      what: labels[keyPrefix + "WHAT"] || enriched.simpleExplain.what,
+      how: labels[keyPrefix + "HOW"] || enriched.simpleExplain.how,
+      read: labels[keyPrefix + "READ"] || enriched.simpleExplain.read
+    }
+  };
 }
 
 function getInsightInfoId(seed) {
@@ -1235,7 +1224,7 @@ function collectGlobalInsightsData() {
         indicatorCount: Array.isArray(chartConfig.indicator) ? chartConfig.indicator.length : 0,
         unitLabel,
 
-        storyGroup: story.group || "other",
+        storyGroup: getThemeIdForChart(chartId),
         storyTitle: story.storyTitle || chartLabel,
         storyIcon: story.icon || "📊",
         insightRole: story.insightRole || "Additional indicator in the current view.",
@@ -1694,19 +1683,10 @@ function buildDataCoveragePanel(summary) {
 }
 
 function getThemeLabelFromGroup(group) {
-  const map = {
-    headline: "Headline policy indicators",
-    security: "Security",
-    supply: "Supply",
-    consumption: "Consumption",
-    transport: "Transport",
-    electricity: "Electricity",
-    environment: "Environment",
-    social: "Social",
-    market: "Market"
-  };
-
-  return map[group] || "Other";
+  // Delegates to getInsightGroupConfig() rather than keeping a second,
+  // separate map - that already resolves a translated title for any group,
+  // old-taxonomy or new theme id, with an "other" fallback.
+  return getInsightGroupConfig(group).title;
 }
 
 function buildThemeDistributionData(summary) {
@@ -2201,6 +2181,7 @@ function buildStoryGroupSections(summary) {
     .map((groupKey) => {
       const group = getInsightGroupConfig(groupKey);
       const items = grouped[groupKey];
+      const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
 
       const rising = items.filter((item) => item.trendDirection === "up").length;
       const falling = items.filter((item) => item.trendDirection === "down").length;
@@ -2213,13 +2194,13 @@ function buildStoryGroupSections(summary) {
         '<div>',
         '<h3>' + escapeInsightText(group.title) + '</h3>',
         '<p>' + escapeInsightText(group.description) + '</p>',
-        '<p class="story-group-why">Why this theme matters: ' + escapeInsightText(group.whyThisThemeMatters || "") + '</p>',
+        '<p class="story-group-why">' + escapeInsightText(labels['INSIGHT_WHY_THEME_MATTERS'] || 'Why this theme matters:') + ' ' + escapeInsightText(group.whyThisThemeMatters || "") + '</p>',
         '</div>',
         '<div class="story-group-stats">',
-        '<span><strong>' + items.length + '</strong> charts</span>',
-        '<span><strong>' + rising + '</strong> rising</span>',
-        '<span><strong>' + falling + '</strong> falling</span>',
-        '<span><strong>' + stable + '</strong> stable</span>',
+        '<span><strong>' + items.length + '</strong> ' + escapeInsightText(labels['INSIGHT_CHARTS_COUNT_LABEL'] || 'charts') + '</span>',
+        '<span><strong>' + rising + '</strong> ' + escapeInsightText(labels['INSIGHT_RISING'] || 'rising') + '</span>',
+        '<span><strong>' + falling + '</strong> ' + escapeInsightText(labels['INSIGHT_FALLING'] || 'falling') + '</span>',
+        '<span><strong>' + stable + '</strong> ' + escapeInsightText(labels['INSIGHT_STABLE'] || 'stable') + '</span>',
         '</div>',
         '</div>',
         '<div class="story-card-grid">',

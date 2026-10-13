@@ -344,15 +344,21 @@ codesDataset = {
 		"meta": "ilc_sieusilc"
 	},
 	"chart_20": {
-		"dataset":'nrg_ind_market',
+		// Replaces the old "Market share of the largest generator" chart
+		// (nrg_ind_market - dataset permanently unavailable upstream, see
+		// HIDDEN_CHART_IDS history) with "Rate of electrification". Verified
+		// live against the Eurostat API: nrg_ind_re is a real dataset and all
+		// 4 indicator codes below return real data (unit: Percentage). Shows
+		// all 4 as separate lines at once, same as every other chart.
+		"dataset":'nrg_ind_re',
 		"title": "chart_20",
-		"indicator": ["RCMPY_NEG95","PCMPY_NEG5","LCMPY_EG","CMPY_EG5","LCMPY_IECAP","CMPY_ECAP5","ECAP_CN","ECAP_DC","ECAP_VAR","ERTL","ERTL_SELL_EC5","ERTL_LG","ERTL_EC5"],
-		"indicator_type": "indic_nrgm",	
-		"indicator2": ["E7000"],
-		"indicator2_type": "siec",	
-		"unit": "PC",	
-		"container": "highchartsContainer_20",	
-		"meta": "NONE"		
+		"indicator": ["FC_E", "FC_IND_E", "FC_TRA_E", "FC_OTH_HH_CP_E"],
+		"indicator_type": "nrg_bal",
+		"indicator2": '',
+		"indicator2_type": "",
+		"unit": "PC",
+		"container": "highchartsContainer_20",
+		"meta": "nrg_ind_re"
 	},
 	"chart_21": {
 		"dataset":'nrg_bal_s',
@@ -373,13 +379,28 @@ codesDataset = {
 		"indicator2": ["NRGSUP"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_22",	
-		"meta": "nrg_bal"		
+		"container": "highchartsContainer_22",
+		"meta": "nrg_bal"
 	},
 
 
 }
 
+// Groups the gallery into jump-nav themed sections (see the "Energy topics"
+// nav row). Order here is both the nav link order and the on-page section
+// order - charts are rendered grouped by theme, not by chart_N number.
+// chart_20 (Market share of the largest generator) is being replaced by a
+// new "Rate of electrification" chart with an indicator picker and isn't in
+// any theme yet; "oilstocks" has no charts wired up yet either - both are
+// pending more detail, so their sections render with a "coming soon" message.
+const THEME_SECTIONS = [
+	{ id: "theme-sustainability", labelKey: "THEME_SUSTAINABILITY", charts: ["chart_2", "chart_3", "chart_19"] },
+	{ id: "theme-diversification", labelKey: "THEME_DIVERSIFICATION", charts: ["chart_21", "chart_22", "chart_7", "chart_6"] },
+	{ id: "theme-efficiency", labelKey: "THEME_EFFICIENCY", charts: ["chart_1", "chart_4", "chart_5"] },
+	{ id: "theme-electrification", labelKey: "THEME_ELECTRIFICATION", charts: ["chart_20", "chart_17", "chart_18"] },
+	{ id: "theme-consumption", labelKey: "THEME_CONSUMPTION", charts: ["chart_8", "chart_9", "chart_10", "chart_11", "chart_12", "chart_13", "chart_14", "chart_15", "chart_16"] },
+	{ id: "theme-oilstocks", labelKey: "THEME_OILSTOCKS", charts: [] },
+];
 
 
 defaultGeos = ["EU27_2020","BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE"]

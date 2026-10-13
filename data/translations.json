@@ -435,9 +435,9 @@
     "FR": "Consommation d'énergie finale par secteur"
   },
   "chart_11": {
-    "EN": "Disaggregated final energy consumption in households - quantities",
-    "DE": "Aufgeschlüsselter Endenergieverbrauch in Haushalten - Mengen",
-    "FR": "Consommation finale d'énergie désagrégée dans les ménages - quantités"
+    "EN": "Final energy consumption in households by end use",
+    "DE": "Endenergieverbrauch der privaten Haushalte nach Verwendungszweck",
+    "FR": "Consommation d'énergie finale des ménages par usage final"
   },
   "chart_12": {
     "EN": "Final energy consumption in transport by type of fuel",
@@ -480,9 +480,9 @@
     "FR": "Population incapable de maintenir correctement la chaleur à la maison en fonction du statut de pauvreté"
   },
   "chart_20": {
-    "EN": "Market share of the largest generator in the electricity market",
-    "DE": "Marktanteil des größten Erzeugers auf dem Strommarkt",
-    "FR": "Part de marché du plus grand producteur sur le marché de l'électricité"
+    "EN": "Rate of electrification",
+    "DE": "Elektrifizierungsrate",
+    "FR": "Taux d'électrification"
   },
   "chart_21": {
     "EN": "Gross available energy by product",
@@ -524,13 +524,11 @@
     "FR": "Afficher la vue en tableau",
     "DE": "Tabellenansicht anzeigen"
   },
-
   "PRINT_CHART": {
     "EN": "Print chart",
     "FR": "Imprimer le graphique",
     "DE": "Diagramm drucken"
   },
-
   "DOWNLOAD_CHART_IMAGE": {
     "EN": "Download chart",
     "DE": "Diagramm herunterladen",
@@ -665,5 +663,915 @@
     "EN": "Euro per kilogram of oil equivalent",
     "FR": "Euro par kilogramme équivalent pétrole",
     "DE": "Euro pro Kilogramm Rohöleinheit"
+  },
+  "THEME_NAV_LABEL": {
+    "EN": "Energy topics",
+    "FR": "Thèmes énergétiques",
+    "DE": "Energiethemen"
+  },
+  "THEME_SUSTAINABILITY": {
+    "EN": "Sustainability and affordability",
+    "FR": "Durabilité et accessibilité financière",
+    "DE": "Nachhaltigkeit und Bezahlbarkeit"
+  },
+  "THEME_DIVERSIFICATION": {
+    "EN": "Diversification of energy supply",
+    "FR": "Diversification de l'approvisionnement énergétique",
+    "DE": "Diversifizierung der Energieversorgung"
+  },
+  "THEME_EFFICIENCY": {
+    "EN": "Energy efficiency",
+    "FR": "Efficacité énergétique",
+    "DE": "Energieeffizienz"
+  },
+  "THEME_ELECTRIFICATION": {
+    "EN": "Electrification",
+    "FR": "Électrification",
+    "DE": "Elektrifizierung"
+  },
+  "THEME_CONSUMPTION": {
+    "EN": "Final energy consumption",
+    "FR": "Consommation finale d'énergie",
+    "DE": "Endenergieverbrauch"
+  },
+  "THEME_OILSTOCKS": {
+    "EN": "Oil stocks",
+    "FR": "Stocks de pétrole",
+    "DE": "Ölvorräte"
+  },
+  "THEME_COMING_SOON": {
+    "EN": "Data for this section is not yet available.",
+    "FR": "Les données pour cette section ne sont pas encore disponibles.",
+    "DE": "Daten für diesen Abschnitt sind noch nicht verfügbar."
+  },
+  "ELECTRIFICATION_INDICATOR_LABEL": {
+    "EN": "Sector",
+    "FR": "Secteur",
+    "DE": "Sektor"
+  },
+  "FC_E": {
+    "EN": "Overall",
+    "FR": "Ensemble",
+    "DE": "Insgesamt"
+  },
+  "FC_IND_E": {
+    "EN": "Industry",
+    "FR": "Industrie",
+    "DE": "Industrie"
+  },
+  "FC_TRA_E": {
+    "EN": "Transport",
+    "FR": "Transport",
+    "DE": "Verkehr"
+  },
+  "FC_OTH_HH_CP_E": {
+    "EN": "Households and commercial/public services",
+    "FR": "Ménages et services commerciaux/publics",
+    "DE": "Haushalte und Gewerbe/öffentliche Dienstleistungen"
+  },
+  "STORY_CHART_1_TITLE": {
+    "EN": "Energy efficiency",
+    "FR": "Efficacité énergétique",
+    "DE": "Energieeffizienz"
+  },
+  "STORY_CHART_1_ROLE": {
+    "EN": "Tracks final and primary energy consumption against policy indicators.",
+    "FR": "Suit la consommation d'énergie finale et primaire au regard des indicateurs politiques.",
+    "DE": "Verfolgt den End- und Primärenergieverbrauch anhand politischer Indikatoren."
+  },
+  "STORY_CHART_1_WHAT": {
+    "EN": "Compares final and primary energy consumption levels and their recent direction.",
+    "FR": "Compare les niveaux de consommation d'énergie finale et primaire et leur évolution récente.",
+    "DE": "Vergleicht die Höhe des End- und Primärenergieverbrauchs und deren jüngste Entwicklung."
+  },
+  "STORY_CHART_1_HOW": {
+    "EN": "Reads the latest value, yearly change and long-term change from the time series.",
+    "FR": "Indique la dernière valeur, la variation annuelle et la variation à long terme de la série chronologique.",
+    "DE": "Liest den aktuellsten Wert, die jährliche Veränderung und die langfristige Veränderung aus der Zeitreihe ab."
+  },
+  "STORY_CHART_1_READ": {
+    "EN": "Lower consumption for similar activity usually indicates better efficiency.",
+    "FR": "Une consommation plus faible pour une activité similaire indique généralement une meilleure efficacité.",
+    "DE": "Ein geringerer Verbrauch bei vergleichbarer Aktivität deutet in der Regel auf eine bessere Effizienz hin."
+  },
+  "STORY_CHART_2_TITLE": {
+    "EN": "Renewable energy",
+    "FR": "Énergies renouvelables",
+    "DE": "Erneuerbare Energien"
+  },
+  "STORY_CHART_2_ROLE": {
+    "EN": "Shows the share of renewable energy across total, transport, electricity and heating/cooling.",
+    "FR": "Indique la part des énergies renouvelables dans le total, les transports, l'électricité et le chauffage/refroidissement.",
+    "DE": "Zeigt den Anteil erneuerbarer Energien insgesamt sowie in den Bereichen Verkehr, Strom und Wärme/Kälte."
+  },
+  "STORY_CHART_2_WHAT": {
+    "EN": "Shows how much of energy demand is covered by renewables.",
+    "FR": "Indique la part de la demande d'énergie couverte par les énergies renouvelables.",
+    "DE": "Zeigt, wie viel des Energiebedarfs durch erneuerbare Energien gedeckt wird."
+  },
+  "STORY_CHART_2_HOW": {
+    "EN": "Uses percentage shares and their change in percentage points over time.",
+    "FR": "Utilise des parts en pourcentage et leur évolution en points de pourcentage dans le temps.",
+    "DE": "Verwendet prozentuale Anteile und deren Veränderung in Prozentpunkten im Zeitverlauf."
+  },
+  "STORY_CHART_2_READ": {
+    "EN": "Higher renewable shares generally signal progress in transition.",
+    "FR": "Une part plus élevée d'énergies renouvelables signale généralement des progrès dans la transition énergétique.",
+    "DE": "Ein höherer Anteil erneuerbarer Energien signalisiert in der Regel Fortschritte beim Energiewandel."
+  },
+  "STORY_CHART_3_TITLE": {
+    "EN": "Energy-related greenhouse gas emissions",
+    "FR": "Émissions de gaz à effet de serre liées à l'énergie",
+    "DE": "Energiebedingte Treibhausgasemissionen"
+  },
+  "STORY_CHART_3_ROLE": {
+    "EN": "Shows greenhouse gas emissions by source category.",
+    "FR": "Indique les émissions de gaz à effet de serre par catégorie de source.",
+    "DE": "Zeigt die Treibhausgasemissionen nach Quellkategorie."
+  },
+  "STORY_CHART_3_WHAT": {
+    "EN": "Identifies which source contributes most to energy-related emissions.",
+    "FR": "Identifie la source qui contribue le plus aux émissions liées à l'énergie.",
+    "DE": "Ermittelt, welche Quelle am meisten zu den energiebedingten Emissionen beiträgt."
+  },
+  "STORY_CHART_3_HOW": {
+    "EN": "Ranks source categories by latest value and checks their trend over time.",
+    "FR": "Classe les catégories de sources selon leur dernière valeur et vérifie leur tendance dans le temps.",
+    "DE": "Reiht die Quellkategorien nach dem aktuellsten Wert und prüft deren Entwicklung im Zeitverlauf."
+  },
+  "STORY_CHART_3_READ": {
+    "EN": "Falling emissions are usually favourable for climate objectives.",
+    "FR": "Une baisse des émissions est généralement favorable aux objectifs climatiques.",
+    "DE": "Sinkende Emissionen sind in der Regel günstig für die Klimaziele."
+  },
+  "STORY_CHART_4_TITLE": {
+    "EN": "Energy intensity",
+    "FR": "Intensité énergétique",
+    "DE": "Energieintensität"
+  },
+  "STORY_CHART_4_ROLE": {
+    "EN": "Shows how much energy is used per unit of economic output.",
+    "FR": "Indique la quantité d'énergie utilisée par unité de production économique.",
+    "DE": "Zeigt, wie viel Energie je Einheit der Wirtschaftsleistung verbraucht wird."
+  },
+  "STORY_CHART_4_WHAT": {
+    "EN": "Measures energy used to produce one unit of economic output.",
+    "FR": "Mesure l'énergie utilisée pour produire une unité de production économique.",
+    "DE": "Misst die Energie, die zur Erzeugung einer Einheit der Wirtschaftsleistung verbraucht wird."
+  },
+  "STORY_CHART_4_HOW": {
+    "EN": "Tracks the intensity indicator level and its short- and long-term changes.",
+    "FR": "Suit le niveau de l'indicateur d'intensité ainsi que ses variations à court et à long terme.",
+    "DE": "Verfolgt das Niveau des Intensitätsindikators sowie seine kurz- und langfristigen Veränderungen."
+  },
+  "STORY_CHART_4_READ": {
+    "EN": "Lower intensity means less energy needed for the same output.",
+    "FR": "Une intensité plus faible signifie moins d'énergie nécessaire pour la même production.",
+    "DE": "Eine geringere Intensität bedeutet weniger Energiebedarf für dieselbe Leistung."
+  },
+  "STORY_CHART_5_TITLE": {
+    "EN": "Energy productivity",
+    "FR": "Productivité énergétique",
+    "DE": "Energieproduktivität"
+  },
+  "STORY_CHART_5_ROLE": {
+    "EN": "Shows economic output generated per unit of energy used.",
+    "FR": "Indique la production économique générée par unité d'énergie utilisée.",
+    "DE": "Zeigt die Wirtschaftsleistung je eingesetzter Energieeinheit."
+  },
+  "STORY_CHART_5_WHAT": {
+    "EN": "Measures how much economic value is created per unit of energy.",
+    "FR": "Mesure la valeur économique créée par unité d'énergie.",
+    "DE": "Misst, wie viel wirtschaftlicher Wert je Energieeinheit geschaffen wird."
+  },
+  "STORY_CHART_5_HOW": {
+    "EN": "Tracks the productivity indicator and compares current vs past values.",
+    "FR": "Suit l'indicateur de productivité et compare les valeurs actuelles aux valeurs passées.",
+    "DE": "Verfolgt den Produktivitätsindikator und vergleicht aktuelle mit früheren Werten."
+  },
+  "STORY_CHART_5_READ": {
+    "EN": "Higher productivity usually means energy is used more efficiently.",
+    "FR": "Une productivité plus élevée signifie généralement une utilisation plus efficace de l'énergie.",
+    "DE": "Höhere Produktivität bedeutet in der Regel einen effizienteren Energieeinsatz."
+  },
+  "STORY_CHART_6_TITLE": {
+    "EN": "Energy import dependency",
+    "FR": "Dépendance aux importations d'énergie",
+    "DE": "Abhängigkeit von Energieimporten"
+  },
+  "STORY_CHART_6_ROLE": {
+    "EN": "Shows dependency on energy imports by product.",
+    "FR": "Indique la dépendance aux importations d'énergie par produit.",
+    "DE": "Zeigt die Abhängigkeit von Energieimporten nach Produkt."
+  },
+  "STORY_CHART_6_WHAT": {
+    "EN": "Shows how much the energy system relies on imported energy.",
+    "FR": "Indique dans quelle mesure le système énergétique dépend de l'énergie importée.",
+    "DE": "Zeigt, wie stark das Energiesystem von importierter Energie abhängt."
+  },
+  "STORY_CHART_6_HOW": {
+    "EN": "Calculates dependency ratios and compares them over time by product.",
+    "FR": "Calcule les taux de dépendance et les compare dans le temps par produit.",
+    "DE": "Berechnet Abhängigkeitsquoten und vergleicht sie im Zeitverlauf nach Produkt."
+  },
+  "STORY_CHART_6_READ": {
+    "EN": "Lower dependency generally implies lower exposure to external shocks.",
+    "FR": "Une dépendance plus faible implique généralement une moindre exposition aux chocs extérieurs.",
+    "DE": "Eine geringere Abhängigkeit bedeutet in der Regel eine geringere Anfälligkeit für externe Schocks."
+  },
+  "STORY_CHART_7_TITLE": {
+    "EN": "Fossil fuels in gross available energy",
+    "FR": "Combustibles fossiles dans l'énergie brute disponible",
+    "DE": "Fossile Brennstoffe an der verfügbaren Bruttoenergie"
+  },
+  "STORY_CHART_7_ROLE": {
+    "EN": "Shows the share of fossil fuels in gross available energy.",
+    "FR": "Indique la part des combustibles fossiles dans l'énergie brute disponible.",
+    "DE": "Zeigt den Anteil fossiler Brennstoffe an der verfügbaren Bruttoenergie."
+  },
+  "STORY_CHART_7_WHAT": {
+    "EN": "Shows the fossil fuel share in total available energy.",
+    "FR": "Indique la part des combustibles fossiles dans l'énergie totale disponible.",
+    "DE": "Zeigt den Anteil fossiler Brennstoffe am gesamten verfügbaren Energieaufkommen."
+  },
+  "STORY_CHART_7_HOW": {
+    "EN": "Uses share indicators and percentage-point changes across years.",
+    "FR": "Utilise des indicateurs de part et des variations en points de pourcentage au fil des années.",
+    "DE": "Verwendet Anteilsindikatoren und Veränderungen in Prozentpunkten über die Jahre."
+  },
+  "STORY_CHART_7_READ": {
+    "EN": "A declining fossil share indicates a cleaner supply mix.",
+    "FR": "Une baisse de la part des combustibles fossiles indique un bouquet énergétique plus propre.",
+    "DE": "Ein sinkender fossiler Anteil deutet auf einen saubereren Energiemix hin."
+  },
+  "STORY_CHART_8_TITLE": {
+    "EN": "Population context",
+    "FR": "Contexte démographique",
+    "DE": "Bevölkerungskontext"
+  },
+  "STORY_CHART_8_ROLE": {
+    "EN": "Provides demographic context for energy indicators.",
+    "FR": "Fournit le contexte démographique pour les indicateurs énergétiques.",
+    "DE": "Liefert den demografischen Kontext für Energieindikatoren."
+  },
+  "STORY_CHART_8_WHAT": {
+    "EN": "Provides population context to interpret energy indicators fairly.",
+    "FR": "Fournit un contexte démographique permettant d'interpréter équitablement les indicateurs énergétiques.",
+    "DE": "Liefert den Bevölkerungskontext, um Energieindikatoren angemessen einzuordnen."
+  },
+  "STORY_CHART_8_HOW": {
+    "EN": "Displays demographic levels and trends that can explain energy demand shifts.",
+    "FR": "Affiche les niveaux et tendances démographiques pouvant expliquer les évolutions de la demande d'énergie.",
+    "DE": "Zeigt demografische Werte und Trends, die Veränderungen der Energienachfrage erklären können."
+  },
+  "STORY_CHART_8_READ": {
+    "EN": "Use as background context, not as a good-or-bad performance metric.",
+    "FR": "À utiliser comme contexte de référence, et non comme un indicateur de performance positif ou négatif.",
+    "DE": "Als Hintergrundinformation zu verstehen, nicht als Leistungsindikator im Sinne von gut oder schlecht."
+  },
+  "STORY_CHART_9_TITLE": {
+    "EN": "Final energy consumption by product",
+    "FR": "Consommation d'énergie finale par produit",
+    "DE": "Endenergieverbrauch nach Produkt"
+  },
+  "STORY_CHART_9_ROLE": {
+    "EN": "Shows which energy products dominate final consumption.",
+    "FR": "Indique quels produits énergétiques dominent la consommation finale.",
+    "DE": "Zeigt, welche Energieprodukte den Endverbrauch dominieren."
+  },
+  "STORY_CHART_9_WHAT": {
+    "EN": "Shows which fuels/products contribute most to final energy use.",
+    "FR": "Indique quels combustibles/produits contribuent le plus à la consommation d'énergie finale.",
+    "DE": "Zeigt, welche Brennstoffe/Produkte am meisten zum Endenergieverbrauch beitragen."
+  },
+  "STORY_CHART_9_HOW": {
+    "EN": "Ranks products by latest value and their share of the total.",
+    "FR": "Classe les produits selon leur dernière valeur et leur part dans le total.",
+    "DE": "Reiht die Produkte nach dem aktuellsten Wert und ihrem Anteil am Gesamtverbrauch."
+  },
+  "STORY_CHART_9_READ": {
+    "EN": "Interpret changes with structural and policy context, not direction alone.",
+    "FR": "Interprétez les évolutions à la lumière du contexte structurel et politique, et pas seulement de leur direction.",
+    "DE": "Veränderungen sollten vor dem strukturellen und politischen Hintergrund interpretiert werden, nicht allein anhand ihrer Richtung."
+  },
+  "STORY_CHART_10_TITLE": {
+    "EN": "Final energy consumption by sector",
+    "FR": "Consommation d'énergie finale par secteur",
+    "DE": "Endenergieverbrauch nach Sektor"
+  },
+  "STORY_CHART_10_ROLE": {
+    "EN": "Shows which sectors consume the most final energy.",
+    "FR": "Indique quels secteurs consomment le plus d'énergie finale.",
+    "DE": "Zeigt, welche Sektoren den meisten Endenergieverbrauch aufweisen."
+  },
+  "STORY_CHART_10_WHAT": {
+    "EN": "Shows sectoral distribution of final energy consumption.",
+    "FR": "Indique la répartition sectorielle de la consommation d'énergie finale.",
+    "DE": "Zeigt die sektorale Verteilung des Endenergieverbrauchs."
+  },
+  "STORY_CHART_10_HOW": {
+    "EN": "Compares sector series and highlights top contributors and shares.",
+    "FR": "Compare les séries sectorielles et met en évidence les principaux contributeurs et leurs parts.",
+    "DE": "Vergleicht die Sektorreihen und hebt die wichtigsten Beitragenden und ihre Anteile hervor."
+  },
+  "STORY_CHART_10_READ": {
+    "EN": "Use to identify demand structure before judging trend quality.",
+    "FR": "À utiliser pour identifier la structure de la demande avant d'évaluer la qualité de la tendance.",
+    "DE": "Dient dazu, die Nachfragestruktur zu erkennen, bevor die Qualität des Trends beurteilt wird."
+  },
+  "STORY_CHART_11_TITLE": {
+    "EN": "Household energy use",
+    "FR": "Consommation d'énergie des ménages",
+    "DE": "Energieverbrauch der Haushalte"
+  },
+  "STORY_CHART_11_ROLE": {
+    "EN": "Breaks down household energy consumption by end use.",
+    "FR": "Détaille la consommation d'énergie des ménages par usage final.",
+    "DE": "Schlüsselt den Energieverbrauch der Haushalte nach Verwendungszweck auf."
+  },
+  "STORY_CHART_11_WHAT": {
+    "EN": "Explains where household energy is used (heating, appliances, etc.).",
+    "FR": "Explique où l'énergie des ménages est utilisée (chauffage, appareils électroménagers, etc.).",
+    "DE": "Erklärt, wofür Haushalte Energie einsetzen (Heizung, Geräte usw.)."
+  },
+  "STORY_CHART_11_HOW": {
+    "EN": "Finds leading end uses and follows their trend over time.",
+    "FR": "Identifie les principaux usages finaux et suit leur évolution dans le temps.",
+    "DE": "Ermittelt die wichtigsten Verwendungszwecke und verfolgt deren Entwicklung im Zeitverlauf."
+  },
+  "STORY_CHART_11_READ": {
+    "EN": "Direction depends on weather, efficiency and social context.",
+    "FR": "L'évolution dépend des conditions météorologiques, de l'efficacité et du contexte social.",
+    "DE": "Die Entwicklung hängt von Witterung, Effizienz und sozialem Kontext ab."
+  },
+  "STORY_CHART_12_TITLE": {
+    "EN": "Transport energy by fuel",
+    "FR": "Énergie des transports par carburant",
+    "DE": "Energieverbrauch im Verkehr nach Kraftstoff"
+  },
+  "STORY_CHART_12_ROLE": {
+    "EN": "Shows the fuel mix used in transport.",
+    "FR": "Indique le bouquet de carburants utilisé dans les transports.",
+    "DE": "Zeigt den im Verkehr genutzten Kraftstoffmix."
+  },
+  "STORY_CHART_12_WHAT": {
+    "EN": "Shows which fuels power the transport sector.",
+    "FR": "Indique quels carburants alimentent le secteur des transports.",
+    "DE": "Zeigt, welche Kraftstoffe den Verkehrssektor antreiben."
+  },
+  "STORY_CHART_12_HOW": {
+    "EN": "Compares fuel series, identifies the top fuel and its trend.",
+    "FR": "Compare les séries de carburants, identifie le principal carburant et sa tendance.",
+    "DE": "Vergleicht die Kraftstoffreihen, ermittelt den wichtigsten Kraftstoff und dessen Entwicklung."
+  },
+  "STORY_CHART_12_READ": {
+    "EN": "Assess with mobility demand and decarbonisation context together.",
+    "FR": "À évaluer en tenant compte à la fois de la demande de mobilité et du contexte de décarbonation.",
+    "DE": "Sollte zusammen mit der Mobilitätsnachfrage und dem Dekarbonisierungskontext bewertet werden."
+  },
+  "STORY_CHART_13_TITLE": {
+    "EN": "Road transport energy by fuel",
+    "FR": "Énergie du transport routier par carburant",
+    "DE": "Energieverbrauch im Straßenverkehr nach Kraftstoff"
+  },
+  "STORY_CHART_13_ROLE": {
+    "EN": "Shows the fuel mix used in road transport.",
+    "FR": "Indique le bouquet de carburants utilisé dans le transport routier.",
+    "DE": "Zeigt den im Straßenverkehr genutzten Kraftstoffmix."
+  },
+  "STORY_CHART_13_WHAT": {
+    "EN": "Focuses on fuel use specifically in road transport.",
+    "FR": "Se concentre sur l'utilisation des carburants spécifiquement dans le transport routier.",
+    "DE": "Konzentriert sich speziell auf den Kraftstoffeinsatz im Straßenverkehr."
+  },
+  "STORY_CHART_13_HOW": {
+    "EN": "Ranks road-fuel series by latest values and tracks their trend.",
+    "FR": "Classe les séries de carburants routiers selon leurs dernières valeurs et suit leur tendance.",
+    "DE": "Reiht die Kraftstoffreihen des Straßenverkehrs nach den aktuellsten Werten und verfolgt deren Entwicklung."
+  },
+  "STORY_CHART_13_READ": {
+    "EN": "Use with fleet and technology context to interpret shifts.",
+    "FR": "À interpréter en tenant compte du contexte du parc automobile et des technologies.",
+    "DE": "Veränderungen sollten vor dem Hintergrund von Fahrzeugflotte und Technologie interpretiert werden."
+  },
+  "STORY_CHART_14_TITLE": {
+    "EN": "Services energy consumption",
+    "FR": "Consommation d'énergie des services",
+    "DE": "Energieverbrauch des Dienstleistungssektors"
+  },
+  "STORY_CHART_14_ROLE": {
+    "EN": "Shows energy use in commercial and public services.",
+    "FR": "Indique la consommation d'énergie dans les services commerciaux et publics.",
+    "DE": "Zeigt den Energieverbrauch in gewerblichen und öffentlichen Dienstleistungen."
+  },
+  "STORY_CHART_14_WHAT": {
+    "EN": "Shows how service activities consume energy by product/fuel.",
+    "FR": "Indique comment les activités de services consomment l'énergie par produit/carburant.",
+    "DE": "Zeigt, wie Dienstleistungstätigkeiten Energie nach Produkt/Brennstoff verbrauchen."
+  },
+  "STORY_CHART_14_HOW": {
+    "EN": "Highlights top consuming products and their trend over time.",
+    "FR": "Met en évidence les produits les plus consommés et leur évolution dans le temps.",
+    "DE": "Hebt die am meisten verbrauchten Produkte und deren Entwicklung im Zeitverlauf hervor."
+  },
+  "STORY_CHART_14_READ": {
+    "EN": "Interpret with activity growth and efficiency changes together.",
+    "FR": "À interpréter en tenant compte à la fois de la croissance de l'activité et des évolutions d'efficacité.",
+    "DE": "Sollte zusammen mit dem Aktivitätswachstum und Effizienzveränderungen interpretiert werden."
+  },
+  "STORY_CHART_15_TITLE": {
+    "EN": "Industry energy consumption",
+    "FR": "Consommation d'énergie de l'industrie",
+    "DE": "Energieverbrauch der Industrie"
+  },
+  "STORY_CHART_15_ROLE": {
+    "EN": "Shows the fuel mix used by industry.",
+    "FR": "Indique le bouquet de carburants utilisé par l'industrie.",
+    "DE": "Zeigt den von der Industrie genutzten Brennstoffmix."
+  },
+  "STORY_CHART_15_WHAT": {
+    "EN": "Shows which fuels are most used in industrial activity.",
+    "FR": "Indique quels carburants sont les plus utilisés dans l'activité industrielle.",
+    "DE": "Zeigt, welche Brennstoffe in der industriellen Tätigkeit am meisten genutzt werden."
+  },
+  "STORY_CHART_15_HOW": {
+    "EN": "Compares fuel contributions and their long-term movement.",
+    "FR": "Compare les contributions des différents carburants et leur évolution à long terme.",
+    "DE": "Vergleicht die Beiträge der Brennstoffe und deren langfristige Entwicklung."
+  },
+  "STORY_CHART_15_READ": {
+    "EN": "Judge trends with industrial output and technology context.",
+    "FR": "Les tendances doivent être évaluées à la lumière de la production industrielle et du contexte technologique.",
+    "DE": "Trends sollten vor dem Hintergrund der industriellen Produktion und des technologischen Kontexts beurteilt werden."
+  },
+  "STORY_CHART_16_TITLE": {
+    "EN": "Final non-energy consumption",
+    "FR": "Consommation finale non énergétique",
+    "DE": "Nichtenergetischer Endverbrauch"
+  },
+  "STORY_CHART_16_ROLE": {
+    "EN": "Shows products used for non-energy purposes.",
+    "FR": "Indique les produits utilisés à des fins non énergétiques.",
+    "DE": "Zeigt Produkte, die für nichtenergetische Zwecke verwendet werden."
+  },
+  "STORY_CHART_16_WHAT": {
+    "EN": "Tracks products used as feedstock or materials rather than fuel.",
+    "FR": "Suit les produits utilisés comme matière première ou matériau plutôt que comme carburant.",
+    "DE": "Verfolgt Produkte, die als Rohstoff oder Material statt als Brennstoff verwendet werden."
+  },
+  "STORY_CHART_16_HOW": {
+    "EN": "Identifies dominant non-energy products and their trend.",
+    "FR": "Identifie les principaux produits non énergétiques et leur tendance.",
+    "DE": "Ermittelt die wichtigsten nichtenergetischen Produkte und deren Entwicklung."
+  },
+  "STORY_CHART_16_READ": {
+    "EN": "Changes often reflect industrial structure, not only efficiency.",
+    "FR": "Les évolutions reflètent souvent la structure industrielle, et pas seulement l'efficacité.",
+    "DE": "Veränderungen spiegeln häufig die industrielle Struktur wider, nicht nur die Effizienz."
+  },
+  "STORY_CHART_17_TITLE": {
+    "EN": "Electricity and heat production",
+    "FR": "Production d'électricité et de chaleur",
+    "DE": "Strom- und Wärmeerzeugung"
+  },
+  "STORY_CHART_17_ROLE": {
+    "EN": "Shows gross electricity and derived heat production by source.",
+    "FR": "Indique la production brute d'électricité et de chaleur dérivée par source.",
+    "DE": "Zeigt die Bruttoerzeugung von Strom und abgeleiteter Wärme nach Quelle."
+  },
+  "STORY_CHART_17_WHAT": {
+    "EN": "Shows how electricity and heat generation are split by source.",
+    "FR": "Indique comment la production d'électricité et de chaleur se répartit par source.",
+    "DE": "Zeigt, wie sich die Strom- und Wärmeerzeugung nach Quelle aufteilt."
+  },
+  "STORY_CHART_17_HOW": {
+    "EN": "Compares source contributions and changes in the generation mix.",
+    "FR": "Compare les contributions des sources et les évolutions du bouquet de production.",
+    "DE": "Vergleicht die Beiträge der Quellen und die Veränderungen im Erzeugungsmix."
+  },
+  "STORY_CHART_17_READ": {
+    "EN": "Use to monitor diversification and decarbonisation patterns.",
+    "FR": "À utiliser pour suivre les tendances de diversification et de décarbonation.",
+    "DE": "Dient dazu, Diversifizierungs- und Dekarbonisierungsmuster zu beobachten."
+  },
+  "STORY_CHART_18_TITLE": {
+    "EN": "Electricity from combustible fuels",
+    "FR": "Électricité produite à partir de combustibles",
+    "DE": "Stromerzeugung aus Brennstoffen"
+  },
+  "STORY_CHART_18_ROLE": {
+    "EN": "Shows electricity production from combustible fuel types.",
+    "FR": "Indique la production d'électricité à partir des différents types de combustibles.",
+    "DE": "Zeigt die Stromerzeugung aus den verschiedenen Brennstoffarten."
+  },
+  "STORY_CHART_18_WHAT": {
+    "EN": "Details electricity output from combustible fuel categories.",
+    "FR": "Détaille la production d'électricité par catégorie de combustibles.",
+    "DE": "Schlüsselt die Stromerzeugung nach Brennstoffkategorien auf."
+  },
+  "STORY_CHART_18_HOW": {
+    "EN": "Breaks down generation by fuel type and tracks trend shifts.",
+    "FR": "Détaille la production par type de combustible et suit les évolutions de tendance.",
+    "DE": "Schlüsselt die Erzeugung nach Brennstoffart auf und verfolgt Trendveränderungen."
+  },
+  "STORY_CHART_18_READ": {
+    "EN": "Interpret with transition pace and security constraints in mind.",
+    "FR": "À interpréter en tenant compte du rythme de la transition et des contraintes de sécurité d'approvisionnement.",
+    "DE": "Sollte unter Berücksichtigung des Transformationstempos und der Versorgungssicherheit interpretiert werden."
+  },
+  "STORY_CHART_19_TITLE": {
+    "EN": "Energy poverty",
+    "FR": "Précarité énergétique",
+    "DE": "Energiearmut"
+  },
+  "STORY_CHART_19_ROLE": {
+    "EN": "Shows population unable to keep home adequately warm.",
+    "FR": "Indique la part de la population incapable de chauffer correctement son logement.",
+    "DE": "Zeigt den Bevölkerungsanteil, der nicht in der Lage ist, die Wohnung ausreichend zu heizen."
+  },
+  "STORY_CHART_19_WHAT": {
+    "EN": "Measures social exposure to insufficient home heating conditions.",
+    "FR": "Mesure l'exposition sociale à des conditions de chauffage du logement insuffisantes.",
+    "DE": "Misst die soziale Betroffenheit durch unzureichende Beheizung der Wohnung."
+  },
+  "STORY_CHART_19_HOW": {
+    "EN": "Uses survey-based population shares and their trend over time.",
+    "FR": "Utilise des parts de population issues d'enquêtes et leur évolution dans le temps.",
+    "DE": "Verwendet erhebungsbasierte Bevölkerungsanteile und deren Entwicklung im Zeitverlauf."
+  },
+  "STORY_CHART_19_READ": {
+    "EN": "Lower values indicate lower energy poverty risk.",
+    "FR": "Des valeurs plus faibles indiquent un risque de précarité énergétique moindre.",
+    "DE": "Niedrigere Werte deuten auf ein geringeres Risiko von Energiearmut hin."
+  },
+  "STORY_CHART_20_TITLE": {
+    "EN": "Rate of electrification",
+    "FR": "Taux d'électrification",
+    "DE": "Elektrifizierungsrate"
+  },
+  "STORY_CHART_20_ROLE": {
+    "EN": "Shows the share of final energy consumption that is electrified, by sector.",
+    "FR": "Indique la part de la consommation d'énergie finale qui est électrifiée, par secteur.",
+    "DE": "Zeigt den Anteil des Endenergieverbrauchs, der elektrifiziert ist, nach Sektor."
+  },
+  "STORY_CHART_20_WHAT": {
+    "EN": "Shows how much of final energy use is met directly by electricity, overall and by sector.",
+    "FR": "Indique la part de la consommation d'énergie finale couverte directement par l'électricité, au total et par secteur.",
+    "DE": "Zeigt, wie viel des Endenergieverbrauchs direkt durch Strom gedeckt wird, insgesamt und nach Sektor."
+  },
+  "STORY_CHART_20_HOW": {
+    "EN": "Tracks the electrification share for each sector and its change over time.",
+    "FR": "Suit la part d'électrification de chaque secteur et son évolution dans le temps.",
+    "DE": "Verfolgt den Elektrifizierungsanteil jedes Sektors und dessen Veränderung im Zeitverlauf."
+  },
+  "STORY_CHART_20_READ": {
+    "EN": "A rising share generally signals progress in electrifying energy demand.",
+    "FR": "Une hausse de la part signale généralement des progrès dans l'électrification de la demande d'énergie.",
+    "DE": "Ein steigender Anteil signalisiert in der Regel Fortschritte bei der Elektrifizierung der Energienachfrage."
+  },
+  "STORY_CHART_21_TITLE": {
+    "EN": "Gross available energy",
+    "FR": "Énergie brute disponible",
+    "DE": "Bruttoverfügbare Energie"
+  },
+  "STORY_CHART_21_ROLE": {
+    "EN": "Shows available energy by product.",
+    "FR": "Indique l'énergie disponible par produit.",
+    "DE": "Zeigt die verfügbare Energie nach Produkt."
+  },
+  "STORY_CHART_21_WHAT": {
+    "EN": "Shows total available energy split by product categories.",
+    "FR": "Indique l'énergie totale disponible répartie par catégories de produits.",
+    "DE": "Zeigt die gesamte verfügbare Energie aufgeteilt nach Produktkategorien."
+  },
+  "STORY_CHART_21_HOW": {
+    "EN": "Finds largest product contributions and their relative share.",
+    "FR": "Identifie les plus grandes contributions par produit et leur part relative.",
+    "DE": "Ermittelt die größten Produktbeiträge und deren relativen Anteil."
+  },
+  "STORY_CHART_21_READ": {
+    "EN": "Use to understand supply structure before comparing levels.",
+    "FR": "À utiliser pour comprendre la structure de l'approvisionnement avant de comparer les niveaux.",
+    "DE": "Dient dazu, die Versorgungsstruktur zu verstehen, bevor die Werte verglichen werden."
+  },
+  "STORY_CHART_22_TITLE": {
+    "EN": "Total energy supply",
+    "FR": "Approvisionnement total en énergie",
+    "DE": "Gesamte Energieversorgung"
+  },
+  "STORY_CHART_22_ROLE": {
+    "EN": "Shows total energy supply by product.",
+    "FR": "Indique l'approvisionnement total en énergie par produit.",
+    "DE": "Zeigt die gesamte Energieversorgung nach Produkt."
+  },
+  "STORY_CHART_22_WHAT": {
+    "EN": "Shows how total energy supply is distributed across products.",
+    "FR": "Indique comment l'approvisionnement total en énergie se répartit entre les produits.",
+    "DE": "Zeigt, wie sich die gesamte Energieversorgung auf die Produkte verteilt."
+  },
+  "STORY_CHART_22_HOW": {
+    "EN": "Ranks product series by latest value and share of total supply.",
+    "FR": "Classe les séries de produits selon leur dernière valeur et leur part dans l'approvisionnement total.",
+    "DE": "Reiht die Produktreihen nach dem aktuellsten Wert und ihrem Anteil an der Gesamtversorgung."
+  },
+  "STORY_CHART_22_READ": {
+    "EN": "Interpret trends with structural changes in energy mix.",
+    "FR": "Les tendances doivent être interprétées à la lumière des évolutions structurelles du bouquet énergétique.",
+    "DE": "Trends sollten vor dem Hintergrund struktureller Veränderungen im Energiemix interpretiert werden."
+  },
+  "GROUP_HEADLINE_TITLE": {
+    "EN": "Headline policy indicators",
+    "FR": "Indicateurs politiques phares",
+    "DE": "Zentrale politische Indikatoren"
+  },
+  "GROUP_HEADLINE_DESC": {
+    "EN": "Core indicators used to understand energy transition progress.",
+    "FR": "Indicateurs essentiels pour comprendre les progrès de la transition énergétique.",
+    "DE": "Kernindikatoren zum Verständnis der Fortschritte bei der Energiewende."
+  },
+  "GROUP_HEADLINE_WHY": {
+    "EN": "These indicators provide the main policy signal for energy transition progress.",
+    "FR": "Ces indicateurs constituent le principal signal politique des progrès de la transition énergétique.",
+    "DE": "Diese Indikatoren liefern das wichtigste politische Signal für die Fortschritte der Energiewende."
+  },
+  "GROUP_SECURITY_TITLE": {
+    "EN": "Energy security and dependency",
+    "FR": "Sécurité énergétique et dépendance",
+    "DE": "Energiesicherheit und Abhängigkeit"
+  },
+  "GROUP_SECURITY_DESC": {
+    "EN": "Dependence on imports and fossil fuels.",
+    "FR": "Dépendance aux importations et aux combustibles fossiles.",
+    "DE": "Abhängigkeit von Importen und fossilen Brennstoffen."
+  },
+  "GROUP_SECURITY_WHY": {
+    "EN": "This theme highlights exposure to external supply risks and fossil reliance.",
+    "FR": "Ce thème met en évidence l'exposition aux risques d'approvisionnement extérieur et la dépendance aux combustibles fossiles.",
+    "DE": "Dieses Thema beleuchtet die Anfälligkeit gegenüber externen Versorgungsrisiken und die Abhängigkeit von fossilen Brennstoffen."
+  },
+  "GROUP_SUPPLY_TITLE": {
+    "EN": "Energy supply",
+    "FR": "Approvisionnement énergétique",
+    "DE": "Energieversorgung"
+  },
+  "GROUP_SUPPLY_DESC": {
+    "EN": "Gross available energy and total energy supply.",
+    "FR": "Énergie brute disponible et approvisionnement total en énergie.",
+    "DE": "Bruttoverfügbare Energie und gesamte Energieversorgung."
+  },
+  "GROUP_SUPPLY_WHY": {
+    "EN": "This theme explains the composition and level of available energy supply.",
+    "FR": "Ce thème explique la composition et le niveau de l'approvisionnement énergétique disponible.",
+    "DE": "Dieses Thema erklärt die Zusammensetzung und das Niveau der verfügbaren Energieversorgung."
+  },
+  "GROUP_CONSUMPTION_TITLE": {
+    "EN": "Energy consumption patterns",
+    "FR": "Profils de consommation d'énergie",
+    "DE": "Energieverbrauchsmuster"
+  },
+  "GROUP_CONSUMPTION_DESC": {
+    "EN": "How final energy consumption is distributed by product and sector.",
+    "FR": "Répartition de la consommation d'énergie finale par produit et par secteur.",
+    "DE": "Verteilung des Endenergieverbrauchs nach Produkt und Sektor."
+  },
+  "GROUP_CONSUMPTION_WHY": {
+    "EN": "This theme explains where final energy is used and by whom.",
+    "FR": "Ce thème explique où l'énergie finale est utilisée et par qui.",
+    "DE": "Dieses Thema erklärt, wo und von wem Endenergie verbraucht wird."
+  },
+  "GROUP_TRANSPORT_TITLE": {
+    "EN": "Transport energy",
+    "FR": "Énergie des transports",
+    "DE": "Energie im Verkehr"
+  },
+  "GROUP_TRANSPORT_DESC": {
+    "EN": "Fuel use in transport and road transport.",
+    "FR": "Utilisation de carburants dans les transports et le transport routier.",
+    "DE": "Kraftstoffeinsatz im Verkehr und im Straßenverkehr."
+  },
+  "GROUP_TRANSPORT_WHY": {
+    "EN": "This theme shows how transport demand is met by different fuels.",
+    "FR": "Ce thème montre comment la demande de transport est couverte par différents carburants.",
+    "DE": "Dieses Thema zeigt, wie die Verkehrsnachfrage durch verschiedene Kraftstoffe gedeckt wird."
+  },
+  "GROUP_INDUSTRY_TITLE": {
+    "EN": "Industry and non-energy use",
+    "FR": "Industrie et usages non énergétiques",
+    "DE": "Industrie und nichtenergetische Nutzung"
+  },
+  "GROUP_INDUSTRY_DESC": {
+    "EN": "Energy and non-energy consumption in industrial activities.",
+    "FR": "Consommation énergétique et non énergétique dans les activités industrielles.",
+    "DE": "Energetischer und nichtenergetischer Verbrauch in industriellen Tätigkeiten."
+  },
+  "GROUP_INDUSTRY_WHY": {
+    "EN": "This theme tracks industrial demand and non-energy uses of products.",
+    "FR": "Ce thème suit la demande industrielle et les usages non énergétiques des produits.",
+    "DE": "Dieses Thema verfolgt die industrielle Nachfrage und die nichtenergetische Nutzung von Produkten."
+  },
+  "GROUP_ELECTRICITY_TITLE": {
+    "EN": "Electricity production",
+    "FR": "Production d'électricité",
+    "DE": "Stromerzeugung"
+  },
+  "GROUP_ELECTRICITY_DESC": {
+    "EN": "Electricity and heat generation by source and fuel.",
+    "FR": "Production d'électricité et de chaleur par source et par combustible.",
+    "DE": "Strom- und Wärmeerzeugung nach Quelle und Brennstoff."
+  },
+  "GROUP_ELECTRICITY_WHY": {
+    "EN": "This theme describes electricity and heat generation structure.",
+    "FR": "Ce thème décrit la structure de la production d'électricité et de chaleur.",
+    "DE": "Dieses Thema beschreibt die Struktur der Strom- und Wärmeerzeugung."
+  },
+  "GROUP_ENVIRONMENT_TITLE": {
+    "EN": "Emissions and environment",
+    "FR": "Émissions et environnement",
+    "DE": "Emissionen und Umwelt"
+  },
+  "GROUP_ENVIRONMENT_DESC": {
+    "EN": "Greenhouse gas emissions linked to energy activity.",
+    "FR": "Émissions de gaz à effet de serre liées à l'activité énergétique.",
+    "DE": "Mit der Energieerzeugung verbundene Treibhausgasemissionen."
+  },
+  "GROUP_ENVIRONMENT_WHY": {
+    "EN": "This theme links energy activity to environmental pressure.",
+    "FR": "Ce thème relie l'activité énergétique à la pression environnementale.",
+    "DE": "Dieses Thema verknüpft die Energieerzeugung mit dem Umweltdruck."
+  },
+  "GROUP_PERFORMANCE_TITLE": {
+    "EN": "Energy performance",
+    "FR": "Performance énergétique",
+    "DE": "Energieleistung"
+  },
+  "GROUP_PERFORMANCE_DESC": {
+    "EN": "Energy intensity and productivity indicators.",
+    "FR": "Indicateurs d'intensité et de productivité énergétiques.",
+    "DE": "Indikatoren für Energieintensität und -produktivität."
+  },
+  "GROUP_PERFORMANCE_WHY": {
+    "EN": "This theme measures how efficiently energy supports economic activity.",
+    "FR": "Ce thème mesure l'efficacité avec laquelle l'énergie soutient l'activité économique.",
+    "DE": "Dieses Thema misst, wie effizient Energie die Wirtschaftstätigkeit unterstützt."
+  },
+  "GROUP_HOUSEHOLDS_TITLE": {
+    "EN": "Households",
+    "FR": "Ménages",
+    "DE": "Haushalte"
+  },
+  "GROUP_HOUSEHOLDS_DESC": {
+    "EN": "Household energy consumption patterns.",
+    "FR": "Profils de consommation d'énergie des ménages.",
+    "DE": "Energieverbrauchsmuster der Haushalte."
+  },
+  "GROUP_HOUSEHOLDS_WHY": {
+    "EN": "This theme focuses on residential demand and end-use patterns.",
+    "FR": "Ce thème se concentre sur la demande résidentielle et les profils d'usage final.",
+    "DE": "Dieses Thema konzentriert sich auf die Nachfrage der Haushalte und die Verwendungszweck-Muster."
+  },
+  "GROUP_SOCIAL_TITLE": {
+    "EN": "Social indicators",
+    "FR": "Indicateurs sociaux",
+    "DE": "Soziale Indikatoren"
+  },
+  "GROUP_SOCIAL_DESC": {
+    "EN": "Energy-related living condition indicators.",
+    "FR": "Indicateurs des conditions de vie liés à l'énergie.",
+    "DE": "Energiebezogene Indikatoren der Lebensbedingungen."
+  },
+  "GROUP_SOCIAL_WHY": {
+    "EN": "This theme reflects household living-condition risks linked to energy.",
+    "FR": "Ce thème reflète les risques liés aux conditions de vie des ménages en matière d'énergie.",
+    "DE": "Dieses Thema spiegelt energiebezogene Risiken für die Lebensbedingungen der Haushalte wider."
+  },
+  "GROUP_MARKET_TITLE": {
+    "EN": "Energy market",
+    "FR": "Marché de l'énergie",
+    "DE": "Energiemarkt"
+  },
+  "GROUP_MARKET_DESC": {
+    "EN": "Electricity market structure and concentration indicators.",
+    "FR": "Indicateurs de structure et de concentration du marché de l'électricité.",
+    "DE": "Indikatoren zur Struktur und Konzentration des Strommarkts."
+  },
+  "GROUP_MARKET_WHY": {
+    "EN": "This theme captures market concentration and competition signals.",
+    "FR": "Ce thème rend compte de la concentration du marché et des signaux de concurrence.",
+    "DE": "Dieses Thema erfasst die Marktkonzentration und Wettbewerbssignale."
+  },
+  "GROUP_CONTEXT_TITLE": {
+    "EN": "Context",
+    "FR": "Contexte",
+    "DE": "Kontext"
+  },
+  "GROUP_CONTEXT_DESC": {
+    "EN": "Demographic and contextual indicators.",
+    "FR": "Indicateurs démographiques et contextuels.",
+    "DE": "Demografische und kontextbezogene Indikatoren."
+  },
+  "GROUP_CONTEXT_WHY": {
+    "EN": "This theme provides supporting context for interpreting other indicators.",
+    "FR": "Ce thème fournit un contexte permettant d'interpréter les autres indicateurs.",
+    "DE": "Dieses Thema liefert den Kontext zur Interpretation der anderen Indikatoren."
+  },
+  "GROUP_OTHER_TITLE": {
+    "EN": "Other indicators",
+    "FR": "Autres indicateurs",
+    "DE": "Weitere Indikatoren"
+  },
+  "GROUP_OTHER_DESC": {
+    "EN": "Additional indicators in the current view.",
+    "FR": "Indicateurs supplémentaires dans la vue actuelle.",
+    "DE": "Weitere Indikatoren in der aktuellen Ansicht."
+  },
+  "GROUP_OTHER_WHY": {
+    "EN": "This theme contains additional indicators not mapped to a primary category.",
+    "FR": "Ce thème regroupe des indicateurs supplémentaires non rattachés à une catégorie principale.",
+    "DE": "Dieses Thema enthält zusätzliche Indikatoren, die keiner Hauptkategorie zugeordnet sind."
+  },
+  "INSIGHT_WHY_THEME_MATTERS": {
+    "EN": "Why this theme matters:",
+    "FR": "Pourquoi ce thème est important :",
+    "DE": "Warum dieses Thema wichtig ist:"
+  },
+  "INSIGHT_CHARTS_COUNT_LABEL": {
+    "EN": "charts",
+    "FR": "graphiques",
+    "DE": "Diagramme"
+  },
+  "INSIGHT_RISING": {
+    "EN": "rising",
+    "FR": "en hausse",
+    "DE": "steigend"
+  },
+  "INSIGHT_FALLING": {
+    "EN": "falling",
+    "FR": "en baisse",
+    "DE": "sinkend"
+  },
+  "INSIGHT_STABLE": {
+    "EN": "stable",
+    "FR": "stable",
+    "DE": "stabil"
+  },
+  "THEME_SUSTAINABILITY_DESC": {
+    "EN": "Renewable energy share, emissions intensity and household energy affordability.",
+    "FR": "Part des énergies renouvelables, intensité des émissions et accessibilité financière de l'énergie pour les ménages.",
+    "DE": "Anteil erneuerbarer Energien, Emissionsintensität und Bezahlbarkeit von Energie für Haushalte."
+  },
+  "THEME_SUSTAINABILITY_WHY": {
+    "EN": "This theme tracks progress towards a cleaner and more affordable energy system.",
+    "FR": "Ce thème suit les progrès vers un système énergétique plus propre et plus abordable.",
+    "DE": "Dieses Thema verfolgt die Fortschritte hin zu einem saubereren und erschwinglicheren Energiesystem."
+  },
+  "THEME_DIVERSIFICATION_DESC": {
+    "EN": "Energy supply composition, import dependency and the fossil fuel share.",
+    "FR": "Composition de l'approvisionnement énergétique, dépendance aux importations et part des combustibles fossiles.",
+    "DE": "Zusammensetzung der Energieversorgung, Importabhängigkeit und Anteil fossiler Brennstoffe."
+  },
+  "THEME_DIVERSIFICATION_WHY": {
+    "EN": "This theme shows how exposed the energy supply is to a narrow set of sources or suppliers.",
+    "FR": "Ce thème montre dans quelle mesure l'approvisionnement énergétique dépend d'un nombre restreint de sources ou de fournisseurs.",
+    "DE": "Dieses Thema zeigt, wie stark die Energieversorgung von wenigen Quellen oder Anbietern abhängt."
+  },
+  "THEME_EFFICIENCY_DESC": {
+    "EN": "Energy efficiency, intensity and productivity indicators.",
+    "FR": "Indicateurs d'efficacité, d'intensité et de productivité énergétiques.",
+    "DE": "Indikatoren für Energieeffizienz, -intensität und -produktivität."
+  },
+  "THEME_EFFICIENCY_WHY": {
+    "EN": "This theme measures how much energy is needed to support economic activity.",
+    "FR": "Ce thème mesure la quantité d'énergie nécessaire pour soutenir l'activité économique.",
+    "DE": "Dieses Thema misst, wie viel Energie zur Unterstützung der Wirtschaftstätigkeit benötigt wird."
+  },
+  "THEME_ELECTRIFICATION_DESC": {
+    "EN": "Electricity and heat production, and the rate of electrification by sector.",
+    "FR": "Production d'électricité et de chaleur, et taux d'électrification par secteur.",
+    "DE": "Strom- und Wärmeerzeugung sowie Elektrifizierungsrate nach Sektor."
+  },
+  "THEME_ELECTRIFICATION_WHY": {
+    "EN": "This theme tracks the shift from fossil fuels to electricity across sectors.",
+    "FR": "Ce thème suit le passage des combustibles fossiles à l'électricité dans les différents secteurs.",
+    "DE": "Dieses Thema verfolgt den sektorübergreifenden Wandel von fossilen Brennstoffen zu Strom."
+  },
+  "THEME_CONSUMPTION_DESC": {
+    "EN": "Final energy consumption by product, sector and end use.",
+    "FR": "Consommation d'énergie finale par produit, secteur et usage final.",
+    "DE": "Endenergieverbrauch nach Produkt, Sektor und Verwendungszweck."
+  },
+  "THEME_CONSUMPTION_WHY": {
+    "EN": "This theme explains where and how final energy is actually used.",
+    "FR": "Ce thème explique où et comment l'énergie finale est réellement utilisée.",
+    "DE": "Dieses Thema erklärt, wo und wie Endenergie tatsächlich verbraucht wird."
+  },
+  "THEME_OILSTOCKS_DESC": {
+    "EN": "Oil stock levels and security of supply.",
+    "FR": "Niveaux des stocks de pétrole et sécurité d'approvisionnement.",
+    "DE": "Ölvorratsmengen und Versorgungssicherheit."
+  },
+  "THEME_OILSTOCKS_WHY": {
+    "EN": "This theme will track strategic oil reserves once the underlying data is linked in.",
+    "FR": "Ce thème suivra les réserves stratégiques de pétrole une fois les données correspondantes intégrées.",
+    "DE": "Dieses Thema wird die strategischen Ölreserven verfolgen, sobald die entsprechenden Daten eingebunden sind."
   }
 }
