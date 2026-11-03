@@ -1,19 +1,28 @@
 /* "Energy topics" in-page navigation (between the dark toolbar and the
    country selector) and the themed section headings it links to in the
    gallery. Built on ECL's real InpageNavigation component - these rules
-   adapt its default sticky-sidebar layout into a plain full-width row that
-   stays in the page flow, while keeping its scroll-spy active-link
-   highlighting and the collapsible "Page contents" trigger below 996px
-   (both are ECL's own JS behavior, untouched here). */
+   adapt its default sticky-sidebar layout into a full-width row that stays
+   pinned to the top of the viewport while scrolling, while keeping its
+   scroll-spy active-link highlighting and the collapsible "Page contents"
+   trigger below 996px (both are ECL's own JS behavior, untouched here). */
 
 #themeNav.ecl-inpage-navigation {
   display: block;
-  position: static;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   width: 100%;
   margin: 0;
-  box-shadow: none;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(9, 49, 142, .08);
   border-radius: 0;
   border-bottom: 1px solid #d7e1eb;
+}
+
+/* The body (trigger + list) sits right under the title bar - keep it
+   opaque too so gallery cards scrolling underneath never show through. */
+#themeNav .ecl-inpage-navigation__body {
+  background: #ffffff;
 }
 
 /* ECL only shows the title bar at >=996px by default (the trigger button

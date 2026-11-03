@@ -45,11 +45,15 @@ class ThemeNav {
     trigger.setAttribute('aria-controls', 'themeNav-list');
     trigger.setAttribute('aria-expanded', 'false');
 
+    // Mirrors the first item's default-active state below: shows
+    // "Sustainability and affordability" as the current section on mobile
+    // too, until ECL's scroll-spy overwrites it as the user scrolls.
+    const defaultTheme = THEME_SECTIONS[0];
     const triggerCurrent = document.createElement('span');
     triggerCurrent.classList.add('ecl-inpage-navigation__trigger-current');
     triggerCurrent.setAttribute('data-ecl-inpage-navigation-trigger-current', 'true');
-    triggerCurrent.setAttribute('data-i18n', 'THEME_NAV_LABEL');
-    triggerCurrent.textContent = navLabel;
+    triggerCurrent.setAttribute('data-i18n', defaultTheme.labelKey);
+    triggerCurrent.textContent = labels[defaultTheme.labelKey] || defaultTheme.labelKey;
 
     // ECL's own story uses a Phosphor icon font this app doesn't load -
     // same fas icon set the rest of the toolbar already uses instead.
@@ -66,9 +70,17 @@ class ThemeNav {
     list.classList.add('ecl-inpage-navigation__list');
     list.setAttribute('data-ecl-inpage-navigation-list', 'true');
 
-    THEME_SECTIONS.forEach(theme => {
+    THEME_SECTIONS.forEach((theme, index) => {
       const item = document.createElement('li');
       item.classList.add('ecl-inpage-navigation__item');
+      // Default selection before the user has scrolled (or on a page that
+      // opens shorter than the first section's scroll-spy offset): the
+      // first theme, Sustainability and affordability, reads as selected
+      // instead of nothing being highlighted. ECL's own scroll-spy
+      // (gumshoe) takes over this class from here as the user scrolls.
+      if (index === 0) {
+        item.classList.add('ecl-inpage-navigation__item--active');
+      }
 
       const link = document.createElement('a');
       link.href = '#' + theme.id;
@@ -89,9 +101,17 @@ class ThemeNav {
   }
 
   addToDOM(targetElement) {
+    // Inserted as a SIBLING right before targetElement (#themeNavContainer,
+    // which stays in the DOM as an empty positional marker), not as its
+    // child. position:sticky can only stay stuck while some part of its
+    // own containing block (the direct parent) is still in the viewport -
+    // #themeNavContainer is barely taller than the nav itself, so nesting
+    // inside it meant the nav lost its "room to stick" within a few
+    // hundred pixels of scrolling. Its new parent, #page, spans the whole
+    // gallery, so the nav can stay pinned for the full scroll instead.
     const container = document.querySelector(targetElement);
-    if (container) {
-      container.appendChild(this.nav);
+    if (container && container.parentNode) {
+      container.parentNode.insertBefore(this.nav, container);
     }
   }
 }

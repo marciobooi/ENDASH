@@ -86,7 +86,11 @@ ECL.autoInit();
 function removeComponents() {
   const navbarContainer = document.querySelector('#navbar-container');
   const subnavbarContainer = document.querySelector('#subnavbar-container');
-  const themeNavContainer = document.querySelector('#themeNavContainer');
+  // ThemeNav.addToDOM() inserts #themeNav as a sibling BEFORE
+  // #themeNavContainer now (see that file for why), not as its child, so
+  // clearing the container's innerHTML no longer reaches it - remove the
+  // nav itself by id instead.
+  const themeNav = document.querySelector('#themeNav');
   const endash = document.querySelector('#endash');
   const menuSwitch = document.querySelector('#menuSwitch');
   const floatingMenu = document.querySelector('#floatingMenu');
@@ -95,7 +99,7 @@ function removeComponents() {
 
   if (navbarContainer) navbarContainer.innerHTML = '';
   if (subnavbarContainer) subnavbarContainer.innerHTML = '';
-  if (themeNavContainer) themeNavContainer.innerHTML = '';
+  if (themeNav) themeNav.remove();
   if (endash) endash.innerHTML = '';
   if (menuSwitch) menuSwitch.remove();
   if (floatingMenu) floatingMenu.innerHTML = '';

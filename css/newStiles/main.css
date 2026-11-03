@@ -30,6 +30,11 @@ html {
   line-height: 1.5;
   scroll-behavior: smooth;
   font-family: Arial, sans-serif;
+  /* Moved here from body (see the comment on the body rule below) - html is
+     the actual document.scrollingElement in this layout, so restricting
+     its overflow-x doesn't create the same sticky-breaking side effect
+     that doing it on body does. */
+  overflow-x: hidden;
 }
 
 /* The "Energy topics" jump-nav (and any other same-page anchor link) relies
@@ -41,10 +46,24 @@ html {
 }
 
 body {
-  touch-action: pan-y; 
-  overscroll-behavior-x: none; 
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
   color: #333;
   font-family: Arial, sans-serif;
+  /* ecl-reset.css sets overflow-x: hidden here, and per the CSS Overflow
+     spec restricting only one axis makes the OTHER axis auto-compute to
+     "auto" too (explicitly re-declaring it "visible" does not avoid this -
+     the fixup applies to the specified/visible value either way) - turning
+     body into its own scroll container. Since body's height always exactly
+     matches its content in this layout, that container never actually
+     scrolls, which silently breaks position:sticky on any descendant (e.g.
+     #themeNav): sticky then computes against body's own (static) interior
+     as the "nearest scrolling ancestor" instead of the real viewport
+     scroll, so it just sits at its static position and scrolls away like
+     a normal element. Neutralizing both axes here and moving the
+     horizontal-scroll guard to html (above) avoids the whole issue, since
+     html is the actual scrolling element and isn't subject to it. */
+  overflow: visible;
 }
 
 main {
