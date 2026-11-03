@@ -28,27 +28,47 @@ document.addEventListener('DOMContentLoaded', function() {
     // Re-run translation pass so dynamically-created components (footer, navbar)
     // get their data-i18n text filled in.
     languageNameSpace.applyTranslations();
+
+    if (isAccessibilityMode()) {
+      // Statement page: footer/navbar are built above (translated, mode-aware
+      // buildComponents() skips the rest), just reveal the statement and
+      // skip the tour - do not start the tool (no chart init, no data calls).
+      showAccessibilityView();
+      return;
+    }
+
     checkAndShowTutorial();
   }).catch((err) => {
     console.error("initLanguage failed on startup", err);
     buildComponents();
+    if (isAccessibilityMode()) {
+      showAccessibilityView();
+      return;
+    }
     checkAndShowTutorial();
   });
 });
 
 function buildComponents() {
-  const components = [
-    { instance: new SubNavbar(), target: "#subnavbar-container" },
-    { instance: new Navbar(), target: "#navbar-container" },
-    { instance: new Footer(), target: "#componentFooter" },
-    { instance: new ThemeNav(), target: "#themeNavContainer" },
-    { instance: new ChartContainer(), target: "#endash" },
-  ];
+  const components = isAccessibilityMode()
+    ? [
+        { instance: new Footer(), target: "#componentFooter" },
+        { instance: new Navbar(), target: "#navbar-container" },
+      ]
+    : [
+        { instance: new SubNavbar(), target: "#subnavbar-container" },
+        { instance: new Navbar(), target: "#navbar-container" },
+        { instance: new Footer(), target: "#componentFooter" },
+        { instance: new ThemeNav(), target: "#themeNavContainer" },
+        { instance: new ChartContainer(), target: "#endash" },
+      ];
 
   components.forEach(({ instance, target }) => {
     instance.addToDOM(target);
   });
 ECL.autoInit();
+
+  if (isAccessibilityMode()) return;
 
   // ChartContainer's IntersectionObserver fires its "initial state" callback
   // asynchronously; relying on it alone after a full rebuild (e.g. a language

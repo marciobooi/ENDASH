@@ -74,6 +74,7 @@
   <link href="css/newStiles/insights.css?v=2" rel="stylesheet">
   <link href="css/newStiles/themeNav.css?v=4" rel="stylesheet">
   <link href="css/newStiles/ecl-utilities.css" rel="stylesheet">
+  <link href="css/newStiles/accessibilityView.css" rel="stylesheet">
 
   <link href="css/mediaqueries.css?v=2" rel="stylesheet">
   <link href="css/newStiles/driver-tutorial.css" rel="stylesheet">
@@ -98,13 +99,13 @@
   <script defer src="js/basics.js?v=10"></script>
   <script defer src="js/json-stat.js"></script>
   <script defer src="js/codes.js?v=5"></script>
-  <script defer src="js/data.js?v=5"></script>
+  <script defer src="js/data.js?v=6"></script>
   <script defer src="js/engine.js?v=2"></script>
 
   <script defer src="js/social.js" type="text/javascript"></script>
 
  
-  <script defer src="js/tutorial.js"></script>
+  <script defer src="js/tutorial.js?v=2"></script>
 
   <script defer src="js/endash.js?v=4"></script>
   <script defer src="js/piechart.js?v=3"></script>
@@ -113,7 +114,7 @@
   <script defer src="js/linechart.js"></script>
   <script defer src="js/insights.js?v=7"></script>
   <script defer src="js/tooltip.js?v=6"></script>
-  <script defer src="js/language.js?v=10"></script>
+  <script defer src="js/language.js?v=11"></script>
   <script defer src="js/toggleTable.js"></script>
   <script defer src="js/iframe.js?v=2"></script>
   
@@ -124,7 +125,7 @@
       <!-- scripts -->
     <script defer type="text/javascript" src="js/domComponents/navComponent.js?v=5"></script>
     <script defer type="text/javascript" src="js/domComponents/subNavBarComponent.js?v=2"></script>
-    <script defer type="text/javascript" src="js/domComponents/footerComponent.js"></script>
+    <script defer type="text/javascript" src="js/domComponents/footerComponent.js?v=2"></script>
     <script defer type="text/javascript" src="js/domComponents/auxChartControls.js?v=10"></script>
     <script defer type="text/javascript" src="js/domComponents/floatingControls.js?v=2"></script>
     <script defer type="text/javascript" src="js/domComponents/chartObject.js?v=4"></script>
@@ -133,7 +134,7 @@
     <script defer type="text/javascript" src="js/domComponents/timeline.js?v=4"></script>
     <script defer type="text/javascript" src="js/domComponents/singleSelect.js?v=2"></script>
     <script defer type="text/javascript" src="js/domComponents/themeNavComponent.js?v=3"></script>
-    <script defer src="js/createComponents.js?v=5"></script>
+    <script defer src="js/createComponents.js?v=6"></script>
     <script defer src="js/populateCountries.js"></script>
     <!-- <script src="js/populateCountries.js"></script>
     <script src="js/populateFuels.js"></script>
@@ -177,6 +178,114 @@
               </section> 
       </div>     
       <div id="timelineContainer"></div>
+
+      <div id="accessibilityView" class="ecl-u-d-none" lang="en" role="region" aria-labelledby="a11y-statement-title">
+        <div class="a11y-wrapper">
+
+          <!-- Back button (top) -->
+          <div class="ecl-u-d-flex ecl-u-justify-content-end ecl-u-mt-l ecl-u-mb-l">
+            <a class="ecl-button ecl-button--primary a11y-back-link" href="?">
+              <span class="ecl-button__container"><span class="ecl-button__label" data-ecl-label="true">Back to the tool</span></span>
+            </a>
+          </div>
+
+          <h2 class="ecl-u-type-heading-1" id="a11y-statement-title" tabindex="-1">Accessibility statement</h2>
+
+          <!-- Intro: scope, "you should be able to", standard -->
+          <div class="a11y-intro">
+            <p class="ecl-u-type-paragraph">This statement applies to content published on the domain:</p>
+            <ul class="ecl-unordered-list">
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="https://ec.europa.eu/eurostat/cache/visualisations/energy-dashboard/endash.html" target="_blank" rel="noreferrer noopener">https://ec.europa.eu/eurostat/cache/visualisations/energy-dashboard/endash.html<span class="ecl-u-sr-only"> (opens in new tab)</span></a></li>
+            </ul>
+            <p class="ecl-u-type-paragraph">It does not apply to other content or websites published on any of its subdomains. These websites and their content will have their own specific accessibility statement.</p>
+            <p class="ecl-u-type-paragraph">This interactive tool is managed by Eurostat. It is designed to be used by as many people as possible, including people with disabilities.</p>
+            <p class="ecl-u-type-paragraph">You should be able to:</p>
+            <ul class="ecl-unordered-list">
+              <li class="ecl-unordered-list__item">zoom up to 200% without problems</li>
+              <li class="ecl-unordered-list__item">navigate the tool using just a keyboard</li>
+              <li class="ecl-unordered-list__item">navigate the tool using a modern screen reader and speech recognition software (on your computer or phone)</li>
+            </ul>
+            <p class="ecl-u-type-paragraph">This interactive tool is designed to comply with the <a class="ecl-link" href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf" target="_blank" rel="noreferrer noopener">technical standard for websites and mobile apps, EN 301 549, v.3.2.1<span class="ecl-u-sr-only"> (opens in new tab)</span></a>. This closely follows level &lsquo;AA&rsquo; of the <a class="ecl-link" href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noreferrer noopener">Web Content Accessibility Guidelines (WCAG) version 2.1<span class="ecl-u-sr-only"> (opens in new tab)</span></a>.</p>
+          </div>
+
+          <!-- "On this page" index (bluish box, see CSS) -->
+          <nav class="a11y-toc ecl-u-mt-l" aria-labelledby="a11y-toc-title">
+            <h3 class="ecl-u-type-heading-3" id="a11y-toc-title">On this page</h3>
+            <ul class="ecl-unordered-list">
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-compliance-status">Compliance status</a></li>
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-preparation-of-this-statement">Preparation of this statement</a></li>
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-feedback">Feedback</a></li>
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-compatibility-with-browsers-and-assistive-technology">Compatibility with browsers and assistive technology</a></li>
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-technical-specifications">Technical specifications</a></li>
+              <li class="ecl-unordered-list__item"><a class="ecl-link" href="#a11y-non-accessible-content">Non-accessible content</a></li>
+            </ul>
+          </nav>
+
+          <div class="a11y-sections">
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-compliance-status" aria-labelledby="a11y-compliance-status-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-compliance-status-title">Compliance status</h3>
+              <p class="ecl-u-type-paragraph">This interactive tool is <span class="ecl-u-type-bold">partially compliant</span> with <a class="ecl-link" href="https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf" target="_blank" rel="noreferrer noopener">technical standard EN 301 549 v.3.2.1<span class="ecl-u-sr-only"> (opens in new tab)</span></a> and the <a class="ecl-link" href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noreferrer noopener">Web Content Accessibility Guidelines (WCAG) 2.1 Level AA<span class="ecl-u-sr-only"> (opens in new tab)</span></a>. See &lsquo;<a class="ecl-link" href="#a11y-non-accessible-content">Non-accessible content</a>&rsquo; for more details.</p>
+              <p class="ecl-u-type-paragraph">The interactive tool was last tested on 16 July 2026.</p>
+            </section>
+
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-preparation-of-this-statement" aria-labelledby="a11y-preparation-of-this-statement-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-preparation-of-this-statement-title">Preparation of this statement</h3>
+              <p class="ecl-u-type-paragraph">This statement was reviewed on 27 July 2026.</p>
+              <p class="ecl-u-type-paragraph">For this interactive tool the statement is based on a review using automated testing.</p>
+            </section>
+
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-feedback" aria-labelledby="a11y-feedback-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-feedback-title">Feedback</h3>
+              <p class="ecl-u-type-paragraph">We welcome your feedback on the accessibility of the Eurostat website. Please let us know if you encounter accessibility barriers:</p>
+              <ul class="ecl-unordered-list">
+                <li class="ecl-unordered-list__item">Phone: <a class="ecl-link" href="tel:00352430133408">+352 4301 33 408</a></li>
+                <li class="ecl-unordered-list__item">E-mail: <a class="ecl-link" href="mailto:ESTAT-USER-SUPPORT@ec.europa.eu?subject=Accessibility%20">ESTAT-USER-SUPPORT@ec.europa.eu</a></li>
+                <li class="ecl-unordered-list__item">Contact form: <a class="ecl-link" href="https://ec.europa.eu/eurostat/web/main/contact-us/user-support" target="_blank" rel="noreferrer noopener">multilingual user support page<span class="ecl-u-sr-only"> (opens in new tab)</span></a></li>
+              </ul>
+              <p class="ecl-u-type-paragraph">We try to respond to feedback within 15 business days from the date of receipt of the enquiry by the responsible Commission department.</p>
+            </section>
+
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-compatibility-with-browsers-and-assistive-technology" aria-labelledby="a11y-compatibility-with-browsers-and-assistive-technology-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-compatibility-with-browsers-and-assistive-technology-title">Compatibility with browsers and assistive technology</h3>
+              <p class="ecl-u-type-paragraph">The Energy dashboard visualisation tool website is designed to be compatible with the following most used assistive technologies:</p>
+              <ul class="ecl-unordered-list">
+                <li class="ecl-unordered-list__item">the latest version of Google Chrome and Apple Safari browsers;</li>
+                <li class="ecl-unordered-list__item">in combination with the latest versions of JAWS, NVDA, VoiceOver and TalkBack.</li>
+              </ul>
+            </section>
+
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-technical-specifications" aria-labelledby="a11y-technical-specifications-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-technical-specifications-title">Technical specifications</h3>
+              <p class="ecl-u-type-paragraph">The accessibility of the Energy dashboard visualisation tool website relies on the following technologies to work with the particular combination of web browser and any assistive technologies or plugins installed on your computer:</p>
+              <ul class="ecl-unordered-list">
+                <li class="ecl-unordered-list__item">HTML</li>
+                <li class="ecl-unordered-list__item">WAI-ARIA</li>
+                <li class="ecl-unordered-list__item">CSS</li>
+                <li class="ecl-unordered-list__item">JavaScript</li>
+              </ul>
+            </section>
+
+            <section class="ecl-u-border-top ecl-u-border-color-blue-20 ecl-u-mt-xl ecl-u-pt-l" id="a11y-non-accessible-content" aria-labelledby="a11y-non-accessible-content-title">
+              <h3 class="ecl-u-type-heading-2" id="a11y-non-accessible-content-title">Non-accessible content</h3>
+              <p class="ecl-u-type-paragraph">Despite our best efforts to ensure accessibility of the Energy dashboard visualisation tool website, we are aware of some limitations, which we are working to fix. Below is a description of known limitations and potential solutions. Please contact us if you encounter an issue not listed below.</p>
+              <p class="ecl-u-type-paragraph">Known limitations for the Energy dashboard visualisation tool website:</p>
+              <ul class="ecl-unordered-list">
+                <li class="ecl-unordered-list__item">Interactive tools / visualisations: The interactive tools and visualisations on this site do not always have text alternatives. We are aware that this is inaccessible for people using the screen reader or keyboard. However, all visualisations provide a direct link to the source dataset to display the data in table format.</li>
+                <li class="ecl-unordered-list__item">Automatically generated, downloadable documents in PDF format are not fully accessible.</li>
+                <li class="ecl-unordered-list__item">The tool is optimized for standard screen sizes, the user experience may be degraded on smaller displays (mobile phones and similar devices).</li>
+              </ul>
+            </section>
+          </div>
+
+          <!-- Back button (bottom) -->
+          <div class="ecl-u-d-flex ecl-u-justify-content-end ecl-u-mt-l ecl-u-mb-l">
+            <a class="ecl-button ecl-button--primary a11y-back-link" href="?">
+              <span class="ecl-button__container"><span class="ecl-button__label" data-ecl-label="true">Back to the tool</span></span>
+            </a>
+          </div>
+
+        </div>
+      </div>
 
   </main>
   <div id="componentFooter"></div>

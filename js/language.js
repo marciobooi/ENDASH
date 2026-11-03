@@ -84,6 +84,19 @@ var languageNameSpace = {
 
     // Load labels first, then re-render so titles/tooltips use fresh strings.
     languageNameSpace.initLanguage(REF.language).then(() => {
+      if (isAccessibilityMode()) {
+        // setRefURL() below replaces the whole query string from REF fields
+        // only, which would silently drop ?accessibility - rebuild the
+        // statement page's own chrome (footer/navbar, mode-aware) and bail
+        // out before that happens, instead of falling into the tool's
+        // chart-rebuild paths below.
+        removeComponents();
+        buildComponents();
+        languageNameSpace.applyTranslations();
+        showAccessibilityView();
+        return;
+      }
+
       dataNameSpace.setRefURL();
 
       if (REF.chartExpanded) {

@@ -22,6 +22,8 @@ function getCookie(name) {
 }
 
 function checkAndShowTutorial() {
+  if (isAccessibilityMode()) return;
+
   const tutorialCookie = getCookie("tutorialEndashShown");
   if (!tutorialCookie) {
     setTimeout(() => {

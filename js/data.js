@@ -90,3 +90,15 @@ const dataNameSpace = {
 };
 
 const REF = dataNameSpace.ref;
+
+// endash.html?accessibility shows the accessibility statement instead of the tool
+function isAccessibilityMode() {
+  return new URLSearchParams(window.location.search).has("accessibility");
+}
+
+function showAccessibilityView() {
+  $('#page, #timelineContainer').addClass('ecl-u-d-none');
+  $('#accessibilityView').removeClass('ecl-u-d-none');
+  $('.a11y-back-link').attr('href', `?language=${REF.language}`);
+  document.title = 'Accessibility statement - Energy Dashboard - Eurostat';
+}
