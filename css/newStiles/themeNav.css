@@ -1,43 +1,48 @@
-/* "Energy topics" jump-nav row (between the dark toolbar and the country
-   selector) and the themed section headings it links to in the gallery. */
+/* "Energy topics" in-page navigation (between the dark toolbar and the
+   country selector) and the themed section headings it links to in the
+   gallery. Built on ECL's real InpageNavigation component - these rules
+   adapt its default sticky-sidebar layout into a plain full-width row that
+   stays in the page flow, while keeping its scroll-spy active-link
+   highlighting and the collapsible "Page contents" trigger below 996px
+   (both are ECL's own JS behavior, untouched here). */
 
-.theme-nav {
-  background: #ffffff;
+#themeNav.ecl-inpage-navigation {
+  display: block;
+  position: static;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
   border-bottom: 1px solid #d7e1eb;
-  padding: 1.25rem 1.5rem;
 }
 
-.theme-nav__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ECL only shows the title bar at >=996px by default (the trigger button
+   fills the same "current section" role below that) - we want it at every
+   width, same as the rest of this full-width row. */
+#themeNav .ecl-inpage-navigation__title {
+  display: block;
+  border-radius: 0;
 }
 
-.theme-nav__item {
-  margin: 0;
-}
+@media (min-width: 996px) {
+  #themeNav .ecl-inpage-navigation__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
-.theme-nav__link {
-  white-space: nowrap;
-}
+  #themeNav .ecl-inpage-navigation__item {
+    border-top: none;
+  }
 
-/* These are same-page jump links, not content links - they shouldn't look
-   different just because the user has already clicked one. The
-   ecl-link--no-visited modifier is applied in themeNavComponent.js too, but
-   this file loads after ecl-eu.css, so these rules are the ones guaranteed
-   to win regardless of how ECL's own internal rules are ordered. */
-.theme-nav__link:visited {
-  color: #0e47cb;
-}
-
-.theme-nav__link:hover,
-.theme-nav__link:visited:hover,
-.theme-nav__link:focus-visible,
-.theme-nav__link:visited:focus-visible {
-  color: #082b7a;
+  /* ECL's active-item accent is a left border, built for a vertical
+     sidebar list - switch it to a bottom border for a horizontal row. */
+  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
+  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover {
+    border-inline-start: none;
+    border-bottom: 4px solid #0e47cb;
+    padding-inline-start: .75rem;
+  }
 }
 
 .theme-section {

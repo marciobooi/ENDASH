@@ -1,48 +1,91 @@
-// "Energy topics" jump-nav row: links to the themed sections the gallery is
-// grouped into (see THEME_SECTIONS in codes.js). Plain same-page anchor
-// links - no click handler needed: html{scroll-behavior:smooth} (main.css)
-// already animates the jump, and each target heading has tabindex="-1"
-// (chartContainer.js), which makes native anchor navigation also move focus
-// to it so screen reader users land on the section, not just scroll past it.
+// "Energy topics" nav: links to the themed sections the gallery is grouped
+// into (see THEME_SECTIONS in codes.js). Built on ECL's real InpageNavigation
+// component - markup/behavior from the component library's own "Default"
+// story (https://ec.europa.eu/component-library/playground/ec/?path=/story/components-navigation-inpage-navigation--default)
+// - so scroll-spy active-link highlighting and the collapsible "Page
+// contents" trigger on narrow screens come from ECL's own JS
+// (ECL.autoInit(), called in createComponents.js), not custom code. Laid
+// out as a plain full-width row rather than ECL's usual sticky sidebar;
+// see themeNav.css for the overrides that make that layout possible.
 class ThemeNav {
   constructor() {
     const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+    const navLabel = labels['THEME_NAV_LABEL'] || 'Energy topics';
 
     this.nav = document.createElement('nav');
     this.nav.id = 'themeNav';
-    this.nav.classList.add('theme-nav');
-    this.nav.setAttribute('data-i18n-label', 'THEME_NAV_LABEL');
-    this.nav.setAttribute('aria-label', labels['THEME_NAV_LABEL'] || 'Energy topics');
+    // ecl-inpage-navigation--visible: ECL normally toggles this itself via an
+    // IntersectionObserver on a [data-ecl-inpage-navigation-container]
+    // wrapper (the sidebar's 2-column layout, which we're not using), and
+    // without it the component's own CSS keeps it display:none below
+    // 996px. Setting it up front keeps the nav (and its mobile trigger)
+    // visible at every width in our full-width-row layout.
+    this.nav.classList.add('ecl-inpage-navigation', 'ecl-inpage-navigation--visible', 'theme-nav');
+    this.nav.setAttribute('data-ecl-auto-init', 'InpageNavigation');
+    this.nav.setAttribute('data-ecl-inpage-navigation', 'true');
+    this.nav.setAttribute('aria-labelledby', 'themeNav-title');
+
+    const title = document.createElement('div');
+    title.classList.add('ecl-inpage-navigation__title');
+    title.id = 'themeNav-title';
+    title.setAttribute('data-i18n', 'THEME_NAV_LABEL');
+    title.textContent = navLabel;
+
+    const body = document.createElement('div');
+    body.classList.add('ecl-inpage-navigation__body');
+
+    const triggerWrapper = document.createElement('div');
+    triggerWrapper.classList.add('ecl-inpage-navigation__trigger-wrapper');
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.id = 'themeNav-trigger';
+    trigger.classList.add('ecl-inpage-navigation__trigger');
+    trigger.setAttribute('data-ecl-inpage-navigation-trigger', 'true');
+    trigger.setAttribute('aria-controls', 'themeNav-list');
+    trigger.setAttribute('aria-expanded', 'false');
+
+    const triggerCurrent = document.createElement('span');
+    triggerCurrent.classList.add('ecl-inpage-navigation__trigger-current');
+    triggerCurrent.setAttribute('data-ecl-inpage-navigation-trigger-current', 'true');
+    triggerCurrent.setAttribute('data-i18n', 'THEME_NAV_LABEL');
+    triggerCurrent.textContent = navLabel;
+
+    // ECL's own story uses a Phosphor icon font this app doesn't load -
+    // same fas icon set the rest of the toolbar already uses instead.
+    const triggerIcon = document.createElement('i');
+    triggerIcon.classList.add('fas', 'fa-chevron-down', 'ecl-inpage-navigation__trigger-icon');
+    triggerIcon.setAttribute('aria-hidden', 'true');
+
+    trigger.appendChild(triggerCurrent);
+    trigger.appendChild(triggerIcon);
+    triggerWrapper.appendChild(trigger);
 
     const list = document.createElement('ul');
-    list.classList.add('theme-nav__list');
+    list.id = 'themeNav-list';
+    list.classList.add('ecl-inpage-navigation__list');
+    list.setAttribute('data-ecl-inpage-navigation-list', 'true');
 
     THEME_SECTIONS.forEach(theme => {
       const item = document.createElement('li');
-      item.classList.add('theme-nav__item');
-
-      // Matches the ECL component library's standalone-link pattern exactly:
-      // https://ec.europa.eu/component-library/playground/eu/?path=/story/components-navigation-link--standalone
-      // <div class="ecl-u-type-m"><a class="ecl-link ecl-link--standalone">...</a></div>
-      const typeWrapper = document.createElement('div');
-      typeWrapper.classList.add('ecl-u-type-m');
+      item.classList.add('ecl-inpage-navigation__item');
 
       const link = document.createElement('a');
       link.href = '#' + theme.id;
-      // ecl-link--no-visited: these are same-page jump links, not content
-      // links - they shouldn't change color once clicked (ECL's default
-      // :visited color made already-clicked links look inconsistent/greyed
-      // out next to the unvisited ones).
-      link.classList.add('ecl-link', 'ecl-link--standalone', 'ecl-link--no-visited', 'theme-nav__link');
+      link.classList.add('ecl-link', 'ecl-inpage-navigation__link');
+      link.setAttribute('data-ecl-inpage-navigation-link', 'true');
       link.setAttribute('data-i18n', theme.labelKey);
       link.textContent = labels[theme.labelKey] || theme.labelKey;
 
-      typeWrapper.appendChild(link);
-      item.appendChild(typeWrapper);
+      item.appendChild(link);
       list.appendChild(item);
     });
 
-    this.nav.appendChild(list);
+    body.appendChild(triggerWrapper);
+    body.appendChild(list);
+
+    this.nav.appendChild(title);
+    this.nav.appendChild(body);
   }
 
   addToDOM(targetElement) {
