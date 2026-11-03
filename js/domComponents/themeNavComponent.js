@@ -73,13 +73,21 @@ class ThemeNav {
     THEME_SECTIONS.forEach((theme, index) => {
       const item = document.createElement('li');
       item.classList.add('ecl-inpage-navigation__item');
-      // Default selection before the user has scrolled (or on a page that
-      // opens shorter than the first section's scroll-spy offset): the
-      // first theme, Sustainability and affordability, reads as selected
-      // instead of nothing being highlighted. ECL's own scroll-spy
-      // (gumshoe) takes over this class from here as the user scrolls.
+      // Default selection before gumshoe (ECL's scroll-spy) has activated
+      // anything of its own - a SEPARATE class, not gumshoe's own
+      // .item--active, on purpose. Gumshoe only ever cleans up classes it
+      // added itself via its own tracked state; a page that opens shorter
+      // than the first section's scroll-spy offset means gumshoe's own
+      // initial check finds nothing to activate, so if this used gumshoe's
+      // class directly it would sit there forever as an orphan once
+      // gumshoe activates a DIFFERENT section later; both would then show
+      // as selected at once, with whichever was first in the DOM only
+      // winning by coincidence of which "document.querySelector" call you
+      // made (that's what made this so inconsistent to reproduce).
+      // createComponents.js removes this the moment gumshoe fires its own
+      // first activation, handing off cleanly with no overlap.
       if (index === 0) {
-        item.classList.add('ecl-inpage-navigation__item--active');
+        item.classList.add('theme-nav__item--default-active');
       }
 
       const link = document.createElement('a');

@@ -34,13 +34,30 @@
   color: #0e47cb;
 }
 
+/* Matches ECL's own .item--active { border-top-color: #fff } (blends the
+   active item's top border into its highlighted background in the
+   mobile/narrow stacked-list view) for the default-active marker too. */
+#themeNav .theme-nav__item--default-active {
+  border-top-color: #ffffff;
+}
+
 /* The base override above has an ID, which would otherwise also out-rank
    ECL's own (ID-less) .item--active .link rule that gives the active item
    its gray text - restate it here, scoped the same way, so the active
-   item still reads as gray instead of falling back to blue. */
+   item still reads as gray instead of falling back to blue.
+   .theme-nav__item--default-active (the pre-scroll-spy default selection -
+   see themeNavComponent.js for why it's a separate class) gets the exact
+   same treatment as ECL's own .item--active, including the parts that
+   would otherwise only come from ecl-eu.css's own (unscoped-by-us)
+   .item--active rules: background and border, not just color. */
 #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
-#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover {
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover,
+#themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link,
+#themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link:hover {
   color: #515560;
+  background-color: #e7edfa;
+  border-inline-start: 4px solid #0e47cb;
+  padding-inline-start: calc(.75rem - 4px);
 }
 
 /* These are same-page jump links, not content links - they shouldn't turn
@@ -55,7 +72,9 @@
 }
 
 #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited,
-#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited:hover {
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited:hover,
+#themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link:visited,
+#themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link:visited:hover {
   color: #515560;
 }
 
@@ -81,7 +100,9 @@
   /* ECL's active-item accent is a left border, built for a vertical
      sidebar list - switch it to a bottom border for a horizontal row. */
   #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
-  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover {
+  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover,
+  #themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link,
+  #themeNav .theme-nav__item--default-active .ecl-inpage-navigation__link:hover {
     border-inline-start: none;
     border-bottom: 4px solid #0e47cb;
     padding-inline-start: .75rem;

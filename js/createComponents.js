@@ -84,6 +84,24 @@ function buildComponents() {
   const themeNavSpyOffset = themeNav ? Math.ceil(themeNav.getBoundingClientRect().height) + 150 : 20;
   ECL.autoInit({ INPAGE_NAVIGATION: { spyOffset: themeNavSpyOffset } });
 
+  // themeNavComponent.js marks the first section with its own
+  // .theme-nav__item--default-active (not gumshoe's .item--active) exactly
+  // so this handoff can happen cleanly: gumshoe only ever removes classes
+  // it added itself, so a page that opens shorter than themeNavSpyOffset
+  // (gumshoe's own initial check then finds nothing to activate) would
+  // otherwise leave the default marker orphaned forever the first time
+  // gumshoe activates a DIFFERENT section - both would show selected at
+  // once. The instant gumshoe activates anything (including the first
+  // section itself, if the page happens to open tall enough for that),
+  // hand off to it by dropping our own marker.
+  if (themeNav) {
+    document.addEventListener('gumshoeActivate', function clearDefaultActive() {
+      document.removeEventListener('gumshoeActivate', clearDefaultActive);
+      const defaultActive = document.querySelector('.theme-nav__item--default-active');
+      if (defaultActive) defaultActive.classList.remove('theme-nav__item--default-active');
+    }, { once: true });
+  }
+
   if (isAccessibilityMode()) return;
 
   // ChartContainer's IntersectionObserver fires its "initial state" callback
