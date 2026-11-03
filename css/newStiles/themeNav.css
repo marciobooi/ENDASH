@@ -98,9 +98,9 @@
      heading scale exactly; only override its color and add spacing. */
   color: #004494;
   margin: 2rem 0.5rem 0.75rem;
-  /* Keep the heading from landing flush against the top of the viewport
-     (or under the fixed/sticky chrome above it) when jumped to. */
-  scroll-margin-top: 5rem;
+  /* Keep the heading from landing under the sticky nav (~89px tall) when
+     jumped to - 5rem/80px left a few px of overlap. */
+  scroll-margin-top: 6rem;
 }
 
 .theme-section:first-of-type .theme-section__heading {

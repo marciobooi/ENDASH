@@ -66,7 +66,23 @@ function buildComponents() {
   components.forEach(({ instance, target }) => {
     instance.addToDOM(target);
   });
-ECL.autoInit();
+
+  // ECL's InpageNavigation (the Energy topics nav) runs its own scroll-spy
+  // (gumshoe) to decide which link is "active", defaulting to a 20px
+  // offset - i.e. it only considers a section "reached" once its heading
+  // scrolls to within 20px of the viewport top. But the sticky nav itself
+  // covers the top ~89px of the viewport, so a heading sitting right below
+  // it (visually "current") was still ~70px short of that threshold - the
+  // nav kept showing the PREVIOUS section active until the user scrolled
+  // much further than where the section actually appears. Pass the nav's
+  // real rendered height as the offset so "reached" lines up with "visible
+  // just below the sticky nav" instead of ECL's generic default.
+  const themeNav = document.getElementById('themeNav');
+  // +150 (not just the nav's own height) so a section reads as "current"
+  // once the user has clearly scrolled into it, rather than only the exact
+  // instant its heading's top edge crosses the line right under the nav.
+  const themeNavSpyOffset = themeNav ? Math.ceil(themeNav.getBoundingClientRect().height) + 150 : 20;
+  ECL.autoInit({ INPAGE_NAVIGATION: { spyOffset: themeNavSpyOffset } });
 
   if (isAccessibilityMode()) return;
 
