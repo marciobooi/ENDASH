@@ -25,6 +25,40 @@
   background: #ffffff;
 }
 
+/* A handful of other stylesheets (footer.css, subnavbar.css, main.css)
+   declare an unscoped `.ecl-link { color: ... }` meant only for their own
+   component, which leaks onto every .ecl-link on the page including these
+   - main.css's is the one left unscoped (its own blast radius across the
+   app wasn't safe to narrow here), so pin the base color explicitly. */
+#themeNav .ecl-inpage-navigation__link {
+  color: #0e47cb;
+}
+
+/* The base override above has an ID, which would otherwise also out-rank
+   ECL's own (ID-less) .item--active .link rule that gives the active item
+   its gray text - restate it here, scoped the same way, so the active
+   item still reads as gray instead of falling back to blue. */
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:hover {
+  color: #515560;
+}
+
+/* These are same-page jump links, not content links - they shouldn't turn
+   a different color just because the user already clicked one (or it's the
+   default-selected section). ECL ships .ecl-link:visited (plain purple,
+   #510dcd) and .ecl-inpage-navigation__link:visited (blue, matching
+   unvisited) at equal specificity; in practice .ecl-link:visited wins and
+   overrides even the active item's intended gray - these ID-scoped rules
+   are guaranteed to win regardless of which way that tie resolves. */
+#themeNav .ecl-inpage-navigation__link:visited {
+  color: #0e47cb;
+}
+
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited,
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited:hover {
+  color: #515560;
+}
+
 /* ECL only shows the title bar at >=996px by default (the trigger button
    fills the same "current section" role below that) - we want it at every
    width, same as the rest of this full-width row. */

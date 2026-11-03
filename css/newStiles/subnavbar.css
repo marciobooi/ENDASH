@@ -38,10 +38,12 @@
     background-color: white;
 }
 
-.ecl-link {
+/* Scoped to the subnavbar - unscoped before, same class of leak as the one
+   fixed in footer.css (both affected every .ecl-link on the page). */
+#subnavbar-container .ecl-link {
     text-decoration: none;
 }
-.ecl-link:hover {
+#subnavbar-container .ecl-link:hover {
     color: #0e47cb;
     text-decoration: underline;
 }
