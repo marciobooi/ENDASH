@@ -559,6 +559,11 @@
     "DE": "Diagramm erweitern",
     "FR": "Agrandir le graphique"
   },
+  "BACK_TO_TOP": {
+    "EN": "Back to top",
+    "DE": "Nach oben",
+    "FR": "Haut de page"
+  },
   "BOX_SELECTION_ALL_COUNTRY": {
     "EN": "All countries",
     "DE": "Alle Länder",

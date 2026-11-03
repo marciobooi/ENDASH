@@ -53,4 +53,21 @@ document.addEventListener("DOMContentLoaded", function () {
             flexContainer.removeEventListener('wheel', onWheel);
         });
     });
+
+    // #toTop lives outside both the tool's #page and the accessibility
+    // statement's #accessibilityView, so one button/listener covers both -
+    // whichever is visible, scrolling the real page is all it needs to do.
+    const toTopBtn = document.getElementById('toTop');
+    if (toTopBtn) {
+        const SHOW_AFTER_PX = 400;
+        const updateToTopVisibility = () => {
+            toTopBtn.classList.toggle('show', window.scrollY > SHOW_AFTER_PX);
+        };
+        updateToTopVisibility();
+        window.addEventListener('scroll', updateToTopVisibility, { passive: true });
+    }
 });
+
+function topFunction() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
