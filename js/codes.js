@@ -382,6 +382,37 @@ codesDataset = {
 		"container": "highchartsContainer_22",
 		"meta": "nrg_bal"
 	},
+	"chart_23": {
+		// Road diesel stocks vs. deliveries (oil stocks theme) - ONE chart built
+		// from TWO monthly Eurostat tables. The top-level fields are the first
+		// table (closing stocks, nrg_stk_oilm); `combine` is the second table
+		// (gross inland deliveries, nrg_cb_oilm). Both are in THS_T, so they
+		// share one y-axis. combinedChartData() (endash.js) merges them: it
+		// anchors on the latest month BOTH tables have published and draws the
+		// last `months` months plus the `months` before them as an overlay, so
+		// the window rolls forward by itself each time Eurostat adds a month.
+		// No Eurostat metadata page code is known for these tables yet, so
+		// "meta" is NONE (the Metadata button then says "No metadata to
+		// display") - replace it with the real code once it's confirmed.
+		"dataset":'nrg_stk_oilm',
+		"title": "chart_23",
+		"indicator": ["O46711"],
+		"indicator_type": "siec",
+		"indicator2": ["STK_CL"],
+		"indicator2_type": "stk_flow",
+		"unit": "THS_T",
+		"container": "highchartsContainer_23",
+		"meta": "NONE",
+		"combine": {
+			"dataset":'nrg_cb_oilm',
+			"indicator": ["O46711"],
+			"indicator_type": "siec",
+			"indicator2": ["GID_OBS"],
+			"indicator2_type": "nrg_bal",
+			"unit": "THS_T"
+		},
+		"months": 12
+	},
 
 
 }
@@ -389,17 +420,16 @@ codesDataset = {
 // Groups the gallery into jump-nav themed sections (see the "Energy topics"
 // nav row). Order here is both the nav link order and the on-page section
 // order - charts are rendered grouped by theme, not by chart_N number.
-// chart_20 (Market share of the largest generator) is being replaced by a
-// new "Rate of electrification" chart with an indicator picker and isn't in
-// any theme yet; "oilstocks" has no charts wired up yet either - both are
-// pending more detail, so their sections render with a "coming soon" message.
+// A theme with an empty `charts` list renders a "coming soon" message instead
+// of cards. "oilstocks" holds chart_23, the combined monthly oil chart (two
+// Eurostat tables merged into one - see the `combine` block on chart_23).
 const THEME_SECTIONS = [
 	{ id: "theme-sustainability", labelKey: "THEME_SUSTAINABILITY", charts: ["chart_2", "chart_3", "chart_19"] },
 	{ id: "theme-diversification", labelKey: "THEME_DIVERSIFICATION", charts: ["chart_21", "chart_22", "chart_7", "chart_6"] },
 	{ id: "theme-efficiency", labelKey: "THEME_EFFICIENCY", charts: ["chart_1", "chart_4", "chart_5"] },
 	{ id: "theme-electrification", labelKey: "THEME_ELECTRIFICATION", charts: ["chart_20", "chart_17", "chart_18"] },
 	{ id: "theme-consumption", labelKey: "THEME_CONSUMPTION", charts: ["chart_8", "chart_9", "chart_10", "chart_11", "chart_12", "chart_13", "chart_14", "chart_15", "chart_16"] },
-	{ id: "theme-oilstocks", labelKey: "THEME_OILSTOCKS", charts: [] },
+	{ id: "theme-oilstocks", labelKey: "THEME_OILSTOCKS", charts: ["chart_23"] },
 ];
 
 

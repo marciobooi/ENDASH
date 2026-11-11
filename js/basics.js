@@ -243,6 +243,31 @@ function addAuxiliarBarGraphOptions() {
   }
 }
 
+// Expanding a card hides every other card, so the page suddenly gets short and
+// the browser clamps the scroll position to the top - closing the card then
+// left the user at the first theme instead of where they were (e.g. Oil
+// stocks, the last one). toggleChartContainer() (chartContainer.js) saves the
+// position here just before hiding the cards; the close path puts it back.
+var galleryScrollY = null;
+
+function restoreGalleryScroll() {
+  if (galleryScrollY === null) return;
+  const y = galleryScrollY;
+  galleryScrollY = null;
+
+  // html has `scroll-behavior: smooth` (main.css), which would make a plain
+  // scrollTo glide down from the top - jump instead, like the page never moved.
+  window.scrollTo({ top: y, left: 0, behavior: "instant" });
+
+  // Highcharts reflows the cards a moment after they're shown again; if that
+  // nudged the layout, settle back on the saved position.
+  requestAnimationFrame(() => {
+    if (Math.abs(window.scrollY - y) > 2) {
+      window.scrollTo({ top: y, left: 0, behavior: "instant" });
+    }
+  });
+}
+
 function removeAuxiliarBarGraphOptions() {
 log('here')
 
@@ -312,8 +337,12 @@ log('here')
   }
 
   $(".containerNav").css('visibility', 'initial')
-  const footerElement = document.querySelector("#componentFooter > footer");  
-  footerElement.style.justifyContent = 'flex-end';  
+
+  // The gallery is fully visible again, so the saved position is valid.
+  restoreGalleryScroll();
+
+  const footerElement = document.querySelector("#componentFooter > footer");
+  footerElement.style.justifyContent = 'flex-end';
 }
 
 function showChartMenuOptions() {
@@ -450,7 +479,7 @@ tooltip = function () {
 
 
 
-function tooltipTable(points, chartUnit) {
+function tooltipTable(points, chartUnit, options = {}) {
   // REF.unit is a shared global that gets overwritten every time ANY other
   // chart renders - in the gallery view, several cards are alive at once, so
   // by the time the user hovers a card built earlier, REF.unit usually
@@ -558,8 +587,10 @@ function tooltipTable(points, chartUnit) {
       // percentage-based charts (e.g. import dependency, renewable share) -
       // summing percentages across unrelated categories isn't a valid figure -
       // and skip it whenever there's only one series, where "Total" is just
-      // a duplicate of that single value.
-      if (!totalAdded && unit !== 'PC' && sortedPoints.length > 1) {
+      // a duplicate of that single value. options.hideTotal also skips it for
+      // charts whose series aren't parts of one whole (chart_23 overlays
+      // stocks and deliveries, so their sum means nothing).
+      if (!totalAdded && !options.hideTotal && unit !== 'PC' && sortedPoints.length > 1) {
         // Calculate the total sum of all values
         const totalSum = sortedPoints.reduce(function (sum, point) {
           return sum + point.y;
@@ -758,9 +789,28 @@ function buildApiUrl() {
   return url;
 }
 
-// Main API call function with proper cache usage and loading animation
-function chartApiCall() {
-  const url = buildApiUrl();
+// Line-chart query for ONE source table of a combined chart (chart_23 and its
+// `combine` block in codes.js). buildApiUrl() above can't be reused because it
+// reads the single dataset REF currently points at; here the caller names the
+// table. Single geo only - the combined data path assumes one value per month.
+function buildDatasetApiUrl(source) {
+  const geo = String(REF.geos).split(",")[0];
+
+  let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + source.dataset + "?";
+  url += "format=JSON";
+  url += "&lang=" + REF.language;
+  url += "&unit=" + source.unit;
+  url += "&geo=" + geo;
+  (source.indicator || []).forEach((code) => { url += `&${source.indicator_type}=${code}`; });
+  (source.indicator2 || []).forEach((code) => { url += `&${source.indicator2_type}=${code}`; });
+  return url;
+}
+
+// Main API call function with proper cache usage and loading animation.
+// urlOverride lets a caller fetch something other than the chart REF
+// currently describes (see buildDatasetApiUrl); it shares the same cache.
+function chartApiCall(urlOverride) {
+  const url = urlOverride || buildApiUrl();
   let cached = getCache(url);
   if (cached) {
     // Use cached data, no loading animation

@@ -1160,7 +1160,9 @@ function closeGlobalInsights() {
 function getMainViewChartIds() {
   return Array.from(document.querySelectorAll("#endash .chartContainer[id]"))
     .map((item) => item.id)
-    .filter((id) => !!codesDataset[id]);
+    .filter((id) => !!codesDataset[id])
+    // INSIGHTS_DISABLED_CHARTS lives in auxChartControls.js (loaded later).
+    .filter((id) => typeof INSIGHTS_DISABLED_CHARTS === "undefined" || !INSIGHTS_DISABLED_CHARTS.includes(id));
 }
 
 function cloneRefState() {

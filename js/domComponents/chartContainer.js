@@ -298,6 +298,9 @@ class ChartContainer {
       REF.yearManuallySet = false;
 
       if(!$(chartContainer).hasClass('expand')){
+        // Remember where the user was BEFORE the other cards disappear and the
+        // page shrinks (see restoreGalleryScroll in basics.js).
+        galleryScrollY = window.scrollY;
         $( ".flex-container" ).find( ".flex-item.chartContainer" ).css( "display", "none" );
         // The gallery is grouped into themed sections with their own
         // headings/"coming soon" text now - hide those too, or they're left

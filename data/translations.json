@@ -494,6 +494,11 @@
     "DE": "Gesamte Energieversorgung nach Produkt",
     "FR": "Approvisionnement total en énergie par produit"
   },
+  "chart_23": {
+    "EN": "Road diesel stocks and deliveries: last 12 months vs. previous 12 months",
+    "DE": "Bestände und Lieferungen von Kraftfahrzeug-Diesel: letzte 12 Monate im Vergleich zu den vorherigen 12 Monaten",
+    "FR": "Stocks et livraisons de diesel routier : 12 derniers mois par rapport aux 12 mois précédents"
+  },
   "SHOW_BAR_CHART": {
     "EN": "Show bar chart",
     "FR": "Afficher le graphique en barres",

@@ -25,6 +25,18 @@ function endash(d = null) {
     const categories = d.Dimension("time").id;
     const unit = REF.unit
     buildChart(categories, containerId, yAxisTitle, type, unit);
+  } else if (isCombinedChart()) {
+    const combined = combinedChartData();
+
+    if (!combined) {
+      // Either table failed or they share no month - same "no data" fallback
+      // as the single-table path below.
+      getTitle();
+      nullishChart(containerId, []);
+      return;
+    }
+
+    buildChart(combined.categories, containerId, combined.yAxisTitle, type, REF.unit);
   } else {
     d = chartApiCall();
 
@@ -90,7 +102,11 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         return
     }      
 
-    let orderedSeries = sortByName(chartSeries);
+    // A combined chart's lines have a deliberate order (stocks, then
+    // deliveries; latest window first) that sorting by name would scramble
+    // in FR/DE, where the labels sort the other way round.
+    const isCombined = isCombinedChart();
+    let orderedSeries = isCombined ? chartSeries : sortByName(chartSeries);
 
     if (REF.chartId === 'chart_2') {
         // "Renewable energy - overall" (REN) is the headline figure - show
@@ -112,7 +128,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         xAxis,
         yAxisFormat: '{value:,.0f}',
         yAxisTitle,
-        tooltipFormatter: function () { return tooltipTable(this.points, unit); },
+        tooltipFormatter: function () { return tooltipTable(this.points, unit, { hideTotal: isCombined }); },
         creditsText: credits(),
         creditsHref: "",
         series: orderedSeries,
@@ -244,6 +260,105 @@ function chartEightCalculation() {
     });
     return d;
 }
+// ---------------------------------------------------------------------------
+// Combined monthly charts (chart_23, oil stocks)
+// ---------------------------------------------------------------------------
+// A chart config with a `combine` block merges two Eurostat tables into ONE
+// chart. The rest of the app assumes one dataset and annual data per chart, so
+// - like chartEightCalculation() for chart_8 - these get their own data path
+// instead of chartApiCall() + handleData().
+
+function isCombinedChart(chartId = REF.chartId) {
+    const config = codesDataset[chartId];
+    return !!(config && config.combine);
+}
+
+// "2026-09" shifted by -11 months -> "2025-10". Works on the month id itself,
+// not on array positions, so a gap in one table can't misalign the two windows.
+function shiftMonthId(monthId, offset) {
+    const [year, month] = monthId.split("-").map(Number);
+    const index = year * 12 + (month - 1) + offset;
+    return `${Math.floor(index / 12)}-${String((index % 12) + 1).padStart(2, "0")}`;
+}
+
+function formatMonthId(monthId, options) {
+    const [year, month] = monthId.split("-").map(Number);
+    return new Intl.DateTimeFormat(REF.language.toLowerCase(), { ...options, timeZone: "UTC" })
+        .format(new Date(Date.UTC(year, month - 1, 1)));
+}
+
+// { "2026-08": 397.8, ... } for a single-geo, single-indicator monthly table;
+// months with no published value are left out. null for any other table shape.
+function monthlyValues(d) {
+    const months = d.Dimension("time").id;
+    if (d.value.length !== months.length) return null;
+
+    const values = {};
+    months.forEach((id, i) => {
+        if (d.value[i] != null) values[id] = d.value[i];
+    });
+    return values;
+}
+
+// Builds chartSeries (the global buildChart() reads) and returns the x-axis
+// categories + y-axis title, or null when there is nothing to draw.
+function combinedChartData() {
+    const config = codesDataset[REF.chartId];
+    const windowSize = config.months || 12;
+    const sources = [config, config.combine];
+
+    const tables = sources.map((source) => chartApiCall(buildDatasetApiUrl(source)));
+    if (tables.some((table) => !table)) return null;
+
+    const valuesByTable = tables.map(monthlyValues);
+    if (valuesByTable.some((values) => !values)) return null;
+
+    // "Last 12 months available": anchor on the newest month that BOTH tables
+    // have published, so the stock and delivery lines always cover the same months.
+    const sharedMonths = Object.keys(valuesByTable[0]).filter((id) => id in valuesByTable[1]).sort();
+    if (!sharedMonths.length) return null;
+    const latestMonth = sharedMonths[sharedMonths.length - 1];
+
+    // windows[0] = the last `windowSize` months, windows[1] = the span right before it.
+    const windows = [0, 1].map((back) =>
+        Array.from({ length: windowSize }, (_, i) => shiftMonthId(latestMonth, i - (back + 1) * windowSize + 1))
+    );
+
+    const rangeLabel = (monthIds) => {
+        const monthYear = { month: "short", year: "numeric" };
+        return `${formatMonthId(monthIds[0], monthYear)} – ${formatMonthId(monthIds[monthIds.length - 1], monthYear)}`;
+    };
+
+    const lineColors = ["#0033FF", "#E67500"]; // stocks, deliveries
+    const series = [];
+
+    sources.forEach((source, t) => {
+        const code = source.indicator2[0];
+        const flowLabel = tables[t].__tree__.dimension[source.indicator2_type].category.label[code];
+
+        windows.forEach((monthIds, back) => {
+            const data = monthIds.map((id) => (id in valuesByTable[t] ? valuesByTable[t][id] : null));
+            // A window this table doesn't reach back to has nothing to draw.
+            if (!data.some((value) => value !== null)) return;
+
+            series.push({
+                name: `${flowLabel} (${rangeLabel(monthIds)})`,
+                data,
+                indicator: code,
+                color: lineColors[t],
+                dashStyle: back === 0 ? "Solid" : "ShortDash",
+            });
+        });
+    });
+
+    chartSeries = series;
+
+    return {
+        categories: windows[0].map((id) => formatMonthId(id, { month: "short" })),
+        yAxisTitle: tables[0].__tree__.dimension.unit.category.label[config.unit],
+    };
+}
+
 function compareCountries() {
 
     updateREFFromCodesDataset(REF.chartId);
@@ -269,6 +384,16 @@ function compareCountries() {
                 const yAxisTitle = 'kilograms of oil equivalent';
                 const categories = d.Dimension("time").id;
                 buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);
+            } else if (isCombinedChart()) {
+                const combined = combinedChartData();
+
+                if (!combined) {
+                    getTitle();
+                    nullishChart(containerId, []);
+                    break;
+                }
+
+                buildChart(combined.categories, REF.containerId, combined.yAxisTitle, chartType, unit);
             } else {
                 const d = chartApiCall();
 
