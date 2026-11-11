@@ -370,7 +370,19 @@ function combinedChartData() {
 // ---------------------------------------------------------------------------
 // A chart config with `medianSplit` draws EVERY country at once (the page's
 // country selector doesn't apply), split at the median into two groups that
-// the user toggles between with REF.medianGroup ("above" | "below").
+// the user toggles between with isMedianBelow(chartId) / the on-card toggle.
+
+// Per-chart above/below state, kept in REF.medianGroup (a list of the chart ids
+// flipped to "below") so each median chart toggles independently.
+function isMedianBelow(chartId) {
+    return String(REF.medianGroup || "").split(",").includes(chartId);
+}
+
+function toggleMedianBelow(chartId) {
+    const below = String(REF.medianGroup || "").split(",").filter((id) => id && id !== chartId);
+    if (!isMedianBelow(chartId)) below.push(chartId);
+    REF.medianGroup = below.join(",");
+}
 
 function isMedianChart(chartId = REF.chartId) {
     const config = codesDataset[chartId];
@@ -397,7 +409,7 @@ function medianOf(valuesAscending) {
 function medianChartData() {
     const config = codesDataset[REF.chartId];
     const windowSize = config.months || 12;
-    const group = REF.medianGroup === "below" ? "below" : "above";
+    const group = isMedianBelow(REF.chartId) ? "below" : "above";
 
     // Ask for a few months more than the window: countries publish with a
     // lag, so the newest months are only partly filled in (see the anchor).

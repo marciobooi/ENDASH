@@ -18,7 +18,7 @@ class FloatingChartControls {
   // Flips a median-split chart (chart_24) between the countries above and
   // below the median, then redraws it.
   toggleMedianGroup() {
-    REF.medianGroup = REF.medianGroup === "below" ? "above" : "below";
+    toggleMedianBelow(REF.chartId);
     dataNameSpace.setRefURL();
     this.syncMedianButton();
     compareCountries();
@@ -30,7 +30,7 @@ class FloatingChartControls {
     const button = document.getElementById("toggleMedianGroup");
     if (!button) return;
 
-    const showingBelow = REF.medianGroup === "below";
+    const showingBelow = isMedianBelow(REF.chartId);
     const key = showingBelow ? "SHOW_ABOVE_MEDIAN" : "SHOW_BELOW_MEDIAN";
     const label = languageNameSpace.labels[key] || key;
 
@@ -125,7 +125,7 @@ document.addEventListener('click', function (event) {
 
   event.stopPropagation();
   REF.chartId = button.getAttribute('data-chart-id');
-  REF.medianGroup = REF.medianGroup === "below" ? "above" : "below";
+  toggleMedianBelow(REF.chartId);
   dataNameSpace.setRefURL();
 
   const card = document.getElementById(REF.chartId);

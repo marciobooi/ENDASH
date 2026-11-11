@@ -324,7 +324,9 @@ class ChartContainer {
       addAuxiliarBarGraphOptions()
       compareCountries()
 
-      const containerNav = document.querySelector(".containerNav");
+      // The EXPANDED card's own title bar - a bare document.querySelector()
+      // grabbed the first card on the page instead, shrinking ITS title.
+      const containerNav = chartContainer.querySelector(".containerNav");
       if (containerNav) {
         containerNav.id = "title";
         containerNav.style.visibility = "initial";

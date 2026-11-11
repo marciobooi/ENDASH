@@ -339,6 +339,13 @@ log('here')
     setTimeout(() => enableTooltips(), 0);
   }
 
+  // Undo what expanding did to the title bar (id, fixed height, tiny font),
+  // otherwise the card keeps a near-invisible title once it's a gallery card again.
+  document.querySelectorAll(".containerNav").forEach((nav) => {
+    nav.removeAttribute("id");
+    nav.style.height = "";
+    nav.style.fontSize = "";
+  });
   $(".containerNav").css('visibility', 'initial')
 
   // The gallery is fully visible again, so the saved position is valid.
@@ -653,7 +660,7 @@ switch (REF.chartType) {
       // A median-split chart (chart_24) shows one half of the countries at a
       // time, so its title names which half.
       if (isMedianChart(REF.chartId)) {
-        title += ` - ${safeLabel(REF.medianGroup === "below" ? "OIL_MEDIAN_BELOW" : "OIL_MEDIAN_ABOVE")}`;
+        title += ` - ${safeLabel(isMedianBelow(REF.chartId) ? "OIL_MEDIAN_BELOW" : "OIL_MEDIAN_ABOVE")}`;
       }
       if(REF.chartExpanded == true) {
         const titleExpanded = document.querySelector("#title");
@@ -671,7 +678,7 @@ switch (REF.chartType) {
     // beside the expand button.
     let buttons = btn;
     if (isMedianChart(REF.chartId)) {
-      const showingBelow = REF.medianGroup === "below";
+      const showingBelow = isMedianBelow(REF.chartId);
       const medianLabel = safeLabel(showingBelow ? "SHOW_ABOVE_MEDIAN" : "SHOW_BELOW_MEDIAN");
       const medianBtn = `<button type="button" class="ecl-button ecl-button--primary round-btn medianGroupBtn" data-chart-id="${REF.chartId}" aria-label="${medianLabel}" title="${medianLabel}"><i class="fas ${showingBelow ? "fa-arrow-up" : "fa-arrow-down"}" aria-hidden="true"></i></button>`;
       buttons = `<div style="display:flex; gap:.5rem; align-items:flex-start;">${medianBtn}${btn}</div>`;

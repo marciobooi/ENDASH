@@ -413,6 +413,43 @@ codesDataset = {
 		},
 		"months": 12
 	},
+	"chart_25": {
+		// Kerosene-type jet fuel stocks vs. deliveries - same combined two-table
+		// overlay as chart_23 (see its comment), for product O4661.
+		"dataset":'nrg_stk_oilm',
+		"title": "chart_25",
+		"indicator": ["O4661"],
+		"indicator_type": "siec",
+		"indicator2": ["STK_CL"],
+		"indicator2_type": "stk_flow",
+		"unit": "THS_T",
+		"container": "highchartsContainer_25",
+		"meta": "NONE",
+		"combine": {
+			"dataset":'nrg_cb_oilm',
+			"indicator": ["O4661"],
+			"indicator_type": "siec",
+			"indicator2": ["GID_OBS"],
+			"indicator2_type": "nrg_bal",
+			"unit": "THS_T"
+		},
+		"months": 12
+	},
+	"chart_26": {
+		// Kerosene-type jet fuel closing stocks by country - same above/below
+		// average split as chart_24 (see its comment), for product O4661.
+		"dataset":'nrg_stk_oilm',
+		"title": "chart_26",
+		"indicator": ["O4661"],
+		"indicator_type": "siec",
+		"indicator2": ["STK_CL"],
+		"indicator2_type": "stk_flow",
+		"unit": "THS_T",
+		"container": "highchartsContainer_26",
+		"meta": "NONE",
+		"medianSplit": true,
+		"months": 12
+	},
 	"chart_24": {
 		// Road diesel closing stocks BY COUNTRY (oil stocks theme), last `months`
 		// available months. The median is ONE value computed from every
@@ -442,8 +479,8 @@ codesDataset = {
 // nav row). Order here is both the nav link order and the on-page section
 // order - charts are rendered grouped by theme, not by chart_N number.
 // A theme with an empty `charts` list renders a "coming soon" message instead
-// of cards. "oilstocks" holds chart_23 (two Eurostat tables merged into one -
-// see its `combine` block) and chart_24 (all countries, split at the median -
+// of cards. "oilstocks" holds chart_23 and chart_25 (two Eurostat tables merged into
+// one - see their `combine` block) and chart_24 (all countries, split at the median -
 // see its `medianSplit` flag).
 const THEME_SECTIONS = [
 	{ id: "theme-sustainability", labelKey: "THEME_SUSTAINABILITY", charts: ["chart_2", "chart_3", "chart_19"] },
@@ -451,7 +488,7 @@ const THEME_SECTIONS = [
 	{ id: "theme-efficiency", labelKey: "THEME_EFFICIENCY", charts: ["chart_1", "chart_4", "chart_5"] },
 	{ id: "theme-electrification", labelKey: "THEME_ELECTRIFICATION", charts: ["chart_20", "chart_17", "chart_18"] },
 	{ id: "theme-consumption", labelKey: "THEME_CONSUMPTION", charts: ["chart_8", "chart_9", "chart_10", "chart_11", "chart_12", "chart_13", "chart_14", "chart_15", "chart_16"] },
-	{ id: "theme-oilstocks", labelKey: "THEME_OILSTOCKS", charts: ["chart_23", "chart_24"] },
+	{ id: "theme-oilstocks", labelKey: "THEME_OILSTOCKS", charts: ["chart_23", "chart_25", "chart_24", "chart_26"] },
 ];
 
 

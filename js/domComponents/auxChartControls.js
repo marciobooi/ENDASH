@@ -6,12 +6,12 @@
 //   the pie chart is always just one 100% slice.
 // - chart_23 (oil stocks) is a monthly two-window overlay, not a single-year
 //   breakdown by country or category, so bar/pie have nothing to show.
-const BAR_AND_PIE_DISABLED_CHARTS = ["chart_2", "chart_23", "chart_24"];
+const BAR_AND_PIE_DISABLED_CHARTS = ["chart_2", "chart_23", "chart_24", "chart_25", "chart_26"];
 const PIE_ONLY_DISABLED_CHARTS = ["chart_4", "chart_5", "chart_7", "chart_10", "chart_11", "chart_19"];
 // The insights view reads a chart's series as one annual time series ("latest
 // year", "change since <year>"), which doesn't fit chart_23's monthly
 // two-table overlay. Also skipped by Global Insights (getMainViewChartIds).
-const INSIGHTS_DISABLED_CHARTS = ["chart_23", "chart_24"];
+const INSIGHTS_DISABLED_CHARTS = ["chart_23", "chart_24", "chart_25", "chart_26"];
 
 class ChartControls {
   constructor() {

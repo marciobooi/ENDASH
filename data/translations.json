@@ -499,6 +499,16 @@
     "DE": "Bestände und Lieferungen von Kraftfahrzeug-Diesel: letzte 12 Monate im Vergleich zu den vorherigen 12 Monaten",
     "FR": "Stocks et livraisons de diesel routier : 12 derniers mois par rapport aux 12 mois précédents"
   },
+  "chart_25": {
+    "EN": "Kerosene-type jet fuel stocks and deliveries: last 12 months vs. previous 12 months",
+    "DE": "Bestände und Lieferungen von Flugturbinenkraftstoff auf Petroleumbasis: letzte 12 Monate im Vergleich zu den vorherigen 12 Monaten",
+    "FR": "Stocks et livraisons de carburéacteur type kérosène : 12 derniers mois par rapport aux 12 mois précédents"
+  },
+  "chart_26": {
+    "EN": "Kerosene-type jet fuel closing stocks by country, last 12 months",
+    "DE": "Schlussbestände von Flugturbinenkraftstoff auf Petroleumbasis nach Land, letzte 12 Monate",
+    "FR": "Stocks de clôture de carburéacteur type kérosène par pays, 12 derniers mois"
+  },
   "chart_24": {
     "EN": "Road diesel closing stocks by country, last 12 months",
     "DE": "Schlussbestände von Kraftfahrzeug-Diesel nach Land, letzte 12 Monate",
