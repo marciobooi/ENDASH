@@ -25,18 +25,19 @@ function endash(d = null) {
     const categories = d.Dimension("time").id;
     const unit = REF.unit
     buildChart(categories, containerId, yAxisTitle, type, unit);
-  } else if (isCombinedChart()) {
-    const combined = combinedChartData();
+  } else if (isCustomDataChart()) {
+    const combined = customChartData();
 
     if (!combined) {
-      // Either table failed or they share no month - same "no data" fallback
-      // as the single-table path below.
+      // The custom data path found nothing to draw (a request failed, or the
+      // tables share no month) - same "no data" fallback as the single-table
+      // path below.
       getTitle();
       nullishChart(containerId, []);
       return;
     }
 
-    buildChart(combined.categories, containerId, combined.yAxisTitle, type, REF.unit);
+    buildChart(combined.categories, containerId, combined.yAxisTitle, type, REF.unit, combined.yAxisPlotLines);
   } else {
     d = chartApiCall();
 
@@ -66,7 +67,7 @@ function endash(d = null) {
   }
 
 }
-function buildChart(categories, containerId, yAxisTitle, type, unit) {
+function buildChart(categories, containerId, yAxisTitle, type, unit, yAxisPlotLines) {
     // Set containerId to the default value from codesDataset if it's not provided
     containerId = containerId || codesDataset[REF.chartId].container;
 
@@ -102,11 +103,13 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         return
     }      
 
-    // A combined chart's lines have a deliberate order (stocks, then
-    // deliveries; latest window first) that sorting by name would scramble
-    // in FR/DE, where the labels sort the other way round.
-    const isCombined = isCombinedChart();
-    let orderedSeries = isCombined ? chartSeries : sortByName(chartSeries);
+    // Custom-data charts order their own lines deliberately (chart_23: stocks
+    // then deliveries, latest window first; chart_24: largest stock first)
+    // and sorting by name would scramble that. Decided here, at build time -
+    // REF.chartId changes as other cards render, so the tooltip below must
+    // not look it up when it runs.
+    let orderedSeries = isCustomDataChart() ? chartSeries : sortByName(chartSeries);
+    const hideTotal = isCustomDataChart(); // sums of overlaid or median-cut series mean nothing
 
     if (REF.chartId === 'chart_2') {
         // "Renewable energy - overall" (REN) is the headline figure - show
@@ -128,7 +131,8 @@ function buildChart(categories, containerId, yAxisTitle, type, unit) {
         xAxis,
         yAxisFormat: '{value:,.0f}',
         yAxisTitle,
-        tooltipFormatter: function () { return tooltipTable(this.points, unit, { hideTotal: isCombined }); },
+        yAxisPlotLines,
+        tooltipFormatter: function () { return tooltipTable(this.points, unit, { hideTotal }); },
         creditsText: credits(),
         creditsHref: "",
         series: orderedSeries,
@@ -354,8 +358,131 @@ function combinedChartData() {
     chartSeries = series;
 
     return {
-        categories: windows[0].map((id) => formatMonthId(id, { month: "short" })),
+        // Month AND year of the latest window ("Oct 2025" ... "Sep 2026"); the
+        // earlier window's points sit at the same positions, a year back.
+        categories: windows[0].map((id) => formatMonthId(id, { month: "short", year: "numeric" })),
         yAxisTitle: tables[0].__tree__.dimension.unit.category.label[config.unit],
+    };
+}
+
+// ---------------------------------------------------------------------------
+// Median-split charts (chart_24, oil stocks by country)
+// ---------------------------------------------------------------------------
+// A chart config with `medianSplit` draws EVERY country at once (the page's
+// country selector doesn't apply), split at the median into two groups that
+// the user toggles between with REF.medianGroup ("above" | "below").
+
+function isMedianChart(chartId = REF.chartId) {
+    const config = codesDataset[chartId];
+    return !!(config && config.medianSplit);
+}
+
+// Charts that bypass chartApiCall() + handleData() with their own data path.
+function isCustomDataChart(chartId = REF.chartId) {
+    return isCombinedChart(chartId) || isMedianChart(chartId);
+}
+
+// Builds chartSeries and returns { categories, yAxisTitle }, or null when
+// there is nothing to draw.
+function customChartData() {
+    return isMedianChart() ? medianChartData() : combinedChartData();
+}
+
+function medianOf(valuesAscending) {
+    const n = valuesAscending.length;
+    const mid = Math.floor(n / 2);
+    return n % 2 ? valuesAscending[mid] : (valuesAscending[mid - 1] + valuesAscending[mid]) / 2;
+}
+
+function medianChartData() {
+    const config = codesDataset[REF.chartId];
+    const windowSize = config.months || 12;
+    const group = REF.medianGroup === "below" ? "below" : "above";
+
+    // Ask for a few months more than the window: countries publish with a
+    // lag, so the newest months are only partly filled in (see the anchor).
+    const now = new Date();
+    const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+    const since = shiftMonthId(currentMonth, -(windowSize + 6));
+
+    const d = chartApiCall(buildDatasetApiUrl(config, { allGeos: true, since }));
+    if (!d) return null;
+
+    const months = d.Dimension("time").id;
+    const geos = d.Dimension("geo").id;
+    if (d.value.length !== geos.length * months.length) return null;
+
+    // Real countries only - the response also carries the EU aggregate and
+    // countries outside the dashboard's own lists (e.g. the UK, all empty).
+    const realCountries = [...EU_COUNTRY_CODES, ...EFTA_COUNTRY_CODES, ...ENLARGEMENT_COUNTRY_CODES];
+    const countries = [];
+    geos.forEach((code, g) => {
+        if (!realCountries.includes(code)) return;
+        const byMonth = {};
+        months.forEach((id, t) => {
+            const value = d.value[g * months.length + t];
+            if (value != null) byMonth[id] = value;
+        });
+        countries.push({ code, byMonth });
+    });
+
+    // "Last 12 months available": anchor on the newest month that at least
+    // half the countries have published. The very latest month usually has
+    // only a handful (e.g. 5 of 36), which would leave most lines ending a
+    // month early and skew the ranking; this still rolls forward by itself as
+    // more countries report.
+    const quorum = Math.ceil(countries.length / 2);
+    const anchor = [...months].reverse().find((id) => countries.filter((c) => id in c.byMonth).length >= quorum);
+    if (!anchor) return null;
+
+    const windowMonths = Array.from({ length: windowSize }, (_, i) => shiftMonthId(anchor, i - windowSize + 1));
+
+    // The median is ONE value for the whole period: every country's monthly
+    // closing stock in the window, pooled. Countries with nothing but zeros or
+    // gaps (Albania reports 0 throughout) aren't real stock figures, so they
+    // stay out of it.
+    const withStock = countries
+        .map((c) => ({ code: c.code, data: windowMonths.map((id) => (id in c.byMonth ? c.byMonth[id] : null)) }))
+        .filter((c) => c.data.some((value) => value !== null && value !== 0));
+    // Threshold = (sum of every country's monthly stock) / months / countries,
+    // i.e. the average stock per country per month over the period.
+    const totalStock = withStock.reduce((sum, c) => sum + c.data.reduce((s, value) => s + (value || 0), 0), 0);
+    if (!withStock.length) return null;
+    const medianValue = totalStock / windowSize / withStock.length;
+
+    // Show only the values on the chosen side of the median ("below" includes
+    // the median itself); points on the other side become gaps, and a country
+    // with no point left on this side drops out of the chart.
+    const keep = (value) => value !== null && (group === "above" ? value > medianValue : value <= medianValue);
+    const geoLabels = d.__tree__.dimension.geo.category.label;
+    chartSeries = withStock
+        .map((c) => ({ ...c, shown: c.data.map((value) => (keep(value) ? value : null)) }))
+        .filter((c) => c.shown.some((value) => value !== null))
+        .map((c) => ({
+            name: languageNameSpace.labels[c.code] || geoLabels[c.code] || c.code,
+            data: c.shown,
+            indicator: c.code,
+        }));
+    // Alphabetical (in the page language) - this is the order of the tooltip
+    // rows and the legend.
+    chartSeries.sort((a, b) => a.name.localeCompare(b.name, REF.language.toLowerCase()));
+    if (!chartSeries.length) return null;
+
+    return {
+        categories: windowMonths.map((id) => formatMonthId(id, { month: "short", year: "numeric" })),
+        yAxisTitle: d.__tree__.dimension.unit.category.label[config.unit],
+        yAxisPlotLines: [{
+            value: medianValue,
+            color: "#555",
+            width: 2,
+            dashStyle: "Dash",
+            zIndex: 5,
+            label: {
+                text: `${languageNameSpace.labels["MEDIAN"] || "Average"}: ${Math.round(medianValue).toLocaleString(REF.language.toLowerCase())}`,
+                align: "right",
+                style: { color: "#333", fontWeight: "bold" },
+            },
+        }],
     };
 }
 
@@ -384,8 +511,8 @@ function compareCountries() {
                 const yAxisTitle = 'kilograms of oil equivalent';
                 const categories = d.Dimension("time").id;
                 buildChart(categories, REF.containerId, yAxisTitle, chartType, unit);
-            } else if (isCombinedChart()) {
-                const combined = combinedChartData();
+            } else if (isCustomDataChart()) {
+                const combined = customChartData();
 
                 if (!combined) {
                     getTitle();
@@ -393,7 +520,7 @@ function compareCountries() {
                     break;
                 }
 
-                buildChart(combined.categories, REF.containerId, combined.yAxisTitle, chartType, unit);
+                buildChart(combined.categories, REF.containerId, combined.yAxisTitle, chartType, unit, combined.yAxisPlotLines);
             } else {
                 const d = chartApiCall();
 

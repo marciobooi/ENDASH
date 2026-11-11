@@ -160,7 +160,9 @@ function exportTable() {
 function showHideBarChartOptions() {
   if (REF.chartType !== "barChart") {
       $("#togglePercentage, #Agregates").css('display', 'none');
-      $("#countrySelect").css('display', '');
+      // chart_24 draws every country, so the country selector does nothing
+      // while it's expanded.
+      $("#countrySelect").css('display', REF.chartExpanded && isMedianChart(REF.chartId) ? 'none' : '');
   } else {
       $("#togglePercentage, #Agregates").css('display', '');
       $("#countrySelect").css('display', 'none');
@@ -236,6 +238,7 @@ function addAuxiliarBarGraphOptions() {
   }
 
   showHideTimeLine()
+  showHideBarChartOptions()
 
   // Aux chart controls are injected dynamically on expand, so bind tooltips now.
   if (typeof enableTooltips === "function") {
@@ -647,6 +650,11 @@ switch (REF.chartType) {
 
   default:
       title = `${safeLabel(REF.title, REF.title)}`
+      // A median-split chart (chart_24) shows one half of the countries at a
+      // time, so its title names which half.
+      if (isMedianChart(REF.chartId)) {
+        title += ` - ${safeLabel(REF.medianGroup === "below" ? "OIL_MEDIAN_BELOW" : "OIL_MEDIAN_ABOVE")}`;
+      }
       if(REF.chartExpanded == true) {
         const titleExpanded = document.querySelector("#title");
         if (titleExpanded) titleExpanded.innerHTML = `${safeLabel(REF.title, REF.title)} - ${safeLabel(REF.geos, REF.geos)}`;
@@ -658,7 +666,17 @@ switch (REF.chartType) {
     break;
 }
   if (titleElement) {
-    titleElement.innerHTML = `<div class="textGroup"><h2>${title}</h2><p>${unit}</p></div>${btn}`;
+    // chart_24 also gets an above/below toggle right on the card: a round icon
+    // button (arrow up = show values above the median, down = below), placed
+    // beside the expand button.
+    let buttons = btn;
+    if (isMedianChart(REF.chartId)) {
+      const showingBelow = REF.medianGroup === "below";
+      const medianLabel = safeLabel(showingBelow ? "SHOW_ABOVE_MEDIAN" : "SHOW_BELOW_MEDIAN");
+      const medianBtn = `<button type="button" class="ecl-button ecl-button--primary round-btn medianGroupBtn" data-chart-id="${REF.chartId}" aria-label="${medianLabel}" title="${medianLabel}"><i class="fas ${showingBelow ? "fa-arrow-up" : "fa-arrow-down"}" aria-hidden="true"></i></button>`;
+      buttons = `<div style="display:flex; gap:.5rem; align-items:flex-start;">${medianBtn}${btn}</div>`;
+    }
+    titleElement.innerHTML = `<div class="textGroup"><h2>${title}</h2><p>${unit}</p></div>${buttons}`;
   }
 
 
@@ -789,18 +807,20 @@ function buildApiUrl() {
   return url;
 }
 
-// Line-chart query for ONE source table of a combined chart (chart_23 and its
-// `combine` block in codes.js). buildApiUrl() above can't be reused because it
-// reads the single dataset REF currently points at; here the caller names the
-// table. Single geo only - the combined data path assumes one value per month.
-function buildDatasetApiUrl(source) {
-  const geo = String(REF.geos).split(",")[0];
-
+// Query for ONE source table of a custom-data chart (chart_23's `combine`
+// block, chart_24's median split - see codes.js). buildApiUrl() above can't be
+// reused because it reads the single dataset REF currently points at; here
+// the caller names the table. By default it asks for the selected country
+// only (one value per month); options.allGeos leaves the geo filter off so
+// the response carries every country, and options.since ("YYYY-MM") trims
+// the series to recent months instead of the whole history.
+function buildDatasetApiUrl(source, options = {}) {
   let url = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/" + source.dataset + "?";
   url += "format=JSON";
   url += "&lang=" + REF.language;
   url += "&unit=" + source.unit;
-  url += "&geo=" + geo;
+  if (!options.allGeos) url += "&geo=" + String(REF.geos).split(",")[0];
+  if (options.since) url += "&sinceTimePeriod=" + options.since;
   (source.indicator || []).forEach((code) => { url += `&${source.indicator_type}=${code}`; });
   (source.indicator2 || []).forEach((code) => { url += `&${source.indicator2_type}=${code}`; });
   return url;

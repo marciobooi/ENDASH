@@ -27,6 +27,9 @@ const dataNameSpace = {
     percentage: 0,
     chartType: "lineChart",
     chartCreated: false,
+    // Which half of the countries a median-split chart (chart_24) shows:
+    // "above" or "below" the median. Lives in REF so it survives in the URL.
+    medianGroup: "above",
     chartExpanded: false,
     share:"false",
     meta: ""

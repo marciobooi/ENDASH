@@ -12,7 +12,34 @@ class FloatingChartControls {
       </li>
       <li class="nav-item px-1" id="Agregates" role="none">
       </li>
+      ${isMedianChart(REF.chartId) ? '<li class="nav-item px-1" id="medianToggle" role="none"></li>' : ''}
         </ul>`;  }
+
+  // Flips a median-split chart (chart_24) between the countries above and
+  // below the median, then redraws it.
+  toggleMedianGroup() {
+    REF.medianGroup = REF.medianGroup === "below" ? "above" : "below";
+    dataNameSpace.setRefURL();
+    this.syncMedianButton();
+    compareCountries();
+  }
+
+  // The button names (and shows an arrow for) the group a click will switch
+  // TO, so its label and icon always agree.
+  syncMedianButton() {
+    const button = document.getElementById("toggleMedianGroup");
+    if (!button) return;
+
+    const showingBelow = REF.medianGroup === "below";
+    const key = showingBelow ? "SHOW_ABOVE_MEDIAN" : "SHOW_BELOW_MEDIAN";
+    const label = languageNameSpace.labels[key] || key;
+
+    button.setAttribute("data-i18n-label", key);
+    button.setAttribute("data-i18n-title", key);
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.innerHTML = `<i class="fas ${showingBelow ? "fa-arrow-up" : "fa-arrow-down"}" aria-hidden="true"></i>`;
+  }
 
   toggleChartPercentage() {
     REF.percentage = REF.percentage == 0 ? 1 : 0;
@@ -64,6 +91,15 @@ class FloatingChartControls {
 
     document.getElementById("togglePercentage").appendChild(percentageElement);
     document.getElementById("Agregates").appendChild(agregatesElement);
+
+    if (document.getElementById("medianToggle")) {
+      const medianButton = new Button("toggleMedianGroup", [ "ecl-button", "ecl-button--primary", "round-btn"], "SHOW_BELOW_MEDIAN", "", "true");
+      medianButton.setClickHandler(function() {
+        self.toggleMedianGroup();
+      });
+      document.getElementById("medianToggle").appendChild(medianButton.createButton());
+      this.syncMedianButton();
+    }
   }
 
   removeFromDOM(targetElement) {
@@ -79,3 +115,24 @@ class FloatingChartControls {
 
 
 
+
+
+// The on-card above/below toggle of median-split charts (chart_24). Captured
+// before the card's own click handler so toggling doesn't also expand the card.
+document.addEventListener('click', function (event) {
+  const button = event.target.closest && event.target.closest('.medianGroupBtn');
+  if (!button) return;
+
+  event.stopPropagation();
+  REF.chartId = button.getAttribute('data-chart-id');
+  REF.medianGroup = REF.medianGroup === "below" ? "above" : "below";
+  dataNameSpace.setRefURL();
+
+  const card = document.getElementById(REF.chartId);
+  if (card && card.classList.contains('expand')) {
+    compareCountries();
+    if (typeof FloatingControls !== "undefined" && FloatingControls.syncMedianButton) FloatingControls.syncMedianButton();
+  } else {
+    endash();
+  }
+}, true);

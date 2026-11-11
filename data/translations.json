@@ -499,6 +499,36 @@
     "DE": "Bestände und Lieferungen von Kraftfahrzeug-Diesel: letzte 12 Monate im Vergleich zu den vorherigen 12 Monaten",
     "FR": "Stocks et livraisons de diesel routier : 12 derniers mois par rapport aux 12 mois précédents"
   },
+  "chart_24": {
+    "EN": "Road diesel closing stocks by country, last 12 months",
+    "DE": "Schlussbestände von Kraftfahrzeug-Diesel nach Land, letzte 12 Monate",
+    "FR": "Stocks de clôture de diesel routier par pays, 12 derniers mois"
+  },
+  "OIL_MEDIAN_ABOVE": {
+    "EN": "values above the average of the last 12 months",
+    "DE": "Werte über dem Durchschnitt der letzten 12 Monate",
+    "FR": "valeurs au-dessus de la moyenne des 12 derniers mois"
+  },
+  "OIL_MEDIAN_BELOW": {
+    "EN": "values at or below the average of the last 12 months",
+    "DE": "Werte auf oder unter dem Durchschnitt der letzten 12 Monate",
+    "FR": "valeurs égales ou inférieures à la moyenne des 12 derniers mois"
+  },
+  "MEDIAN": {
+    "EN": "Average",
+    "DE": "Durchschnitt",
+    "FR": "Moyenne"
+  },
+  "SHOW_ABOVE_MEDIAN": {
+    "EN": "Show values above the average",
+    "DE": "Werte über dem Durchschnitt anzeigen",
+    "FR": "Afficher les valeurs au-dessus de la moyenne"
+  },
+  "SHOW_BELOW_MEDIAN": {
+    "EN": "Show values below the average",
+    "DE": "Werte unter dem Durchschnitt anzeigen",
+    "FR": "Afficher les valeurs en dessous de la moyenne"
+  },
   "SHOW_BAR_CHART": {
     "EN": "Show bar chart",
     "FR": "Afficher le graphique en barres",

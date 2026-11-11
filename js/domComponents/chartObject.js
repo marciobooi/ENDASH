@@ -16,6 +16,7 @@ class Chart {
       this.pieOptions = options.pieOptions;
       this.seriesOptions = options.seriesOptions;
       this.yAxisTitle = options.yAxisTitle;
+      this.yAxisPlotLines = options.yAxisPlotLines;
     }
   
     createChart() {
@@ -98,6 +99,7 @@ class Chart {
           },
           // Percentage shares read best on a fixed 0-100 scale; softMin/softMax
           // still let the axis grow if an indicator's data ever exceeds that range.
+          plotLines: this.yAxisPlotLines,
           softMin: REF.unit === 'PC' ? 0 : undefined,
           softMax: REF.unit === 'PC' ? 100 : undefined,
         },
