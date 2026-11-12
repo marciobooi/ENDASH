@@ -175,6 +175,7 @@ function createMonthlyBarChart() {
     series: chartSeries,
     colors: colors,
     legend: {},
+    yAxisPlotLines: bar.yAxisPlotLines,
     columnOptions: { connectNulls: true },
   });
   barChart = customChart.createChart();

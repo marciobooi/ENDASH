@@ -458,3 +458,11 @@ text.highcharts-axis-title {
     opacity: .7;
      border: 2px solid #0e47cb;
 }
+
+/* The tooltip is drawn outside the chart, right next to the hovered point; if it
+   catches the mouse it covers (and steals the hover from) the points beside it,
+   e.g. the last month of a line. It is display-only, so let the mouse pass. */
+.highcharts-tooltip-container,
+.highcharts-tooltip-container * {
+  pointer-events: none !important;
+}

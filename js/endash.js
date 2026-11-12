@@ -351,6 +351,7 @@ function combinedChartData() {
                 indicator: code,
                 color: lineColors[t],
                 dashStyle: back === 0 ? "Solid" : "ShortDash",
+                previousWindow: back > 0,
             });
         });
     });
@@ -396,8 +397,8 @@ function isCustomDataChart(chartId = REF.chartId) {
 
 // Builds chartSeries and returns { categories, yAxisTitle }, or null when
 // there is nothing to draw.
-function customChartData() {
-    return isMedianChart() ? medianChartData() : combinedChartData();
+function customChartData(options = {}) {
+    return isMedianChart() ? medianChartData(options) : combinedChartData();
 }
 
 function medianOf(valuesAscending) {
@@ -452,8 +453,12 @@ function monthlyTables(config) {
         if (!parsed) return null;
         tables.push({ ...parsed, d, source });
     }
-    const quorums = tables.map((table) => new Set(quorumMonths(table)));
-    const months = tables[0].months.filter((id) => quorums.every((set) => set.has(id)));
+    // The slider runs up to the newest month ANY country has published for
+    // every table; countries that haven't reached it yet fall back to their
+    // own latest earlier month (see latestAtOrBefore).
+    const months = tables[0].months.filter((id) =>
+        tables.every((table) => table.countries.some((c) => id in c.byMonth))
+    );
     return months.length ? { tables, months } : null;
 }
 
@@ -461,6 +466,27 @@ function monthlyTables(config) {
 function resolveMonth(months) {
     if (!months.includes(REF.month)) REF.month = months[months.length - 1];
     return REF.month;
+}
+
+// How many months a country may lag the selected month and still be shown
+// (with its own month in the label).
+const MAX_MONTHS_BEHIND = 3;
+
+// A country's value for `month`, or - when it hasn't published that month yet -
+// its latest earlier one. { value, month } (month is the one actually used), or
+// null when it has nothing at or before `month`.
+function latestAtOrBefore(country, month) {
+    if (!country) return null;
+    if (month in country.byMonth) return { value: country.byMonth[month], month };
+    const earlier = Object.keys(country.byMonth).filter((id) => id < month).sort().pop();
+    // A country further behind than MAX_MONTHS_BEHIND isn't padded in with old data.
+    return earlier && earlier >= shiftMonthId(month, -MAX_MONTHS_BEHIND) ? { value: country.byMonth[earlier], month: earlier } : null;
+}
+
+// Country name, plus the month it actually reports when that isn't `month`.
+function countryLabelFor(code, geoLabels, used, month) {
+    const name = languageNameSpace.labels[code] || geoLabels[code] || code;
+    return used && used !== month ? `${name} (${formatMonthId(used, { month: "short", year: "numeric" })})` : name;
 }
 
 // Bar view of a monthly chart: every country for the selected month, one
@@ -471,9 +497,10 @@ function monthlyBarData() {
     if (!data) return null;
     const month = resolveMonth(data.months);
 
+    const entryOf = (table, code) => latestAtOrBefore(table.countries.find((c) => c.code === code), month);
     const valueOf = (table, code) => {
-        const country = table.countries.find((c) => c.code === code);
-        return country && month in country.byMonth ? country.byMonth[month] : null;
+        const entry = entryOf(table, code);
+        return entry ? entry.value : null;
     };
     const codes = data.tables[0].countries
         .map((c) => c.code)
@@ -483,16 +510,32 @@ function monthlyBarData() {
 
     const lineColors = ["#0033FF", "#E67500"];
     const geoLabels = data.tables[0].geoLabels;
+    const yAxisTitle = data.tables[0].d.__tree__.dimension.unit.category.label[config.unit];
+    const categories = codes.map((code) => countryLabelFor(code, geoLabels, (entryOf(data.tables[0], code) || {}).month, month));
+
+    // Average-split charts: one bar per country, the ones above the period
+    // average highlighted, with the average drawn as a line.
+    if (config.medianSplit) {
+        const threshold = averageThreshold(data.tables[0], config.months || 12);
+        if (!threshold) return null;
+        chartSeries = [{
+            name: languageNameSpace.labels["MEDIAN"] || "Average",
+            data: codes.map((code) => {
+                const y = valueOf(data.tables[0], code);
+                return { y, color: y > threshold.value ? "#E67500" : "#7F9BD9" };
+            }),
+            showInLegend: false,
+        }];
+        return { categories, yAxisTitle, yAxisPlotLines: averagePlotLine(threshold.value) };
+    }
+
     chartSeries = data.tables.map((table, t) => ({
         name: table.d.__tree__.dimension[table.source.indicator2_type].category.label[table.source.indicator2[0]],
         data: codes.map((code) => valueOf(table, code)),
         color: lineColors[t],
     }));
 
-    return {
-        categories: codes.map((code) => languageNameSpace.labels[code] || geoLabels[code] || code),
-        yAxisTitle: data.tables[0].d.__tree__.dimension.unit.category.label[config.unit],
-    };
+    return { categories, yAxisTitle };
 }
 
 // Pie view of a monthly chart (first source table): each country's share of
@@ -506,11 +549,43 @@ function monthlyPieData() {
 
     window.pieChartUnitLabel = table.d.__tree__.dimension.unit.category.label[config.unit] || REF.unit;
     return table.countries
-        .filter((c) => (c.byMonth[month] || 0) > 0)
-        .map((c) => [languageNameSpace.labels[c.code] || table.geoLabels[c.code] || c.code, c.byMonth[month]]);
+        .map((c) => ({ c, entry: latestAtOrBefore(c, month) }))
+        .filter(({ entry }) => entry && entry.value > 0)
+        .map(({ c, entry }) => [countryLabelFor(c.code, table.geoLabels, entry.month, month), entry.value]);
 }
 
-function medianChartData() {
+// Threshold of the average-split charts: every country's monthly stock in the
+// window, summed, / months / countries. Countries with nothing but zeros or gaps
+// (Albania reports 0 throughout) aren't real stock figures and stay out.
+function averageThreshold(parsed, windowSize) {
+    const anchor = quorumMonths(parsed).pop();
+    if (!anchor) return null;
+    const windowMonths = Array.from({ length: windowSize }, (_, i) => shiftMonthId(anchor, i - windowSize + 1));
+    const withStock = parsed.countries
+        .map((c) => ({ code: c.code, data: windowMonths.map((id) => (id in c.byMonth ? c.byMonth[id] : null)) }))
+        .filter((c) => c.data.some((value) => value !== null && value !== 0));
+    if (!withStock.length) return null;
+    const total = withStock.reduce((sum, c) => sum + c.data.reduce((s, value) => s + (value || 0), 0), 0);
+    return { windowMonths, withStock, value: total / windowSize / withStock.length };
+}
+
+function averagePlotLine(value) {
+    return [{
+        value,
+        color: "#555",
+        width: 2,
+        dashStyle: "Dash",
+        zIndex: 5,
+        label: {
+            text: `${languageNameSpace.labels["MEDIAN"] || "Average"}: ${Math.round(value).toLocaleString(REF.language.toLowerCase())}`,
+            align: "right",
+            style: { color: "#333", fontWeight: "bold" },
+        },
+    }];
+}
+
+// options.allCountries: every country, ignoring the above/below toggle (insights).
+function medianChartData(options = {}) {
     const config = codesDataset[REF.chartId];
     const windowSize = config.months || 12;
     const group = isMedianBelow(REF.chartId) ? "below" : "above";
@@ -528,30 +603,15 @@ function medianChartData() {
     if (!parsed) return null;
     const countries = parsed.countries;
 
-    // "Last 12 months available": anchor on the newest month that at least
-    // half the countries have published (see quorumMonths).
-    const anchor = quorumMonths(parsed).pop();
-    if (!anchor) return null;
-
-    const windowMonths = Array.from({ length: windowSize }, (_, i) => shiftMonthId(anchor, i - windowSize + 1));
-
-    // The median is ONE value for the whole period: every country's monthly
-    // closing stock in the window, pooled. Countries with nothing but zeros or
-    // gaps (Albania reports 0 throughout) aren't real stock figures, so they
-    // stay out of it.
-    const withStock = countries
-        .map((c) => ({ code: c.code, data: windowMonths.map((id) => (id in c.byMonth ? c.byMonth[id] : null)) }))
-        .filter((c) => c.data.some((value) => value !== null && value !== 0));
-    // Threshold = (sum of every country's monthly stock) / months / countries,
-    // i.e. the average stock per country per month over the period.
-    const totalStock = withStock.reduce((sum, c) => sum + c.data.reduce((s, value) => s + (value || 0), 0), 0);
-    if (!withStock.length) return null;
-    const medianValue = totalStock / windowSize / withStock.length;
+    const threshold = averageThreshold(parsed, windowSize);
+    if (!threshold) return null;
+    const { windowMonths, withStock } = threshold;
+    const medianValue = threshold.value;
 
     // Show only the values on the chosen side of the median ("below" includes
     // the median itself); points on the other side become gaps, and a country
     // with no point left on this side drops out of the chart.
-    const keep = (value) => value !== null && (group === "above" ? value > medianValue : value <= medianValue);
+    const keep = (value) => value !== null && (options.allCountries || (group === "above" ? value > medianValue : value <= medianValue));
     const geoLabels = d.__tree__.dimension.geo.category.label;
     chartSeries = withStock
         .map((c) => ({ ...c, shown: c.data.map((value) => (keep(value) ? value : null)) }))
@@ -569,18 +629,7 @@ function medianChartData() {
     return {
         categories: windowMonths.map((id) => formatMonthId(id, { month: "short", year: "numeric" })),
         yAxisTitle: d.__tree__.dimension.unit.category.label[config.unit],
-        yAxisPlotLines: [{
-            value: medianValue,
-            color: "#555",
-            width: 2,
-            dashStyle: "Dash",
-            zIndex: 5,
-            label: {
-                text: `${languageNameSpace.labels["MEDIAN"] || "Average"}: ${Math.round(medianValue).toLocaleString(REF.language.toLowerCase())}`,
-                align: "right",
-                style: { color: "#333", fontWeight: "bold" },
-            },
-        }],
+        yAxisPlotLines: averagePlotLine(medianValue),
     };
 }
 

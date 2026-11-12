@@ -164,7 +164,8 @@ function showHideBarChartOptions() {
       $("#togglePercentage, #Agregates").css('display', 'none');
       // chart_24 draws every country, so the country selector does nothing
       // while it's expanded.
-      $("#countrySelect").css('display', REF.chartExpanded && isMedianChart(REF.chartId) ? 'none' : '');
+      // The insights view hides it too.
+      $("#countrySelect").css('display', REF.chartExpanded && (isMedianChart(REF.chartId) || REF.chartType === "insightsChart") ? 'none' : '');
   } else {
       $("#togglePercentage, #Agregates").css('display', isMonthlyChart(REF.chartId) ? 'none' : '');
       $("#countrySelect").css('display', 'none');
@@ -306,6 +307,7 @@ log('here')
   const parentContainer = document.querySelector(".flex-container .expand");
   if (parentContainer) {
     parentContainer.classList.remove("expand");
+    parentContainer.draggable = true; // drag and drop is back once the card is a gallery card again
     parentContainer.setAttribute('aria-expanded', 'false');
 
     const expandedCharts = parentContainer.querySelectorAll(".highchartsContainerExpand");

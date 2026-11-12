@@ -115,6 +115,10 @@
   animation: globalInsightsPanelIn 240ms ease-out;
 }
 
+.global-insights-panel.has-theme-nav {
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
 .global-insights-header {
   align-items: center;
   background: rgba(255, 255, 255, 0.9);

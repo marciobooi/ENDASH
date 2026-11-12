@@ -305,6 +305,58 @@ const chartStoryConfig = {
       how: "Ranks product series by latest value and share of total supply.",
       read: "Interpret trends with structural changes in energy mix."
     }
+  },
+  chart_23: {
+    group: "oil",
+    icon: "🛢️",
+    storyTitle: "Road diesel stocks and deliveries",
+    insightRole: "Compares road diesel closing stocks and deliveries over the last 12 months.",
+    preferredMetric: "latest-and-change",
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Puts road diesel closing stocks next to deliveries for the latest 12 months, with the 12 months before for comparison.",
+      how: "Takes the newest month published for the selected country, then reads the latest value, the change on the previous month and over the period.",
+      read: "Stocks that stay high while deliveries fall can signal weaker demand; falling stocks with steady deliveries signal tighter supply."
+    }
+  },
+  chart_25: {
+    group: "oil",
+    icon: "✈️",
+    storyTitle: "Jet fuel stocks and deliveries",
+    insightRole: "Compares kerosene-type jet fuel closing stocks and deliveries over the last 12 months.",
+    preferredMetric: "latest-and-change",
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Puts jet fuel closing stocks next to deliveries for the latest 12 months, with the 12 months before for comparison.",
+      how: "Takes the newest month published for the selected country, then reads the latest value, the change on the previous month and over the period.",
+      read: "Stocks that stay high while deliveries fall can signal weaker demand; falling stocks with steady deliveries signal tighter supply."
+    }
+  },
+  chart_24: {
+    group: "oil",
+    icon: "🛢️",
+    storyTitle: "Road diesel stocks by country",
+    insightRole: "Ranks countries by road diesel closing stocks over the last 12 months.",
+    preferredMetric: "latest-and-change",
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows every country's closing stock month by month and which countries hold the most.",
+      how: "Ranks all countries by their latest published month and reads each one's trend over the period.",
+      read: "A large and rising stock is a bigger buffer; compare countries against the period average shown in the chart."
+    }
+  },
+  chart_26: {
+    group: "oil",
+    icon: "✈️",
+    storyTitle: "Jet fuel stocks by country",
+    insightRole: "Ranks countries by kerosene-type jet fuel closing stocks over the last 12 months.",
+    preferredMetric: "latest-and-change",
+    sentiment: "contextual",
+    simpleExplain: {
+      what: "Shows every country's closing stock month by month and which countries hold the most.",
+      how: "Ranks all countries by their latest published month and reads each one's trend over the period.",
+      read: "A large and rising stock is a bigger buffer; compare countries against the period average shown in the chart."
+    }
   }
 };
 
@@ -691,6 +743,10 @@ function getInsightCategory(chartLabel, unitLabel) {
   const title = String(chartLabel || "").toLowerCase();
   const unit = String(unitLabel || "").toUpperCase();
 
+  if (title.includes("stocks") || title.includes("bestände") || title.includes("schlussbestände") || title.includes("stocks")) {
+    return "stocks";
+  }
+
   if (
     unit === "PC" ||
     title.includes("share") ||
@@ -747,6 +803,22 @@ function buildCategoryInsightText(item, unit, chartLabel) {
       ". The long-term change is " +
       formatSignedNumber(item.longTermChange, "percentage points") +
       "."
+    );
+  }
+
+  if (category === "stocks") {
+    return (
+      name +
+      " holds the largest stock in the selected context, with " +
+      formatInsightNumber(item.latest) +
+      " " +
+      unit +
+      latestYearText +
+      ". Over the period shown the stock is " +
+      item.trendLabel +
+      " (" +
+      formatSignedNumber(item.longTermChange, unit) +
+      ")."
     );
   }
 
@@ -1022,6 +1094,21 @@ function renderInsightsToChartContainer(html) {
   bindInsightInfoInteractions(target);
 }
 
+// Oil charts have their own monthly data path (endash.js) instead of
+// chartApiCall() + handleData(): fills chartSeries and returns the month
+// labels, or null when there is nothing to show. Average-split charts feed
+// every country in, whatever the above/below toggle says.
+function loadCustomInsightCategories() {
+  const custom = customChartData({ allCountries: true });
+  if (!custom || !Array.isArray(chartSeries)) return null;
+  chartSeries = chartSeries.filter((serie) => !serie.previousWindow);
+  return custom.categories;
+}
+
+function isMonthlyInsight() {
+  return typeof isMonthlyChart === "function" && isMonthlyChart(REF.chartId);
+}
+
 function createEnergyInsights() {
   // The per-chart insight markup below reuses the .story-icon/.local-story-header/
   // .story-title-row classes styled by injectInsightsStoryStyles(), but that
@@ -1033,17 +1120,22 @@ function createEnergyInsights() {
 
   updateREFFromCodesDataset(REF.chartId);
 
-  const d = chartApiCall();
+  let categories;
+  if (isCustomDataChart(REF.chartId)) {
+    categories = loadCustomInsightCategories();
+  } else {
+    const d = chartApiCall();
+    if (d) {
+      const timeDim = d.Dimension("time");
+      categories = timeDim ? timeDim.id : [];
+      handleData(d, categories, categories);
+    }
+  }
 
-  if (!d) {
+  if (!categories) {
     renderInsightsToChartContainer('<div class="insights-page"><p class="insights-empty">No data available.</p></div>');
     return;
   }
-
-  const timeDim = d.Dimension("time");
-  const categories = timeDim ? timeDim.id : [];
-
-  handleData(d, categories, categories);
 
   const insightsSeries = buildInsightSeriesFromChartSeries(categories);
   const unit = getInsightUnitLabel();
@@ -1103,7 +1195,7 @@ function createEnergyInsights() {
     '<article class="insight-card">',
     '<div class="insight-label">' + escapeInsightText(deltaLabel) + '</div>',
     '<div class="insight-value">' + escapeInsightText(deltaText) + '</div>',
-    '<div class="insight-sub">Recent annual change</div>',
+    '<div class="insight-sub">' + (isMonthlyInsight() ? 'Change on the previous month' : 'Recent annual change') + '</div>',
     '</article>',
 
     '<article class="insight-card">',
@@ -1188,7 +1280,9 @@ function collectGlobalInsightsData() {
   const labels = (languageNameSpace && languageNameSpace.labels) || {};
   const chartIds = getMainViewChartIds();
   const initialState = cloneRefState();
-  const savedContainerId = containerId;
+  // containerId is only assigned once a chart has been set up; opening the
+  // overview before any card rendered used to throw here.
+  const savedContainerId = typeof containerId === "undefined" ? undefined : containerId;
   const summary = [];
 
   chartIds.forEach((chartId) => {
@@ -1198,14 +1292,21 @@ function collectGlobalInsightsData() {
 
       updateREFFromCodesDataset(chartId);
 
-      const d = chartApiCall();
+      let categories;
+      if (isCustomDataChart(chartId)) {
+        REF.chartId = chartId;
+        categories = loadCustomInsightCategories();
+        if (!categories) return;
+      } else {
+        const d = chartApiCall();
 
-      if (!d) return;
+        if (!d) return;
 
-      const timeDim = d.Dimension("time");
-      const categories = timeDim ? timeDim.id : [];
+        const timeDim = d.Dimension("time");
+        categories = timeDim ? timeDim.id : [];
 
-      handleData(d, categories, categories);
+        handleData(d, categories, categories);
+      }
 
       const insightsSeries = buildInsightSeriesFromChartSeries(categories);
 
@@ -2166,6 +2267,60 @@ function buildStoryCard(item) {
   ].join("");
 }
 
+// "Energy topics"-style tab row for the Global Insights window: one link per
+// theme that has charts, scrolling the window to that theme's section.
+function buildGlobalThemeNav(summary) {
+  const keys = Array.from(new Set(summary.map((item) => item.storyGroup || "other")))
+    .sort((a, b) => getInsightGroupConfig(a).order - getInsightGroupConfig(b).order);
+  if (keys.length < 2) return "";
+
+  const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+  const items = keys.map((key, index) =>
+    '<li><a href="#gi-section-' + escapeInsightText(key) + '" class="gi-theme-nav__link' + (index === 0 ? ' is-active' : '') +
+    '" data-gi-target="gi-section-' + escapeInsightText(key) + '">' + escapeInsightText(getInsightGroupConfig(key).title) + '</a></li>'
+  );
+
+  return '<nav class="gi-theme-nav" aria-label="' + escapeInsightText(labels.THEME_NAV_LABEL || "Energy topics") + '"><ul>' + items.join("") + '</ul></nav>';
+}
+
+// Click-to-scroll and scroll-spy for the nav above; `body` is the window's
+// scrolling container.
+function bindGlobalThemeNav(body) {
+  const nav = body.querySelector(".gi-theme-nav");
+  if (!nav) return;
+  const links = Array.from(nav.querySelectorAll(".gi-theme-nav__link"));
+
+  // Move the bar out of the scrolling area, between the header and the body, so
+  // it spans the window's full width and nothing scrolls past above it.
+  const panel = body.parentElement;
+  panel.insertBefore(nav, body);
+  panel.classList.add("has-theme-nav");
+
+  const sectionTop = (id) => {
+    const section = document.getElementById(id);
+    return section ? section.getBoundingClientRect().top - body.getBoundingClientRect().top + body.scrollTop : 0;
+  };
+  const setActive = (activeLink) => links.forEach((link) => {
+    link.classList.toggle("is-active", link === activeLink);
+    if (link === activeLink) link.setAttribute("aria-current", "true"); else link.removeAttribute("aria-current");
+  });
+
+  links.forEach((link) => link.addEventListener("click", (event) => {
+    event.preventDefault();
+    // Instant, not smooth: the cards above keep changing height while their
+    // sparklines render, which made an animated scroll land short.
+    body.scrollTo({ top: sectionTop(link.dataset.giTarget) - 8, behavior: "instant" });
+    setActive(link);
+  }));
+
+  body.addEventListener("scroll", () => {
+    const line = body.scrollTop + 32;
+    let current = links[0];
+    links.forEach((link) => { if (sectionTop(link.dataset.giTarget) <= line) current = link; });
+    setActive(current);
+  }, { passive: true });
+}
+
 function buildStoryGroupSections(summary) {
   const grouped = summary.reduce((acc, item) => {
     const group = item.storyGroup || "other";
@@ -2191,7 +2346,7 @@ function buildStoryGroupSections(summary) {
       const cards = items.map(buildStoryCard).join("");
 
       return [
-        '<section class="story-group-section" style="--story-color:' + escapeInsightText(group.color) + '">',
+        '<section class="story-group-section" id="gi-section-' + escapeInsightText(groupKey) + '" style="--story-color:' + escapeInsightText(group.color) + '">',
         '<div class="story-group-header">',
         '<div>',
         '<h3>' + escapeInsightText(group.title) + '</h3>',
@@ -2380,6 +2535,42 @@ function injectInsightsStoryStyles() {
     .mini-bar-fill.is-neutral { background: #445766; }
     .mini-bar-fill.is-driver { background: #1f6fba; }
     .mini-bar-fill.is-category { background: #6b4eff; }
+
+
+    .gi-theme-nav {
+      background: #ffffff;
+      border-bottom: 1px solid #d7e1eb;
+      box-shadow: 0 2px 4px rgba(9, 49, 142, .08);
+      margin: 0;
+      overflow-x: auto;
+    }
+
+    .gi-theme-nav ul {
+      display: flex;
+      gap: .25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      white-space: nowrap;
+    }
+
+    .gi-theme-nav__link {
+      display: block;
+      padding: .75rem 1rem;
+      color: #0e47cb;
+      text-decoration: none;
+      border-bottom: 4px solid transparent;
+    }
+
+    .gi-theme-nav__link:hover {
+      text-decoration: underline;
+    }
+
+    .gi-theme-nav__link.is-active {
+      color: #515560;
+      background: #e7edfa;
+      border-bottom-color: #0e47cb;
+    }
 
     .story-group-section {
       border-top: 4px solid var(--story-color, #718096);
@@ -2727,6 +2918,7 @@ function openGlobalInsights() {
 
       body.innerHTML = summary.length
         ? [
+            buildGlobalThemeNav(summary),
             '<section class="global-insights-hero story-hero">',
             '<p class="global-insights-kicker">Energy dashboard overview</p>',
             '<h2>Energy indicators at a glance</h2>',
@@ -2787,6 +2979,7 @@ function openGlobalInsights() {
       // Always start from the top when fresh content is injected.
       body.scrollTop = 0;
       bindInsightInfoInteractions(body);
+      bindGlobalThemeNav(body);
 
       renderGlobalSparklines(summary);
       renderThemeDonut(summary);

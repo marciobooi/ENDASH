@@ -230,6 +230,7 @@ class ChartContainer {
   }
 
   handleDragStart(event) {
+    if (REF.chartExpanded) { event.preventDefault(); return; }
     const sourceChartItem = event.target;
     sourceChartItem.style.opacity = '0.5';
     sourceChartItem.classList.add('dragged');
@@ -244,6 +245,7 @@ class ChartContainer {
 
   handleDrop(event) {
     event.preventDefault();
+    if (REF.chartExpanded) return;
     const sourceChartItemId = event.dataTransfer.getData('text/plain');
     const sourceChartItem = document.getElementById(sourceChartItemId);
 
@@ -309,6 +311,8 @@ class ChartContainer {
         // different theme while one chart is expanded doesn't make sense.
         $( ".theme-section__heading, .theme-section__empty, .theme-nav" ).css( "display", "none" );
         chartContainer.classList.add('expand');
+        // No drag and drop while a chart is expanded.
+        chartContainer.draggable = false;
         chartContainer.setAttribute('data-expanded', 'true');
         $(chartContainer).css( "display", "initial" );
         chartContainer.querySelector('.highchartsContainer').classList.add('highchartsContainerExpand');  

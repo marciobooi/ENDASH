@@ -1640,13 +1640,113 @@
     "DE": "Ölvorratsmengen und Versorgungssicherheit."
   },
   "THEME_OILSTOCKS_WHY": {
-    "EN": "This theme will track strategic oil reserves once the underlying data is linked in.",
-    "FR": "Ce thème suivra les réserves stratégiques de pétrole une fois les données correspondantes intégrées.",
-    "DE": "Dieses Thema wird die strategischen Ölreserven verfolgen, sobald die entsprechenden Daten eingebunden sind."
+    "EN": "Oil stocks show how much of a buffer countries hold; comparing stocks with deliveries and with the period average shows where supply is comfortable or tight.",
+    "FR": "Les stocks de pétrole indiquent le tampon dont disposent les pays ; comparer stocks et livraisons, ainsi que la moyenne de la période, montre où l'approvisionnement est confortable ou tendu.",
+    "DE": "Die Ölvorräte zeigen, welchen Puffer die Länder halten; der Vergleich von Beständen mit Lieferungen und dem Durchschnitt des Zeitraums zeigt, wo die Versorgung komfortabel oder knapp ist."
   },
   "GLOBAL_INSIGHTS_LOADING": {
     "EN": "Loading insights...",
     "FR": "Chargement des informations...",
     "DE": "Erkenntnisse werden geladen..."
+  },
+  "STORY_CHART_23_TITLE": {
+    "EN": "Road diesel stocks and deliveries",
+    "FR": "Stocks et livraisons de diesel routier",
+    "DE": "Bestände und Lieferungen von Diesel"
+  },
+  "STORY_CHART_23_ROLE": {
+    "EN": "Compares road diesel closing stocks and deliveries over the last 12 months.",
+    "FR": "Compare les stocks de clôture et les livraisons de diesel routier sur les 12 derniers mois.",
+    "DE": "Vergleicht Schlussbestände und Lieferungen von Kraftfahrzeug-Diesel der letzten 12 Monate."
+  },
+  "STORY_CHART_23_WHAT": {
+    "EN": "Puts road diesel closing stocks next to deliveries for the latest 12 months, with the 12 months before for comparison.",
+    "FR": "Met les stocks de clôture de diesel routier en regard des livraisons sur les 12 derniers mois, avec les 12 mois précédents pour comparaison.",
+    "DE": "Stellt die Schlussbestände von Kraftfahrzeug-Diesel den Lieferungen der letzten 12 Monate gegenüber, mit den 12 Monaten davor zum Vergleich."
+  },
+  "STORY_CHART_23_HOW": {
+    "EN": "Takes the newest month published for the selected country, then reads the latest value, the change on the previous month and over the period.",
+    "FR": "Prend le dernier mois publié pour le pays sélectionné, puis lit la dernière valeur, la variation sur le mois précédent et sur la période.",
+    "DE": "Nimmt den neuesten veröffentlichten Monat des gewählten Landes und liest den letzten Wert, die Veränderung zum Vormonat und über den Zeitraum."
+  },
+  "STORY_CHART_23_READ": {
+    "EN": "Stocks that stay high while deliveries fall can signal weaker demand; falling stocks with steady deliveries signal tighter supply.",
+    "FR": "Des stocks qui restent élevés alors que les livraisons baissent peuvent signaler une demande plus faible ; des stocks en baisse avec des livraisons stables signalent un approvisionnement plus tendu.",
+    "DE": "Hohe Bestände bei sinkenden Lieferungen können auf schwächere Nachfrage hindeuten; sinkende Bestände bei stabilen Lieferungen auf eine knappere Versorgung."
+  },
+  "STORY_CHART_25_TITLE": {
+    "EN": "Jet fuel stocks and deliveries",
+    "FR": "Stocks et livraisons de carburéacteur",
+    "DE": "Bestände und Lieferungen von Flugturbinenkraftstoff"
+  },
+  "STORY_CHART_25_ROLE": {
+    "EN": "Compares kerosene-type jet fuel closing stocks and deliveries over the last 12 months.",
+    "FR": "Compare les stocks de clôture et les livraisons de carburéacteur type kérosène sur les 12 derniers mois.",
+    "DE": "Vergleicht Schlussbestände und Lieferungen von Flugturbinenkraftstoff auf Petroleumbasis der letzten 12 Monate."
+  },
+  "STORY_CHART_25_WHAT": {
+    "EN": "Puts jet fuel closing stocks next to deliveries for the latest 12 months, with the 12 months before for comparison.",
+    "FR": "Met les stocks de clôture de carburéacteur en regard des livraisons sur les 12 derniers mois, avec les 12 mois précédents pour comparaison.",
+    "DE": "Stellt die Schlussbestände von Flugturbinenkraftstoff den Lieferungen der letzten 12 Monate gegenüber, mit den 12 Monaten davor zum Vergleich."
+  },
+  "STORY_CHART_25_HOW": {
+    "EN": "Takes the newest month published for the selected country, then reads the latest value, the change on the previous month and over the period.",
+    "FR": "Prend le dernier mois publié pour le pays sélectionné, puis lit la dernière valeur, la variation sur le mois précédent et sur la période.",
+    "DE": "Nimmt den neuesten veröffentlichten Monat des gewählten Landes und liest den letzten Wert, die Veränderung zum Vormonat und über den Zeitraum."
+  },
+  "STORY_CHART_25_READ": {
+    "EN": "Stocks that stay high while deliveries fall can signal weaker demand; falling stocks with steady deliveries signal tighter supply.",
+    "FR": "Des stocks qui restent élevés alors que les livraisons baissent peuvent signaler une demande plus faible ; des stocks en baisse avec des livraisons stables signalent un approvisionnement plus tendu.",
+    "DE": "Hohe Bestände bei sinkenden Lieferungen können auf schwächere Nachfrage hindeuten; sinkende Bestände bei stabilen Lieferungen auf eine knappere Versorgung."
+  },
+  "STORY_CHART_24_TITLE": {
+    "EN": "Road diesel stocks by country",
+    "FR": "Stocks de diesel routier par pays",
+    "DE": "Dieselbestände nach Land"
+  },
+  "STORY_CHART_24_ROLE": {
+    "EN": "Ranks countries by road diesel closing stocks over the last 12 months.",
+    "FR": "Classe les pays selon leurs stocks de clôture de diesel routier sur les 12 derniers mois.",
+    "DE": "Reiht die Länder nach ihren Schlussbeständen von Kraftfahrzeug-Diesel der letzten 12 Monate."
+  },
+  "STORY_CHART_24_WHAT": {
+    "EN": "Shows every country's closing stock month by month and which countries hold the most.",
+    "FR": "Montre le stock de clôture de chaque pays mois par mois et quels pays détiennent le plus.",
+    "DE": "Zeigt den Schlussbestand jedes Landes Monat für Monat und welche Länder am meisten halten."
+  },
+  "STORY_CHART_24_HOW": {
+    "EN": "Ranks all countries by their latest published month and reads each one's trend over the period.",
+    "FR": "Classe tous les pays selon leur dernier mois publié et lit la tendance de chacun sur la période.",
+    "DE": "Reiht alle Länder nach ihrem letzten veröffentlichten Monat und liest den Trend jedes Landes im Zeitraum."
+  },
+  "STORY_CHART_24_READ": {
+    "EN": "A large and rising stock is a bigger buffer; compare countries against the period average shown in the chart.",
+    "FR": "Un stock important et croissant constitue un tampon plus large ; comparez les pays à la moyenne de la période affichée dans le graphique.",
+    "DE": "Ein großer, wachsender Bestand ist ein größerer Puffer; vergleichen Sie die Länder mit dem im Diagramm gezeigten Durchschnitt des Zeitraums."
+  },
+  "STORY_CHART_26_TITLE": {
+    "EN": "Jet fuel stocks by country",
+    "FR": "Stocks de carburéacteur par pays",
+    "DE": "Flugturbinenkraftstoff-Bestände nach Land"
+  },
+  "STORY_CHART_26_ROLE": {
+    "EN": "Ranks countries by kerosene-type jet fuel closing stocks over the last 12 months.",
+    "FR": "Classe les pays selon leurs stocks de clôture de carburéacteur type kérosène sur les 12 derniers mois.",
+    "DE": "Reiht die Länder nach ihren Schlussbeständen von Flugturbinenkraftstoff auf Petroleumbasis der letzten 12 Monate."
+  },
+  "STORY_CHART_26_WHAT": {
+    "EN": "Shows every country's closing stock month by month and which countries hold the most.",
+    "FR": "Montre le stock de clôture de chaque pays mois par mois et quels pays détiennent le plus.",
+    "DE": "Zeigt den Schlussbestand jedes Landes Monat für Monat und welche Länder am meisten halten."
+  },
+  "STORY_CHART_26_HOW": {
+    "EN": "Ranks all countries by their latest published month and reads each one's trend over the period.",
+    "FR": "Classe tous les pays selon leur dernier mois publié et lit la tendance de chacun sur la période.",
+    "DE": "Reiht alle Länder nach ihrem letzten veröffentlichten Monat und liest den Trend jedes Landes im Zeitraum."
+  },
+  "STORY_CHART_26_READ": {
+    "EN": "A large and rising stock is a bigger buffer; compare countries against the period average shown in the chart.",
+    "FR": "Un stock important et croissant constitue un tampon plus large ; comparez les pays à la moyenne de la période affichée dans le graphique.",
+    "DE": "Ein großer, wachsender Bestand ist ein größerer Puffer; vergleichen Sie die Länder mit dem im Diagramm gezeigten Durchschnitt des Zeitraums."
   }
 }
