@@ -1,17 +1,6 @@
-// Bar/pie recombine a chart's series into a single-year breakdown, which
-// isn't meaningful for every chart:
-// - chart_2 (renewable energy) mixes indicators that aren't a real
-//   part-of-whole breakdown, so neither bar nor pie makes sense.
-// - these charts only ever resolve to a single series/indicator for pie, so
-//   the pie chart is always just one 100% slice.
-// - chart_23 (oil stocks) is a monthly two-window overlay, not a single-year
-//   breakdown by country or category, so bar/pie have nothing to show.
-const BAR_AND_PIE_DISABLED_CHARTS = ["chart_2", "chart_23", "chart_24", "chart_25", "chart_26"];
-const PIE_ONLY_DISABLED_CHARTS = ["chart_4", "chart_5", "chart_7", "chart_10", "chart_11", "chart_19"];
-// The insights view reads a chart's series as one annual time series ("latest
-// year", "change since <year>"), which doesn't fit chart_23's monthly
-// two-table overlay. Also skipped by Global Insights (getMainViewChartIds).
-const INSIGHTS_DISABLED_CHARTS = ["chart_23", "chart_24", "chart_25", "chart_26"];
+// Which expanded-view buttons are enabled for a chart comes from its
+// "optionCharts" list in codes.js (see chartOptionEnabled): bar, pie, table and
+// insights are disabled when missing from it.
 
 class ChartControls {
   constructor() {
@@ -249,16 +238,10 @@ class ChartControls {
 
     lineChart.setDisabled(true);
 
-    if (BAR_AND_PIE_DISABLED_CHARTS.includes(REF.chartId)) {
-      barChart.setDisabled(true);
-      pieChart.setDisabled(true);
-    } else if (PIE_ONLY_DISABLED_CHARTS.includes(REF.chartId)) {
-      pieChart.setDisabled(true);
-    }
-
-    if (INSIGHTS_DISABLED_CHARTS.includes(REF.chartId)) {
-      insightsChart.setDisabled(true);
-    }
+    if (!chartOptionEnabled(REF.chartId, "bar")) barChart.setDisabled(true);
+    if (!chartOptionEnabled(REF.chartId, "pie")) pieChart.setDisabled(true);
+    if (!chartOptionEnabled(REF.chartId, "insights")) insightsChart.setDisabled(true);
+    if (!chartOptionEnabled(REF.chartId, "table")) table.setDisabled(true);
 
     // Chart controls are dynamic (created on expand), so attach tooltip handlers now.
     if (typeof enableTooltips === "function") {
@@ -291,19 +274,14 @@ class ChartControls {
 function disableChatOptionsBtn(chart) {
   REF.chartType = chart;
   const btns = ["barChart", "pieChart", "lineChart", "insightsChart"];
-  const barPieRestricted = BAR_AND_PIE_DISABLED_CHARTS.includes(REF.chartId);
-  const pieRestricted = barPieRestricted || PIE_ONLY_DISABLED_CHARTS.includes(REF.chartId);
-  const insightsRestricted = INSIGHTS_DISABLED_CHARTS.includes(REF.chartId);
-
   btns.forEach((btn) => {
     const element = document.getElementById(btn);
     if (element) {
       // The currently active view's own button is always disabled (no point
       // re-clicking it); on top of that, keep bar/pie disabled for charts
       // where they don't make sense, regardless of which view is now active.
-      const restricted = (btn === "barChart" && barPieRestricted)
-        || (btn === "pieChart" && pieRestricted)
-        || (btn === "insightsChart" && insightsRestricted);
+      const option = { barChart: "bar", pieChart: "pie", insightsChart: "insights" }[btn];
+      const restricted = !!option && !chartOptionEnabled(REF.chartId, option);
       element.disabled = REF.chartType === btn || restricted;
     }
   });

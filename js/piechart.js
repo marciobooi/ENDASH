@@ -103,6 +103,13 @@ function createPieChart() {
 }
 
 function piechartdata() {
+  // Monthly charts (oil stocks): shares of one month across all countries.
+  if (isMonthlyChart(REF.chartId)) {
+    piedata = monthlyPieData() || [];
+    getTitle(window.pieChartUnitLabel || languageNameSpace.labels[REF.unit] || REF.unit);
+    return;
+  }
+
   const data = chartApiCallWithYearFallback();
 
   if (!data) {

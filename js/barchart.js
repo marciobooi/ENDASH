@@ -6,6 +6,13 @@ function createBarChart() {
   showHideBarChartOptions()
   updateREFFromCodesDataset(REF.chartId);
 
+  // Monthly charts (oil stocks) have their own month-based bar view.
+  if (isMonthlyChart(REF.chartId)) {
+    createMonthlyBarChart();
+    stopLoadingAnimation();
+    return;
+  }
+
   REF.dataset == "demo_pjan" ? d = chartEightCalculation(d) : d = chartApiCallWithYearFallback();
 
   if (!d) {
@@ -141,4 +148,40 @@ $(window).on('resize', function () {
 $('.highcharts-credits').css('display', 'initial');  
 
   stopLoadingAnimation()
+}
+
+// Bar view of a monthly chart: every country for the month picked on the
+// timeline (REF.month), grouped columns per source table.
+function createMonthlyBarChart() {
+  const bar = monthlyBarData();
+
+  if (!bar) {
+    getTitle();
+    nullishChart(containerId, []);
+    return;
+  }
+
+  const customChart = new Chart({
+    containerId: containerId,
+    type: "column",
+    title: getTitle(bar.yAxisTitle),
+    subtitle: null,
+    xAxis: { categories: bar.categories, labels: { step: 1 } },
+    yAxisFormat: '{value:,.0f}',
+    yAxisTitle: bar.yAxisTitle,
+    tooltipFormatter: tooltip,
+    creditsText: credits(),
+    creditsHref: "",
+    series: chartSeries,
+    colors: colors,
+    legend: {},
+    columnOptions: { connectNulls: true },
+  });
+  barChart = customChart.createChart();
+
+  changeLegendPisition(barChart);
+  $(window).on('resize', function () {
+    changeLegendPisition(barChart);
+  });
+  $('.highcharts-credits').css('display', 'initial');
 }

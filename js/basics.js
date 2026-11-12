@@ -158,13 +158,15 @@ function exportTable() {
 }
 
 function showHideBarChartOptions() {
+  // chart_24/26's above/below toggle only applies to their line view.
+  $("#medianToggle").css('display', REF.chartType === "lineChart" ? '' : 'none');
   if (REF.chartType !== "barChart") {
       $("#togglePercentage, #Agregates").css('display', 'none');
       // chart_24 draws every country, so the country selector does nothing
       // while it's expanded.
       $("#countrySelect").css('display', REF.chartExpanded && isMedianChart(REF.chartId) ? 'none' : '');
   } else {
-      $("#togglePercentage, #Agregates").css('display', '');
+      $("#togglePercentage, #Agregates").css('display', isMonthlyChart(REF.chartId) ? 'none' : '');
       $("#countrySelect").css('display', 'none');
   }
 }
@@ -180,7 +182,21 @@ function showHideTimeLine() {
     this.timeline = null;
   }
 
-  if (REF.chartType === 'barChart' || REF.chartType === 'pieChart') {
+  if ((REF.chartType === 'barChart' || REF.chartType === 'pieChart') && isMonthlyChart(REF.chartId)) {
+    // Monthly chart: a month slider over the months with good coverage.
+    const data = chartOptionEnabled(REF.chartId, "timeline") ? monthlyTables(codesDataset[REF.chartId]) : null;
+    if (data) {
+      resolveMonth(data.months);
+      this.timeline = new Timeline(timelineContainer, null, { labels: data.months });
+      this.timeline.addToDOM();
+    }
+    showChartOptions();
+  } else if (REF.chartType === 'barChart' || REF.chartType === 'pieChart') {
+    if (!chartOptionEnabled(REF.chartId, "timeline")) {
+      // No slider for this chart; the bar/pie view uses the default year.
+      showChartOptions();
+      return;
+    }
     const lastAvailableYear = getLastAvailableYear();
 
     // Only pull REF.year back to the dataset's real last year on the
@@ -207,9 +223,11 @@ function showHideTimeLine() {
 }
 
 function showChartOptions() {
-  // Show chart-specific options
-  $('#togglePercentage').css('display', 'block');
-  $('#Agregates').css('display', 'block');
+  // Show chart-specific options (percentage / aggregates don't apply to the
+  // monthly oil charts, whose bars are one month of stock per country)
+  const show = isMonthlyChart(REF.chartId) ? 'none' : 'block';
+  $('#togglePercentage').css('display', show);
+  $('#Agregates').css('display', show);
 }
 
 function hideChartOptions() {
@@ -468,7 +486,7 @@ tooltip = function () {
   // renewable share) - summing percentages across unrelated categories
   // isn't a valid figure - and skip it for a single series, where "Total"
   // is just a duplicate of that one value.
-  const totalRow = (REF.chartType !== "pieChart" && REF.unit !== 'PC' && this.points.length > 1) ?
+  const totalRow = (REF.chartType !== "pieChart" && tooltipTotalEnabled(REF.chartId) && this.points.length > 1) ?
   `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</td></tr>` : '';
 
   // Create the HTML table structure
@@ -597,10 +615,11 @@ function tooltipTable(points, chartUnit, options = {}) {
       // percentage-based charts (e.g. import dependency, renewable share) -
       // summing percentages across unrelated categories isn't a valid figure -
       // and skip it whenever there's only one series, where "Total" is just
-      // a duplicate of that single value. options.hideTotal also skips it for
-      // charts whose series aren't parts of one whole (chart_23 overlays
-      // stocks and deliveries, so their sum means nothing).
-      if (!totalAdded && !options.hideTotal && unit !== 'PC' && sortedPoints.length > 1) {
+      // a duplicate of that single value. whether a Total row is
+      // shown at all is the chart's "tooltipTotal" setting in codes.js (a sum
+      // only makes sense when the series are parts of one whole).
+      const showTotal = options.showTotal !== undefined ? options.showTotal : tooltipTotalEnabled(REF.chartId);
+      if (!totalAdded && showTotal && sortedPoints.length > 1) {
         // Calculate the total sum of all values
         const totalSum = sortedPoints.reduce(function (sum, point) {
           return sum + point.y;
@@ -643,14 +662,20 @@ function getTitle(yAxisTitle) {
                 <i class="fas fa-expand-alt" aria-hidden="true"></i>
               </button>`;
 
+// Monthly charts show a month (not a year) in their bar/pie views, under a
+// title without the line chart's "last 12 months".
+const monthly = isMonthlyChart(REF.chartId);
+const auxTitle = safeLabel((codesDataset[REF.chartId] || {}).titleAux || REF.title, REF.title);
+const period = monthly && REF.month ? formatMonthId(REF.month, { month: "short", year: "numeric" }) : REF.year;
+
 switch (REF.chartType) {
   case "barChart":
-    title = `${safeLabel(REF.title, REF.title)} - ${safeLabel('BOX_SELECTION_ALL_COUNTRY', 'All countries')} - ${REF.year}`
+    title = `${auxTitle} - ${safeLabel('BOX_SELECTION_ALL_COUNTRY', 'All countries')} - ${period}`
     const titleLabelBar = document.querySelector("#title");
     if (titleLabelBar) titleLabelBar.innerHTML = title;
     break;
   case "pieChart":
-    title = `${safeLabel(REF.title, REF.title)} - ${safeLabel(REF.geos, REF.geos)} - ${REF.year}`
+    title = `${auxTitle} - ${monthly ? safeLabel('BOX_SELECTION_ALL_COUNTRY', 'All countries') : safeLabel(REF.geos, REF.geos)} - ${period}`
     const titleLabelPie = document.querySelector("#title");
     if (titleLabelPie) titleLabelPie.innerHTML = title;
     break;
@@ -677,7 +702,7 @@ switch (REF.chartType) {
     // button (arrow up = show values above the median, down = below), placed
     // beside the expand button.
     let buttons = btn;
-    if (isMedianChart(REF.chartId)) {
+    if (isMedianChart(REF.chartId) && REF.chartType === "lineChart") {
       const showingBelow = isMedianBelow(REF.chartId);
       const medianLabel = safeLabel(showingBelow ? "SHOW_ABOVE_MEDIAN" : "SHOW_BELOW_MEDIAN");
       const medianBtn = `<button type="button" class="ecl-button ecl-button--primary round-btn medianGroupBtn" data-chart-id="${REF.chartId}" aria-label="${medianLabel}" title="${medianLabel}"><i class="fas ${showingBelow ? "fa-arrow-up" : "fa-arrow-down"}" aria-hidden="true"></i></button>`;

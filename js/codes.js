@@ -124,6 +124,15 @@ codesEnprices = {
 	"year": [] // to be queried from Eurobase directly
 };
 
+// Every entry lists the expanded-view views it supports in "optionCharts":
+//   "bar" | "pie" | "timeline" (year/month slider for bar+pie) | "table" |
+//   "insights". A view that isn't listed has its button disabled, so adding or
+//   removing a view for a chart is a one-word edit here. The line chart is the
+//   default view and is always available.
+// "tooltipTotal": true | false - whether the tooltip ends with a "Total" row.
+// "monthly": true marks monthly datasets (bar/pie/timeline work on a month,
+// REF.month, instead of a year); "titleAux" is the title key for those bar and
+// pie views, whose period differs from the line chart's "last 12 months".
 codesDataset = {
 	"chart_1": {
 		"dataset":'nrg_ind_eff',
@@ -138,6 +147,9 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "MTOE",
 		"container": "highchartsContainer_1",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,
 		"optionUrl": "",
 		"meta": "nrg_ind_eff"
 	},
@@ -150,6 +162,9 @@ codesDataset = {
 		"indicator2_type": "",	
 		"unit": "PC",	
 		"container": "highchartsContainer_2",
+		"optionCharts": ["table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "nrg_ind_share"		
 	},
 	"chart_3": {
@@ -160,7 +175,10 @@ codesDataset = {
 		"indicator2": ['GHG'],
 		"indicator2_type": "AIRPOL",	
 		"unit": "THS_T",	
-		"container": "highchartsContainer_3",	
+		"container": "highchartsContainer_3",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "env_air_gge"		
 	},
 	"chart_4": {
@@ -172,6 +190,9 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "KGOE_TEUR",	
 		"container": "highchartsContainer_4",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "nrg_ind_ei"		
 	},
 	"chart_5": {
@@ -183,6 +204,9 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "EUR_KGOE",	
 		"container": "highchartsContainer_5",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "nrg_ind_ep"		
 	},
 	"chart_6": {
@@ -200,6 +224,9 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "PC",
 		"container": "highchartsContainer_6",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "nrg_ind_id"
 	},
 	"chart_7": {
@@ -210,7 +237,10 @@ codesDataset = {
 		"indicator2": '',
 		"indicator2_type": "",	
 		"unit": "PC",	
-		"container": "highchartsContainer_7",	
+		"container": "highchartsContainer_7",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,	
 		"meta": "nrg_ind_ffgae"		
 	},
 	"chart_8": {
@@ -219,7 +249,10 @@ codesDataset = {
 		"indicator": [],
 		"indicator2": '',
 		"unit": "KGOE",
-		"container": "highchartsContainer_8",	
+		"container": "highchartsContainer_8",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,	
 		"meta": "demo_pop"		
 	},
 	"chart_9": {
@@ -231,6 +264,9 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_9",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,
 		"meta": "nrg_bal"		
 	},
 	"chart_10": {
@@ -241,7 +277,10 @@ codesDataset = {
 		"indicator2": ["TOTAL"],
 		"indicator2_type": "siec",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_10",	
+		"container": "highchartsContainer_10",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_11": {
@@ -252,7 +291,10 @@ codesDataset = {
 		"indicator2": ["TOTAL"],
 		"indicator2_type": "siec",	
 		"unit": "TJ",	
-		"container": "highchartsContainer_11",	
+		"container": "highchartsContainer_11",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_quant"		
 	},
 	"chart_12": {
@@ -263,7 +305,10 @@ codesDataset = {
 		"indicator2": ["FC_TRA_E"],
 		"indicator2_type": "nrg_bal",
 		"unit": "KTOE",	
-		"container": "highchartsContainer_12",	
+		"container": "highchartsContainer_12",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_13": {
@@ -274,7 +319,10 @@ codesDataset = {
 		"indicator2": ["FC_TRA_ROAD_E"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_13",	
+		"container": "highchartsContainer_13",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_14": {
@@ -285,7 +333,10 @@ codesDataset = {
 		"indicator2": ["FC_OTH_CP_E"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_14",	
+		"container": "highchartsContainer_14",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_15": {
@@ -296,7 +347,10 @@ codesDataset = {
 		"indicator2": ["FC_IND_E"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_15",	
+		"container": "highchartsContainer_15",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_16": {
@@ -307,7 +361,10 @@ codesDataset = {
 		"indicator2": ["FC_NE"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_16",	
+		"container": "highchartsContainer_16",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_17": {
@@ -318,7 +375,10 @@ codesDataset = {
 		"indicator2": ["GEP"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "GWH",	
-		"container": "highchartsContainer_17",	
+		"container": "highchartsContainer_17",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_quant"		
 	},
 	"chart_18": {
@@ -329,7 +389,10 @@ codesDataset = {
 		"indicator2": ["GEP"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "GWH",	
-		"container": "highchartsContainer_18",	
+		"container": "highchartsContainer_18",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_quant"		
 	},
 	"chart_19": {
@@ -341,6 +404,9 @@ codesDataset = {
 		"indicator2_type": "rskpovth",
 		"unit": "PC",
 		"container": "highchartsContainer_19",
+		"optionCharts": ["bar", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "ilc_sieusilc"
 	},
 	"chart_20": {
@@ -358,6 +424,9 @@ codesDataset = {
 		"indicator2_type": "",
 		"unit": "PC",
 		"container": "highchartsContainer_20",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
 		"meta": "nrg_ind_re"
 	},
 	"chart_21": {
@@ -368,7 +437,10 @@ codesDataset = {
 		"indicator2": ["GAE"],
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
-		"container": "highchartsContainer_21",	
+		"container": "highchartsContainer_21",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,	
 		"meta": "nrg_bal"		
 	},
 	"chart_22": {
@@ -380,6 +452,9 @@ codesDataset = {
 		"indicator2_type": "nrg_bal",	
 		"unit": "KTOE",	
 		"container": "highchartsContainer_22",
+		"optionCharts": ["bar", "pie", "timeline", "table", "insights"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": true,
 		"meta": "nrg_bal"
 	},
 	"chart_23": {
@@ -402,6 +477,11 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_23",
+		"optionCharts": ["bar", "timeline", "table"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
+		"monthly": true,
+		"titleAux": "chart_23_aux",
 		"meta": "NONE",
 		"combine": {
 			"dataset":'nrg_cb_oilm',
@@ -424,6 +504,11 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_25",
+		"optionCharts": ["bar", "timeline", "table"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
+		"monthly": true,
+		"titleAux": "chart_25_aux",
 		"meta": "NONE",
 		"combine": {
 			"dataset":'nrg_cb_oilm',
@@ -446,6 +531,11 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_26",
+		"optionCharts": ["bar", "pie", "timeline", "table"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
+		"monthly": true,
+		"titleAux": "chart_26_aux",
 		"meta": "NONE",
 		"medianSplit": true,
 		"months": 12
@@ -467,12 +557,32 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_24",
+		"optionCharts": ["bar", "pie", "timeline", "table"],
+		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
+		"tooltipTotal": false,
+		"monthly": true,
+		"titleAux": "chart_24_aux",
 		"meta": "NONE",
 		"medianSplit": true,
 		"months": 12
 	},
 
 
+}
+
+function chartOptionEnabled(chartId, option) {
+	const config = codesDataset[chartId];
+	return !!(config && Array.isArray(config.optionCharts) && config.optionCharts.includes(option));
+}
+
+function tooltipTotalEnabled(chartId) {
+	const config = codesDataset[chartId];
+	return !!(config && config.tooltipTotal === true);
+}
+
+function isMonthlyChart(chartId) {
+	const config = codesDataset[chartId];
+	return !!(config && config.monthly);
 }
 
 // Groups the gallery into jump-nav themed sections (see the "Energy topics"

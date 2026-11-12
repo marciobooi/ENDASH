@@ -1161,8 +1161,8 @@ function getMainViewChartIds() {
   return Array.from(document.querySelectorAll("#endash .chartContainer[id]"))
     .map((item) => item.id)
     .filter((id) => !!codesDataset[id])
-    // INSIGHTS_DISABLED_CHARTS lives in auxChartControls.js (loaded later).
-    .filter((id) => typeof INSIGHTS_DISABLED_CHARTS === "undefined" || !INSIGHTS_DISABLED_CHARTS.includes(id));
+    // Charts without "insights" in their optionCharts (codes.js) are skipped.
+    .filter((id) => chartOptionEnabled(id, "insights"));
 }
 
 function cloneRefState() {

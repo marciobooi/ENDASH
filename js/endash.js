@@ -109,7 +109,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit, yAxisPlotLi
     // REF.chartId changes as other cards render, so the tooltip below must
     // not look it up when it runs.
     let orderedSeries = isCustomDataChart() ? chartSeries : sortByName(chartSeries);
-    const hideTotal = isCustomDataChart(); // sums of overlaid or median-cut series mean nothing
+    const showTotal = tooltipTotalEnabled(REF.chartId); // per-chart "tooltipTotal" in codes.js
 
     if (REF.chartId === 'chart_2') {
         // "Renewable energy - overall" (REN) is the headline figure - show
@@ -132,7 +132,7 @@ function buildChart(categories, containerId, yAxisTitle, type, unit, yAxisPlotLi
         yAxisFormat: '{value:,.0f}',
         yAxisTitle,
         yAxisPlotLines,
-        tooltipFormatter: function () { return tooltipTable(this.points, unit, { hideTotal }); },
+        tooltipFormatter: function () { return tooltipTable(this.points, unit, { showTotal }); },
         creditsText: credits(),
         creditsHref: "",
         series: orderedSeries,
@@ -406,6 +406,110 @@ function medianOf(valuesAscending) {
     return n % 2 ? valuesAscending[mid] : (valuesAscending[mid - 1] + valuesAscending[mid]) / 2;
 }
 
+// ---- all-countries monthly tables (median charts, and the bar/pie views of
+// every monthly chart) ----
+
+// { months, countries: [{ code, byMonth }], geoLabels } for a monthly table
+// that came back with every country; null for any other shape. Real countries
+// only - the response also carries the EU aggregate and countries outside the
+// dashboard's own lists (e.g. the UK, all empty).
+function readCountryMonths(d) {
+    const months = d.Dimension("time").id;
+    const geos = d.Dimension("geo").id;
+    if (d.value.length !== geos.length * months.length) return null;
+
+    const realCountries = [...EU_COUNTRY_CODES, ...EFTA_COUNTRY_CODES, ...ENLARGEMENT_COUNTRY_CODES];
+    const countries = [];
+    geos.forEach((code, g) => {
+        if (!realCountries.includes(code)) return;
+        const byMonth = {};
+        months.forEach((id, t) => {
+            const value = d.value[g * months.length + t];
+            if (value != null) byMonth[id] = value;
+        });
+        countries.push({ code, byMonth });
+    });
+    return { months, countries, geoLabels: d.__tree__.dimension.geo.category.label };
+}
+
+// Months (ascending) in which at least half the countries have a value. The
+// very latest month usually has only a handful (e.g. 5 of 36), which would
+// leave most lines ending a month early; this still rolls forward by itself as
+// more countries report.
+function quorumMonths(parsed) {
+    const quorum = Math.ceil(parsed.countries.length / 2);
+    return parsed.months.filter((id) => parsed.countries.filter((c) => id in c.byMonth).length >= quorum);
+}
+
+// Full-history, every-country tables of a monthly chart (one per source table)
+// plus the months all of them cover well. null when a request fails.
+function monthlyTables(config) {
+    const sources = isCombinedChart(config.title) ? [config, config.combine] : [config];
+    const tables = [];
+    for (const source of sources) {
+        const d = chartApiCall(buildDatasetApiUrl(source, { allGeos: true }));
+        const parsed = d && readCountryMonths(d);
+        if (!parsed) return null;
+        tables.push({ ...parsed, d, source });
+    }
+    const quorums = tables.map((table) => new Set(quorumMonths(table)));
+    const months = tables[0].months.filter((id) => quorums.every((set) => set.has(id)));
+    return months.length ? { tables, months } : null;
+}
+
+// The month the bar/pie views show: REF.month if it's available, else the newest.
+function resolveMonth(months) {
+    if (!months.includes(REF.month)) REF.month = months[months.length - 1];
+    return REF.month;
+}
+
+// Bar view of a monthly chart: every country for the selected month, one
+// series per source table, largest first.
+function monthlyBarData() {
+    const config = codesDataset[REF.chartId];
+    const data = monthlyTables(config);
+    if (!data) return null;
+    const month = resolveMonth(data.months);
+
+    const valueOf = (table, code) => {
+        const country = table.countries.find((c) => c.code === code);
+        return country && month in country.byMonth ? country.byMonth[month] : null;
+    };
+    const codes = data.tables[0].countries
+        .map((c) => c.code)
+        .filter((code) => data.tables.some((table) => (valueOf(table, code) || 0) > 0))
+        .sort((a, b) => (valueOf(data.tables[0], b) || 0) - (valueOf(data.tables[0], a) || 0));
+    if (!codes.length) return null;
+
+    const lineColors = ["#0033FF", "#E67500"];
+    const geoLabels = data.tables[0].geoLabels;
+    chartSeries = data.tables.map((table, t) => ({
+        name: table.d.__tree__.dimension[table.source.indicator2_type].category.label[table.source.indicator2[0]],
+        data: codes.map((code) => valueOf(table, code)),
+        color: lineColors[t],
+    }));
+
+    return {
+        categories: codes.map((code) => languageNameSpace.labels[code] || geoLabels[code] || code),
+        yAxisTitle: data.tables[0].d.__tree__.dimension.unit.category.label[config.unit],
+    };
+}
+
+// Pie view of a monthly chart (first source table): each country's share of
+// the selected month's total. Returns [[name, value], ...].
+function monthlyPieData() {
+    const config = codesDataset[REF.chartId];
+    const data = monthlyTables(config);
+    if (!data) return null;
+    const month = resolveMonth(data.months);
+    const table = data.tables[0];
+
+    window.pieChartUnitLabel = table.d.__tree__.dimension.unit.category.label[config.unit] || REF.unit;
+    return table.countries
+        .filter((c) => (c.byMonth[month] || 0) > 0)
+        .map((c) => [languageNameSpace.labels[c.code] || table.geoLabels[c.code] || c.code, c.byMonth[month]]);
+}
+
 function medianChartData() {
     const config = codesDataset[REF.chartId];
     const windowSize = config.months || 12;
@@ -420,31 +524,13 @@ function medianChartData() {
     const d = chartApiCall(buildDatasetApiUrl(config, { allGeos: true, since }));
     if (!d) return null;
 
-    const months = d.Dimension("time").id;
-    const geos = d.Dimension("geo").id;
-    if (d.value.length !== geos.length * months.length) return null;
-
-    // Real countries only - the response also carries the EU aggregate and
-    // countries outside the dashboard's own lists (e.g. the UK, all empty).
-    const realCountries = [...EU_COUNTRY_CODES, ...EFTA_COUNTRY_CODES, ...ENLARGEMENT_COUNTRY_CODES];
-    const countries = [];
-    geos.forEach((code, g) => {
-        if (!realCountries.includes(code)) return;
-        const byMonth = {};
-        months.forEach((id, t) => {
-            const value = d.value[g * months.length + t];
-            if (value != null) byMonth[id] = value;
-        });
-        countries.push({ code, byMonth });
-    });
+    const parsed = readCountryMonths(d);
+    if (!parsed) return null;
+    const countries = parsed.countries;
 
     // "Last 12 months available": anchor on the newest month that at least
-    // half the countries have published. The very latest month usually has
-    // only a handful (e.g. 5 of 36), which would leave most lines ending a
-    // month early and skew the ranking; this still rolls forward by itself as
-    // more countries report.
-    const quorum = Math.ceil(countries.length / 2);
-    const anchor = [...months].reverse().find((id) => countries.filter((c) => id in c.byMonth).length >= quorum);
+    // half the countries have published (see quorumMonths).
+    const anchor = quorumMonths(parsed).pop();
     if (!anchor) return null;
 
     const windowMonths = Array.from({ length: windowSize }, (_, i) => shiftMonthId(anchor, i - windowSize + 1));

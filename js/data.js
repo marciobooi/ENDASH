@@ -18,6 +18,9 @@ const dataNameSpace = {
     // (basics.js) corrects this per-chart to the dataset's actual last
     // available year as soon as a bar/pie chart is opened.
     year: String(new Date().getFullYear() - 1),
+    // Selected month ("YYYY-MM") for the bar/pie views of monthly charts
+    // (codes.js "monthly": true), the equivalent of year for annual ones.
+    month: "",
     // Flips true once the user explicitly moves the timeline slider. Lets
     // chartApiCallWithYearFallback() tell "first automatic load" (fall back
     // to the latest year with real data) apart from "user deliberately

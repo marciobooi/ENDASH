@@ -1,15 +1,30 @@
 class Timeline {
-    constructor(targetElement, maxYear) {
+    // options.labels (e.g. ["2025-09", "2025-10", ...]) turns the slider into a
+    // month slider over those entries: positions are indexes, the handle shows
+    // the formatted month, and committing sets REF.month instead of REF.year.
+    constructor(targetElement, maxYear, options = {}) {
         this.targetElement = targetElement;
+        this.labels = options.labels || null;
         this.minYear = 1990;
         // maxYear is the dataset's own last year with real data (probed by
         // getLastAvailableYear() in basics.js), not a fixed calendar
         // heuristic - different datasets publish up to different years.
         this.maxYear = Number.isFinite(maxYear) ? maxYear : new Date().getFullYear() - 1;
         this.currentYear = Math.min(this.maxYear, Math.max(this.minYear, Number(REF.year) || this.minYear));
+        if (this.labels) {
+            this.minYear = 0;
+            this.maxYear = this.labels.length - 1;
+            const index = this.labels.indexOf(REF.month);
+            this.currentYear = index >= 0 ? index : this.maxYear;
+        }
         this.createTimeline();
         this.addToDOM();
         this.initializeSlider();
+    }
+
+    // What the handle shows for a slider position.
+    display(value) {
+        return this.labels ? formatMonthId(this.labels[value], { month: "short", year: "numeric" }) : value;
     }
 
     createTimeline() {
@@ -25,8 +40,9 @@ class Timeline {
                           aria-valuemin="${this.minYear}"
                           aria-valuemax="${this.maxYear}"
                           aria-valuenow="${this.currentYear}"
-                          aria-label="Year slider">
-                        <div id="sliderTimePeriod"><span>${this.currentYear}</span></div>
+                          aria-valuetext="${this.display(this.currentYear)}"
+                          aria-label="${this.labels ? 'Month slider' : 'Year slider'}">
+                        <div id="sliderTimePeriod"><span>${this.display(this.currentYear)}</span></div>
                     </span>
                     <div class="ui-slider-range ui-slider-range-after"></div>
                 </div>
@@ -53,14 +69,19 @@ class Timeline {
             const percent = toPercent(this.currentYear);
             handle.style.left = `${percent}%`;
             range.style.width = `${percent}%`;
-            valueDisplay.textContent = this.currentYear;
+            valueDisplay.textContent = this.display(this.currentYear);
             handle.setAttribute('aria-valuenow', this.currentYear);
+            handle.setAttribute('aria-valuetext', this.display(this.currentYear));
         };
 
         const commitYearChange = () => {
             REF.chartOpt = 'compareChart';
-            REF.year = this.currentYear;
-            REF.yearManuallySet = true;
+            if (this.labels) {
+                REF.month = this.labels[this.currentYear];
+            } else {
+                REF.year = this.currentYear;
+                REF.yearManuallySet = true;
+            }
 
             switch (REF.chartType) {
                 case 'barChart':
