@@ -477,7 +477,7 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_23",
-		"optionCharts": ["bar", "timeline", "table"],
+		"optionCharts": ["timeline", "table"],
 		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
 		"tooltipTotal": false,
 		"monthly": true,
@@ -504,7 +504,7 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_25",
-		"optionCharts": ["bar", "timeline", "table"],
+		"optionCharts": ["timeline", "table"],
 		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
 		"tooltipTotal": false,
 		"monthly": true,
@@ -531,7 +531,7 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_26",
-		"optionCharts": ["bar", "pie", "timeline", "table"],
+		"optionCharts": ["bar", "timeline", "table"],
 		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
 		"tooltipTotal": false,
 		"monthly": true,
@@ -557,7 +557,7 @@ codesDataset = {
 		"indicator2_type": "stk_flow",
 		"unit": "THS_T",
 		"container": "highchartsContainer_24",
-		"optionCharts": ["bar", "pie", "timeline", "table"],
+		"optionCharts": ["bar","timeline", "table"],
 		// Show a "Total" row in the tooltip (only meaningful when the series are parts of one whole).
 		"tooltipTotal": false,
 		"monthly": true,
