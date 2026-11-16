@@ -27,6 +27,12 @@ class Timeline {
         return this.labels ? formatMonthId(this.labels[value], { month: "short", year: "numeric" }) : value;
     }
 
+    // Accessible name of the slider, in the page language.
+    sliderLabel() {
+        const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+        return this.labels ? (labels.TIMELINE_MONTH_SLIDER || 'Month slider') : (labels.TIMELINE_YEAR_SLIDER || 'Year slider');
+    }
+
     createTimeline() {
         this.timeline = document.createElement('div');
         this.timeline.classList.add('timeline-wrapper');
@@ -41,11 +47,15 @@ class Timeline {
                           aria-valuemax="${this.maxYear}"
                           aria-valuenow="${this.currentYear}"
                           aria-valuetext="${this.display(this.currentYear)}"
-                          aria-label="${this.labels ? 'Month slider' : 'Year slider'}">
+                          aria-label="${this.sliderLabel()}"
+                          aria-controls="${(codesDataset[REF.chartId] || {}).container || ''}">
                         <div id="sliderTimePeriod"><span>${this.display(this.currentYear)}</span></div>
                     </span>
                     <div class="ui-slider-range ui-slider-range-after"></div>
                 </div>
+                <!-- Tells screen readers the chart changed (the slider's own value is read as it moves). -->
+                <div id="timelineStatus" role="status" aria-live="polite" aria-atomic="true"
+                     style="position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;"></div>
             </div>`;
     }
 
@@ -81,6 +91,12 @@ class Timeline {
             } else {
                 REF.year = this.currentYear;
                 REF.yearManuallySet = true;
+            }
+
+            const status = this.timeline.querySelector('#timelineStatus');
+            if (status) {
+                const labels = (typeof languageNameSpace !== "undefined" && languageNameSpace.labels) || {};
+                status.textContent = `${labels.TIMELINE_SHOWING || 'Showing'} ${this.display(this.currentYear)}`;
             }
 
             switch (REF.chartType) {
@@ -133,6 +149,10 @@ class Timeline {
                 nextYear -= 1;
             } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
                 nextYear += 1;
+            } else if (event.key === 'PageDown') {
+                nextYear -= this.labels ? 3 : 10;
+            } else if (event.key === 'PageUp') {
+                nextYear += this.labels ? 3 : 10;
             } else if (event.key === 'Home') {
                 nextYear = this.minYear;
             } else if (event.key === 'End') {
@@ -150,9 +170,9 @@ class Timeline {
             }
         });
 
-        window.addEventListener('resize', () => {
-            renderYear(this.currentYear);
-        });
+        // Removed again in removeFromDOM(), or every rebuilt timeline would leave one behind.
+        this.onResize = () => renderYear(this.currentYear);
+        window.addEventListener('resize', this.onResize);
     }
 
     addToDOM() {
@@ -160,6 +180,7 @@ class Timeline {
     }
 
     removeFromDOM() {
+        if (this.onResize) window.removeEventListener('resize', this.onResize);
         if (this.timeline.parentNode) {
             this.timeline.parentNode.removeChild(this.timeline);
         }

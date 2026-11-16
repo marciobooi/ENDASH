@@ -1748,5 +1748,20 @@
     "EN": "A large and rising stock is a bigger buffer; compare countries against the period average shown in the chart.",
     "FR": "Un stock important et croissant constitue un tampon plus large ; comparez les pays à la moyenne de la période affichée dans le graphique.",
     "DE": "Ein großer, wachsender Bestand ist ein größerer Puffer; vergleichen Sie die Länder mit dem im Diagramm gezeigten Durchschnitt des Zeitraums."
+  },
+  "TIMELINE_YEAR_SLIDER": {
+    "EN": "Year slider",
+    "FR": "Curseur de l'année",
+    "DE": "Jahresregler"
+  },
+  "TIMELINE_MONTH_SLIDER": {
+    "EN": "Month slider",
+    "FR": "Curseur du mois",
+    "DE": "Monatsregler"
+  },
+  "TIMELINE_SHOWING": {
+    "EN": "Showing",
+    "FR": "Affichage de",
+    "DE": "Anzeige von"
   }
 }

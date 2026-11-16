@@ -28,8 +28,12 @@ function changeLegendPisition() {
     Highcharts.charts.forEach(chart => {
       if (chart) {
         if(chart.renderTo.id === openChart) {
+            // The credits sit over the plot area; with a legend on the right
+            // that centre is off to the left, so they're nudged right. A chart
+            // without a legend (e.g. the one-series average bars) is already centred.
+            const hasLegend = chart.series.some((serie) => serie.options.showInLegend !== false);
             if ($(window).width() > 1100) {
-              $('.flex-item.chartContainer.expand .highcharts-credits').css( "transform", "translate(38%, -10%)")
+              $('.flex-item.chartContainer.expand .highcharts-credits').css( "transform", hasLegend ? "translate(38%, -10%)" : "translate(0, 0)")
               chart.update({ legend: legendBig }, true); // true for redraw
             } else {
               $('.flex-item.chartContainer.expand .highcharts-credits').css( "transform", "translate(0, 0)")
