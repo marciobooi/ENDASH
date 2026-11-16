@@ -1746,8 +1746,8 @@
 }
 
 .table_component table {
+  width: 100%; /* the table fills the box Highcharts sized from this wrapper (24rem), so there is no empty strip beside it */
   border: 1px dotted #dededf;
-  table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 1px;
   text-align: left;
