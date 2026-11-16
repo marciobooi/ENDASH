@@ -1802,7 +1802,7 @@
 /* Chart toolbar: its own light row under the header, as in the old tool */
 .chart-toolbar-bar {
   background: #f7f9fc;
-  padding: 0.85rem 1rem;
+  padding: 0.85rem 1.5rem; /* same side padding as the content, so the buttons line up with the title below */
   border-bottom: 1px solid #e3e9f2;
 }
 
@@ -1810,15 +1810,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem 0;
+  gap: 0.6rem 2.2rem;
 }
 
 .chart-toolbar__group {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin: 0 1.1rem;
 }
 
 /* Donut of the overview (theme distribution) and the info popover close button */
