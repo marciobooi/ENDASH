@@ -1,3 +1,5 @@
+import { site } from '../config/toolConfig'
+
 const WEBTOOLS_LOADER_ID = 'european-commission-webtools-loader'
 const UTILITY_CONFIG_PREFIX = 'european-commission-webtools-config'
 
@@ -40,17 +42,13 @@ function getUtilityConfigurations(): Array<Record<string, string | number | bool
     },
   ]
 
-  // Analytics belongs to ONE tool: its site and instance come from .env (ask the Webtools team). With no site ID
-  // there is no analytics; no other tool's ID is ever used as a default.
-  const siteID = import.meta.env.VITE_WEBTOOLS_ANALYTICS_SITE_ID
-  if (siteID) {
-    utilities.push({
-      utility: 'analytics',
-      siteID,
-      instance: import.meta.env.VITE_WEBTOOLS_ANALYTICS_INSTANCE || 'ec.europa.eu',
-      is404: import.meta.env.VITE_WEBTOOLS_IS_404 === 'true',
-    })
-  }
+  // Analytics belongs to this tool: its site ID and instance are fixed in `site.analytics` (as in the legacy html).
+  utilities.push({
+    utility: 'analytics',
+    siteID: site.analytics.siteID,
+    instance: site.analytics.instance,
+    is404: import.meta.env.VITE_WEBTOOLS_IS_404 === 'true',
+  })
   return utilities
 }
 

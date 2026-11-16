@@ -99,7 +99,7 @@ The config never contains display names. Every name is translated in `src/locale
 
 ### Environment (`.env.local`, see `.env.example`)
 
-- `VITE_WEBTOOLS_ANALYTICS_SITE_ID` and `VITE_WEBTOOLS_ANALYTICS_INSTANCE`: analytics of this tool (no default; analytics is off while the site ID is empty).
+- Analytics: the site ID and instance of this tool are fixed in `site.analytics` (`src/config/toolConfig.ts`), as in the legacy html; no environment variable.
 - `VITE_WEBTOOLS_IS_404`: `true` only for a not-found page. `VITE_WEBTOOLS_CHART_URL`: optional published Webtools chart address.
 - `VITE_SITE_URL`: optional override of `site.url` for a deployment pipeline (the preview image address follows it).
 

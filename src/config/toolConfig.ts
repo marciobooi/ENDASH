@@ -34,6 +34,8 @@ export const site = {
   defaultLanguage: 'en',
   /** Mailbox that receives the contact e-mail of the share menu (as in the old tool's feedback button). */
   contactEmail: 'ESTAT-ENERGY@ec.europa.eu',
+  /** Webtools analytics of this tool (the same site ID as the legacy endash.html; it does not change). */
+  analytics: { siteID: 'a441974e-4574-4f0a-9ed2-f90fb8547bb7', instance: 'ec.europa.eu' },
   links: {
     home: 'https://ec.europa.eu/eurostat/',
     footer: {
