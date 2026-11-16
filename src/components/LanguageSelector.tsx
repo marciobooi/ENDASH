@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
+import { Button } from './Button'
 import { useTranslation } from 'react-i18next'
+import { Tooltip } from './Tooltip'
 import { site } from '../config/toolConfig'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import { RoundButton } from './RoundButton'
@@ -28,22 +30,23 @@ export function LanguageSelector() {
 
   return (
     <div id="lang-section" className="masthead-language-section">
-      <button
-        ref={buttonRef}
-        id="toggleLanguageBtn"
-        className="masthead-language ecl-button ecl-button--secondary"
-        type="button"
-        aria-label={`${t('navigation.language')}: ${languageName}`}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={open ? 'language-list-overlay' : undefined}
-        onClick={() => setOpen((isOpen) => !isOpen)}
-      >
-        <span className="ecl-button__container">
-          <span className="wt-icon-ecl--global ecl-button__icon" aria-hidden="true" />
-          <span className="ecl-button__label" data-ecl-label="true">{languageName}</span>
-        </span>
-      </button>
+      {/* The old tool names the current language in a tooltip. */}
+      <Tooltip content={`${t('labels.SELECTLANGUAGELABEL')}${languageName}`}>
+        <Button
+          ref={buttonRef}
+          id="toggleLanguageBtn"
+          className="masthead-language"
+          variant="secondary"
+          icon={<span className="wt-icon-ecl--global ecl-button__icon" aria-hidden="true" />}
+          aria-label={`${t('navigation.language')}: ${languageName}`}
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-controls={open ? 'language-list-overlay' : undefined}
+          onClick={() => setOpen((isOpen) => !isOpen)}
+        >
+          {languageName}
+        </Button>
+      </Tooltip>
 
       {open && (
         <div

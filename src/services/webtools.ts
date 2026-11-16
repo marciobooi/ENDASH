@@ -101,3 +101,85 @@ export const webtoolsService = {
     return import.meta.env.VITE_WEBTOOLS_CHART_URL || undefined
   },
 }
+
+/* ------------------------------------------------------------------ */
+/* CHARTS (Webtools charts service: a Highcharts configuration drawn by Webtools) */
+/* ------------------------------------------------------------------ */
+
+import type Highcharts from 'highcharts'
+
+interface WebtoolsChartsRender {
+  render(container: Element, params: Record<string, unknown>): void
+}
+
+const CHART_TIMEOUT_MS = 15_000
+
+function webtoolsRenderer(signal: AbortSignal): Promise<WebtoolsChartsRender> {
+  // The loader sets $wt once it is ready; poll for it, as the Webtools documentation does for the SPA mode.
+  return new Promise((resolve, reject) => {
+    const started = performance.now()
+    let timer = 0
+    signal.addEventListener('abort', () => {
+      window.clearTimeout(timer)
+      reject(signal.reason)
+    })
+    const check = () => {
+      const wt = (window as unknown as { $wt?: WebtoolsChartsRender }).$wt
+      if (wt?.render) return resolve(wt)
+      if (performance.now() - started > CHART_TIMEOUT_MS) return reject(new Error('Webtools did not initialise in time.'))
+      timer = window.setTimeout(check, 50)
+    }
+    void webtoolsService.initialize().catch(reject).then(check)
+  })
+}
+
+/**
+ * Removes the keys whose value is undefined, at every depth. Webtools reads the configuration as data: an undefined
+ * key (for example a subtitle without text) makes it drop the series and the title, so the chart draws empty.
+ */
+export function pruneUndefined<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((item) => pruneUndefined(item)) as unknown as T
+  if (value && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+    const result: Record<string, unknown> = {}
+    for (const [key, item] of Object.entries(value)) {
+      if (item !== undefined) result[key] = pruneUndefined(item)
+    }
+    return result as T
+  }
+  return value
+}
+
+/**
+ * Draws a Highcharts configuration through the Webtools charts service. `ready` gets the live chart once Webtools
+ * has drawn it. Webtools keeps using the chart right after `ready`, so destroy it with `destroyChart`, not directly.
+ */
+export async function renderWebtoolsChart(
+  container: HTMLElement,
+  options: Highcharts.Options,
+  lang: string,
+  ready: (chart: Highcharts.Chart) => void,
+  signal: AbortSignal,
+): Promise<void> {
+  const wt = await webtoolsRenderer(signal)
+  wt.render(container, {
+    service: 'charts',
+    version: '2.0',
+    provider: 'highcharts',
+    lang,
+    menu: [],
+    options: { logo: { visible: false } },
+    data: pruneUndefined(options),
+    ready,
+  })
+}
+
+/** Destroys a chart after the current task: Webtools may still read its options right after `ready`. */
+export function destroyWebtoolsChart(chart: Highcharts.Chart) {
+  window.setTimeout(() => {
+    try {
+      if (chart.options) chart.destroy()
+    } catch {
+      // already destroyed
+    }
+  }, 0)
+}

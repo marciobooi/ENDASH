@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { downloadConfig } from '../config/toolConfig'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import { downloadChartImage, downloadExcel, type DownloadFormat, type DownloadTable } from '../download/download'
 import { RoundButton } from './RoundButton'
@@ -11,7 +12,8 @@ interface DownloadMenuProps {
    * The data of the chart for the Excel file. Without it the Excel entry is left out
    * (the image entries only need the chart on screen, see `downloadConfig.imageTarget`).
    */
-  getTable?: () => DownloadTable
+  /** The table of the chart on screen; undefined when no chart is open (the Excel entry is then left out). */
+  getTable?: () => DownloadTable | undefined
 }
 
 /**
@@ -44,14 +46,7 @@ export function DownloadMenu({ getTable }: DownloadMenuProps) {
   })
 
   // A click outside closes the menu and leaves focus on whatever was clicked.
-  useEffect(() => {
-    if (!open) return
-    const onPointerDown = (event: PointerEvent) => {
-      if (!wrapperRef.current?.contains(event.target as Node)) flushSync(() => setOpen(false))
-    }
-    document.addEventListener('pointerdown', onPointerDown, true)
-    return () => document.removeEventListener('pointerdown', onPointerDown, true)
-  }, [open])
+  useOutsideClick(wrapperRef, open, () => flushSync(() => setOpen(false)))
 
   const run = async (format: DownloadFormat) => {
     if (busy) return
@@ -62,7 +57,10 @@ export function DownloadMenu({ getTable }: DownloadMenuProps) {
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
 
     let done = false
-    if (format === 'excel') done = getTable ? await downloadExcel(getTable()) : false
+    if (format === 'excel') {
+      const table = getTable?.()
+      done = table ? await downloadExcel(table) : false
+    }
     else done = await downloadChartImage(format)
 
     setStatus(done ? t('download.done') : t('download.failed'))

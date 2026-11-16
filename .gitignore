@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Vite dependency cache (also appears at the project root when the dev server is started from a renamed folder)
+.vite

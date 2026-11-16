@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { Button } from './Button'
 import { useTranslation } from 'react-i18next'
 import { ToolbarIcon } from './ToolbarIcon'
 
@@ -27,19 +28,18 @@ export function SiteSubNavigation({ title, subtitle, menuItems, filters, actions
     <div id="overview" className="site-subnavigation" role="region" aria-label={t('toolbar.label')}>
       <div className="tool-toolbar">
         {hasMenu && (
-          <button
+          <Button
             id="menu-toggle"
-            className="menu-toggle ecl-button ecl-button--tertiary ecl-button--inverted"
-            type="button"
+            className="menu-toggle"
+            variant="tertiary"
+            inverted
             aria-expanded={menuOpen}
             aria-controls="main-navigation"
             onClick={() => setMenuOpen((open) => !open)}
+            icon={<ToolbarIcon name="menu" />}
           >
-            <span className="ecl-button__container">
-              <ToolbarIcon name="menu" />
-              <span className="ecl-button__label" data-ecl-label="true">{t('navigation.menu')}</span>
-            </span>
-          </button>
+            {t('navigation.menu')}
+          </Button>
         )}
         <div className="toolbar-title">
           <strong>{title}</strong>

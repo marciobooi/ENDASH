@@ -27,40 +27,9 @@ function applyEclClasses(popover: PopoverDOM, closeLabel: string) {
   close.style.removeProperty('display')
 }
 
-/**
- * Tooltip for the close button. The popover is built by driver.js (outside React), so this is the plain-DOM twin
- * of Tooltip.tsx and uses the same classes. The text repeats the button's aria-label, so it is not linked with
- * aria-describedby (screen readers would read the name twice); the bubble is hidden from them (aria-hidden).
- */
+/** Tooltip of the close button: driver.js builds the popover outside React, so it gets ECL's attribute directly. */
 function attachCloseTooltip(popover: PopoverDOM, text: string) {
-  const { wrapper, closeButton } = popover
-  wrapper.querySelector('.tooltip-bubble')?.remove()
-  const bubble = document.createElement('span')
-  bubble.className = 'tooltip-bubble tooltip-bubble--close'
-  bubble.setAttribute('aria-hidden', 'true')
-  bubble.hidden = true
-  bubble.textContent = text
-  wrapper.append(bubble)
-
-  let timer: number | undefined
-  const show = (instant: boolean) => {
-    window.clearTimeout(timer)
-    if (instant) bubble.hidden = false
-    else timer = window.setTimeout(() => (bubble.hidden = false), 150)
-  }
-  const hide = () => {
-    window.clearTimeout(timer)
-    bubble.hidden = true
-  }
-  closeButton.addEventListener('pointerenter', (e) => {
-    if (e.pointerType !== 'touch') show(false)
-  })
-  closeButton.addEventListener('pointerleave', hide)
-  closeButton.addEventListener('pointerdown', hide)
-  closeButton.addEventListener('focus', () => {
-    if (closeButton.matches(':focus-visible')) show(true)
-  })
-  closeButton.addEventListener('blur', hide)
+  popover.closeButton.setAttribute('data-ecl-tooltip', text)
 }
 
 export interface TourLabels {

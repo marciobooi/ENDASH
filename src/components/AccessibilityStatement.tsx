@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Button } from './Button'
 import type { AccessibilityStatementConfig, StatementSection, StatementText } from '../accessibility/statementConfig'
 
 interface AccessibilityStatementProps {
@@ -38,11 +39,7 @@ function List({ items }: { items?: string[] }) {
 function BackButton({ href }: { href: string }) {
   return (
     <div className="a11y-actions">
-      <a className="ecl-button ecl-button--primary" href={href}>
-        <span className="ecl-button__container">
-          <span className="ecl-button__label" data-ecl-label="true">Back to the tool</span>
-        </span>
-      </a>
+      <Button href={href}>Back to the tool</Button>
     </div>
   )
 }

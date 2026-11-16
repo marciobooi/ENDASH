@@ -10,23 +10,10 @@
   --popover-close-size: 2.75rem; /* 44px touch target */
 }
 
-.skip-link {
-  position: absolute;
-  z-index: 20;
-  top: 0.5rem;
-  left: 0.5rem;
-  padding: 0.75rem 1rem;
-  transform: translateY(-160%);
-  color: #fff;
-  background: #0a328e;
-}
-
-.skip-link:focus {
-  transform: translateY(0);
-}
-
 .site-header {
   position: relative;
+  /* Above the sticky topic row, so the language panel (inside the header) is never cut off by it. */
+  z-index: 30;
   background: #fff;
   color: #262b38;
 }
@@ -274,56 +261,6 @@
   width: var(--round-button-icon-size);
   height: var(--round-button-icon-size);
   flex: none;
-}
-
-/* Tooltip (see Tooltip.tsx) */
-
-.tooltip-host {
-  position: relative;
-  display: inline-flex;
-}
-
-.tooltip-bubble {
-  --tooltip-shift: 0px;
-
-  position: absolute;
-  z-index: 1100;
-  bottom: calc(100% + 0.5rem);
-  left: 50%;
-  padding: 0.5rem 0.75rem;
-  transform: translateX(calc(-50% + var(--tooltip-shift)));
-  border: 2px solid #0e47cb;
-  border-radius: 4px;
-  background: #fff;
-  color: #262b38;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.tooltip-bubble::before {
-  content: '';
-  position: absolute;
-  bottom: -7px;
-  left: calc(50% - var(--tooltip-shift));
-  width: 10px;
-  height: 10px;
-  transform: translateX(-50%) rotate(45deg);
-  border-right: 2px solid #0e47cb;
-  border-bottom: 2px solid #0e47cb;
-  background: #fff;
-}
-
-.tooltip-bubble--inverted {
-  border-color: #262b38;
-  background: #262b38;
-  color: #fff;
-}
-
-.tooltip-bubble--inverted::before {
-  border-color: #262b38;
-  background: #262b38;
 }
 
 .tool-menu {
@@ -686,25 +623,6 @@
   right: 1.5rem;
 }
 
-/* Tooltip of the close button: sits above it, right edges aligned */
-.tour-popover .tooltip-bubble--close {
-  top: calc(1.5rem - 0.5rem);
-  right: 1.5rem;
-  bottom: auto;
-  left: auto;
-  transform: translateY(-100%);
-}
-
-.tour-popover .tooltip-bubble--close::before {
-  left: auto;
-  right: calc(var(--popover-close-size) / 2 - 5px);
-  transform: rotate(45deg);
-}
-
-.tour-popover .tooltip-bubble--close[hidden] {
-  display: none;
-}
-
 /* Insights overlay (native modal dialog) */
 .insights-dialog {
   width: min(72rem, calc(100vw - 2rem));
@@ -861,8 +779,21 @@
 /* Card (Card.tsx): ECL card surface plus accent bar, header slots, content and footer */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
+}
+
+/* At most three cards per row: two on tablets, one on phones */
+@media (max-width: 1000px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .tool-card {
@@ -1049,8 +980,10 @@
 
 /* Main content (page and embedded view) */
 .tool-content {
-  width: min(100% - 3rem, 72rem);
-  margin: 1.5rem auto;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .tool-content__selection {
@@ -1071,7 +1004,6 @@
 
 .tool-content__message {
   margin: 1.5rem;
-  color: #d7003d;
 }
 
 /* Embedded view: only the content, tight to the edges of the frame the host page gives it */
@@ -1136,3 +1068,956 @@
   margin: 0;
 }
 
+
+/* Direction bars of the global overview (trend and policy), as in the Eurostat overview */
+.direction-bar__track {
+  display: flex;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background: #eef1f5;
+}
+.direction-bar__segment { display: block; height: 100%; }
+.direction-bar__legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; list-style: none; padding: 0; margin: 0.75rem 0 0; font-size: 0.9rem; }
+.direction-dot { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; margin-right: 0.25rem; }
+.is-up { background: #0e8a3d; }
+.is-down { background: #b32434; }
+.is-flat { background: #4a5568; }
+.is-neutral { background: #1f6fba; }
+
+/* Info menu of the expanded chart (metadata and dataset links) */
+.info-links { position: relative; }
+.info-links summary { list-style: none; cursor: pointer; }
+.info-links summary::-webkit-details-marker { display: none; }
+.info-links__list {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  min-width: 14rem;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 1rem;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #d5dbe5;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.info-links__list li + li { margin-top: 0.5rem; }
+
+/* ---------------------------------------------------------------------------------------------- */
+/* Parity with the legacy tool (old/css/newStiles): headings, card surfaces, the topic row         */
+/* ---------------------------------------------------------------------------------------------- */
+
+.theme-section__heading,
+.expanded-chart h2 {
+  color: #004494;
+  font-family: Arial, sans-serif;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 4px rgba(9, 49, 142, 0.08), 0 0 10px rgba(9, 49, 142, 0.04), 0 4px 5px rgba(9, 49, 142, 0.04), 0 -4px 4px rgba(9, 49, 142, 0.04);
+}
+
+.chart-card__title {
+  color: #000;
+  font-weight: 700;
+}
+
+/* Smaller title and unit in the card: the room goes to the chart (the expanded view keeps the full size). */
+.chart-card .chart-card__title {
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.chart-card .chart-card__unit {
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+}
+
+.chart-card__unit,
+.expanded-chart__unit {
+  color: #000;
+}
+
+/* Energy topics row: ECL's InpageNavigation as a full-width sticky row (ported from the old themeNav.css). ECL lays
+   the component out as a sidebar; these rules make it a row that stays under the header, keeping ECL's scroll spy
+   and the collapsible "Page contents" button below 996px. */
+#themeNav.ecl-inpage-navigation {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(9, 49, 142, 0.08);
+  border-radius: 0;
+  border-bottom: 1px solid #d7e1eb;
+}
+
+#themeNav .ecl-inpage-navigation__title {
+  display: block;
+  border-radius: 0;
+}
+
+#themeNav .ecl-inpage-navigation__body {
+  background: #fff;
+}
+
+#themeNav .ecl-inpage-navigation__link,
+#themeNav .ecl-inpage-navigation__link:visited {
+  color: #0e47cb;
+}
+
+/* The section being read: ECL's active class, or the first link before ECL's scroll spy has started. */
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
+#themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited,
+#themeNav [data-default-active] .ecl-inpage-navigation__link {
+  color: #515560;
+  background-color: #e7edfa;
+  border-inline-start: 4px solid #0e47cb;
+  padding-inline-start: calc(0.75rem - 4px);
+}
+
+#themeNav [data-default-active] {
+  border-top-color: #fff;
+}
+
+@media (min-width: 996px) {
+  #themeNav .ecl-inpage-navigation__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  #themeNav .ecl-inpage-navigation__item {
+    border-top: none;
+  }
+
+  /* ECL's accent is a left border (vertical list); a row uses a bottom border. */
+  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link,
+  #themeNav .ecl-inpage-navigation__item--active .ecl-inpage-navigation__link:visited,
+  #themeNav [data-default-active] .ecl-inpage-navigation__link {
+    border-inline-start: none;
+    border-bottom: 4px solid #0e47cb;
+    padding-inline-start: 0.75rem;
+  }
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chart-card__actions {
+  display: flex;
+  flex: none;
+  gap: 0.5rem;
+}
+
+/* Country selector of the gallery: under the topic row, left aligned with the content */
+.gallery-filters {
+  padding: 1rem 1.5rem 0;
+}
+
+/* Charts: no Webtools menu bar and no frame around the chart (the card and the page carry the layout). */
+.webtools-chart .wtCharts,
+.webtools-chart .wt-charts {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.webtools-chart .wt-charts--toolbar,
+.webtools-chart .wt-charts--menu,
+.webtools-chart .wt-charts--menu-dialog,
+.webtools-chart .wt-charts--skip,
+.webtools-chart .wt-charts--filters,
+.webtools-chart .wt-charts--categories,
+.webtools-chart .wt-charts--series {
+  display: none !important;
+}
+
+/* Drag and drop of the gallery cards: grab pointer, lifted hover, faded source, outlined drop target */
+.chart-card {
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, outline-color 0.15s ease;
+  outline: 3px solid transparent;
+  outline-offset: 2px;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+}
+
+.chart-card:active {
+  cursor: grabbing;
+}
+
+.chart-card--dragging {
+  opacity: 0.45;
+  transform: scale(0.98);
+  cursor: grabbing;
+}
+
+.chart-card--over {
+  outline-color: #0e47cb;
+  box-shadow: 0 8px 22px rgba(9, 49, 142, 0.22);
+}
+
+/* Controls inside a card keep the normal pointer; the whole card is the drag handle */
+.chart-card button,
+.chart-card a {
+  cursor: pointer;
+}
+
+.chart-card:focus-visible {
+  outline-color: #0e47cb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-card {
+    transition: none;
+  }
+  .chart-card:hover {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+/* Insights: parity with the legacy tool (old/css/newStiles/insights.css and insights.js styles)  */
+/* ---------------------------------------------------------------------------------------------- */
+
+.insights-page,
+.story-local-insight {
+  background: linear-gradient(135deg, #ffffff 0%, #f2f6fa 100%);
+  border: 1px solid #d7e1eb;
+  border-radius: 12px;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.insights-title {
+  color: #073b5a;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.insights-cards {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-bottom: 0.75rem;
+}
+
+.insight-card {
+  background: #ffffff;
+  border: 1px solid #d7e1eb;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.insight-label {
+  color: #476276;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.insight-value {
+  color: #0b2f45;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.insight-sub,
+.insights-summary {
+  color: #29485f;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+/* Overlay panel: gradient surface, 18px radius, soft shadow (old global-insights-panel) */
+.insights-panel {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 42%, #fdfefe 100%);
+  border: 1px solid #d7e3f0;
+  border-radius: 18px;
+  box-shadow: 0 26px 60px rgba(2, 13, 30, 0.28);
+}
+
+.insights-header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #dce8f2;
+}
+
+.insight-hero {
+  background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 100%);
+  border: 1px solid #d8e8fb;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.insight-hero .insights-title {
+  font-size: 1.5rem;
+}
+
+.insights-kicker {
+  color: #0e47cb;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.25rem;
+}
+
+.insight-blocks {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+.insight-block {
+  background: #fff;
+  border: 1px solid #e3e7ed;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.insight-block h4 {
+  color: #073b5a;
+  margin: 0 0 0.25rem;
+}
+
+.insight-block__text {
+  color: #445766;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+
+.insight-kpis {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  margin: 0;
+}
+
+.insight-kpi {
+  background: #f7f9fc;
+  border: 1px solid #e3e7ed;
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+}
+
+.insight-kpi dt {
+  color: #445766;
+  font-size: 0.85rem;
+}
+
+.insight-kpi dd {
+  color: #243b53;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.2rem 0 0;
+}
+
+/* Bars: rounded tracks with the trend colours (old insight-mini-bar) */
+.insight-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insight-bar {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 2fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: #243b53;
+  margin-bottom: 0.45rem;
+}
+
+.insight-bar__track {
+  background: #edf2f7;
+  border-radius: 999px;
+  height: 0.55rem;
+  overflow: hidden;
+}
+
+.insight-bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #445766;
+}
+
+.insight-bar__fill.is-up { background: #0e8a3d; }
+.insight-bar__fill.is-down { background: #b3263a; }
+.insight-bar__fill.is-flat { background: #445766; }
+.insight-bar__fill.is-neutral { background: #1f6fba; }
+
+.insight-theme-summaries {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insight-theme-summaries li {
+  background: #f7f9fc;
+  border: 1px solid #e3e7ed;
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.insight-theme-summaries strong {
+  color: #0e47cb;
+}
+
+.insight-list {
+  padding-left: 1.25rem;
+  color: #243b53;
+  line-height: 1.5;
+}
+
+.direction-bar__track {
+  height: 0.9rem;
+  border-radius: 999px;
+}
+
+/* Story groups: coloured top rule, pill statistics (old story-group-section) */
+.story-group-section {
+  border-top: 4px solid var(--story-color, #718096);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+}
+
+.story-group-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.story-group-header h3 {
+  color: #073b5a;
+  margin: 0;
+}
+
+.story-group-why {
+  color: #3b5368;
+  font-size: 0.82rem;
+}
+
+.story-group-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.story-group-stats li {
+  background: #f7f9fc;
+  border-radius: 999px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.story-card-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+}
+
+.story-card {
+  background: #fbfcfe;
+  border: 1px solid #e8edf5;
+  border-radius: 14px;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+
+.story-card h4 {
+  color: #073b5a;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.story-card p {
+  color: #445766;
+  margin: 0;
+}
+
+.story-card__header {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.story-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+  background: #eef2f7;
+  border-radius: 999px;
+  font-size: 1.1rem;
+}
+
+.story-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.story-card__kpis,
+.story-card__facts {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  margin: 0;
+}
+
+.story-card__kpis div,
+.story-card__facts div {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.6rem;
+}
+
+.story-card__kpis dt,
+.story-card__facts dt {
+  color: #445766;
+  font-size: 0.78rem;
+}
+
+.story-card__kpis dd,
+.story-card__facts dd {
+  color: #243b53;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0.15rem 0 0;
+}
+
+.story-card__kpis small,
+.story-card__facts small {
+  color: #445766;
+  font-size: 0.78rem;
+}
+
+.story-breakdown {
+  background: #f7f9fc;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.story-card__section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #445766;
+  margin: 0 0 0.4rem;
+  text-transform: uppercase;
+}
+
+.story-breakdown__row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) 2fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+.story-breakdown__track {
+  background: #edf2f7;
+  border-radius: 999px;
+  height: 0.45rem;
+  overflow: hidden;
+}
+
+.story-breakdown__fill {
+  display: block;
+  height: 100%;
+  background: #1f6fba;
+  border-radius: 999px;
+}
+
+.story-interpretation {
+  color: #243b53;
+  font-size: 0.88rem;
+}
+
+.story-card__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #445766;
+}
+
+/* Info (i) pill and popover of a story (old insight-info-button / insight-info-popover) */
+.info-popover {
+  position: relative;
+  display: inline-flex;
+}
+
+.info-popover__button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #bfd3e8;
+  background: #eef5fd;
+  color: #13466f;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.info-popover__button:hover,
+.info-popover__button:focus-visible {
+  background: #dfefff;
+}
+
+.info-popover__panel {
+  position: absolute;
+  z-index: 20;
+  top: 1.9rem;
+  left: 0;
+  width: min(20rem, 80vw);
+  background: #ffffff;
+  border: 1px solid #d4e2f0;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(8, 33, 58, 0.16);
+  padding: 0.6rem 0.65rem;
+  color: #3a546a;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.info-popover__panel strong {
+  color: #1f3f5c;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+}
+
+.insight-evidence table {
+  font-size: 0.85rem;
+}
+
+.sparkline {
+  width: 100%;
+  height: 3.5rem;
+  display: block;
+}
+
+/* Chart toolbar in the top band (expanded chart): the views, info and close, as in the old tool */
+.chart-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Data tables (series table, evidence table): the legacy table look on the ECL table classes (old highchartsTable.css) */
+.series-table table,
+.insight-evidence table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #171a22;
+  font: normal normal 400 1rem/1.25rem Arial, sans-serif;
+  background: #fff;
+}
+
+.series-table .ecl-table__head th,
+.insight-evidence .ecl-table__head th {
+  background-color: #f3f6fc;
+  border-bottom: 2px solid #6e91e0;
+  color: #171a22;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.series-table .ecl-table__head th[scope='row'],
+.insight-evidence .ecl-table__head th[scope='row'] {
+  text-align: left;
+}
+
+.series-table .ecl-table__body td,
+.series-table .ecl-table__body th,
+.insight-evidence .ecl-table__body td,
+.insight-evidence .ecl-table__body th {
+  border-bottom: 1px solid #cfdaf5;
+  padding: 0.6rem 1rem;
+  vertical-align: middle;
+}
+
+.series-table .ecl-table__body td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.series-table .ecl-table__body th[scope='row'] {
+  text-align: left;
+  font-weight: 700;
+}
+
+.series-table .ecl-table__body tr:hover td,
+.series-table .ecl-table__body tr:hover th {
+  background: #f3f6fc;
+}
+
+.insight-evidence .ecl-table__body td {
+  font-size: 0.88rem;
+}
+
+.series-table table:focus-visible,
+.series-table:focus-visible {
+  outline: 3px solid #0e47cb;
+  outline-offset: 2px;
+}
+
+/* Chart toolbar: its own light row under the header, as in the old tool */
+.chart-toolbar-bar {
+  background: #f7f9fc;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e3e9f2;
+}
+
+.chart-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 0;
+}
+
+.chart-toolbar__group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 1.1rem;
+}
+
+/* Donut of the overview (theme distribution) and the info popover close button */
+.donut {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) 1fr;
+  gap: 1rem;
+  align-items: center;
+  margin: 0;
+}
+
+.donut svg {
+  max-width: 14rem;
+}
+
+.donut__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.donut__swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+}
+
+.info-popover__close {
+  justify-self: end;
+  border: 1px solid #d4e2f0;
+  border-radius: 999px;
+  background: #f7fbff;
+  color: #17466a;
+  font-size: 0.74rem;
+  padding: 0.18rem 0.48rem;
+  cursor: pointer;
+}
+
+.info-popover__panel {
+  display: grid;
+  gap: 0.2rem;
+}
+
+/* Overview tabs (the theme row of the legacy overview) */
+.gi-theme-nav {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  border-bottom: 1px solid #d7e1eb;
+  margin: 0 -1rem 1rem;
+}
+
+.gi-theme-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.gi-theme-nav__link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #515560;
+  border-bottom: 4px solid transparent;
+  text-decoration: none;
+}
+
+.gi-theme-nav__link:hover {
+  background: #e7edfa;
+  color: #0e47cb;
+}
+
+.gi-theme-nav__link.is-active {
+  color: #0e47cb;
+  border-bottom-color: #0e47cb;
+  font-weight: 700;
+}
+
+.story-overview-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  margin-top: 1rem;
+}
+
+.insights-row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  margin-top: 1rem;
+}
+
+.insight-explain {
+  margin-top: 0.75rem;
+  background: #f7f9fc;
+  border: 1px solid #e3e7ed;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+}
+
+.insight-block__note {
+  color: #445766;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
+.global-insights-details {
+  margin-top: 1.5rem;
+}
+
+.global-insights-details summary {
+  cursor: pointer;
+  color: #0e47cb;
+  font-weight: 700;
+  padding: 0.5rem 0;
+}
+
+/* Chart titles: one style for every chart (gallery cards and the expanded chart) */
+.chart-card__title,
+.expanded-chart__header h2 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Drag and drop (old main.css .dragover, and the 50% opacity of the dragged card) */
+.chart-card--dragging {
+  opacity: 0.5;
+  transform: none;
+}
+
+.chart-card--over {
+  border: 2px dashed blue;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Chart tooltip table (old highchartsTable.css): dark header row, dotted cell borders, right-aligned numbers. The box
+   is capped to the window so Highcharts can keep it on screen, and scrolls inside when a chart has many series. */
+.highcharts-tooltip span {
+  white-space: initial !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.table_component {
+  overflow: auto;
+  width: 24rem;
+  max-width: calc(100vw - 2rem);
+  max-height: 20rem;
+}
+
+.table_component table {
+  border: 1px dotted #dededf;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 1px;
+  text-align: left;
+}
+
+.table_component caption {
+  caption-side: top;
+  text-align: center;
+}
+
+.table_component th {
+  position: sticky; /* the year / unit header stays visible while a long tooltip scrolls */
+  top: 0;
+  border: 1px dotted #dededf;
+  background-color: #515560;
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+}
+
+.table_component td {
+  border: 1px dotted #dededf;
+  background-color: #fff;
+  color: #000;
+  padding: 5px;
+}
+
+.table_component td:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.table_component tr > td:nth-child(2) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table_component td > svg {
+  margin-right: 5px;
+  font-size: 0.7em;
+}

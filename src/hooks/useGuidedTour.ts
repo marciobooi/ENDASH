@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import type { DriveStep } from 'driver.js'
 import { useTranslation } from 'react-i18next'
 import { features, tourConfig } from '../config/toolConfig'
@@ -46,7 +46,7 @@ export function useGuidedTour(steps: DriveStep[]) {
       {
         popover: {
           title: t('tour.welcomeTitle'),
-          description: t('tour.welcomeDescription', { tool: t('brand') }),
+          description: t('tour.welcomeDescription'),
         },
       },
       ...steps,
@@ -56,16 +56,20 @@ export function useGuidedTour(steps: DriveStep[]) {
 
   const startTour = useCallback(() => startGuidedTour(allSteps, labels, rememberTour), [allSteps, labels])
 
+  // The newest startTour, so the one-time auto start below never needs it as a dependency.
+  const startTourRef = useRef(startTour)
+  useEffect(() => {
+    startTourRef.current = startTour
+  })
+
   useEffect(() => {
     if (!features.tour || !tourConfig.autoStart || (tourConfig.showOnce && hasSeenTour())) return
     // Let the shell (banner, toolbar, Webtools) paint first so every step has its target.
     const timer = window.setTimeout(() => {
       rememberTour()
-      startTour()
+      startTourRef.current()
     }, tourConfig.startDelayMs)
     return () => window.clearTimeout(timer)
-    // Only on load: later changes of the steps must not restart the tour.
-    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { startTour }

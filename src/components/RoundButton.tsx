@@ -53,6 +53,5 @@ export function RoundButton({
   )
 
   if (tooltip === false) return control
-  // The default tooltip repeats the accessible name, so it must not be announced a second time.
-  return <Tooltip content={tooltip ?? label} announce={tooltip !== undefined}>{control}</Tooltip>
+  return <Tooltip content={tooltip ?? label}>{control}</Tooltip>
 }

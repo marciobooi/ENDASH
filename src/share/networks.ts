@@ -30,7 +30,7 @@ export const shareNetworks: ShareNetwork[] = [
   {
     id: 'x',
     icon: 'x',
-    href: ({ url, text }) => `https://twitter.com/intent/tweet?text=${enc(text)}&url=${enc(url)}`,
+    href: ({ url, text }) => `https://x.com/intent/post?text=${enc(text)}&url=${enc(url)}`,
     popup: { width: 700, height: 400 },
   },
   {

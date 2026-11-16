@@ -5,6 +5,7 @@ import { site } from '../config/toolConfig'
 import { embedChartId } from '../embed/embed'
 import { readUrlState } from '../state/urlState'
 import { filterParams } from '../state/filters'
+import { useDashboardState } from '../state/dashboardState'
 import '../App.css'
 
 /**
@@ -14,6 +15,7 @@ import '../App.css'
 export function EmbedPage() {
   const { i18n } = useTranslation()
   const state = useMemo(() => readUrlState(filterParams), [])
+  const dashboard = useDashboardState()
 
   useEffect(() => {
     document.documentElement.lang = i18n.resolvedLanguage ?? 'en'
@@ -22,7 +24,7 @@ export function EmbedPage() {
 
   return (
     <main className="embed-shell">
-      <ToolContent chartId={embedChartId()} values={state} headingLevel={1} />
+      <ToolContent chartId={embedChartId()} values={state} headingLevel={1} dashboard={dashboard} />
     </main>
   )
 }

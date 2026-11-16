@@ -48,6 +48,7 @@ export function FilterControls({ values, onChange }: FilterControlsProps) {
         definition.type === 'select' ? (
           <Select
             key={definition.id}
+            id={`${definition.id}-select`}
             label={t(`filters.${definition.id}`)}
             options={optionsOf(definition)}
             value={values[definition.id] as string}

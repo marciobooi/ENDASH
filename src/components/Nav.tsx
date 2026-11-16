@@ -11,7 +11,7 @@ export function SiteNavigation({ title }: SiteNavigationProps) {
 
   return (
     <>
-      <a className="skip-link" href="#main-content">{t('navigation.skip')}</a>
+      <a className="ecl-link ecl-link--standalone ecl-skip-link" href="#main-content">{t('navigation.skip')}</a>
       <header id="top" className="site-header">
         <div id="euGlobanContainer" />
         <div className="site-header-main">

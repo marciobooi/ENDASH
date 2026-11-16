@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react'
+import { Button } from './Button'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 
 interface InsightsPanelProps {
@@ -54,9 +55,7 @@ export function InsightsPanel({ open, onClose, title, closeLabel, children, narr
         <div ref={panelRef} className="insights-panel">
           <div className="insights-header">
             <h2 className="insights-title" id={titleId}>{title}</h2>
-            <button type="button" className="ecl-button ecl-button--secondary" onClick={onClose}>
-              {closeLabel}
-            </button>
+            <Button variant="secondary" onClick={onClose}>{closeLabel}</Button>
           </div>
           {/* Scrollable, so it must be reachable with the keyboard */}
           <div className="insights-body" tabIndex={0} role="region" aria-labelledby={titleId}>

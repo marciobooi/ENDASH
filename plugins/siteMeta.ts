@@ -54,6 +54,10 @@ export function siteMeta(): Plugin {
         meta({ property: 'og:locale', content: site.locale }),
         ...site.localeAlternates.map((locale) => meta({ property: 'og:locale:alternate', content: locale })),
         meta({ name: 'twitter:card', content: site.twitterCard }),
+        meta({ name: 'twitter:url', content: pageUrl }),
+        meta({ name: 'twitter:title', content: site.title }),
+        meta({ name: 'twitter:description', content: site.description }),
+        meta({ name: 'twitter:image', content: image }),
         meta({ name: 'twitter:image:alt', content: site.image.alt }),
       ]
       return {

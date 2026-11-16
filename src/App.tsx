@@ -1,30 +1,36 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { DriveStep } from 'driver.js'
-import { features, filters, menuItems, tourConfig } from './config/toolConfig'
+import { features, filters, tourConfig } from './config/toolConfig'
 import { describeFilter, useFilters } from './state/filters'
 import { useGuidedTour } from './hooks/useGuidedTour'
 import { useSiteShell } from './hooks/useSiteShell'
 import { DownloadMenu } from './components/DownloadMenu'
 import { FilterControls } from './components/FilterControls'
 import { SiteFooter } from './components/Footer'
-import { InsightsContent } from './components/InsightsContent'
+import { GlobalInsightsBody } from './components/insights/GlobalInsightsBody'
 import { InsightsPanel } from './components/InsightsPanel'
 import { SiteNavigation } from './components/Nav'
 import { RoundButton } from './components/RoundButton'
 import { ShareMenu } from './components/ShareMenu'
 import { SiteSubNavigation } from './components/SubNav'
 import { ToolContent } from './components/ToolContent'
-import { buildToolTable } from './download/toolTable'
+import { ChartToolbar } from './components/ChartToolbar'
+import { useDashboardState } from './state/dashboardState'
+import { chartById } from './config/toolConfig'
+import { buildChartTable } from './download/toolTable'
 import './App.css'
 
 function App() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   useSiteShell()
 
   // The filters (src/config/toolConfig.ts) live in the address: shared links and embedded views show this state.
   const [values, setFilter] = useFilters()
   const [insightsOpen, setInsightsOpen] = useState(false)
+  const dashboard = useDashboardState()
+  const [dashState, patchDashboard] = dashboard
+  const expandedChart = dashState.chart ? chartById[dashState.chart] : undefined
 
   // Context added to the contact e-mail: what the person had selected when they wrote.
   const emailDetails = useMemo(
@@ -52,11 +58,9 @@ function App() {
       <SiteSubNavigation
         title={t('subnav.title')}
         subtitle={t('subnav.subtitle')}
-        menuItems={menuItems.map(({ labelKey, href }) => ({ label: t(labelKey), href }))}
-        filters={<FilterControls values={values} onChange={setFilter} />}
         actions={
           <>
-            {features.insights && (
+            {!expandedChart && features.insights && (
               <RoundButton
                 id="insights-button"
                 icon="lightbulb"
@@ -65,15 +69,42 @@ function App() {
                 onClick={() => setInsightsOpen(true)}
               />
             )}
-            {features.download && <DownloadMenu getTable={() => buildToolTable(values, t)} />}
-            {features.share && <ShareMenu emailDetails={emailDetails} />}
-            {features.tour && <RoundButton id="tour-button" icon="help" label={t('tour.start')} onClick={startTour} />}
+            {!expandedChart && features.download && (
+              <DownloadMenu
+                getTable={() => {
+                  // The chart on screen (its address names it) and its loaded table; without one there is no Excel file.
+                  const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
+                  return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined
+                }}
+              />
+            )}
+            {!expandedChart && features.share && <ShareMenu emailDetails={emailDetails} />}
+            {!expandedChart && features.tour && <RoundButton id="tour-button" icon="help" label={t('tour.start')} onClick={startTour} />}
           </>
         }
       />
 
+      {expandedChart && (
+        <section className="chart-toolbar-bar" aria-label={t('labels.OPTIONS_GRAPH_TOOLBOX')}>
+          <ChartToolbar
+            chart={expandedChart}
+            state={dashState}
+            patch={patchDashboard}
+            onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '' })}
+            download={features.download ? (
+              <DownloadMenu
+                getTable={() => {
+                  const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
+                  return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined
+                }}
+              />
+            ) : undefined}
+          />
+        </section>
+      )}
+
       <main id="main-content" className="visualization-shell">
-        <ToolContent values={values} />
+        <ToolContent values={values} filters={<FilterControls values={values} onChange={setFilter} />} dashboard={dashboard} />
       </main>
 
       {features.insights && (
@@ -83,7 +114,7 @@ function App() {
           title={t('insights.title')}
           closeLabel={t('insights.close')}
         >
-          <InsightsContent />
+          <GlobalInsightsBody geo={String(values.geo)} active={insightsOpen} />
         </InsightsPanel>
       )}
 

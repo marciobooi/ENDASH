@@ -1,78 +1,50 @@
 /**
- * Tool configuration: every lookup table of the tool lives here (colours, code mappings, dataset
- * definitions, countries, units, images). Components import from this file and never hard-code codes.
- *
- * Per tool: keep the structure, replace the EXAMPLE entries marked below with the tool's own codes.
- * Labels that must be translated belong in src/locales; the labels here are neutral English fallbacks.
+ * Tool configuration of the Energy dashboard: every lookup table lives here (charts, themes, countries, palette) and
+ * the page identity, features and embedded views. Components import from this file and never hard-code codes.
+ * Names are not here: they are translated in src/locales/<code>.json (`countries.<code>`, `labels.<code>`, ...).
  */
 
 /* ------------------------------------------------------------------ */
-/* PAGE IDENTITY (title, social preview, languages, contact, links)     */
+/* PAGE IDENTITY                                                       */
 /* ------------------------------------------------------------------ */
 
 /**
- * Page identity of THIS tool: title, description, social preview card, languages, contact e-mail and links.
- *
- * A Vite plugin (plugins/siteMeta.ts) writes the identity into the static HTML at build time (<title>, description,
- * Open Graph, Twitter Card, canonical, page language), because social crawlers read the HTML and do not run
- * JavaScript. That is why this whole file is pure data: it is also read by Node during the build.
- *
- * Replace every <<PLACEHOLDER>>; `npm run check:release` fails while one is left.
+ * Page identity of this tool: title, description, social preview, languages, contact e-mail and links.
+ * A Vite plugin (plugins/siteMeta.ts) writes it into the static HTML at build time.
  */
 export const site = {
-  /** Page title and `og:title`. */
-  title: 'Eurostat tools',
-  /** Meta description and `og:description` (about 150 characters shows fully in most networks). */
-  description: 'A multilingual starter for Eurostat data tools.',
-  siteName: 'Eurostat',
-
-  /** Absolute https address of the deployed page: what people share and the canonical address. */
-  url: 'https://ec.europa.eu/eurostat/cache/visualisations/<<TOOL>>/<<TOOL>>.html',
-
-  /** Preview image shown in the post. The file lives in public/; its address is derived from `url`. */
+  title: 'Energy dashboard - Eurostat',
+  description:
+    'By using the energy dashboard tool, created by Eurostat, you can easily visualise the evolution of the most important energy indicators (energy efficiency, share of renewables, import dependency, and many more) for your country and for the EU.',
+  siteName: 'Eurostat Energy Dashboard',
+  /** Absolute https address of the deployed page. */
+  url: 'https://ec.europa.eu/eurostat/cache/visualisations/energy-dashboard/endash.html',
   image: {
-    /** Path inside the deployed folder (the file is public/images/share-preview.png). PNG or JPEG, never SVG. */
-    file: 'images/share-preview.png',
+    file: 'images/shareico.jpg',
     type: 'image/png',
-    width: 1200,
-    height: 630,
-    alt: 'Eurostat tools: an interactive data tool to explore European statistics.',
+    width: 506,
+    height: 253,
+    alt: 'Energy dashboard - Eurostat: the evolution of the most important energy indicators for countries and the EU.',
   },
-
-  /**
-   * Languages of the tool, in the order the language selector shows them. `code` is the file name of the
-   * translations (src/locales/<code>.json) and the value of `?language=`. To add a language: a new locale file and an
-   * entry here.
-   */
   languages: [
     { code: 'en', name: 'English' },
     { code: 'de', name: 'Deutsch' },
     { code: 'fr', name: 'Français' },
   ],
   defaultLanguage: 'en',
-
-  /** Mailbox that receives the contact e-mail of the share menu. */
+  /** Mailbox that receives the contact e-mail of the share menu (as in the old tool's feedback button). */
   contactEmail: 'ESTAT-ENERGY@ec.europa.eu',
-
   links: {
-    /** Eurostat home page (the logo in the banner). */
     home: 'https://ec.europa.eu/eurostat/',
-    /** Footer links; `{lang}` is replaced by the language code. */
     footer: {
       privacy: 'https://ec.europa.eu/info/privacy-policy_{lang}',
       legal: 'https://ec.europa.eu/info/legal-notice_{lang}',
       cookies: 'https://ec.europa.eu/info/cookies_{lang}',
     },
   },
-
-  /** `og:locale`, with the other languages of the tool as alternates. The preview itself is one language. */
   locale: 'en_GB',
   localeAlternates: ['fr_FR', 'de_DE'],
-
-  /** Large image above the text in X; `summary` would show a small square. */
   twitterCard: 'summary_large_image',
-
-  /** Browser UI colour on mobile (ECL primary-180). */
   themeColor: '#082b7a',
 } as const
 
@@ -92,103 +64,145 @@ export function shareImageUrl(pageUrl: string = site.url): string {
 /* COLOURS                                                             */
 /* ------------------------------------------------------------------ */
 
-/** Colour families; each family has 4 shades [base, light, vivid, dark]. Names follow rapidtables.com/web/color. */
-export const euColors = {
-  cornflower: ['#388AE2', '#A5DAF9', '#3CBEFE', '#096698'],
-  cobalt: ['#2644A7', '#9CC1FA', '#2F8DFF', '#0F4998'],
-  darkOrchid: ['#672DC4', '#CAADF9', '#9D61FC', '#441797'],
-  berry: ['#AF155C', '#E6A7DC', '#D055C1', '#782A78'],
-  fuchia: ['#B656BD', '#F5AFCC', '#F065A2', '#8B3363'],
-  sunsetRed: ['#E04040', '#FFA3A3', '#FF4F4F', '#982630'],
-  sienna: ['#AA5F18', '#DFB18B', '#C66914', '#734221'],
-  darkGold: ['#B39421', '#EFD18C', '#E8AE00', '#866110'],
-  forestGreen: ['#33A033', '#A2DDB2', '#26C56D', '#007243'],
-  teal: ['#208486', '#92C1C0', '#008D8B', '#00525C'],
-} as const
+/** Series palette of the dashboard (old `colors`, codes.js). */
+export const seriesColors = [
+  "#06D7FF",
+  "#19FF99",
+  "#4C99FF",
+  "#FFD900",
+  "#C88000",
+  "#33D129",
+  "#FFB800",
+  "#E67500",
+  "#05A0FF",
+  "#2CB523",
+  "#8C4000",
+  "#0033FF",
+  "#00A68C",
+  "#FF8C00",
+  "#00D98C",
+  "#2673FF",
+  "#FFB300",
+  "#FF8A00",
+  "#B35900",
+  "#26A31F",
+  "#0573FF"
+]
 
-/** EXAMPLE: one colour per category code. Exposed as CSS variables `--color-<code>` (see applyColorCssVariables). */
-export const categoryColors: Record<string, string> = {
-  TOTAL: euColors.cornflower[0], // all categories aggregate
-  CAT1: euColors.forestGreen[0],
-  CAT2: euColors.cornflower[3],
-  CAT3: euColors.darkGold[2],
-  CAT4: euColors.berry[0],
-  CAT5: euColors.sienna[3],
-  CAT6: euColors.darkOrchid[2],
-}
-
-/** Neutral colour for everything that is not highlighted. */
+/** Neutral colour for everything not highlighted. */
 export const backgroundColor = '#DCDCDC'
 
-/** Extra named colours, also exposed as CSS variables. */
+/** Named colours, also exposed as CSS variables. */
 export const namedColors: Record<string, string> = {
-  highlight: euColors.teal[2],
+  highlight: '#E67500',
+  average: '#7F9BD9',
 }
 
-/** Generic series palette (pie charts, time series). */
-export const seriesColors = [
-  '#1F497D', '#faa519', '#32AFAF', '#F06423', '#C84B96', '#5FB441', '#286EB4',
-  '#802F09', '#D73C41', '#5E620F', '#00A5E6', '#0F243E', '#B9C31E', '#1A5757',
-] as const
-
-/** Publish the colours as CSS custom properties: `--color-<code lowercased>`. Call once at start-up. */
+/** Publish the colours as CSS custom properties: `--color-<name>`. */
 export function applyColorCssVariables(root: HTMLElement = document.documentElement): void {
-  for (const [code, color] of Object.entries(categoryColors)) {
-    root.style.setProperty(`--color-${code.toLowerCase()}`, color)
-  }
   for (const [name, color] of Object.entries(namedColors)) {
     root.style.setProperty(`--color-${name.toLowerCase()}`, color)
   }
 }
 
 /* ------------------------------------------------------------------ */
-/* CODE MAPPINGS (source code <-> tool code)                           */
-/* ------------------------------------------------------------------ */
-
-
-
-
-
-
-/* ------------------------------------------------------------------ */
-/* DATASETS (dimensions, allowed codes, labels)                        */
-/* ------------------------------------------------------------------ */
-
-export interface DatasetDefinition {
-  /** Dimension order of the dataset. */
-  dimensions: string[]
-  /** Allowed codes per dimension (only the dimensions the tool filters on). */
-  codes: Record<string, string[]>
-  // Labels are translated in the locale files (`indicators.<code>`), not here.
-}
-
-/** EXAMPLE: one entry per Eurostat dataset code used by the tool. */
-export const datasets: Record<string, DatasetDefinition> = {
-  env_example_a: {
-    dimensions: ['indic_env', 'category', 'unit', 'geo', 'time'],
-    codes: {
-      indic_env: ['DE', 'DMC', 'DMI', 'EXP', 'IMP'],
-      category: ['TOTAL', 'CAT1', 'CAT2', 'CAT3', 'CAT4', 'CAT5', 'CAT6'],
-    },
-  },
-}
-
-/* ------------------------------------------------------------------ */
 /* COUNTRIES                                                           */
 /* ------------------------------------------------------------------ */
 
-/**
- * Geo codes of the tool. Country and group NAMES are not here: they are translated in the locale files
- * (`countries.<code>` and `countryGroups.<id>` in src/locales/*.json).
- */
-export const allCountries = ["EU27_2020","BE","BG","CZ","DK","DE","EE","IE","EL","ES","FR","HR","IT","CY","LV","LT","LU","HU","MT","NL","AT","PL","PT","RO","SI","SK","FI","SE","IS","LI","NO","ME","MK","AL","RS","TR","BA","XK","MD","UA","GE"];
-export const AGGREGATES_COUNTRY_CODES = ["EU27_2020"];
-export const EU_COUNTRY_CODES = ["BE", "BG", "CZ", "DK", "DE", "EE", "IE", "EL", "ES", "FR", "HR", "IT", "CY", "LV", "LT", "LU", "HU", "MT", "NL", "AT", "PL", "PT", "RO", "SI", "SK", "FI", "SE"];
-export const EFTA_COUNTRY_CODES = ["IS", "LI", "NO"];
-export const ENLARGEMENT_COUNTRY_CODES = [ "BA","ME","MD","MK","GE","AL","RS","TR","UA","XK",]
-export const OTHER_THIRD_COUNTRY_CODES = ["UA", "MD", "GE"];
+export const allCountries: string[] = [
+  "EU27_2020",
+  "BE",
+  "BG",
+  "CZ",
+  "DK",
+  "DE",
+  "EE",
+  "IE",
+  "EL",
+  "ES",
+  "FR",
+  "HR",
+  "IT",
+  "CY",
+  "LV",
+  "LT",
+  "LU",
+  "HU",
+  "MT",
+  "NL",
+  "AT",
+  "PL",
+  "PT",
+  "RO",
+  "SI",
+  "SK",
+  "FI",
+  "SE",
+  "IS",
+  "LI",
+  "NO",
+  "ME",
+  "MK",
+  "AL",
+  "RS",
+  "TR",
+  "BA",
+  "XK",
+  "MD",
+  "UA",
+  "GE"
+]
+export const AGGREGATES_COUNTRY_CODES: string[] = [
+  "EU27_2020"
+]
+export const EU_COUNTRY_CODES: string[] = [
+  "BE",
+  "BG",
+  "CZ",
+  "DK",
+  "DE",
+  "EE",
+  "IE",
+  "EL",
+  "ES",
+  "FR",
+  "HR",
+  "IT",
+  "CY",
+  "LV",
+  "LT",
+  "LU",
+  "HU",
+  "MT",
+  "NL",
+  "AT",
+  "PL",
+  "PT",
+  "RO",
+  "SI",
+  "SK",
+  "FI",
+  "SE"
+]
+export const EFTA_COUNTRY_CODES: string[] = [
+  "IS",
+  "LI",
+  "NO"
+]
+export const ENLARGEMENT_COUNTRY_CODES: string[] = [
+  "BA",
+  "ME",
+  "MD",
+  "MK",
+  "GE",
+  "AL",
+  "RS",
+  "TR",
+  "UA",
+  "XK"
+]
 
-/** Groups shown in country selectors, in display order. `id` is the key under `countryGroups` in the locale files. */
+/** Groups of the country selector, in display order. `id` is the key under `countryGroups` in the locale files. */
 export const countryGroups = [
   { id: 'aggregates', codes: AGGREGATES_COUNTRY_CODES },
   { id: 'eu', codes: EU_COUNTRY_CODES },
@@ -196,30 +210,875 @@ export const countryGroups = [
   { id: 'enlargement', codes: ENLARGEMENT_COUNTRY_CODES },
 ] as const
 
+/** Real countries of the dashboard (no aggregates): the rankings and medians count only these. */
+/** Countries compared in the bar view (old defaultGeos: the aggregate plus every country of the dashboard). */
+export const defaultQueryGeos: string[] = [...allCountries]
+
+export const realCountryCodes: string[] = [...EU_COUNTRY_CODES, ...EFTA_COUNTRY_CODES, ...ENLARGEMENT_COUNTRY_CODES]
 
 /* ------------------------------------------------------------------ */
-/* UNITS                                                               */
+/* CHARTS (the 26 charts of the dashboard)                             */
 /* ------------------------------------------------------------------ */
 
-export interface UnitDefinition {
-  abbr: string
-  /** Multiply a value in the dataset's base unit (THS_T) by this factor to get this unit. */
-  conversionFactor: number
-  // The unit name is translated in the locale files (`units.<code>`), not here.
+/** One Eurostat table and the query it is read with. */
+export interface DataSource {
+  dataset: string
+  unit: string
+  /** Codes of the indicator dimension (`indicatorType`). */
+  indicator: string[]
+  indicatorType: string
+  /** Codes of the second dimension (`indicator2Type`), fixed to one value. */
+  indicator2: string[]
+  indicator2Type: string
 }
 
-/** EXAMPLE units; the base unit of the dataset has conversionFactor 1. */
-export const units: Record<string, UnitDefinition> = {
-  T_HAB: { abbr: 'T_HAB', conversionFactor: 1 },
-  THS_T: { abbr: 'KT', conversionFactor: 1 },
-  MIO_T: { abbr: 'MT', conversionFactor: 0.001 },
-  G_T: { abbr: 'GT', conversionFactor: 0.000001 },
+export type ChartView = 'bar' | 'pie' | 'timeline' | 'table' | 'insights'
+
+export interface ChartDefinition extends DataSource {
+  id: string
+  /** Eurostat metadata page of the dataset (`NONE` when there is none). */
+  meta: string
+  /** Expanded views this chart offers besides the line chart (old `optionCharts`). */
+  views: ChartView[]
+  /** Show a "Total" row in the tooltip: only when the series are parts of one whole. */
+  tooltipTotal: boolean
+  /** Monthly dataset: bar and pie show a month (REF.month) instead of a year. */
+  monthly: boolean
+  /** Length of the monthly window in months. */
+  months?: number
+  /** Key of the title of the bar and pie views (monthly charts). */
+  titleAux?: string
+  /** Second table merged into the same chart (oil stocks and deliveries). */
+  combine?: DataSource
+  /** Shows every country at once, split at the average (oil stocks by country). */
+  medianSplit: boolean
+  /** chart_8: kilograms of oil equivalent per inhabitant, from two tables. */
+  special?: 'perCapita'
+  /** Extra query parameters of the request. */
+  extraParams?: Record<string, string>
 }
 
-/** Convert a value expressed in the base unit into another configured unit. */
-export function convertUnit(value: number, unitCode: string): number {
-  return value * (Object.hasOwn(units, unitCode) ? units[unitCode].conversionFactor : 1)
-}
+export const charts: ChartDefinition[] = [
+  {
+    "dataset": "nrg_ind_eff",
+    "unit": "MTOE",
+    "indicator": [
+      "FEC_EED",
+      "PEC_EED"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_1",
+    "meta": "nrg_ind_eff",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_ren",
+    "unit": "PC",
+    "indicator": [
+      "REN",
+      "REN_TRA",
+      "REN_ELC",
+      "REN_HEAT_CL"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_2",
+    "meta": "nrg_ind_share",
+    "views": [
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "env_air_gge",
+    "unit": "THS_T",
+    "indicator": [
+      "CRF1A1",
+      "CRF1A2",
+      "CRF1A3",
+      "CRF1A4A",
+      "CRF1A4B",
+      "CRF1A4C",
+      "CRF1A5"
+    ],
+    "indicatorType": "src_crf",
+    "indicator2": [
+      "GHG"
+    ],
+    "indicator2Type": "AIRPOL",
+    "id": "chart_3",
+    "meta": "env_air_gge",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_ei",
+    "unit": "KGOE_TEUR",
+    "indicator": [
+      "EI_GDP_CLV05"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_4",
+    "meta": "nrg_ind_ei",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_ep",
+    "unit": "EUR_KGOE",
+    "indicator": [],
+    "indicatorType": "nrg_bal",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_5",
+    "meta": "nrg_ind_ep",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_id",
+    "unit": "PC",
+    "indicator": [
+      "G3000",
+      "O4000XBIO",
+      "O4100_TOT",
+      "O4200"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_6",
+    "meta": "nrg_ind_id",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_ffgae",
+    "unit": "PC",
+    "indicator": [],
+    "indicatorType": "PC",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_7",
+    "meta": "nrg_ind_ffgae",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "demo_pjan",
+    "unit": "KGOE",
+    "indicator": [],
+    "indicatorType": "",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_8",
+    "meta": "demo_pop",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false,
+    "special": "perCapita"
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "C0350-0370",
+      "P1000",
+      "S2000",
+      "G3000",
+      "O4000XBIO",
+      "RA000",
+      "W6100_6220",
+      "N900H",
+      "E7000",
+      "H8000"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_E"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_9",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "FC_IND_E",
+      "FC_OTH_AF_E",
+      "FC_OTH_CP_E",
+      "FC_OTH_FISH_E",
+      "FC_OTH_HH_E",
+      "FC_OTH_NSP_E",
+      "FC_TRA_E"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [
+      "TOTAL"
+    ],
+    "indicator2Type": "siec",
+    "id": "chart_10",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_d_hhq",
+    "unit": "TJ",
+    "indicator": [
+      "FC_OTH_HH_E_SH",
+      "FC_OTH_HH_E_SC",
+      "FC_OTH_HH_E_WH",
+      "FC_OTH_HH_E_CK",
+      "FC_OTH_HH_E_LE",
+      "FC_OTH_HH_E_OE"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [
+      "TOTAL"
+    ],
+    "indicator2Type": "siec",
+    "id": "chart_11",
+    "meta": "nrg_quant",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_c",
+    "unit": "KTOE",
+    "indicator": [
+      "E7000",
+      "G3000",
+      "O4630",
+      "O4652XR5210B",
+      "O4661XR5230B",
+      "O4671XR5220B",
+      "O4680",
+      "R5210B",
+      "R5210P",
+      "R5220B",
+      "R5220P",
+      "R5290",
+      "R5300"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_TRA_E"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_12",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_c",
+    "unit": "KTOE",
+    "indicator": [
+      "G3000",
+      "O4630",
+      "O4652XR5210B",
+      "O4671XR5220B",
+      "R5210P",
+      "R5210B",
+      "R5220P",
+      "R5220B",
+      "R5290",
+      "R5300",
+      "E7000"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_TRA_ROAD_E"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_13",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "E7000",
+      "G3000",
+      "H8000",
+      "O4000XBIO",
+      "RA000",
+      "W6100_6220"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_OTH_CP_E"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_14",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "C0350-0370",
+      "E7000",
+      "G3000",
+      "H8000",
+      "N900H",
+      "O4000XBIO",
+      "P1000",
+      "RA000",
+      "S2000",
+      "W6100_6220"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_IND_E"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_15",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "C0350-0370",
+      "G3000",
+      "O4000XBIO",
+      "P1000",
+      "RA000",
+      "S2000"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "FC_NE"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_16",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_peh",
+    "unit": "GWH",
+    "indicator": [
+      "CF",
+      "RA100",
+      "RA130",
+      "RA200",
+      "RA300",
+      "RA400",
+      "RA500",
+      "N9000",
+      "X9900",
+      "X9900H"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "GEP"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_17",
+    "meta": "nrg_quant",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false,
+    "extraParams": {
+      "operator": "PRR_AUTO",
+      "plants": "ELC"
+    }
+  },
+  {
+    "dataset": "nrg_ind_pehcf",
+    "unit": "GWH",
+    "indicator": [
+      "C0110",
+      "C0121",
+      "C0129",
+      "C0210",
+      "C0220",
+      "C0311",
+      "C0312",
+      "C0320",
+      "C0330",
+      "C0340",
+      "C0350",
+      "C0360",
+      "C0371",
+      "C0379"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "GEP"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_18",
+    "meta": "nrg_quant",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "extraParams": {
+      "operator": "PRR_MAIN",
+      "plants": "ELC"
+    },
+    "medianSplit": false
+  },
+  {
+    "dataset": "ilc_mdes01",
+    "unit": "PC",
+    "indicator": [
+      "TOTAL"
+    ],
+    "indicatorType": "hhcomp",
+    "indicator2": [
+      "TOTAL"
+    ],
+    "indicator2Type": "rskpovth",
+    "id": "chart_19",
+    "meta": "ilc_sieusilc",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_ind_re",
+    "unit": "PC",
+    "indicator": [
+      "FC_E",
+      "FC_IND_E",
+      "FC_TRA_E",
+      "FC_OTH_HH_CP_E"
+    ],
+    "indicatorType": "nrg_bal",
+    "indicator2": [],
+    "indicator2Type": "",
+    "id": "chart_20",
+    "meta": "nrg_ind_re",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "C0350-0370",
+      "P1000",
+      "S2000",
+      "G3000",
+      "O4000XBIO",
+      "RA000",
+      "W6100_6220",
+      "E7000",
+      "H8000",
+      "N900H"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "GAE"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_21",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_bal_s",
+    "unit": "KTOE",
+    "indicator": [
+      "C0000X0350-0370",
+      "C0350-0370",
+      "P1000",
+      "S2000",
+      "G3000",
+      "O4000XBIO",
+      "RA000",
+      "W6100_6220",
+      "E7000",
+      "H8000",
+      "N900H"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "NRGSUP"
+    ],
+    "indicator2Type": "nrg_bal",
+    "id": "chart_22",
+    "meta": "nrg_bal",
+    "views": [
+      "bar",
+      "pie",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": true,
+    "monthly": false,
+    "medianSplit": false
+  },
+  {
+    "dataset": "nrg_stk_oilm",
+    "unit": "THS_T",
+    "indicator": [
+      "O46711"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "STK_CL"
+    ],
+    "indicator2Type": "stk_flow",
+    "id": "chart_23",
+    "meta": "NONE",
+    "views": [
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": true,
+    "months": 12,
+    "titleAux": "chart_23_aux",
+    "medianSplit": false,
+    "combine": {
+      "dataset": "nrg_cb_oilm",
+      "unit": "THS_T",
+      "indicator": [
+        "O46711"
+      ],
+      "indicatorType": "siec",
+      "indicator2": [
+        "GID_OBS"
+      ],
+      "indicator2Type": "nrg_bal"
+    }
+  },
+  {
+    "dataset": "nrg_stk_oilm",
+    "unit": "THS_T",
+    "indicator": [
+      "O46711"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "STK_CL"
+    ],
+    "indicator2Type": "stk_flow",
+    "id": "chart_24",
+    "meta": "NONE",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": true,
+    "months": 12,
+    "titleAux": "chart_24_aux",
+    "medianSplit": true
+  },
+  {
+    "dataset": "nrg_stk_oilm",
+    "unit": "THS_T",
+    "indicator": [
+      "O4661"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "STK_CL"
+    ],
+    "indicator2Type": "stk_flow",
+    "id": "chart_25",
+    "meta": "NONE",
+    "views": [
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": true,
+    "months": 12,
+    "titleAux": "chart_25_aux",
+    "medianSplit": false,
+    "combine": {
+      "dataset": "nrg_cb_oilm",
+      "unit": "THS_T",
+      "indicator": [
+        "O4661"
+      ],
+      "indicatorType": "siec",
+      "indicator2": [
+        "GID_OBS"
+      ],
+      "indicator2Type": "nrg_bal"
+    }
+  },
+  {
+    "dataset": "nrg_stk_oilm",
+    "unit": "THS_T",
+    "indicator": [
+      "O4661"
+    ],
+    "indicatorType": "siec",
+    "indicator2": [
+      "STK_CL"
+    ],
+    "indicator2Type": "stk_flow",
+    "id": "chart_26",
+    "meta": "NONE",
+    "views": [
+      "bar",
+      "timeline",
+      "table",
+      "insights"
+    ],
+    "tooltipTotal": false,
+    "monthly": true,
+    "months": 12,
+    "titleAux": "chart_26_aux",
+    "medianSplit": true
+  }
+]
+
+export const chartById: Record<string, ChartDefinition> = Object.fromEntries(charts.map((chart) => [chart.id, chart]))
+
+/** Themes of the gallery: the jump-nav sections and the charts of each one, in display order. */
+export const themes: Array<{ id: string; labelKey: string; charts: string[] }> = [
+  {
+    "id": "theme-sustainability",
+    "labelKey": "THEME_SUSTAINABILITY",
+    "charts": [
+      "chart_2",
+      "chart_3",
+      "chart_19"
+    ]
+  },
+  {
+    "id": "theme-diversification",
+    "labelKey": "THEME_DIVERSIFICATION",
+    "charts": [
+      "chart_21",
+      "chart_22",
+      "chart_7",
+      "chart_6"
+    ]
+  },
+  {
+    "id": "theme-efficiency",
+    "labelKey": "THEME_EFFICIENCY",
+    "charts": [
+      "chart_1",
+      "chart_4",
+      "chart_5"
+    ]
+  },
+  {
+    "id": "theme-electrification",
+    "labelKey": "THEME_ELECTRIFICATION",
+    "charts": [
+      "chart_20",
+      "chart_17",
+      "chart_18"
+    ]
+  },
+  {
+    "id": "theme-consumption",
+    "labelKey": "THEME_CONSUMPTION",
+    "charts": [
+      "chart_8",
+      "chart_9",
+      "chart_10",
+      "chart_11",
+      "chart_12",
+      "chart_13",
+      "chart_14",
+      "chart_15",
+      "chart_16"
+    ]
+  },
+  {
+    "id": "theme-oilstocks",
+    "labelKey": "THEME_OILSTOCKS",
+    "charts": [
+      "chart_23",
+      "chart_25",
+      "chart_24",
+      "chart_26"
+    ]
+  }
+]
 
 /* ------------------------------------------------------------------ */
 /* IMAGES                                                              */
@@ -231,60 +1090,16 @@ export const images = {
 } as const
 
 /* ------------------------------------------------------------------ */
-/* CODES THE TOOL REQUESTS FROM THE API                                */
-/* ------------------------------------------------------------------ */
-
-export const apiCodes = {
-  geo: allCountries,
-  /** Flow / indicator codes of the tool (fill in per tool). */
-  flow: [] as string[],
-  category: Object.keys(categoryColors),
-  /** Years are queried from the dataset directly. */
-  year: [] as string[],
-}
-
-/* ------------------------------------------------------------------ */
-/* GUIDED TOUR                                                         */
-/* ------------------------------------------------------------------ */
-
-export const tourConfig = {
-  /** Start the tour when the tool loads. */
-  autoStart: true,
-  /** true: only the first visit in this browser. false: on every load. */
-  showOnce: true,
-  /** localStorage key; change it (e.g. add a version) to show an updated tour to returning visitors. */
-  storageKey: 'eurostat-tool-tour-seen-v1',
-  startDelayMs: 800,
-  /**
-   * The steps after the welcome. `id` names the texts (`tour.<id>Title` and `tour.<id>Description` in the locale
-   * files), `element` is the CSS selector to highlight. Steps whose element is not in the page are skipped.
-   */
-  steps: [
-    { id: 'language', element: '#toggleLanguageBtn' },
-    { id: 'menu', element: '#menu-toggle' },
-    { id: 'tool', element: '.toolbar-title' },
-    { id: 'insights', element: '#insights-button' },
-    { id: 'download', element: '#download-button' },
-    { id: 'share', element: '#share-button' },
-    { id: 'replay', element: '#tour-button' },
-    { id: 'content', element: '#main-content' },
-  ],
-}
-
-/* ------------------------------------------------------------------ */
-/* FILTERS (the controls of the menu and the state kept in the address) */
+/* FILTERS (controls of the menu and state kept in the address)       */
 /* ------------------------------------------------------------------ */
 
 export interface FilterGroup {
-  /** Key of the group's name in the locale namespace `groupKey`. */
   id: string
   codes: readonly string[]
 }
 
 interface FilterBase {
-  /** Name of the address parameter (`?<id>=...`). The label of the control is `filters.<id>` in the locale files. */
   id: string
-  /** Locale namespace of the option names: the option `X` is shown as `<nameKey>.X`. */
   nameKey: string
 }
 
@@ -293,46 +1108,30 @@ export type FilterDefinition =
   | (FilterBase & {
       type: 'multiselect'
       options: readonly string[] | readonly FilterGroup[]
-      /** Locale namespace of the group names, when `options` are groups. */
       groupKey?: string
       default: readonly string[]
     })
 
-/**
- * EXAMPLE: the controls shown in the menu. Everything that depends on the tool is here: add, remove or change a
- * filter and the menu, the address, the shared and embedded views and the contact e-mail all follow.
- */
+/** The country of the dashboard (old `REF.geos`): every chart of the gallery shows it. */
 export const filters: readonly FilterDefinition[] = [
-  { id: 'unit', type: 'select', nameKey: 'units', options: Object.keys(units), default: 'THS_T' },
-  { id: 'geo', type: 'multiselect', nameKey: 'countries', groupKey: 'countryGroups', options: countryGroups, default: ['EU27_2020'] },
+  { id: 'geo', type: 'select', nameKey: 'countries', options: allCountries, default: 'BE' },
 ]
 
 /* ------------------------------------------------------------------ */
-/* MENU                                                                */
+/* MENU (the energy topics jump-nav)                                   */
 /* ------------------------------------------------------------------ */
 
-/** EXAMPLE links of the menu. `labelKey` is a key in the locale files. */
-export const menuItems = [
-  { labelKey: 'subnav.menuItem1', href: '#main-content' },
-  { labelKey: 'subnav.menuItem2', href: '#main-content' },
-  { labelKey: 'subnav.menuItem3', href: '#main-content' },
-] as const
+export const menuItems = themes.map((theme) => ({ labelKey: theme.labelKey, href: `#${theme.id}` }))
 
 /* ------------------------------------------------------------------ */
 /* FEATURES                                                            */
 /* ------------------------------------------------------------------ */
 
-/** Switch the shared features of the template on or off for this tool. */
 export const features = {
-  /** Lightbulb button and the insights overlay. */
   insights: true,
-  /** Download button (PNG / JPEG image of the chart, Excel file of its data). */
   download: true,
-  /** Share button (social networks, contact e-mail, copy link). */
   share: true,
-  /** "Embed" entry of the share menu (needs `share`). */
   embed: true,
-  /** Guided tour and its help button. */
   tour: true,
 }
 
@@ -341,27 +1140,36 @@ export const features = {
 /* ------------------------------------------------------------------ */
 
 export const downloadConfig = {
-  /** Entries of the download menu, in this order. 'excel' needs the tool to provide its data (see App.tsx). */
   formats: ['png', 'jpeg', 'excel'] as const,
-  /**
-   * CSS selector of the element saved as an image: the chart (a Webtools chart, an inline SVG or any HTML).
-   * The image is drawn from what is on screen, so it works for charts of any library.
-   */
   imageTarget: '.tool-content',
-  /** Start of the file names, followed by the date: `eurostat-tool-2026-11-05.png`. */
-  fileName: 'eurostat-tool',
+  fileName: 'energy-dashboard',
 }
 
 /* ------------------------------------------------------------------ */
-/* EMBEDDED VIEW                                                     */
+/* EMBEDDED VIEW                                                       */
 /* ------------------------------------------------------------------ */
 
 export const embedConfig = {
-  /** Height of the <iframe> people paste into their page, in pixels. */
   height: 600,
-  /** Chart shown when `?embed` has no value. */
-  defaultChart: 'main',
-  /** Ids of the charts that can be embedded on their own (`?embed=<id>`). */
-  charts: ['main'],
+  defaultChart: 'chart_1',
+  /** Every chart can be embedded on its own (`?embed=chart_N`). */
+  charts: charts.map((chart) => chart.id),
 }
 
+/* ------------------------------------------------------------------ */
+/* GUIDED TOUR                                                         */
+/* ------------------------------------------------------------------ */
+
+export const tourConfig = {
+  autoStart: true,
+  showOnce: true,
+  storageKey: 'energy-dashboard-tour-seen-v1',
+  startDelayMs: 800,
+  steps: [
+    { id: 'gallery', element: '#main-content' },
+    { id: 'expand', element: '#chart_1' },
+    { id: 'country', element: '#geo-select' },
+    { id: 'language', element: '#toggleLanguageBtn' },
+    { id: 'share', element: '#share-button' },
+  ],
+}
