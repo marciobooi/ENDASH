@@ -12,6 +12,7 @@ import { GlobalInsightsBody } from './components/insights/GlobalInsightsBody'
 import { InsightsPanel } from './components/InsightsPanel'
 import { SiteNavigation } from './components/Nav'
 import { RoundButton } from './components/RoundButton'
+import { EmbedButton } from './components/EmbedButton'
 import { ShareMenu } from './components/ShareMenu'
 import { SiteSubNavigation } from './components/SubNav'
 import { ToolContent } from './components/ToolContent'
@@ -91,6 +92,7 @@ function App() {
               patch={patchDashboard}
               onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '' })}
               download={features.download ? downloadMenu : undefined}
+              embed={features.embed ? <EmbedButton title={t(`labels.${expandedChart.id}`)} /> : undefined}
             />
           ) : (
             <>
@@ -105,6 +107,7 @@ function App() {
               )}
               {features.download && downloadMenu}
               {features.share && <ShareMenu emailDetails={emailDetails} />}
+              {features.embed && <EmbedButton title={t('brand')} />}
               {features.tour && (
                 <RoundButton id="tour-button" icon="help" label={t('tour.start')} onClick={startTour} />
               )}

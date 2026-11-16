@@ -1,4 +1,4 @@
-import { useOutsideClick } from '../../hooks/useOutsideClick'
+import { useOutsideClose } from '../../hooks/useOutsideClose'
 import { useId, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,7 +20,7 @@ export function InfoPopover({ title, what, how, read }: InfoPopoverProps) {
   const wrapRef = useRef<HTMLSpanElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  useOutsideClick(wrapRef, open, () => setOpen(false))
+  useOutsideClose(wrapRef, open, () => setOpen(false))
 
   const close = (refocus: boolean) => {
     setOpen(false)

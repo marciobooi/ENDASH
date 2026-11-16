@@ -13,6 +13,8 @@ interface ChartToolbarProps {
   onClose: () => void
   /** The download control (image and data), shown in the export group. */
   download?: ReactNode
+  /** The embed control, next to the download. */
+  embed?: ReactNode
 }
 
 const VIEW_ICON = {
@@ -25,7 +27,7 @@ const VIEW_ICON = {
 
 /** The toolbar of an expanded chart, shown in the top band in place of the page actions (as in the old tool): the
  * chart's views, its info links and close. */
-export function ChartToolbar({ chart, state, patch, onClose, download }: ChartToolbarProps) {
+export function ChartToolbar({ chart, state, patch, onClose, download, embed }: ChartToolbarProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language.toLowerCase()
   const viewLabel: Record<View, string> = {
@@ -55,6 +57,7 @@ export function ChartToolbar({ chart, state, patch, onClose, download }: ChartTo
       </div>
       <div className="chart-toolbar__group">
         {download}
+        {embed}
         <details className="info-links">
         <summary className="round-button ecl-button ecl-button--primary ecl-button--icon-only" aria-label={t('labels.INFO')} title={t('labels.INFO')}>
           <span className="ecl-button__container"><WebtoolsIcon set="phosphor" name="info" /></span>

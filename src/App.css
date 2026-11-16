@@ -1150,8 +1150,9 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  width: 100%;
-  margin: 0;
+  /* A sub-navigation: it starts right under the dark band and spans the whole window, past the content's padding. */
+  width: calc(100% + 3rem);
+  margin: -1.5rem -1.5rem 0;
   background: #fff;
   box-shadow: 0 2px 4px rgba(9, 49, 142, 0.08);
   border-radius: 0;

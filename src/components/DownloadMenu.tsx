@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { downloadConfig } from '../config/toolConfig'
-import { useOutsideClick } from '../hooks/useOutsideClick'
+import { useOutsideClose } from '../hooks/useOutsideClose'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import { downloadChartImage, downloadExcel, type DownloadFormat, type DownloadTable } from '../download/download'
 import { RoundButton } from './RoundButton'
@@ -50,7 +50,7 @@ export function DownloadMenu({ getTable, imageTitle, imageSource }: DownloadMenu
   })
 
   // A click outside closes the menu and leaves focus on whatever was clicked.
-  useOutsideClick(wrapperRef, open, () => flushSync(() => setOpen(false)))
+  useOutsideClose(wrapperRef, open, () => setOpen(false))
 
   const run = async (format: DownloadFormat) => {
     if (busy) return

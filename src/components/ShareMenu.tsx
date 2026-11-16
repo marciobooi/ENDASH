@@ -1,15 +1,11 @@
 import { useId, useRef, useState, type MouseEvent } from 'react'
-import { Button } from './Button'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
-import { useOutsideClick } from '../hooks/useOutsideClick'
+import { useOutsideClose } from '../hooks/useOutsideClose'
 import { useFocusTrap } from '../hooks/useFocusTrap'
-import { features } from '../config/toolConfig'
-import { buildEmbedCode, buildEmbedUrl } from '../embed/embed'
 import { buildContactEmail, type EmailDetail } from '../share/email'
 import { openSharePopup, shareNetworks, type ShareContent, type ShareNetwork } from '../share/networks'
 import { captureViewport, copyImageToClipboard, downloadImage } from '../share/screenshot'
-import { InsightsPanel } from './InsightsPanel'
 import { Loading } from './Loading'
 import { RoundButton } from './RoundButton'
 import { WebtoolsIcon } from './WebtoolsIcon'
@@ -48,8 +44,6 @@ export function ShareMenu({ url, title, text, emailDetails = [] }: ShareMenuProp
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState('')
   const [busy, setBusy] = useState(false)
-  const [embedCode, setEmbedCode] = useState<string | null>(null)
-  const [embedStatus, setEmbedStatus] = useState('')
   const wrapperRef = useRef<HTMLDivElement>(null)
   const popoverRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
@@ -71,12 +65,10 @@ export function ShareMenu({ url, title, text, emailDetails = [] }: ShareMenuProp
   })
 
   // A click outside closes the popover and leaves focus on whatever was clicked.
-  useOutsideClick(wrapperRef, open, () =>
-    flushSync(() => {
-      setOpen(false)
-      setStatus('')
-    }),
-  )
+  useOutsideClose(wrapperRef, open, () => {
+    setOpen(false)
+    setStatus('')
+  })
 
   const content = (): ShareContent => ({
     url: url ?? shareableUrl(),
@@ -98,27 +90,6 @@ export function ShareMenu({ url, title, text, emailDetails = [] }: ShareMenuProp
       setStatus(t('share.linkCopied'))
     } catch {
       setStatus(t('share.copyFailed'))
-    }
-  }
-
-  // The embed code carries the whole state of the tool (it is in the address), so it shows what the person sees now.
-  const openEmbed = () => {
-    setEmbedStatus('')
-    setEmbedCode(buildEmbedCode({ url: buildEmbedUrl(), title: content().title }))
-    close(false)
-  }
-
-  const closeEmbed = () => {
-    setEmbedCode(null)
-    wrapperRef.current?.querySelector<HTMLElement>('.round-button')?.focus()
-  }
-
-  const copyEmbedCode = async () => {
-    try {
-      await navigator.clipboard.writeText(embedCode ?? '')
-      setEmbedStatus(t('embed.copied'))
-    } catch {
-      setEmbedStatus(t('embed.copyFailed'))
     }
   }
 
@@ -213,42 +184,11 @@ export function ShareMenu({ url, title, text, emailDetails = [] }: ShareMenuProp
                 <span className="ecl-link__label">{t('share.copyLink')}</span>
               </button>
             </li>
-            {features.embed && (
-              <li>
-                <button type="button" className="ecl-link ecl-link--standalone share-popover__link" onClick={openEmbed}>
-                  <WebtoolsIcon set="phosphor" name="code" />
-                  <span className="ecl-link__label">{t('embed.menu')}</span>
-                </button>
-              </li>
-            )}
           </ul>
           {busy && <Loading size="small" text={t('share.email.preparing')} />}
           <p className="share-popover__status" role="status">{status}</p>
         </div>
       )}
-      <InsightsPanel
-        id="embedDialog"
-        narrow
-        open={embedCode !== null}
-        onClose={closeEmbed}
-        title={t('embed.title')}
-        closeLabel={t('embed.close')}
-      >
-        <p>{t('embed.description')}</p>
-        <label className="ecl-form-label" htmlFor="embed-code">{t('embed.codeLabel')}</label>
-        <textarea
-          id="embed-code"
-          className="ecl-text-area embed-code"
-          readOnly
-          rows={5}
-          value={embedCode ?? ''}
-          onFocus={(event) => event.currentTarget.select()}
-        />
-        <div className="embed-actions">
-          <Button onClick={() => void copyEmbedCode()}>{t('embed.copy')}</Button>
-          <p className="embed-status" role="status">{embedStatus}</p>
-        </div>
-      </InsightsPanel>
     </div>
   )
 }
