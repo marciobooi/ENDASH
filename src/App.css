@@ -1672,36 +1672,6 @@
 }
 
 /* Overview tabs (the theme row of the legacy overview) */
-.gi-theme-nav {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: #fff;
-  border-bottom: 1px solid #d7e1eb;
-  margin: 0 -1rem 1rem;
-}
-
-.gi-theme-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0 1rem;
-}
-
-.gi-theme-nav__link {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #515560;
-  border-bottom: 4px solid transparent;
-  text-decoration: none;
-}
-
-.gi-theme-nav__link:hover {
-  background: #e7edfa;
-  color: #0e47cb;
-}
-
 .story-overview-grid {
   display: grid;
   gap: 1rem;
@@ -2106,12 +2076,11 @@
 /* Global insights page (InsightsPage.tsx): a bar with the title and the way back, then the insights */
 .global-insights-page {
   box-sizing: border-box;
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 1.5rem;
+  width: 100%;
 }
 
 .global-insights-page__bar {
+  padding: 1.5rem 1.5rem 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -2331,4 +2300,18 @@
   display: block;
   color: #445766;
   font-size: 0.875rem;
+}
+
+/* The topics row of the insights page is the same ECL navigation as the main view: flush under the title bar and as wide as the
+   window, with the content padded below it. The sections stop below it when a link scrolls to them. */
+.global-insights {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.global-insights #themeNav.ecl-inpage-navigation {
+  margin: 0 -1.5rem 1.5rem;
+}
+
+.story-group-section {
+  scroll-margin-top: 9rem;
 }

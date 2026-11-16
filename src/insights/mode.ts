@@ -5,17 +5,26 @@ export function isInsightsMode(): boolean {
   return new URLSearchParams(window.location.search).has(INSIGHTS_PARAM)
 }
 
-/** The current address with `insights` added: the insights of exactly what the person is looking at. */
-export function insightsHref(): string {
-  const address = new URL(window.location.href)
-  address.hash = ''
-  address.searchParams.set(INSIGHTS_PARAM, '')
-  return `${address.pathname}${address.search.replace('insights=', 'insights')}`
+/** What the insights page and the way back to the tool keep of the address: the language and the country (the filters). */
+const KEPT_PARAMS = ['language', 'geo']
+
+function addressWith(extra: boolean): string {
+  const current = new URL(window.location.href)
+  const query = new URLSearchParams()
+  for (const key of KEPT_PARAMS) {
+    const value = current.searchParams.get(key)
+    if (value) query.set(key, value)
+  }
+  const text = query.toString()
+  return `${current.pathname}${text || extra ? '?' : ''}${text}${extra ? `${text ? '&' : ''}${INSIGHTS_PARAM}` : ''}`
 }
 
-/** The address of the tool with the same selection: the current one without `insights`. */
+/** The address of the insights page: the language and country of the tool (the open chart and its view do not belong to it). */
+export function insightsHref(): string {
+  return addressWith(true)
+}
+
+/** The address of the tool's main view (the gallery) with the same language and country. */
 export function toolHrefFromInsights(): string {
-  const address = new URL(window.location.href)
-  address.searchParams.delete(INSIGHTS_PARAM)
-  return `${address.pathname}${address.search}`
+  return addressWith(false)
 }

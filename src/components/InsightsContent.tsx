@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { ThemeNav } from './ThemeNav'
 import { EclCell, EclNumber, EclRow, EclRowHeader, EclTable } from './EclTable'
 import { Loading } from './Loading'
 import { Notification } from './Notification'
@@ -47,15 +48,7 @@ export function InsightsContent({ geo, active }: InsightsContentProps) {
 
   return (
     <div className="global-insights">
-      <nav className="gi-theme-nav" aria-label={t('labels.THEME_NAV_LABEL')}>
-        <ul>
-          {groups.map((key) => (
-            <li key={key}>
-              <a className="gi-theme-nav__link" href={`#gi-section-${key}`}>{t(`labels.${insightGroups[key].labelKey}`)}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <ThemeNav visible hrefBase="gi-section-" />
 
       <section className="insight-hero">
         <p className="insights-kicker">{t('insights.kicker')}</p>

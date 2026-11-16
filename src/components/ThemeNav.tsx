@@ -16,7 +16,7 @@ const SPY_MARGIN_PX = 150
  * `data-default-active`, so the row never shows nothing selected. A data attribute, not a class: React must never
  * rewrite the class list that ECL's script maintains.
  */
-export function ThemeNav({ visible }: { visible: boolean }) {
+export function ThemeNav({ visible, hrefBase = '' }: { visible: boolean; /** Text before the topic id in the link's `#` address, for pages whose sections have a prefix (`gi-section-`). */ hrefBase?: string }) {
   const { t } = useTranslation()
   const navRef = useRef<HTMLElement>(null)
   const [spyStarted, setSpyStarted] = useState(false)
@@ -66,7 +66,7 @@ export function ThemeNav({ visible }: { visible: boolean }) {
         <ul id="themeNav-list" className="ecl-inpage-navigation__list" data-ecl-inpage-navigation-list>
           {themes.map((theme) => (
             <li key={theme.id} className="ecl-inpage-navigation__item" data-default-active={theme.id === first.id && !spyStarted ? '' : undefined}>
-              <a href={`#${theme.id}`} className="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>
+              <a href={`#${hrefBase}${theme.id}`} className="ecl-link ecl-inpage-navigation__link" data-ecl-inpage-navigation-link>
                 {t(`labels.${theme.labelKey}`)}
               </a>
             </li>
