@@ -6,6 +6,10 @@ import { listParam, stringParam, useUrlState, type ParamSet } from './urlState'
 export const VIEWS = ['line', 'bar', 'pie', 'table', 'insights'] as const
 export type View = (typeof VIEWS)[number]
 
+/** The views of one country (line, pie, table). The bar view compares all countries and the insights cover them all, so a
+ * title there must not name the selected country. */
+export const viewShowsOneCountry = (view: View): boolean => view === 'line' || view === 'pie' || view === 'table'
+
 export interface DashboardState {
   /** The expanded chart, '' for the gallery (old REF.chartId with REF.chartExpanded). */
   chart: string

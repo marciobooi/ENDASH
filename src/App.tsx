@@ -16,7 +16,7 @@ import { ShareMenu } from './components/ShareMenu'
 import { SiteSubNavigation } from './components/SubNav'
 import { ToolContent } from './components/ToolContent'
 import { ChartToolbar } from './components/ChartToolbar'
-import { useDashboardState } from './state/dashboardState'
+import { useDashboardState, viewShowsOneCountry } from './state/dashboardState'
 import { chartById } from './config/toolConfig'
 import { buildChartTable } from './download/toolTable'
 import './App.css'
@@ -59,7 +59,13 @@ function App() {
   // The chart on screen (its address names it) and its loaded table; without one there is no Excel file.
   const downloadMenu = (
     <DownloadMenu
-      imageTitle={expandedChart ? t(`labels.${expandedChart.id}`) : t('subnav.title')}
+      imageTitle={
+        expandedChart
+          ? viewShowsOneCountry(dashState.view)
+            ? `${t(`labels.${expandedChart.id}`)} – ${t(`countries.${String(values.geo)}`)}`
+            : t(`labels.${expandedChart.id}`)
+          : t('subnav.title')
+      }
       getTable={() => {
         const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
         return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined

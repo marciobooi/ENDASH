@@ -7,7 +7,7 @@ import { averagePlotLines } from '../charts/plotLines'
 import { tableTooltip } from '../charts/tooltipOptions'
 import type { ChartDefinition } from '../config/toolConfig'
 import { useToolState } from '../hooks/useToolState'
-import type { DashboardState } from '../state/dashboardState'
+import { viewShowsOneCountry, type DashboardState } from '../state/dashboardState'
 import { useInsightsPanelState } from './insights/useInsightsPanelState'
 import { ChartInsights } from './insights/ChartInsights'
 import { RoundButton } from './RoundButton'
@@ -59,7 +59,10 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
       <header className="expanded-chart__header">
         <div className="textGroup">
           <Heading id={`${chart.id}-expanded-title`} ref={headingRef} tabIndex={-1}>{model.title}</Heading>
-          <p className="expanded-chart__unit">{model.unit}</p>
+          <p className="expanded-chart__unit">
+            {model.unit}
+            {viewShowsOneCountry(state.view) && <span className="print-only"> – {t(`countries.${geo}`)}</span>}
+          </p>
         </div>
       </header>
 

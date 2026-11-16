@@ -2102,3 +2102,14 @@
     white-space: normal;
   }
 }
+
+/* Text that exists only on paper (the country next to the unit above a printed chart). */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+}
