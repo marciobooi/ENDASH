@@ -14,6 +14,8 @@ interface DownloadMenuProps {
    */
   /** The table of the chart on screen; undefined when no chart is open (the Excel entry is then left out). */
   getTable?: () => DownloadTable | undefined
+  /** Title written above the saved image: the chart's name, or the tool's name on the gallery. */
+  imageTitle: string
 }
 
 /**
@@ -22,7 +24,7 @@ interface DownloadMenuProps {
  * works for any chart library, Webtools' Highcharts wrapper included, with no export module or licence needed.
  * Focus stays in the menu while it is open; Escape or a click outside closes it.
  */
-export function DownloadMenu({ getTable }: DownloadMenuProps) {
+export function DownloadMenu({ getTable, imageTitle }: DownloadMenuProps) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -61,7 +63,7 @@ export function DownloadMenu({ getTable }: DownloadMenuProps) {
       const table = getTable?.()
       done = table ? await downloadExcel(table) : false
     }
-    else done = await downloadChartImage(format)
+    else done = await downloadChartImage(format, { title: imageTitle, source: t('labels.EXPORT_FOOTER_TITLE') })
 
     setStatus(done ? t('download.done') : t('download.failed'))
     setBusy(false)
