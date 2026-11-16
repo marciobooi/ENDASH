@@ -2113,3 +2113,18 @@
     display: inline;
   }
 }
+
+/* Timeline slider: a strong focus ring on the handle, as on every other control (ECL's own is a faint light halo). */
+.timeline .ecl-range:focus-visible {
+  outline: none;
+}
+
+.timeline .ecl-range:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid #0e47cb;
+  outline-offset: 3px;
+}
+
+.timeline .ecl-range:focus-visible::-moz-range-thumb {
+  outline: 3px solid #0e47cb;
+  outline-offset: 3px;
+}

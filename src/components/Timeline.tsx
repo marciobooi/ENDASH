@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from 'react'
+import { useId, useRef, useState, type KeyboardEvent } from 'react'
 
 interface TimelineProps {
   /** Positions the slider can take: years (YYYY) or months (YYYY-MM), oldest first. */
@@ -30,6 +30,7 @@ export function Timeline({ periods, value, onChange, label, format, controls, sh
   const [dragIndex, setDragIndex] = useState<number | null>(null)
   const [announcement, setAnnouncement] = useState('')
   const dragging = useRef(false)
+  const rangeId = useId()
 
   const index = dragIndex ?? selected
   const shown = periods[index] ? format(periods[index]) : ''
@@ -57,9 +58,10 @@ export function Timeline({ periods, value, onChange, label, format, controls, sh
 
   return (
     <div className="timeline">
-      <label className="timeline__label" htmlFor="timeline-slider">
-        {label}: <strong>{shown}</strong>
-      </label>
+      {/* The name is the label alone: the period is the slider's value (aria-valuetext), so it is not read twice. */}
+      <div className="timeline__label">
+        <label htmlFor="timeline-slider">{label}</label>: <strong aria-hidden="true">{shown}</strong>
+      </div>
       <div className="ecl-range-container ecl-range-container--l">
         <input
           id="timeline-slider"
@@ -70,6 +72,7 @@ export function Timeline({ periods, value, onChange, label, format, controls, sh
           step={1}
           value={index}
           aria-valuetext={shown}
+          aria-describedby={rangeId}
           aria-controls={controls}
           onPointerDown={() => {
             dragging.current = true
@@ -84,7 +87,7 @@ export function Timeline({ periods, value, onChange, label, format, controls, sh
           }}
         />
       </div>
-      <span className="timeline__ends" aria-hidden="true">
+      <span id={rangeId} className="timeline__ends">
         {periods.length > 0 ? `${format(periods[0])} – ${format(periods[periods.length - 1])}` : ''}
       </span>
       <div className="ecl-u-sr-only" role="status" aria-live="polite" aria-atomic="true">{announcement}</div>
