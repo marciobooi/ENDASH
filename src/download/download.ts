@@ -7,6 +7,10 @@ export type DownloadFormat = (typeof downloadConfig.formats)[number]
 export interface DownloadTable {
   /** Name of the worksheet. */
   sheet: string
+  /** Bold first line of the sheet: the name of the chart. */
+  title: string
+  /** Lines under the title (country, unit, source, link, date), one per row, before the table. */
+  info: string[]
   headers: string[]
   rows: (string | number)[][]
 }
@@ -34,13 +38,20 @@ export async function downloadChartImage(type: 'png' | 'jpeg', caption: ImageCap
   return true
 }
 
-/** Save the data of the chart as an .xlsx file. The library is loaded on demand. Returns false when it fails. */
+/** Excel allows at most 31 characters in a sheet name and none of `: \\ / ? * [ ]`. */
+const sheetName = (name: string) => name.replace(/[:\\/?*[\]]/g, ' ').trim().slice(0, 31)
+
+/**
+ * Save the data of the chart as an .xlsx file: the title, the lines that say what the data is (country, unit, source,
+ * link, date), an empty row, then the table. The library is loaded on demand. Returns false when it fails.
+ */
 export async function downloadExcel(table: DownloadTable): Promise<boolean> {
   try {
     const { default: writeXlsxFile } = await import('write-excel-file/universal')
     const header = table.headers.map((value) => ({ value, fontWeight: 'bold' as const }))
     const rows = table.rows.map((row) => row.map((value) => ({ value })))
-    const blob = await writeXlsxFile([{ data: [header, ...rows], sheet: table.sheet }]).toBlob()
+    const data = [[{ value: table.title, fontWeight: 'bold' as const }], ...table.info.map((line) => [{ value: line }]), [], header, ...rows]
+    const blob = await writeXlsxFile([{ data, sheet: sheetName(table.sheet), columns: [{ width: 24 }, ...table.headers.slice(1).map(() => ({ width: 22 }))] }]).toBlob()
     downloadImage(blob, fileName('xlsx'))
     return true
   } catch {

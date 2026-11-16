@@ -299,7 +299,10 @@
     "failed": "The download could not be created.",
     "sheet": "Data",
     "columnFilter": "Filter",
-    "columnSelection": "Selection"
+    "columnSelection": "Selection",
+    "country": "Country",
+    "unit": "Unit",
+    "downloaded": "Downloaded"
   },
   "embed": {
     "menu": "Embed",

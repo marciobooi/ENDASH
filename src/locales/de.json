@@ -299,7 +299,10 @@
     "failed": "Der Download konnte nicht erstellt werden.",
     "sheet": "Daten",
     "columnFilter": "Filter",
-    "columnSelection": "Auswahl"
+    "columnSelection": "Auswahl",
+    "country": "Land",
+    "unit": "Einheit",
+    "downloaded": "Heruntergeladen am"
   },
   "embed": {
     "menu": "Einbetten",

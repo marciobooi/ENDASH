@@ -17,8 +17,17 @@ export function buildChartTable(chartId: string, geo: string, lang: string, t: T
   const parsed = lineDataOf(chart, dataset)
   const series = orderSeries(chart.id, parsed.series, lang)
   const unit = t(`units.${chart.unit}`, { defaultValue: chart.unit })
+  const title = t(`labels.${chart.id}`)
   return {
-    sheet: t(`labels.${chart.id}`),
+    sheet: title,
+    title,
+    info: [
+      `${t('download.country')}: ${t(`countries.${geo}`, { defaultValue: geo })}`,
+      `${t('download.unit')}: ${unit}`,
+      `${t('labels.EXPORT_FOOTER_TITLE')} (${chart.dataset})`,
+      datasetUrl(chart.dataset, lang),
+      `${t('download.downloaded')}: ${new Date().toLocaleDateString(lang)}`,
+    ],
     headers: [t('labels.YEAR'), ...series.map((entry) => `${entry.name} (${unit})`)],
     rows: parsed.categories.map((category, row) => [category, ...series.map((entry) => valueText(entry.data[row]))]),
   }

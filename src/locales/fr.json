@@ -299,7 +299,10 @@
     "failed": "Le téléchargement n'a pas pu être créé.",
     "sheet": "Données",
     "columnFilter": "Filtre",
-    "columnSelection": "Sélection"
+    "columnSelection": "Sélection",
+    "country": "Pays",
+    "unit": "Unité",
+    "downloaded": "Téléchargé le"
   },
   "embed": {
     "menu": "Intégrer",
