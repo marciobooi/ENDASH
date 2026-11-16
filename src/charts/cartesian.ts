@@ -43,7 +43,8 @@ export interface CartesianInput {
 /** Options shared by line and column charts: one category axis, one value axis with a title. */
 export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column', palette: readonly string[]): Highcharts.Options {
   return {
-    chart: { type, height: input.height, spacingBottom: 70, plotShadow: false },
+    // The gallery card keeps only a small margin around the plot, so the chart uses the whole card width.
+    chart: { type, height: input.height, spacingBottom: 70, plotShadow: false, ...(input.compact ? { spacingLeft: 0, spacingRight: 4 } : {}) },
     // The title names the chart for screen readers (its region label). It is not drawn: the card or the page shows it.
     title: { text: input.title, style: { display: 'none' } },
     subtitle: { text: undefined },
@@ -58,7 +59,9 @@ export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column
       },
     },
     yAxis: {
-      title: input.yAxisTitle ? { text: input.yAxisTitle } : { text: undefined },
+      // `null` hides the title; an empty or undefined one would bring back Highcharts' default "Value".
+      // The typings leave `null` out, but it is what Highcharts documents for "no title".
+      title: { text: input.yAxisTitle ?? (null as unknown as undefined) },
       labels: { format: input.yAxisFormat ?? '{value:,.0f}', style: input.compact ? { fontSize: '0.8em' } : undefined },
       tickAmount: input.compact ? 3 : undefined,
       plotLines: input.yAxisPlotLines,
