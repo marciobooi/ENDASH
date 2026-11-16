@@ -2281,3 +2281,11 @@
 .table_component td {
   white-space: normal;
 }
+
+/* The chart's own switches (percentage, aggregates, below the average) sit at the right end, with a gap between them */
+.expanded-chart__options {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin: 0 0 0.5rem;
+}

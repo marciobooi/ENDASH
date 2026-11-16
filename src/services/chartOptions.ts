@@ -9,7 +9,10 @@ export const WIDE_LAYOUT_PX = 1100
 /** Legend placement: beside the chart on wide expanded views, under it on narrow ones, hidden in the gallery. */
 export function legendFor(position: LegendPosition): Highcharts.LegendOptions {
   if (position === 'hidden') return { enabled: false }
-  if (position === 'right') return { enabled: true, align: 'right', verticalAlign: 'middle', layout: 'vertical' }
+  // Long series names break onto two lines instead of widening the legend, so the plot keeps more of the width.
+  if (position === 'right') {
+    return { enabled: true, align: 'right', verticalAlign: 'middle', layout: 'vertical', itemWidth: 230, itemStyle: { textOverflow: 'none' } }
+  }
   return { enabled: true, align: 'center', verticalAlign: 'bottom', layout: 'horizontal' }
 }
 
@@ -44,8 +47,9 @@ export interface CartesianInput {
 /** Options shared by line and column charts: one category axis, one value axis with a title. */
 export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column', palette: readonly string[]): Highcharts.Options {
   return {
-    // The gallery card keeps only a small margin around the plot, so the chart uses the whole card width.
-    chart: { type, height: input.height, spacingBottom: 70, plotShadow: false, ...(input.compact ? { spacingLeft: 0, spacingRight: 4 } : {}) },
+    // The gallery card keeps only a small margin around the plot, so the chart uses the whole card width. Bars with country names
+    // turned 45 degrees need room to the left of the first bar for the longest name.
+    chart: { type, height: input.height, spacingBottom: 70, plotShadow: false, ...(input.compact ? { spacingLeft: 0, spacingRight: 4 } : {}), ...(type === 'column' && input.allLabels ? { spacingLeft: 120 } : {}) },
     // The title names the chart for screen readers (its region label). It is not drawn: the card or the page shows it.
     title: { text: input.title, style: { display: 'none' } },
     subtitle: { text: undefined },
