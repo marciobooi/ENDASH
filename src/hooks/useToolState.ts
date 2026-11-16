@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { LegendPosition } from '../services/chartOptions'
 import type { ChartDefinition } from '../config/toolConfig'
-import type { LineResult } from '../services/chartViews'
 import type { DashboardState, View } from '../state/dashboardState'
 import { hasBarToggles, offeredViews, resolveYear } from '../services/calculations'
+import { sliceLine, type LineResult } from '../services/chartViews'
 import { useBarChart, useLineChart, usePieChart } from './useChartViews'
 import { useWideLayout } from './useWideLayout'
 
@@ -34,6 +34,8 @@ export interface ToolViewModel {
   years: string[]
   timeline: TimelineModel | null
   tableRows: LineResult
+  /** Every period of an annual chart (the line view's categories) for the range filter; empty for monthly charts. */
+  periods: string[]
 }
 
 /** The derived state of the expanded view. Every hook runs on every render, so the data is fetched as views change. */
@@ -54,6 +56,10 @@ export function useToolState(chart: ChartDefinition, geo: string, state: Dashboa
     : t(`labels.${chart.id}`)
   const unit = t(`units.${chart.unit}`, { defaultValue: chart.unit })
 
+  // Annual charts can be cut to a range of periods; the monthly ones always show their last 12 months.
+  const rangeable = !chart.monthly
+  const shown = rangeable && line.result.status === 'ready' ? sliceLine(line.result, state.from, state.to) : line.result
+
   const timeline = useMemo<TimelineModel | null>(() => {
     if (state.view !== 'bar' && state.view !== 'pie') return null
     if (state.view === 'bar' && chart.medianSplit) {
@@ -73,14 +79,15 @@ export function useToolState(chart: ChartDefinition, geo: string, state: Dashboa
     aggregatesOn,
     barToggles: hasBarToggles(chart),
     views: offeredViews(chart),
-    line: line.result,
-    lineAverage: line.result.status === 'ready' ? line.result.average : undefined,
+    line: shown,
+    lineAverage: shown.status === 'ready' ? shown.average : undefined,
     bar,
     barLabel: chart.medianSplit ? (bar.month ?? '') : year,
     pieData,
     year,
     years: line.years,
     timeline,
-    tableRows: line.result,
+    tableRows: shown,
+    periods: rangeable && line.result.status === 'ready' ? line.result.categories : [],
   }
 }

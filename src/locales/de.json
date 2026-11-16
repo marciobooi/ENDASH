@@ -637,7 +637,10 @@
   "timeline": {
     "play": "Animation durch die Zeiträume starten",
     "pause": "Animation anhalten",
-    "playing": "Zeiträume werden abgespielt"
+    "playing": "Zeiträume werden abgespielt",
+    "rangeFrom": "Erster angezeigter Zeitraum",
+    "rangeTo": "Letzter angezeigter Zeitraum",
+    "periodFiltered": "Zeitraum gefiltert von <b>{{from}}</b> bis <b>{{to}}</b>."
   },
   "source": {
     "newTab": "(öffnet in einem neuen Tab)"

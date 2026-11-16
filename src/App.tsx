@@ -88,7 +88,7 @@ function App() {
               chart={expandedChart}
               state={dashState}
               patch={patchDashboard}
-              onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '' })}
+              onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '', from: '', to: '' })}
               download={features.download ? downloadMenu : undefined}
               embed={features.embed ? <EmbedButton title={t(`labels.${expandedChart.id}`)} /> : undefined}
             />

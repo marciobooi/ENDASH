@@ -31,7 +31,8 @@ export interface CartesianInput {
   fixedPercentScale?: boolean
   /** Every category label, rotated (expanded view), or only the first and last (gallery). */
   allLabels?: boolean
-  credits: { text: string; href: string }
+  /** Source link drawn inside the chart (gallery cards). Left out where the page shows it under the chart. */
+  credits?: { text: string; href: string }
   colors?: readonly string[]
   legend: LegendPosition
   tooltip: Highcharts.TooltipOptions
@@ -55,7 +56,8 @@ export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column
         rotation: input.allLabels ? -45 : 0,
         align: input.allLabels ? 'right' : 'center',
         step: input.allLabels ? undefined : Math.max(input.categories.length - 1, 1),
-        style: { textOverflow: 'none', fontSize: input.compact ? '0.8em' : undefined },
+        // Rotated labels are never shortened: every category name is shown in full (the legend sits below them).
+        style: { textOverflow: 'none', whiteSpace: 'nowrap', fontSize: input.compact ? '0.8em' : undefined, ...(input.allLabels ? { width: '16rem' } : {}) },
       },
     },
     yAxis: {
@@ -76,7 +78,7 @@ export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column
       series: { connectNulls: true, cursor: 'pointer', marker: { enabled: input.allLabels ?? false }, point: { events: { click: input.onPointClick } } },
     },
     series: input.series,
-    credits: { text: input.credits.text, href: input.credits.href, position: { align: 'center' } },
+    credits: input.credits ? { text: input.credits.text, href: input.credits.href, position: { align: 'center' } } : { enabled: false },
     // The legacy tool hides the chart's context (hamburger) menu: the context button is switched off, the rest stays.
     exporting: { enabled: true, buttons: { contextButton: { enabled: false } } },
   }

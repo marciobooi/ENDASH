@@ -47,6 +47,29 @@ export type LineResult =
   | { status: 'empty' }
   | { status: 'ready'; categories: string[]; series: LineSeries[]; average?: number }
 
+/** Position of `value` in `periods`, or of the nearest period inside them when it is not one of them (`fallback` when empty). */
+export function indexOfPeriod(periods: string[], value: string, fallback: number): number {
+  if (!value) return fallback
+  const exact = periods.indexOf(value)
+  if (exact >= 0) return exact
+  const next = periods.findIndex((period) => period >= value)
+  return next === -1 ? periods.length - 1 : next
+}
+
+/** The first and last position shown for a range: never fewer than two periods. */
+export function rangeBounds(periods: string[], from: string, to: string): [number, number] {
+  const last = periods.length - 1
+  const low = Math.min(indexOfPeriod(periods, from, 0), Math.max(last - 1, 0))
+  const high = Math.max(indexOfPeriod(periods, to, last), Math.min(low + 1, last))
+  return [low, high]
+}
+
+/** A ready line result cut to the periods between `from` and `to` (both included). */
+export function sliceLine(result: Extract<LineResult, { status: 'ready' }>, from: string, to: string): Extract<LineResult, { status: 'ready' }> {
+  const [low, high] = rangeBounds(result.categories, from, to)
+  return { ...result, categories: result.categories.slice(low, high + 1), series: result.series.map((entry) => ({ ...entry, data: entry.data.slice(low, high + 1) })) }
+}
+
 export interface LineSeries extends ChartSeries {
   color?: string
   dashed?: boolean

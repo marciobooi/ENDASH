@@ -59,7 +59,7 @@ export function ToolContent({ chartId, values, filters, dashboard, headingLevel 
           returnFocusTo={lastOpened}
           onExpand={(chart) => {
             setLastOpened(chart.id)
-            patch({ chart: chart.id, view: 'line', year: '', month: '' })
+            patch({ chart: chart.id, view: 'line', year: '', month: '', from: '', to: '' })
           }}
         />
         </>

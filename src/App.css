@@ -1914,21 +1914,14 @@
 /* Period timeline of the expanded chart (PeriodTimeline.tsx, from the ENPRICES timeline): a play button and a slider with
    a bubble over the handle and a tick for every period. It stays at the bottom of the window while the chart is on screen. */
 .period-timeline {
-  --dock-border: #d7dbe6;
-  position: sticky;
-  bottom: 0.75rem;
-  z-index: 4;
   display: flex;
   align-items: center;
   gap: 1rem;
   box-sizing: border-box;
   width: min(44rem, calc(100% - 2rem));
   margin: 1rem auto 0.5rem;
-  padding: 1.6rem 1.25rem 0.2rem 0.75rem;
-  background: #fff;
-  border: 1px solid var(--dock-border);
-  border-radius: 1rem;
-  box-shadow: 0 1px 2px rgb(14 71 203 / 8%), 0 10px 28px rgb(14 71 203 / 16%);
+  /* No box: the top padding is room for the period bubble over the handle */
+  padding: 1.9rem 0.25rem 0.2rem;
 }
 
 /* The button's centre goes on the line of the track (the track is 1.5rem high, at the top of the slider) */
@@ -2092,8 +2085,15 @@
 
 /* Source line under a table (SourceNote.tsx) and number cells of the data tables (EclTable.tsx) */
 .source-note {
-  margin: 0.75rem 0 0;
-  font-size: 0.875rem;
+  margin: 1rem 1rem 0.5rem;
+  text-align: center;
+}
+
+.source-note .ecl-link {
+  display: inline;
+  padding: 0;
+  min-height: 0;
+  text-decoration: underline;
 }
 
 .data-table__number {
@@ -2137,11 +2137,147 @@
   line-height: 1.5rem;
 }
 
+/* The pointer, as in the other tools: a 10px square turned 45 degrees, half over the bubble's border so its white fill breaks
+   the border line and its two outer sides draw the outline. ECL's own arrow transform is replaced. */
 .ecl-tooltip:not(.ecl-tooltip--inverted)::before {
-  width: 0.625rem;
-  height: 0.625rem;
+  bottom: -7px;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  border: 0;
   border-right: 2px solid #0e47cb;
   border-bottom: 2px solid #0e47cb;
   border-radius: 0;
   background: #fff;
 }
+
+/* Bubble under its button: the pointer goes on top */
+.ecl-tooltip--bottom:not(.ecl-tooltip--inverted)::before {
+  top: -7px;
+  bottom: auto;
+  transform: translateX(-50%) rotate(45deg);
+  border: 0;
+  border-top: 2px solid #0e47cb;
+  border-left: 2px solid #0e47cb;
+}
+
+/* Period range of the line chart (PeriodRange.tsx): two native range inputs on one track, drawn with the ECL blue */
+.period-range {
+  max-width: 100%;
+  margin: 0.5rem 1rem 1.5rem;
+}
+
+.period-range__track {
+  position: relative;
+  height: 2.25rem;
+}
+
+/* The grey track and the blue bar between the two pins */
+.period-range__track::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: #cccccc;
+}
+
+.period-range__bar {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  background: #0e47cb;
+}
+
+.period-range__input {
+  appearance: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1.75rem;
+  margin: 0;
+  background: transparent;
+  /* Only the pins catch the pointer, so both can be reached when they overlap */
+  pointer-events: none;
+}
+
+.period-range__input::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.period-range__input::-moz-range-track {
+  background: transparent;
+}
+
+.period-range__input::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 28px;
+  border: 0;
+  background: #0e47cb;
+  /* A pin: a flat top and a point at the bottom, as in the original tool */
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.period-range__input::-moz-range-thumb {
+  width: 14px;
+  height: 28px;
+  border: 0;
+  border-radius: 0;
+  background: #0e47cb;
+  clip-path: polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+/* Keyboard focus: the pin turns white with a dark outline (drawn as an image, because a border would be cut by the pin's clip-path) */
+.period-range__input:focus-visible {
+  outline: none;
+}
+
+.period-range__input:focus-visible::-webkit-slider-thumb {
+  clip-path: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 28'%3E%3Cpath d='M1.5 1.5h11v17.5L7 26.5 1.5 19z' fill='%23fff' stroke='%23262b38' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+}
+
+.period-range__input:focus-visible::-moz-range-thumb {
+  clip-path: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 28'%3E%3Cpath d='M1.5 1.5h11v17.5L7 26.5 1.5 19z' fill='%23fff' stroke='%23262b38' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+}
+
+.period-range__sentence {
+  margin: 0.75rem 0 0;
+  text-align: center;
+}
+
+@media (forced-colors: active) {
+  .period-range__track::before,
+  .period-range__bar {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+
+  .period-range__input::-webkit-slider-thumb {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+
+  .period-range__input::-moz-range-thumb {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+}
+
+/* Oldest and newest period, in grey under the two ends of the track (#6b7385 on white is 4.8:1) */
+.period-range__ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  color: #6b7385;
+  font-size: 0.875rem;
+}
+

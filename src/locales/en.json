@@ -637,7 +637,10 @@
   "timeline": {
     "play": "Play the animation through the periods",
     "pause": "Pause the animation",
-    "playing": "Playing the periods"
+    "playing": "Playing the periods",
+    "rangeFrom": "First period shown",
+    "rangeTo": "Last period shown",
+    "periodFiltered": "Period filtered from <b>{{from}}</b> to <b>{{to}}</b>."
   },
   "source": {
     "newTab": "(opens in a new tab)"

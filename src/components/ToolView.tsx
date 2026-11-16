@@ -16,6 +16,7 @@ import { RoundButton } from './RoundButton'
 import { SeriesTable } from './SeriesTable'
 import { SourceNote } from './SourceNote'
 import { formatMonth } from '../services/monthly'
+import { PeriodRange } from './PeriodRange'
 import { PeriodTimeline } from './PeriodTimeline'
 import { ToolbarIcon } from './ToolbarIcon'
 
@@ -110,7 +111,6 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
                 yAxisPlotLines={lineAverage}
                 fixedPercentScale={chart.unit === 'PC'}
                 allLabels
-                credits={model.credits}
                 legend={model.legend}
                 tooltip={tableTooltip({ t, unit: model.unit, showTotal: chart.tooltipTotal })}
                 ariaLabel={model.title}
@@ -131,9 +131,9 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
                 series={model.bar.series.map((entry) => ({ type: 'column', name: entry.name, data: entry.data }))}
                 yAxisTitle={model.unit}
                 yAxisPlotLines={barAverage}
+                allLabels
                 fixedPercentScale={chart.unit === 'PC'}
                 stacking={model.barToggles && state.percentage === '1' ? 'percent' : 'normal'}
-                credits={model.credits}
                 legend={model.legend}
                 tooltip={tableTooltip({ t, unit: model.unit, showTotal: chart.tooltipTotal, percentage: model.barToggles && state.percentage === '1' })}
                 ariaLabel={`${model.title} – ${model.barLabel}`}
@@ -157,7 +157,6 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
                 data={model.pieData}
                 unitLabel={model.unit}
                 valueLabel={t('labels.VAL')}
-                credits={model.credits}
                 legend={model.legend}
                 lang={lang}
                 ariaLabel={`${model.title} – ${geo} – ${model.year}`}
@@ -169,10 +168,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
         )}
 
         {state.view === 'table' && model.tableRows.status === 'ready' && (
-          <>
-            <SeriesTable caption={model.title} firstHeader={t('labels.YEAR')} categories={model.tableRows.categories} series={model.tableRows.series} unitLabel={model.unit} />
-            <SourceNote dataset={chart.dataset} />
-          </>
+          <SeriesTable caption={model.title} firstHeader={t('labels.YEAR')} categories={model.tableRows.categories} series={model.tableRows.series} unitLabel={model.unit} />
         )}
 
         {state.view === 'insights' && (
@@ -180,6 +176,9 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
         )}
       </div>
 
+      {(state.view === 'line' || state.view === 'table') && model.periods.length > 1 && (
+        <PeriodRange periods={model.periods} from={state.from} to={state.to} onChange={(from, to) => patch({ from, to })} />
+      )}
       {model.timeline && (
         <PeriodTimeline
           periods={model.timeline.periods}
@@ -192,6 +191,9 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           onChange={(period) => patch(model.timeline?.kind === 'month' ? { month: period } : { year: period })}
         />
       )}
+
+      {(state.view === 'line' || state.view === 'bar' || state.view === 'pie' || state.view === 'table') && <SourceNote dataset={chart.dataset} />}
+
     </div>
   )
 }

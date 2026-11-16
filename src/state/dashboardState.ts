@@ -19,6 +19,9 @@ export interface DashboardState {
   year: string
   /** The month of the monthly charts' bar and pie views (old REF.month, "YYYY-MM"). */
   month: string
+  /** First and last period shown by the line and table views of annual charts (empty: from the first / to the last). */
+  from: string
+  to: string
   /** Median-split charts flipped to the countries below the average (old REF.medianGroup). */
   below: string[]
   /** Bar view: show shares of each stack (old REF.percentage). */
@@ -35,6 +38,8 @@ export const dashboardParams: ParamSet<DashboardState> = {
   view: stringParam('view', 'line', [...VIEWS]) as unknown as ParamSet<DashboardState>['view'],
   year: stringParam('year', ''),
   month: stringParam('month', ''),
+  from: stringParam('from', ''),
+  to: stringParam('to', ''),
   below: listParam('below', [], chartIds),
   percentage: stringParam('percentage', '0', ['0', '1']) as unknown as ParamSet<DashboardState>['percentage'],
   aggregates: stringParam('aggregates', '1', ['0', '1']) as unknown as ParamSet<DashboardState>['aggregates'],

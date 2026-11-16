@@ -12,7 +12,7 @@ export interface PieChartProps {
   unitLabel: string
   /** Label of the value in the tooltip (e.g. "Value"). */
   valueLabel: string
-  credits: { text: string; href: string }
+  credits?: { text: string; href: string }
   legend: LegendPosition
   lang: string
   ariaLabel: string
@@ -52,10 +52,10 @@ export function PieChart({ title, data, unitLabel, valueLabel, credits, legend, 
         },
       },
       series: [{ type: 'pie', name: title, data: [...data].sort((a, b) => b[1] - a[1]) }],
-      credits: { text: credits.text, href: credits.href, position: { align: 'center' } },
+      credits: credits ? { text: credits.text, href: credits.href, position: { align: 'center' } } : { enabled: false },
       exporting: { enabled: false },
     }),
-    [data, title, unitLabel, valueLabel, credits.text, credits.href, legend],
+    [data, title, unitLabel, valueLabel, credits?.text, credits?.href, legend],
   )
 
   return (
