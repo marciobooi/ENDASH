@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
+import { useRovingToolbar } from '../hooks/useRovingToolbar'
 import { Button } from './Button'
 import { useTranslation } from 'react-i18next'
 import { ToolbarIcon } from './ToolbarIcon'
@@ -23,6 +24,8 @@ export function SiteSubNavigation({ title, subtitle, menuItems, filters, actions
   const { t } = useTranslation()
   const [menuOpen, setMenuOpen] = useState(false)
   const hasMenu = Boolean(menuItems?.length || filters)
+  const actionsRef = useRef<HTMLDivElement>(null)
+  const roving = useRovingToolbar(actionsRef)
 
   return (
     <div id="overview" className="site-subnavigation" role="region" aria-label={t('toolbar.label')}>
@@ -46,7 +49,7 @@ export function SiteSubNavigation({ title, subtitle, menuItems, filters, actions
           {subtitle && <span>{subtitle}</span>}
         </div>
         {actions && (
-          <div className="toolbar-actions" role="group" aria-label={t('toolbar.label')}>
+          <div className="toolbar-actions" ref={actionsRef} role="toolbar" aria-label={t('toolbar.label')} {...roving}>
             {actions}
           </div>
         )}
