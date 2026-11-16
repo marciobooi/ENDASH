@@ -2273,3 +2273,11 @@
   font-size: 0.875rem;
 }
 
+
+/* Highcharts gives the tooltip `white-space: nowrap`, which the cells inherit: long names then run over the value column.
+   The table wraps its text (the unit in the header, long series names), and only the values stay on one line. */
+.table_component,
+.table_component th,
+.table_component td {
+  white-space: normal;
+}
