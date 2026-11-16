@@ -48,9 +48,9 @@ export interface CartesianInput {
 export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column', palette: readonly string[]): Highcharts.Options {
   return {
     // The gallery card keeps only a small margin around the plot, so the chart uses the whole card width. Bars with country names
-    // turned 45 degrees need room to the left of the first bar for the longest name.
+    // turned 45 degrees need a little room to the left of the first bar: most of the longest name lies under the value axis.
     // The bottom keeps room for the credits only where there are some (gallery cards); the expanded view shows the source under the chart.
-    chart: { type, height: input.height, spacingBottom: input.credits ? 70 : 15, plotShadow: false, ...(input.compact ? { spacingLeft: 0, spacingRight: 4 } : {}), ...(type === 'column' && input.allLabels ? { spacingLeft: 120 } : {}) },
+    chart: { type, height: input.height, spacingBottom: input.credits ? 70 : 15, plotShadow: false, ...(input.compact ? { spacingLeft: 0, spacingRight: 4 } : {}), ...(type === 'column' && input.allLabels ? { spacingLeft: 40 } : {}) },
     // The title names the chart for screen readers (its region label). It is not drawn: the card or the page shows it.
     title: { text: input.title, style: { display: 'none' } },
     subtitle: { text: undefined },
