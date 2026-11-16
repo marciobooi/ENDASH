@@ -2078,3 +2078,27 @@
     animation: none;
   }
 }
+
+/* The chart's name and unit above an expanded chart: the top band already shows the name on screen, so this block is
+   only for print (and stays in the page for screen readers and the focus move when a chart opens). */
+.expanded-chart__header {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .expanded-chart__header {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0 0 0.5rem;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+  }
+}
