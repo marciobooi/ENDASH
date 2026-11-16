@@ -14,9 +14,15 @@
  */
 export const site = {
   title: 'Energy dashboard - Eurostat',
+  /** Title of the social cards and the `title` meta tag (as in the legacy page). */
+  socialTitle: 'Energy Dashboard - Eurostat',
   description:
     'By using the energy dashboard tool, created by Eurostat, you can easily visualise the evolution of the most important energy indicators (energy efficiency, share of renewables, import dependency, and many more) for your country and for the EU.',
   siteName: 'Eurostat Energy Dashboard',
+  keywords: 'Energy, dashboard, data, statistics, energy efficiency, renewable energy, energy dependency, greenhouse gas emissions, energy poverty, electricity, oil stocks, Eurostat',
+  author: 'Eurostat',
+  /** Search engine instruction of the page. */
+  robots: 'index, follow',
   /** Absolute https address of the deployed page. */
   url: 'https://ec.europa.eu/eurostat/cache/visualisations/energy-dashboard/endash.html',
   image: {

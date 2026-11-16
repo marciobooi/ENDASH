@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react'
+import { EclCell, EclNumber, EclRow, EclRowHeader, EclTable } from './EclTable'
 import { Loading } from './Loading'
 import { Notification } from './Notification'
 import type { TFunction } from 'i18next'
@@ -38,6 +39,7 @@ export function InsightsContent({ geo, active }: GlobalInsightsBodyProps) {
       <Loading text={t('labels.GLOBAL_INSIGHTS_LOADING')} centered />
     )
   }
+  const headers = ['#', t('insights.evidenceTheme'), t('insights.evidenceStory'), t('insights.evidenceDataset'), t('insights.evidenceMeta'), t('insights.evidenceUnit'), t('insights.topDriver'), t('insights.latest'), t('insights.trendWord')]
   if (items.length === 0) return <Notification>{t('insights.noData')}</Notification>
 
   const groups = Object.keys(insightGroups).filter((key) => items.some((item) => item.storyGroup === key))
@@ -139,36 +141,21 @@ export function InsightsContent({ geo, active }: GlobalInsightsBodyProps) {
       <details className="global-insights-details">
         <summary>{t('insights.openEvidence')}</summary>
         <div className="series-table" tabIndex={0} role="region" aria-label={t('insights.evidence')}>
-          <table className="ecl-table ecl-table--zebra">
-            <thead className="ecl-table__head">
-              <tr className="ecl-table__row">
-                <th scope="col" className="ecl-table__header">#</th>
-                <th scope="col" className="ecl-table__header">{t('insights.evidenceTheme')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.evidenceStory')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.evidenceDataset')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.evidenceMeta')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.evidenceUnit')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.topDriver')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.latest')}</th>
-                <th scope="col" className="ecl-table__header">{t('insights.trendWord')}</th>
-              </tr>
-            </thead>
-            <tbody className="ecl-table__body">
-              {items.map((item, index) => (
-                <tr key={item.chartId} className="ecl-table__row">
-                  <td className="ecl-table__cell">{index + 1}</td>
-                  <td className="ecl-table__cell">{t(`labels.${insightGroups[item.storyGroup]?.labelKey ?? 'GROUP_OTHER_TITLE'}`)}</td>
-                  <td className="ecl-table__cell">{t(`labels.STORY_${item.chartId.toUpperCase()}_TITLE`, { defaultValue: item.chartId })}</td>
-                  <td className="ecl-table__cell">{item.dataset}</td>
-                  <td className="ecl-table__cell">{chartById[item.chartId]?.meta ?? '-'}</td>
-                  <td className="ecl-table__cell">{unitName(item.unitCode)}</td>
-                  <td className="ecl-table__cell">{item.top?.name ?? '-'}</td>
-                  <td className="ecl-table__cell">{item.top ? `${formatNumber(item.top.latest, lang)} ${unitName(item.unitCode)}` : '-'}</td>
-                  <td className="ecl-table__cell">{t(`insights.trend.${item.top?.trend ?? 'flat'}`)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <EclTable caption={t('insights.evidence')} captionHidden zebra headers={headers}>
+            {items.map((item, index) => (
+              <EclRow key={item.chartId}>
+                <EclRowHeader label={headers[0]}>{index + 1}</EclRowHeader>
+                <EclCell label={headers[1]}>{t(`labels.${insightGroups[item.storyGroup]?.labelKey ?? 'GROUP_OTHER_TITLE'}`)}</EclCell>
+                <EclCell label={headers[2]}>{t(`labels.STORY_${item.chartId.toUpperCase()}_TITLE`, { defaultValue: item.chartId })}</EclCell>
+                <EclCell label={headers[3]}>{item.dataset}</EclCell>
+                <EclCell label={headers[4]}>{chartById[item.chartId]?.meta ?? '-'}</EclCell>
+                <EclCell label={headers[5]}>{unitName(item.unitCode)}</EclCell>
+                <EclCell label={headers[6]}>{item.top?.name ?? '-'}</EclCell>
+                <EclNumber label={headers[7]}>{item.top ? `${formatNumber(item.top.latest, lang)} ${unitName(item.unitCode)}` : '-'}</EclNumber>
+                <EclCell label={headers[8]}>{t(`insights.trend.${item.top?.trend ?? 'flat'}`)}</EclCell>
+              </EclRow>
+            ))}
+          </EclTable>
         </div>
       </details>
     </div>

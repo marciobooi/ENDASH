@@ -637,5 +637,8 @@
     "play": "Play the animation through the periods",
     "pause": "Pause the animation",
     "playing": "Playing the periods"
+  },
+  "source": {
+    "newTab": "(opens in a new tab)"
   }
 }

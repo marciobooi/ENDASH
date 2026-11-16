@@ -637,5 +637,8 @@
     "play": "Lancer l'animation à travers les périodes",
     "pause": "Mettre l'animation en pause",
     "playing": "Lecture des périodes"
+  },
+  "source": {
+    "newTab": "(s'ouvre dans un nouvel onglet)"
   }
 }

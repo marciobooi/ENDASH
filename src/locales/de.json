@@ -637,5 +637,8 @@
     "play": "Animation durch die Zeiträume starten",
     "pause": "Animation anhalten",
     "playing": "Zeiträume werden abgespielt"
+  },
+  "source": {
+    "newTab": "(öffnet in einem neuen Tab)"
   }
 }

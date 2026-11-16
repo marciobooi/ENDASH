@@ -14,6 +14,7 @@ import { useInsightsPanelState } from '../insights/useInsightsPanelState'
 import { ChartInsights } from './ChartInsights'
 import { RoundButton } from './RoundButton'
 import { SeriesTable } from './SeriesTable'
+import { SourceNote } from './SourceNote'
 import { formatMonth } from '../services/monthly'
 import { PeriodTimeline } from './PeriodTimeline'
 import { ToolbarIcon } from './ToolbarIcon'
@@ -168,7 +169,10 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
         )}
 
         {state.view === 'table' && model.tableRows.status === 'ready' && (
-          <SeriesTable caption={model.title} firstHeader={t('labels.YEAR')} categories={model.tableRows.categories} series={model.tableRows.series} unitLabel={model.unit} />
+          <>
+            <SeriesTable caption={model.title} firstHeader={t('labels.YEAR')} categories={model.tableRows.categories} series={model.tableRows.series} unitLabel={model.unit} />
+            <SourceNote dataset={chart.dataset} />
+          </>
         )}
 
         {state.view === 'insights' && (

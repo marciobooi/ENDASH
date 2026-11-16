@@ -1,4 +1,5 @@
 import { useMemo, type DragEvent, type KeyboardEvent } from 'react'
+import { Card } from './Card'
 import { Skeleton } from './Skeleton'
 import { RoundButton } from './RoundButton'
 import { useTranslation } from 'react-i18next'
@@ -61,11 +62,14 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
   }
 
   return (
-    <article
+    <Card
       ref={ref}
       id={chart.id}
-      className={`chart-card${drag.dragging ? ' chart-card--dragging' : ''}${drag.over ? ' chart-card--over' : ''}`}
-      aria-labelledby={`${chart.id}-title`}
+      classBase="chart-card"
+      className={`${drag.dragging ? 'chart-card--dragging' : ''}${drag.over ? ' chart-card--over' : ''}`.trim()}
+      title={title}
+      titleId={`${chart.id}-title`}
+      description={unit}
       draggable
       tabIndex={0}
       aria-keyshortcuts="Alt+ArrowLeft Alt+ArrowRight"
@@ -75,13 +79,8 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
       onDragEnd={drag.onDragEnd}
       onDragLeave={drag.onDragLeave}
       onKeyDown={onKeyDown}
-    >
-      <header className="chart-card__header">
-        <div>
-          <h3 className="chart-card__title" id={`${chart.id}-title`}>{title}</h3>
-          <p className="chart-card__unit">{unit}</p>
-        </div>
-        <div className="chart-card__actions">
+      actions={
+        <>
           {chart.medianSplit && (
             <RoundButton
               icon={below ? 'arrow-up' : 'arrow-down'}
@@ -91,8 +90,9 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
             />
           )}
           <RoundButton icon="expand" label={t('labels.BTNEXPAND')} onClick={onExpand} />
-        </div>
-      </header>
+        </>
+      }
+    >
 
       {!visible || result.status === 'loading' ? (
         <Skeleton height={300} label={loading} />
@@ -124,6 +124,6 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
           loadingMessage={loading}
         />
       )}
-    </article>
+    </Card>
   )
 }

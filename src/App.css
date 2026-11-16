@@ -2293,3 +2293,15 @@
     color: HighlightText;
   }
 }
+
+/* Source line under a table (SourceNote.tsx) and number cells of the data tables (EclTable.tsx) */
+.source-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+}
+
+.data-table__number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
