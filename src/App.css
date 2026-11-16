@@ -2122,3 +2122,26 @@
 .global-insights-page__title {
   margin: 0;
 }
+
+/* Tooltip (ECL's, see src/services/ecl.ts): a white bubble with a blue border and a pointer to the button, as in the other
+   tools. The dark one (`data-ecl-tooltip-inverted`) keeps ECL's colours. */
+.ecl-tooltip:not(.ecl-tooltip--inverted) {
+  max-width: 20rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #0e47cb;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: none;
+  color: #262b38;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.ecl-tooltip:not(.ecl-tooltip--inverted)::before {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-right: 2px solid #0e47cb;
+  border-bottom: 2px solid #0e47cb;
+  border-radius: 0;
+  background: #fff;
+}
