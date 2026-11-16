@@ -24,6 +24,8 @@ export interface PieChartProps {
 
 /** Share of each category in one period: a donut with labelled slices. */
 export function PieChart({ title, data, unitLabel, valueLabel, credits, legend, lang, ariaLabel, errorMessage, loadingMessage, onStatus, className }: PieChartProps) {
+  const creditsText = credits?.text
+  const creditsHref = credits?.href ?? ''
   const options = useMemo<Highcharts.Options>(
     () => ({
       chart: { type: 'pie' },
@@ -52,10 +54,10 @@ export function PieChart({ title, data, unitLabel, valueLabel, credits, legend, 
         },
       },
       series: [{ type: 'pie', name: title, data: [...data].sort((a, b) => b[1] - a[1]) }],
-      credits: credits ? { text: credits.text, href: credits.href, position: { align: 'center' } } : { enabled: false },
+      credits: creditsText ? { text: creditsText, href: creditsHref, position: { align: 'center' } } : { enabled: false },
       exporting: { enabled: false },
     }),
-    [data, title, unitLabel, valueLabel, credits?.text, credits?.href, legend],
+    [data, title, unitLabel, valueLabel, creditsText, creditsHref, legend],
   )
 
   return (
