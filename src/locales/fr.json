@@ -258,7 +258,35 @@
       "down": "en baisse",
       "flat": "stable"
     },
-    "back": "Retour à l'outil"
+    "back": "Retour à l'outil",
+    "sentence": {
+      "selectedSeries": "La série sélectionnée",
+      "leadingSeries": "La série principale",
+      "valueInYear": "{{value}} en {{year}}",
+      "pointsUnit": "points de pourcentage",
+      "percentage": "{{name}} a atteint {{latest}}. L'évolution à long terme est de {{change}}.",
+      "stocks": "{{name}} détient le stock le plus important dans le contexte sélectionné, avec {{latest}}. Sur la période affichée, le stock est {{trend}} ({{change}}).",
+      "electricity": "{{name}} a enregistré {{latest}}, avec une tendance à long terme {{trend}}.",
+      "emissions": "{{name}} est le principal contributeur dans le contexte sélectionné, avec {{latest}}. La tendance à long terme est {{trend}}.",
+      "energyVolume": "{{name}} est la composante énergétique principale, avec {{latest}}. L'évolution à long terme est de {{change}}.",
+      "productivity": "{{name}} a atteint {{latest}}. Une tendance à la hausse indique généralement une production économique plus élevée par unité d'énergie.",
+      "intensity": "{{name}} a atteint {{latest}}. Une tendance à la baisse indique généralement une consommation d'énergie plus faible par unité de production.",
+      "generic": "{{name}} a une dernière valeur de {{latest}} et affiche une tendance {{trend}}.",
+      "pointChange": "{{driver}} est la composante principale en {{year}}. La dernière valeur est de {{latest}}, avec une évolution à long terme de {{change}}.",
+      "dependency": "{{driver}} présente la valeur de dépendance la plus élevée dans la vue sélectionnée. Dernière valeur : {{latest}} en {{year}}.",
+      "share": "{{driver}} est la composante principale. Dernière valeur : {{latest}} en {{year}}.",
+      "driverTrend": "{{driver}} est la composante principale et affiche une tendance à long terme {{trend}}. Dernière valeur : {{latest}} en {{year}}.",
+      "generationMix": "{{driver}} est la principale source d'électricité ou de chaleur. Dernière valeur : {{latest}} en {{year}}.",
+      "socialRisk": "La dernière valeur est de {{latest}} en {{year}}. Des valeurs plus faibles indiquent généralement de meilleures conditions de vie.",
+      "latestChange": "La dernière valeur est de {{latest}} en {{year}}, avec une évolution à long terme de {{change}}.",
+      "fallback": "La série principale est {{driver}}, avec une dernière valeur de {{latest}} en {{year}}.",
+      "alertNoDriver": "{{count}} graphiques n'ont pas de facteur principal clair.",
+      "alertNoLatest": "{{count}} graphiques n'ont aucune dernière valeur disponible.",
+      "alertUnfavourable": "{{count}} indicateurs évoluent dans un sens défavorable selon leur règle d'interprétation.",
+      "alertOlder": "{{count}} graphiques ont des dernières données plus anciennes que l'année la plus récente de cette vue.",
+      "alertNone": "Aucune alerte majeure sur la qualité des données ou l'interprétation.",
+      "policyLine": "{{theme}} : {{unfavourable}} indicateurs défavorables contre {{favourable}} favorables."
+    }
   },
   "share": {
     "label": "Partager",

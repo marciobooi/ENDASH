@@ -1,34 +1,30 @@
+import type { TFunction } from 'i18next'
 import type { SeriesInsight } from './model'
-import { insightCategory, trendLabel } from './model'
+import { insightCategory } from './model'
 import { formatNumber, formatSigned } from './format'
 
 /**
  * The sentence that summarises a series (old buildCategoryInsightText). The wording depends on the kind of indicator:
- * percentages, stocks, electricity, emissions, energy volumes, productivity, intensity or a generic line.
+ * percentages, stocks, electricity, emissions, energy volumes, productivity, intensity or a generic line. The text is
+ * in the locale files (`insights.sentence.*`); `categoryTitle` is the chart's ENGLISH title, which only picks the kind.
  */
-export function categorySentence(item: SeriesInsight, unitCode: string, unit: string, chartLabel: string, lang: string): string {
-  const category = insightCategory(chartLabel, unitCode)
-  const name = item.name || 'The selected series'
-  const year = item.latestYear ? ` in ${item.latestYear}` : ''
-  const latest = `${formatNumber(item.latest, lang)} ${unit}${year}`
-  const label = trendLabel(item.trend)
-  switch (category) {
-    case 'percentage':
-      return `${name} reached ${latest}. The long-term change is ${formatSigned(item.longTermChange, lang, 'percentage points')}.`
-    case 'stocks':
-      return `${name} holds the largest stock in the selected context, with ${latest}. Over the period shown the stock is ${label} (${formatSigned(item.longTermChange, lang, unit)}).`
-    case 'electricity':
-      return `${name} recorded ${latest}, with a ${label} long-term trend.`
-    case 'emissions':
-      return `${name} is the main contributor in the selected context, with ${latest}. The long-term trend is ${label}.`
-    case 'energy-volume':
-      return `${name} is the leading energy component, with ${latest}. The long-term change is ${formatSigned(item.longTermChange, lang, unit)}.`
-    case 'productivity':
-      return `${name} reached ${latest}. A rising trend usually indicates more economic output per unit of energy.`
-    case 'intensity':
-      return `${name} reached ${latest}. A falling trend usually indicates lower energy use per unit of output.`
-    default:
-      return `${name} has a latest value of ${latest} and shows a ${label} trend.`
+export function categorySentence(item: SeriesInsight, unitCode: string, unit: string, categoryTitle: string, lang: string, t: TFunction): string {
+  const category = insightCategory(categoryTitle, unitCode)
+  const value = `${formatNumber(item.latest, lang)} ${unit}`
+  const parts = {
+    name: item.name || t('insights.sentence.selectedSeries'),
+    latest: item.latestYear ? t('insights.sentence.valueInYear', { value, year: item.latestYear }) : value,
+    trend: t(`insights.trend.${item.trend}`),
   }
+  const key = {
+    percentage: 'percentage',
+    stocks: 'stocks',
+    electricity: 'electricity',
+    emissions: 'emissions',
+    'energy-volume': 'energyVolume',
+    productivity: 'productivity',
+    intensity: 'intensity',
+  }[category] ?? 'generic'
+  const change = formatSigned(item.longTermChange, lang, category === 'percentage' ? t('insights.sentence.pointsUnit') : unit)
+  return t(`insights.sentence.${key}`, { ...parts, change })
 }
-

@@ -1,6 +1,7 @@
+import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import type { ChartInsight, SeriesInsight, Trend } from '../insights/model'
-import { explainOf, trendLabel } from '../insights/model'
+import { explainOf } from '../insights/model'
 import { formatNumber, formatSigned } from '../insights/format'
 import { Sparkline } from './Sparkline'
 import { InfoPopover } from './InfoPopover'
@@ -107,7 +108,7 @@ export function StoryCard({ chartId, title, role, unit, item, lang }: StoryCardP
         </div>
       )}
 
-      {top && <p className="story-interpretation">{interpretation(item, unit, lang)}</p>}
+      {top && <p className="story-interpretation">{interpretation(item, unit, lang, t)}</p>}
 
       <footer className="story-card__footer">
         <span>{t('insights.topDriver')}: {top?.name ?? '-'}</span>
@@ -118,30 +119,25 @@ export function StoryCard({ chartId, title, role, unit, item, lang }: StoryCardP
 }
 
 /** The sentence under the breakdown (old buildStoryInterpretation): its wording follows the chart's metric type. */
-function interpretation(item: ChartInsight, unit: string, lang: string): string {
+function interpretation(item: ChartInsight, unit: string, lang: string, t: TFunction): string {
   const top = item.top
   if (!top) return ''
-  const latest = `${formatNumber(top.latest, lang)} ${unit}`
-  const year = top.latestYear
-  const driver = top.name || 'The leading series'
-  switch (item.preferredMetric) {
-    case 'percentage-point-change':
-      return `${driver} is the leading component in ${year}. The latest value is ${latest}, with a long-term change of ${formatSigned(top.longTermChange, lang, 'percentage points')}.`
-    case 'dependency-risk':
-      return `${driver} has the highest dependency value in the selected view. Latest value: ${latest} in ${year}.`
-    case 'top-driver-and-share':
-      return `${driver} is the leading component. Latest value: ${latest} in ${year}.`
-    case 'top-driver-and-trend':
-      return `${driver} is the leading component and shows a ${trendLabel(top.trend)} long-term trend. Latest value: ${latest} in ${year}.`
-    case 'generation-mix':
-      return `${driver} is the leading electricity or heat source. Latest value: ${latest} in ${year}.`
-    case 'social-risk':
-      return `The latest value is ${latest} in ${year}. Lower values generally indicate better living conditions.`
-    case 'latest-and-change':
-      return `The latest value is ${latest} in ${year}, with a long-term change of ${formatSigned(top.longTermChange, lang, unit)}.`
-    default:
-      return `The leading series is ${driver}, with a latest value of ${latest} in ${year}.`
-  }
+  const key = {
+    'percentage-point-change': 'pointChange',
+    'dependency-risk': 'dependency',
+    'top-driver-and-share': 'share',
+    'top-driver-and-trend': 'driverTrend',
+    'generation-mix': 'generationMix',
+    'social-risk': 'socialRisk',
+    'latest-and-change': 'latestChange',
+  }[item.preferredMetric] ?? 'fallback'
+  return t(`insights.sentence.${key}`, {
+    driver: top.name || t('insights.sentence.leadingSeries'),
+    latest: `${formatNumber(top.latest, lang)} ${unit}`,
+    year: top.latestYear,
+    trend: t(`insights.trend.${top.trend}`),
+    change: formatSigned(top.longTermChange, lang, key === 'pointChange' ? t('insights.sentence.pointsUnit') : unit),
+  })
 }
 
 export type { SeriesInsight }

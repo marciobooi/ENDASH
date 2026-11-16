@@ -1,3 +1,4 @@
+import type { TFunction } from 'i18next'
 import { themes } from '../config/toolConfig'
 import { chartStoryConfig, insightGroups, preferredMetricExplainers, sentimentReadingGuide } from './storyConfig'
 
@@ -231,7 +232,7 @@ export function globalAggregates(items: ChartInsight[], unitLabel: (code: string
 }
 
 /** Alerts of the global overview (old buildInsightAlerts): missing drivers, older data, unfavourable movements. */
-export function dataAlerts(items: ChartInsight[]): string[] {
+export function dataAlerts(items: ChartInsight[], t: TFunction): string[] {
   const latest = items.map((item) => Number(item.top?.latestYear)).filter((year) => !Number.isNaN(year))
   const newest = latest.length ? Math.max(...latest) : null
   const alerts: string[] = []
@@ -239,9 +240,9 @@ export function dataAlerts(items: ChartInsight[]): string[] {
   const noLatest = items.filter((item) => item.top === null).length
   const unfavourable = items.filter((item) => item.assessment === 'unfavourable').length
   const older = newest === null ? 0 : items.filter((item) => Number(item.top?.latestYear) < newest - 1).length
-  if (noDriver) alerts.push(`${noDriver} charts have no clear top driver.`)
-  if (noLatest) alerts.push(`${noLatest} charts have no latest value available.`)
-  if (unfavourable) alerts.push(`${unfavourable} indicators move in an unfavourable direction based on their interpretation rule.`)
-  if (older) alerts.push(`${older} charts have latest data older than the newest year in this view.`)
-  return alerts.length ? alerts : ['No major data quality or interpretation alerts detected.']
+  if (noDriver) alerts.push(t('insights.sentence.alertNoDriver', { count: noDriver }))
+  if (noLatest) alerts.push(t('insights.sentence.alertNoLatest', { count: noLatest }))
+  if (unfavourable) alerts.push(t('insights.sentence.alertUnfavourable', { count: unfavourable }))
+  if (older) alerts.push(t('insights.sentence.alertOlder', { count: older }))
+  return alerts.length ? alerts : [t('insights.sentence.alertNone')]
 }

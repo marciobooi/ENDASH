@@ -44,7 +44,7 @@ export function InsightsContent({ geo, active }: InsightsContentProps) {
   if (items.length === 0) return <Notification>{t('insights.noData')}</Notification>
 
   const groups = Object.keys(insightGroups).filter((key) => items.some((item) => item.storyGroup === key))
-  const alerts = dataAlerts(items)
+  const alerts = dataAlerts(items, t)
 
   return (
     <div className="global-insights">
@@ -256,7 +256,7 @@ function PolicyAlerts({ aggregates, groups }: { aggregates: GlobalAggregates; gr
   return (
     <ul className="insight-list">
       {alerts.map(({ key, stat }) => (
-        <li key={key}>{t(`labels.${insightGroups[key].labelKey}`)}: {stat?.unfavourable} {t('insights.unfavourable').toLowerCase()} vs {stat?.favourable} {t('insights.favourable').toLowerCase()} {t('insights.indicators')}.</li>
+        <li key={key}>{t('insights.sentence.policyLine', { theme: t(`labels.${insightGroups[key].labelKey}`), unfavourable: stat?.unfavourable, favourable: stat?.favourable })}</li>
       ))}
     </ul>
   )

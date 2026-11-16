@@ -258,7 +258,35 @@
       "down": "falling",
       "flat": "stable"
     },
-    "back": "Back to the tool"
+    "back": "Back to the tool",
+    "sentence": {
+      "selectedSeries": "The selected series",
+      "leadingSeries": "The leading series",
+      "valueInYear": "{{value}} in {{year}}",
+      "pointsUnit": "percentage points",
+      "percentage": "{{name}} reached {{latest}}. The long-term change is {{change}}.",
+      "stocks": "{{name}} holds the largest stock in the selected context, with {{latest}}. Over the period shown the stock is {{trend}} ({{change}}).",
+      "electricity": "{{name}} recorded {{latest}}, with a {{trend}} long-term trend.",
+      "emissions": "{{name}} is the main contributor in the selected context, with {{latest}}. The long-term trend is {{trend}}.",
+      "energyVolume": "{{name}} is the leading energy component, with {{latest}}. The long-term change is {{change}}.",
+      "productivity": "{{name}} reached {{latest}}. A rising trend usually indicates more economic output per unit of energy.",
+      "intensity": "{{name}} reached {{latest}}. A falling trend usually indicates lower energy use per unit of output.",
+      "generic": "{{name}} has a latest value of {{latest}} and shows a {{trend}} trend.",
+      "pointChange": "{{driver}} is the leading component in {{year}}. The latest value is {{latest}}, with a long-term change of {{change}}.",
+      "dependency": "{{driver}} has the highest dependency value in the selected view. Latest value: {{latest}} in {{year}}.",
+      "share": "{{driver}} is the leading component. Latest value: {{latest}} in {{year}}.",
+      "driverTrend": "{{driver}} is the leading component and shows a {{trend}} long-term trend. Latest value: {{latest}} in {{year}}.",
+      "generationMix": "{{driver}} is the leading electricity or heat source. Latest value: {{latest}} in {{year}}.",
+      "socialRisk": "The latest value is {{latest}} in {{year}}. Lower values generally indicate better living conditions.",
+      "latestChange": "The latest value is {{latest}} in {{year}}, with a long-term change of {{change}}.",
+      "fallback": "The leading series is {{driver}}, with a latest value of {{latest}} in {{year}}.",
+      "alertNoDriver": "{{count}} charts have no clear top driver.",
+      "alertNoLatest": "{{count}} charts have no latest value available.",
+      "alertUnfavourable": "{{count}} indicators move in an unfavourable direction based on their interpretation rule.",
+      "alertOlder": "{{count}} charts have latest data older than the newest year in this view.",
+      "alertNone": "No major data quality or interpretation alerts detected.",
+      "policyLine": "{{theme}}: {{unfavourable}} unfavourable vs {{favourable}} favourable indicators."
+    }
   },
   "share": {
     "label": "Share",

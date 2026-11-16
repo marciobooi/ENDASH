@@ -73,7 +73,7 @@ export function ChartInsights({ chart, title, insights }: ChartInsightsProps) {
 
       <div className="insights-summary">
         <strong>{t('insights.summary')}</strong>{' '}
-        {categorySentence(top, chart.unit, unit, title, lang)}
+        {categorySentence(top, chart.unit, unit, i18n.getFixedT('en')(`labels.${chart.id}`), lang, t)}
         {second ? ` ${t('insights.nextSeries')} ${second.name}.` : ''}
       </div>
     </section>

@@ -258,7 +258,35 @@
       "down": "fallend",
       "flat": "stabil"
     },
-    "back": "Zurück zum Tool"
+    "back": "Zurück zum Tool",
+    "sentence": {
+      "selectedSeries": "Die ausgewählte Reihe",
+      "leadingSeries": "Die führende Reihe",
+      "valueInYear": "{{value}} im Jahr {{year}}",
+      "pointsUnit": "Prozentpunkte",
+      "percentage": "{{name}} erreichte {{latest}}. Die langfristige Veränderung beträgt {{change}}.",
+      "stocks": "{{name}} hat im gewählten Kontext den größten Bestand mit {{latest}}. Im gezeigten Zeitraum ist der Bestand {{trend}} ({{change}}).",
+      "electricity": "{{name}} verzeichnete {{latest}}; langfristiger Trend: {{trend}}.",
+      "emissions": "{{name}} ist im gewählten Kontext der Hauptverursacher mit {{latest}}. Der langfristige Trend ist {{trend}}.",
+      "energyVolume": "{{name}} ist die führende Energiekomponente mit {{latest}}. Die langfristige Veränderung beträgt {{change}}.",
+      "productivity": "{{name}} erreichte {{latest}}. Ein steigender Trend bedeutet in der Regel mehr Wirtschaftsleistung je Energieeinheit.",
+      "intensity": "{{name}} erreichte {{latest}}. Ein fallender Trend bedeutet in der Regel einen geringeren Energieverbrauch je Produktionseinheit.",
+      "generic": "{{name}} hat einen aktuellen Wert von {{latest}}; Trend: {{trend}}.",
+      "pointChange": "{{driver}} ist {{year}} die führende Komponente. Der aktuelle Wert beträgt {{latest}}, bei einer langfristigen Veränderung um {{change}}.",
+      "dependency": "{{driver}} hat in der gewählten Ansicht den höchsten Abhängigkeitswert. Aktueller Wert: {{latest}} im Jahr {{year}}.",
+      "share": "{{driver}} ist die führende Komponente. Aktueller Wert: {{latest}} im Jahr {{year}}.",
+      "driverTrend": "{{driver}} ist die führende Komponente; langfristiger Trend: {{trend}}. Aktueller Wert: {{latest}} im Jahr {{year}}.",
+      "generationMix": "{{driver}} ist die führende Strom- oder Wärmequelle. Aktueller Wert: {{latest}} im Jahr {{year}}.",
+      "socialRisk": "Der aktuelle Wert beträgt {{latest}} im Jahr {{year}}. Niedrigere Werte deuten im Allgemeinen auf bessere Lebensbedingungen hin.",
+      "latestChange": "Der aktuelle Wert beträgt {{latest}} im Jahr {{year}}, bei einer langfristigen Veränderung um {{change}}.",
+      "fallback": "Die führende Reihe ist {{driver}} mit einem aktuellen Wert von {{latest}} im Jahr {{year}}.",
+      "alertNoDriver": "{{count}} Diagramme haben keinen klaren Hauptfaktor.",
+      "alertNoLatest": "Für {{count}} Diagramme ist kein aktueller Wert verfügbar.",
+      "alertUnfavourable": "{{count}} Indikatoren entwickeln sich nach ihrer Interpretationsregel in eine ungünstige Richtung.",
+      "alertOlder": "Bei {{count}} Diagrammen sind die neuesten Daten älter als das neueste Jahr in dieser Ansicht.",
+      "alertNone": "Keine wesentlichen Hinweise zu Datenqualität oder Interpretation.",
+      "policyLine": "{{theme}}: {{unfavourable}} ungünstige gegenüber {{favourable}} günstigen Indikatoren."
+    }
   },
   "share": {
     "label": "Teilen",
