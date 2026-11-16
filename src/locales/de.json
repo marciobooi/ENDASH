@@ -632,5 +632,10 @@
     "PORT_PENDING": "Dieses Diagramm wird in das neue Dashboard übertragen.",
     "CARD_MOVED": "{{title}}: verschoben auf Position {{position}} von {{total}}",
     "RETRY": "Erneut versuchen"
+  },
+  "timeline": {
+    "play": "Animation durch die Zeiträume starten",
+    "pause": "Animation anhalten",
+    "playing": "Zeiträume werden abgespielt"
   }
 }

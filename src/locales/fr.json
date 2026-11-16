@@ -632,5 +632,10 @@
     "PORT_PENDING": "Ce graphique est en cours de transfert vers le nouveau tableau de bord.",
     "CARD_MOVED": "{{title}} : déplacé à la position {{position}} sur {{total}}",
     "RETRY": "Réessayer"
+  },
+  "timeline": {
+    "play": "Lancer l'animation à travers les périodes",
+    "pause": "Mettre l'animation en pause",
+    "playing": "Lecture des périodes"
   }
 }

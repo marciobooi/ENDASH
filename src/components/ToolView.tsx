@@ -13,7 +13,7 @@ import { ChartInsights } from './insights/ChartInsights'
 import { RoundButton } from './RoundButton'
 import { SeriesTable } from './SeriesTable'
 import { formatMonth } from '../data/monthly'
-import { Timeline } from './Timeline'
+import { PeriodTimeline } from './PeriodTimeline'
 import { ToolbarIcon } from './ToolbarIcon'
 
 /** The panel state of a loaded chart result: an error counts as "no data". */
@@ -93,18 +93,6 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
         </div>
       )}
 
-      {model.timeline && (
-        <Timeline
-          periods={model.timeline.periods}
-          value={model.timeline.value}
-          label={model.timeline.label}
-          format={model.timeline.kind === 'month' ? (period) => formatMonth(period, lang) : (period) => period}
-          controls={`${chart.id}-expanded`}
-          showing={t('labels.TIMELINE_SHOWING')}
-          pageStep={model.timeline.kind === 'month' ? 3 : 10}
-          onChange={(period) => patch(model.timeline?.kind === 'month' ? { month: period } : { year: period })}
-        />
-      )}
 
       <div className="expanded-chart__body">
         {state.view === 'line' && (
@@ -185,6 +173,19 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           <ChartInsights chart={chart} title={model.title} insights={insights} />
         )}
       </div>
+
+      {model.timeline && (
+        <PeriodTimeline
+          periods={model.timeline.periods}
+          value={model.timeline.value}
+          label={model.timeline.label}
+          format={model.timeline.kind === 'month' ? (period) => formatMonth(period, lang) : (period) => period}
+          controls={`${chart.id}-expanded`}
+          showing={t('labels.TIMELINE_SHOWING')}
+          pageStep={model.timeline.kind === 'month' ? 3 : 10}
+          onChange={(period) => patch(model.timeline?.kind === 'month' ? { month: period } : { year: period })}
+        />
+      )}
     </div>
   )
 }

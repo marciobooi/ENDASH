@@ -632,5 +632,10 @@
     "PORT_PENDING": "This chart is being ported to the new dashboard.",
     "CARD_MOVED": "{{title}}: moved to position {{position}} of {{total}}",
     "RETRY": "Try again"
+  },
+  "timeline": {
+    "play": "Play the animation through the periods",
+    "pause": "Pause the animation",
+    "playing": "Playing the periods"
   }
 }
