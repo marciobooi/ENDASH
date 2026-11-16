@@ -118,7 +118,7 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
           fixedPercentScale={chart.unit === 'PC'}
           credits={credits}
           legend="hidden"
-          tooltip={tableTooltip({ t, unit, showTotal: chart.tooltipTotal })}
+          tooltip={tableTooltip({ t, unit, showTotal: chart.tooltipTotal, outside: true })}
           ariaLabel={title}
           errorMessage={noData}
           loadingMessage={loading}

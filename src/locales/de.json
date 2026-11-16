@@ -635,9 +635,6 @@
     "RETRY": "Erneut versuchen"
   },
   "timeline": {
-    "play": "Animation durch die Zeiträume starten",
-    "pause": "Animation anhalten",
-    "playing": "Zeiträume werden abgespielt",
     "rangeFrom": "Erster angezeigter Zeitraum",
     "rangeTo": "Letzter angezeigter Zeitraum",
     "periodFiltered": "Zeitraum gefiltert von <b>{{from}}</b> bis <b>{{to}}</b>."

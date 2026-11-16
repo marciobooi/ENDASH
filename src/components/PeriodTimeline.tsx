@@ -1,7 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
-import { useTranslation } from 'react-i18next'
-import { timelineStepMs } from '../config/toolConfig'
-import { RoundButton } from './RoundButton'
+import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
 
 interface PeriodTimelineProps {
   /** Positions the slider can take: years (YYYY) or months (YYYY-MM), oldest first. */
@@ -27,19 +24,16 @@ const LABEL_WIDTH = 72
 const THUMB = 24
 
 /**
- * The period of the expanded chart as a timeline (the look and CSS of the ENPRICES timeline): a play button that steps
- * through the periods, a bubble with the period over the handle, and a tick for every period with a label for as many
+ * The period of the expanded chart as a timeline (the look and CSS of the ENPRICES timeline): a bubble with the period over the handle, and a tick for every period with a label for as many
  * as fit. It is a native range input (arrow keys, Home, End, PageUp and PageDown; screen readers read the period as the
- * value). The chart updates when the handle is released (or at once for the keyboard and the animation), not on every
+ * value). The chart updates when the handle is released (or at once for the keyboard), not on every
  * step of a drag; a live message tells screen readers what the chart now shows. It stays at the bottom of the window.
  */
 export function PeriodTimeline({ periods, value, onChange, label, format, controls, showing, pageStep }: PeriodTimelineProps) {
-  const { t } = useTranslation()
   const rangeId = useId()
   const track = useRef<HTMLDivElement>(null)
   const dragging = useRef(false)
   const [width, setWidth] = useState(0)
-  const [playing, setPlaying] = useState(false)
   // The position under the pointer while dragging; null otherwise (the slider then shows the selected period).
   const [dragIndex, setDragIndex] = useState<number | null>(null)
   const [announcement, setAnnouncement] = useState('')
@@ -67,20 +61,6 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
     return () => observer.disconnect()
   }, [last])
 
-  // The newest `commit`, so the animation timer below never needs it as a dependency.
-  const commitRef = useRef(commit)
-  useEffect(() => {
-    commitRef.current = commit
-  })
-
-  // The animation runs while it is on and there is a next period: it waits a moment on a period, then goes to the next.
-  const running = playing && selected < last
-  useEffect(() => {
-    if (!running) return
-    const timer = window.setTimeout(() => commitRef.current(selected + 1), timelineStepMs)
-    return () => window.clearTimeout(timer)
-  }, [running, selected])
-
   const endDrag = (position: number) => {
     if (!dragging.current) return
     dragging.current = false
@@ -91,7 +71,6 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'PageUp' && event.key !== 'PageDown') return
     event.preventDefault()
-    setPlaying(false)
     commit(selected + (event.key === 'PageUp' ? pageStep : -pageStep))
   }
 
@@ -112,16 +91,6 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
 
   return (
     <div className="period-timeline" id="period-timeline" role="group" aria-label={label}>
-      <RoundButton
-        id="timeline-play"
-        icon={running ? 'pause' : 'play'}
-        label={t(running ? 'timeline.pause' : 'timeline.play')}
-        aria-pressed={running}
-        onClick={() => {
-          if (!running && selected >= last) commit(0)
-          setPlaying(!running)
-        }}
-      />
       <div className="period-timeline__slider">
         <div className="period-timeline__bubble" style={{ left: at(index) }} aria-hidden="true">{shown}</div>
         <div className="period-timeline__track" ref={track}>
@@ -140,7 +109,6 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
             style={{ '--filled': at(index) } as CSSProperties}
             onPointerDown={() => {
               dragging.current = true
-              setPlaying(false)
             }}
             onPointerUp={(event) => endDrag(Number(event.currentTarget.value))}
             onPointerCancel={(event) => endDrag(Number(event.currentTarget.value))}
@@ -149,8 +117,7 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
               const position = Number(event.target.value)
               if (dragging.current) setDragIndex(position)
               else {
-                setPlaying(false)
-                commit(position)
+                  commit(position)
               }
             }}
           />
@@ -170,7 +137,7 @@ export function PeriodTimeline({ periods, value, onChange, label, format, contro
         <span id={rangeId} className="ecl-u-sr-only">{`${format(periods[0])} – ${format(periods[last])}`}</span>
       </div>
       <div className="ecl-u-sr-only" role="status" aria-live="polite" aria-atomic="true">
-        {running ? t('timeline.playing') : announcement}
+        {announcement}
       </div>
     </div>
   )

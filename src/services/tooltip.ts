@@ -56,11 +56,11 @@ export function tooltipTable(points: readonly TooltipPoint[], options: TooltipOp
     const rows = points
       .map((p) => `<tr><td>${swatch(p.color as string)} ${escapeHtml(p.series.name)}</td><td>${Math.round(p.point.percentage ?? 0)} %</td></tr>`)
       .join('')
-    return `<div><table class="table_component"><thead><tr><th scope="col">${header}</th><th scope="col">${labels.valueHeader || '%'}</th></tr></thead>${rows}</table></div>`
+    return `<div class="table_component"><table><thead><tr><th scope="col">${header}</th><th scope="col">${labels.valueHeader || '%'}</th></tr></thead>${rows}</table></div>`
   }
 
   if (points.every((p) => p.y === 0)) {
-    return `<div><table class="table_component"><thead><tr><th scope="col">${header}</th></tr></thead><tr><td>${escapeHtml(labels.noValue)}</td></tr></table></div>`
+    return `<div class="table_component"><table><thead><tr><th scope="col">${header}</th></tr></thead><tr><td>${escapeHtml(labels.noValue)}</td></tr></table></div>`
   }
 
   const withTotalLast = [...points].sort((a, b) => Number(a.series.name === labels.total) - Number(b.series.name === labels.total))
@@ -74,5 +74,5 @@ export function tooltipTable(points: readonly TooltipPoint[], options: TooltipOp
     ? `<tr><td>${swatch('rgb(14, 71, 203)')} ${escapeHtml(labels.total)}</td><td>${points.reduce((sum, p) => sum + (p.y ?? 0), 0).toFixed(decimals)}</td></tr>`
     : ''
 
-  return `<div><table class="table_component"><thead><tr><th scope="col">${header}</th><th scope="col">${escapeHtml(labels.valueHeader)}</th></tr></thead>${rows}${total}</table></div>`
+  return `<div class="table_component"><table><thead><tr><th scope="col">${header}</th><th scope="col">${escapeHtml(labels.valueHeader)}</th></tr></thead>${rows}${total}</table></div>`
 }

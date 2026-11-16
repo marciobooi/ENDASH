@@ -1918,18 +1918,10 @@
   align-items: center;
   gap: 1rem;
   box-sizing: border-box;
-  width: min(44rem, calc(100% - 2rem));
-  margin: 1rem auto 0.5rem;
+  width: 100%;
+  margin: 1rem 0 0.5rem;
   /* No box: the top padding is room for the period bubble over the handle */
   padding: 1.9rem 0.25rem 0.2rem;
-}
-
-/* The button's centre goes on the line of the track (the track is 1.5rem high, at the top of the slider) */
-.period-timeline .round-button {
-  --round-button-size: 3rem;
-  flex: none;
-  align-self: flex-start;
-  margin-top: -0.75rem;
 }
 
 .period-timeline__slider {

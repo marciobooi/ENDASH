@@ -635,9 +635,6 @@
     "RETRY": "Réessayer"
   },
   "timeline": {
-    "play": "Lancer l'animation à travers les périodes",
-    "pause": "Mettre l'animation en pause",
-    "playing": "Lecture des périodes",
     "rangeFrom": "Première période affichée",
     "rangeTo": "Dernière période affichée",
     "periodFiltered": "Période filtrée de <b>{{from}}</b> à <b>{{to}}</b>."

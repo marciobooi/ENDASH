@@ -1145,9 +1145,6 @@ export const embedConfig = {
 /* GUIDED TOUR                                                         */
 /* ------------------------------------------------------------------ */
 
-/** How long the period timeline stays on one period while it plays. */
-export const timelineStepMs = 1000
-
 export const tourConfig = {
   autoStart: true,
   showOnce: true,

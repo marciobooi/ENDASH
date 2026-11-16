@@ -28,8 +28,6 @@ const WEBTOOLS_ICONS = {
   swap: 'arrows-left-right',
   expand: 'arrows-out',
   copy: 'copy',
-  play: 'play',
-  pause: 'pause',
   search: 'magnifying-glass',
   settings: 'gear',
 } as const
