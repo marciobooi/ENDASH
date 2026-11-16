@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { DriveStep } from 'driver.js'
 import { features, filters, tourConfig } from './config/toolConfig'
@@ -8,8 +8,7 @@ import { useSiteShell } from './hooks/useSiteShell'
 import { DownloadMenu } from './components/DownloadMenu'
 import { FilterControls } from './components/FilterControls'
 import { SiteFooter } from './components/Footer'
-import { InsightsContent } from './components/InsightsContent'
-import { InsightsPanel } from './components/InsightsPanel'
+import { insightsHref } from './insights/mode'
 import { SiteNavigation } from './components/Nav'
 import { RoundButton } from './components/RoundButton'
 import { EmbedButton } from './components/EmbedButton'
@@ -28,7 +27,6 @@ function App() {
 
   // The filters (src/config/toolConfig.ts) live in the address: shared links and embedded views show this state.
   const [values, setFilter] = useFilters()
-  const [insightsOpen, setInsightsOpen] = useState(false)
   const dashboard = useDashboardState()
   const [dashState, patchDashboard] = dashboard
   const expandedChart = dashState.chart ? chartById[dashState.chart] : undefined
@@ -101,8 +99,7 @@ function App() {
                   id="insights-button"
                   icon="lightbulb"
                   label={t('insights.open')}
-                  aria-haspopup="dialog"
-                  onClick={() => setInsightsOpen(true)}
+                                    href={insightsHref()}
                 />
               )}
               {features.download && downloadMenu}
@@ -124,16 +121,6 @@ function App() {
         />
       </main>
 
-      {features.insights && (
-        <InsightsPanel
-          open={insightsOpen}
-          onClose={() => setInsightsOpen(false)}
-          title={t('insights.title')}
-          closeLabel={t('insights.close')}
-        >
-          <InsightsContent geo={String(values.geo)} active={insightsOpen} />
-        </InsightsPanel>
-      )}
 
       <SiteFooter />
     </>

@@ -257,7 +257,8 @@
       "up": "en hausse",
       "down": "en baisse",
       "flat": "stable"
-    }
+    },
+    "back": "Retour à l'outil"
   },
   "share": {
     "label": "Partager",

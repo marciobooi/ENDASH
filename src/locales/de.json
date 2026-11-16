@@ -257,7 +257,8 @@
       "up": "steigend",
       "down": "fallend",
       "flat": "stabil"
-    }
+    },
+    "back": "Zurück zum Tool"
   },
   "share": {
     "label": "Teilen",

@@ -12,7 +12,7 @@ import { insightGroups } from '../insights/storyConfig'
 import { Donut } from './Donut'
 import { StoryCard } from './StoryCard'
 
-interface GlobalInsightsBodyProps {
+interface InsightsContentProps {
   geo: string
   active: boolean
 }
@@ -22,7 +22,7 @@ type Bar = { label: string; value: number; className?: string }
 /** The overview of the visible charts, in the order of the legacy tool: theme tabs, hero, data coverage, theme
  * distribution, latest-data timeline, theme summaries, the overview grid, alerts, takeaways, one story section per
  * theme, and the evidence table (collapsed). */
-export function InsightsContent({ geo, active }: GlobalInsightsBodyProps) {
+export function InsightsContent({ geo, active }: InsightsContentProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language
   const data = useGlobalInsights(geo, lang, t, active)

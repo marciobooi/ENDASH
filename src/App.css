@@ -2305,3 +2305,24 @@
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+
+/* Global insights page (InsightsPage.tsx): a bar with the title and the way back, then the insights */
+.global-insights-page {
+  box-sizing: border-box;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.global-insights-page__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.global-insights-page__title {
+  margin: 0;
+}

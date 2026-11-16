@@ -257,7 +257,8 @@
       "up": "rising",
       "down": "falling",
       "flat": "stable"
-    }
+    },
+    "back": "Back to the tool"
   },
   "share": {
     "label": "Share",
