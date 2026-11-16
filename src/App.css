@@ -1346,6 +1346,9 @@
 .story-group-stats {
   display: flex;
   flex-wrap: wrap;
+  /* The header stretches its children to the height of the text next to them; the chips keep their own height */
+  align-items: flex-start;
+  align-self: flex-start;
   gap: 0.4rem;
   list-style: none;
   margin: 0;
@@ -1353,6 +1356,7 @@
 }
 
 .story-group-stats li {
+  white-space: nowrap;
   background: #f7f9fc;
   border-radius: 999px;
   padding: 0.35rem 0.6rem;
