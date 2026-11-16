@@ -35,26 +35,63 @@ export function sourceQuery(source: DataSource, options: { geo?: string | string
 const cache = new Map<string, Promise<Dataset | null>>()
 const loaded = new Map<string, Dataset>()
 
+/** The tables are also kept in the browser's Cache Storage, so they survive a page change (the insights page, "back", a reload). */
+const STORE = 'endash-eurostat-v1'
+/** Eurostat figures change rarely (annual, or monthly for the oil stocks): an hour is fresh enough and avoids every re-download. */
+const MAX_AGE_MS = 60 * 60 * 1000
+
+async function readStored(url: string): Promise<unknown | null> {
+  try {
+    const store = await caches.open(STORE)
+    const saved = await store.match(url)
+    if (!saved) return null
+    if (Date.now() - Number(saved.headers.get('x-saved-at')) > MAX_AGE_MS) {
+      await store.delete(url)
+      return null
+    }
+    return await saved.json()
+  } catch {
+    return null // no Cache Storage (private window, insecure page): the table is simply downloaded
+  }
+}
+
+async function writeStored(url: string, body: string): Promise<void> {
+  try {
+    const store = await caches.open(STORE)
+    await store.put(url, new Response(body, { headers: { 'content-type': 'application/json', 'x-saved-at': String(Date.now()) } }))
+  } catch {
+    /* a full or unavailable store only means the next page downloads again */
+  }
+}
+
 /** A table already read in this page, or undefined. Lets the download (which is synchronous) use what is on screen. */
 export function loadedDataset(url: string): Dataset | undefined {
   return loaded.get(url)
 }
 
-/** Reads one table; null when the request fails (dataset down, network): the chart then shows its "no data" state. */
+/**
+ * Reads one table; null when the request fails (dataset down, network): the chart then shows its "no data" state. A
+ * table is downloaded once per address: this page remembers it, and so does the browser for the next page.
+ */
 export function fetchDataset(url: string): Promise<Dataset | null> {
   let pending = cache.get(url)
   if (!pending) {
-    pending = fetch(url)
-      .then((response) => (response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`))))
-      .then((json) => {
-        const dataset = JSONstat(json).Dataset(0) as Dataset
-        loaded.set(url, dataset)
-        return dataset
-      })
-      .catch(() => {
-        cache.delete(url)
-        return null
-      })
+    pending = (async () => {
+      let json = await readStored(url)
+      if (json === null) {
+        const response = await fetch(url)
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const body = await response.text()
+        json = JSON.parse(body)
+        void writeStored(url, body)
+      }
+      const dataset = JSONstat(json as object).Dataset(0) as Dataset
+      loaded.set(url, dataset)
+      return dataset
+    })().catch(() => {
+      cache.delete(url)
+      return null
+    })
     cache.set(url, pending)
   }
   return pending

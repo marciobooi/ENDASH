@@ -7,6 +7,7 @@ import { ToolView } from './ToolView'
 import { Notification } from './Notification'
 import { Gallery } from './Gallery'
 import { ThemeNav } from './ThemeNav'
+import { usePrefetchCharts } from '../hooks/usePrefetchCharts'
 
 interface ToolContentProps {
   /** The country selector, shown under the topic row of the gallery. */
@@ -25,11 +26,13 @@ interface ToolContentProps {
  * state, so the gallery and the expanded chart always agree.
  */
 export function ToolContent({ chartId, values, filters, dashboard, headingLevel }: ToolContentProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [state, patch] = dashboard
   // The chart that was open: when the gallery comes back, focus returns to its card.
   const [lastOpened, setLastOpened] = useState('')
   const geo = String(values.geo ?? 'BE')
+  // The gallery's tables load in the background (the cards on screen first), so scrolling finds them ready.
+  usePrefetchCharts(geo, i18n.language, state.month, chartId === undefined && !state.chart)
 
   if (chartId !== undefined && !embedConfig.charts.includes(chartId)) {
     return <Notification variant="error" className="tool-content__message">{t('labels.ERROR2')}</Notification>
