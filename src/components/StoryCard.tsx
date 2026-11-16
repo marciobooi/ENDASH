@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import type { ChartInsight, SeriesInsight, Trend } from '../../insights/model'
-import { explainOf, trendLabel } from '../../insights/model'
-import { formatNumber, formatSigned } from '../../insights/format'
+import type { ChartInsight, SeriesInsight, Trend } from '../insights/model'
+import { explainOf, trendLabel } from '../insights/model'
+import { formatNumber, formatSigned } from '../insights/format'
 import { Sparkline } from './Sparkline'
 import { InfoPopover } from './InfoPopover'
 

@@ -1,4 +1,4 @@
-import { useOutsideClose } from '../../hooks/useOutsideClose'
+import { useOutsideClose } from '../hooks/useOutsideClose'
 import { useId, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 

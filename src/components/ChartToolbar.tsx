@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ChartDefinition } from '../config/toolConfig'
-import { offeredViews } from '../utils/calculations'
+import { offeredViews } from '../services/calculations'
 import type { DashboardState, View } from '../state/dashboardState'
 import { RoundButton } from './RoundButton'
 import { WebtoolsIcon } from './WebtoolsIcon'

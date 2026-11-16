@@ -8,7 +8,7 @@ import { useSiteShell } from './hooks/useSiteShell'
 import { DownloadMenu } from './components/DownloadMenu'
 import { FilterControls } from './components/FilterControls'
 import { SiteFooter } from './components/Footer'
-import { GlobalInsightsBody } from './components/insights/GlobalInsightsBody'
+import { InsightsContent } from './components/InsightsContent'
 import { InsightsPanel } from './components/InsightsPanel'
 import { SiteNavigation } from './components/Nav'
 import { RoundButton } from './components/RoundButton'
@@ -131,7 +131,7 @@ function App() {
           title={t('insights.title')}
           closeLabel={t('insights.close')}
         >
-          <GlobalInsightsBody geo={String(values.geo)} active={insightsOpen} />
+          <InsightsContent geo={String(values.geo)} active={insightsOpen} />
         </InsightsPanel>
       )}
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Skeleton } from './Skeleton'
-import { NoDataChart } from '../charts/NoDataChart'
+import { NoDataChart } from './NoDataChart'
 
 interface ChartPanelProps {
   /** `loading` shows the loading text, `empty` the "no data" figure, `ready` the chart (children). */

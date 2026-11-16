@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from 'react'
-import { Loading } from '../Loading'
-import { Notification } from '../Notification'
+import { Loading } from './Loading'
+import { Notification } from './Notification'
 import type { TFunction } from 'i18next'
 import { useTranslation } from 'react-i18next'
-import { chartById } from '../../config/toolConfig'
-import { useGlobalInsights } from '../../hooks/useInsights'
-import { formatNumber } from '../../insights/format'
-import { dataAlerts, globalAggregates, groupOrder, type Assessment, type ChartInsight, type GlobalAggregates, type Trend } from '../../insights/model'
-import { insightGroups } from '../../insights/storyConfig'
+import { chartById } from '../config/toolConfig'
+import { useGlobalInsights } from '../insights/useInsightsData'
+import { formatNumber } from '../insights/format'
+import { dataAlerts, globalAggregates, groupOrder, type Assessment, type ChartInsight, type GlobalAggregates, type Trend } from '../insights/model'
+import { insightGroups } from '../insights/storyConfig'
 import { Donut } from './Donut'
 import { StoryCard } from './StoryCard'
 
@@ -21,7 +21,7 @@ type Bar = { label: string; value: number; className?: string }
 /** The overview of the visible charts, in the order of the legacy tool: theme tabs, hero, data coverage, theme
  * distribution, latest-data timeline, theme summaries, the overview grid, alerts, takeaways, one story section per
  * theme, and the evidence table (collapsed). */
-export function GlobalInsightsBody({ geo, active }: GlobalInsightsBodyProps) {
+export function InsightsContent({ geo, active }: GlobalInsightsBodyProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language
   const data = useGlobalInsights(geo, lang, t, active)

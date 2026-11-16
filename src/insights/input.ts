@@ -1,8 +1,8 @@
 import type { TFunction } from 'i18next'
 import type { ChartDefinition } from '../config/toolConfig'
-import { buildLine, lineRequests, type LineResult } from '../data/chartViews'
-import { fetchDataset, type Dataset } from '../data/eurostatData'
-import type { ChartSeries } from '../data/series'
+import { buildLine, lineRequests, type LineResult } from '../services/chartViews'
+import { fetchDataset, type Dataset } from '../services/eurostatData'
+import type { ChartSeries } from '../services/series'
 
 /** The series an insight reads for a chart: every country for median charts, and only the current window for the
  * combined oil charts (the previous year is a comparison, not a series of its own). Same as the old tool. */

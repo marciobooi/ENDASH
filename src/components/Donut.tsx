@@ -1,4 +1,4 @@
-import { palette } from './theme'
+import { palette } from '../insights/theme'
 
 export interface DonutSegment {
   name: string

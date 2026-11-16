@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { WIDE_LAYOUT_PX } from '../charts'
+import { WIDE_LAYOUT_PX } from '../services/chartOptions'
 
 const query = window.matchMedia(`(min-width: ${WIDE_LAYOUT_PX + 1}px)`)
 const subscribe = (notify: () => void) => {

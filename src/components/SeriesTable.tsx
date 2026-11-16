@@ -1,4 +1,4 @@
-import type { ChartSeries } from '../data/series'
+import type { ChartSeries } from '../services/series'
 
 interface SeriesTableProps {
   /** Caption of the table (the chart title). */

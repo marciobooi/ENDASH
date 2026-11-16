@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import type { ChartDefinition } from '../../config/toolConfig'
-import { useInsightLine } from '../../hooks/useInsights'
-import { summaryOf } from '../../hooks/useInsights'
-import type { ChartInsight } from '../../insights/model'
+import type { ChartDefinition } from '../config/toolConfig'
+import { useInsightLine } from './useInsightsData'
+import { summaryOf } from './useInsightsData'
+import type { ChartInsight } from './model'
 
 export interface InsightsPanelState {
   status: 'loading' | 'empty' | 'ready'

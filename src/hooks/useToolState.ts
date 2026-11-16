@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { LegendPosition } from '../charts'
+import type { LegendPosition } from '../services/chartOptions'
 import type { ChartDefinition } from '../config/toolConfig'
-import type { LineResult } from '../data/chartViews'
+import type { LineResult } from '../services/chartViews'
 import type { DashboardState, View } from '../state/dashboardState'
-import { hasBarToggles, offeredViews, resolveYear } from '../utils/calculations'
+import { hasBarToggles, offeredViews, resolveYear } from '../services/calculations'
 import { useBarChart, useLineChart, usePieChart } from './useChartViews'
 import { useWideLayout } from './useWideLayout'
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchDataset, type Dataset } from '../data/eurostatData'
+import { fetchDataset, type Dataset } from '../services/eurostatData'
 
 export interface DatasetState {
   /** undefined while loading (or when there is no address), null when the request failed, else the dataset. */

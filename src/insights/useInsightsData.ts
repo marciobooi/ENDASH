@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { TFunction } from 'i18next'
 import { charts, type ChartDefinition } from '../config/toolConfig'
-import type { LineResult } from '../data/chartViews'
-import { insightInput, loadInsightLine } from '../insights/input'
-import { chartInsight, type ChartInsight } from '../insights/model'
+import type { LineResult } from '../services/chartViews'
+import { insightInput, loadInsightLine } from './input'
+import { chartInsight, type ChartInsight } from './model'
 
 /** The charts that have an insights view (old chartOptionEnabled(id, "insights")). */
 export const insightCharts: ChartDefinition[] = charts.filter((chart) => chart.views.includes('insights'))

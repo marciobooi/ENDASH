@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import type { TFunction } from 'i18next'
 import type { ChartDefinition } from '../config/toolConfig'
-import { pieRequests, buildBar, buildLine, barRequests, buildPie, lineRequests, yearsOf, type BarResult, type LineResult } from '../data/chartViews'
+import { pieRequests, buildBar, buildLine, barRequests, buildPie, lineRequests, yearsOf, type BarResult, type LineResult } from '../services/chartViews'
 import { useDataset } from './useDataset'
 
 /** The line view of a chart, whatever its kind: requests, fetch and build. `years` is the timeline range. */

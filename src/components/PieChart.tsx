@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import type Highcharts from 'highcharts'
-import { chartPalette } from './chartTheme'
-import { legendFor, type LegendPosition } from './cartesian'
-import { WebtoolsChart, type ChartStatus } from './WebtoolsChart'
+import { chartPalette } from '../services/chartTheme'
+import { legendFor, type LegendPosition } from '../services/chartOptions'
+import { WebChart, type ChartStatus } from './WebChart'
 
 export interface PieChartProps {
   title: string
@@ -59,7 +59,7 @@ export function PieChart({ title, data, unitLabel, valueLabel, credits, legend, 
   )
 
   return (
-    <WebtoolsChart
+    <WebChart
       options={options}
       lang={lang}
       ariaLabel={ariaLabel}

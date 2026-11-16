@@ -1,8 +1,8 @@
-import { datasetUrl } from '../charts'
+import { datasetUrl } from '../services/chartTheme'
 import type { TFunction } from 'i18next'
 import { chartById } from '../config/toolConfig'
-import { lineQuery, loadedDataset, viewUrl } from '../data/eurostatData'
-import { lineDataOf, orderSeries } from '../data/series'
+import { lineQuery, loadedDataset, viewUrl } from '../services/eurostatData'
+import { lineDataOf, orderSeries } from '../services/series'
 import type { DownloadTable } from './download'
 
 /**

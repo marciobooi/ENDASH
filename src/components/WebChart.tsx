@@ -1,15 +1,15 @@
 import type Highcharts from 'highcharts'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Skeleton } from '../components/Skeleton'
-import { Button } from '../components/Button'
-import { Notification } from '../components/Notification'
-import { WebtoolsIcon } from '../components/WebtoolsIcon'
+import { Skeleton } from './Skeleton'
+import { Button } from './Button'
+import { Notification } from './Notification'
+import { WebtoolsIcon } from './WebtoolsIcon'
 import { destroyWebtoolsChart, pruneUndefined, renderWebtoolsChart } from '../services/webtools'
 
 export type ChartStatus = 'loading' | 'ready' | 'error'
 
-export interface WebtoolsChartProps {
+export interface WebChartProps {
   /** Highcharts configuration, drawn by the Webtools charts service. */
   options: Highcharts.Options
   /** Two-letter language code: Webtools translates its own chart texts with it. */
@@ -29,7 +29,7 @@ export interface WebtoolsChartProps {
  * The one place a chart is drawn. Every chart component (line, column, pie) renders through it. The chart is created
  * for each language, updated in place when its options change, and destroyed on unmount.
  */
-export function WebtoolsChart({ options, lang, ariaLabel, errorMessage, loadingMessage, onStatus, className }: WebtoolsChartProps) {
+export function WebChart({ options, lang, ariaLabel, errorMessage, loadingMessage, onStatus, className }: WebChartProps) {
   const { t } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<Highcharts.Chart | null>(null)

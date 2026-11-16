@@ -5,7 +5,7 @@
  */
 import type { ChartDefinition } from '../config/toolConfig'
 import type { View } from '../state/dashboardState'
-import { isPerCapita } from '../data/chartViews'
+import { isPerCapita } from './chartViews'
 
 export {
   allZero,
@@ -16,7 +16,7 @@ export {
   type ChartSeries,
   type LineData,
   type BarData,
-} from '../data/series'
+} from './series'
 export {
   averageThreshold,
   combinedLineData,
@@ -29,9 +29,9 @@ export {
   readCountryMonths,
   shiftMonth,
   type CountryMonths,
-} from '../data/monthly'
+} from './monthly'
 export { categorySentence } from '../insights/text'
-export { perCapitaBars, perCapitaSeries, perCapitaValue } from '../data/perCapita'
+export { perCapitaBars, perCapitaSeries, perCapitaValue } from './perCapita'
 export {
   assessmentOf,
   chartInsight,
