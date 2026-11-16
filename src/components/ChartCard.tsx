@@ -1,4 +1,5 @@
 import { useMemo, type DragEvent, type KeyboardEvent } from 'react'
+import { Skeleton } from './Skeleton'
 import { RoundButton } from './RoundButton'
 import { useTranslation } from 'react-i18next'
 import { LineChart, NoDataChart, datasetUrl } from '../charts'
@@ -92,7 +93,7 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
       </header>
 
       {!visible || result.status === 'loading' ? (
-        <p className="chart-card__state" role="status">{loading}</p>
+        <Skeleton height={300} label={loading} />
       ) : result.status === 'error' ? (
         <NoDataChart title={title} message={noData} />
       ) : result.status === 'empty' ? (

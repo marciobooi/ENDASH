@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Skeleton } from '../Skeleton'
 import { InsightCard } from '../InsightCard'
 import { Notification } from '../Notification'
 import type { ChartDefinition } from '../../config/toolConfig'
@@ -20,7 +21,7 @@ export function ChartInsights({ chart, title, insights }: ChartInsightsProps) {
   const lang = i18n.language
   const unit = t(`units.${chart.unit}`, { defaultValue: chart.unit })
 
-  if (insights.status === 'loading') return <p role="status">{t('labels.MSG_LOADING')}</p>
+  if (insights.status === 'loading') return <Skeleton variant="cards" label={t('labels.MSG_LOADING')} />
   if (insights.status === 'empty' || !insights.summary) return <Notification>{t('insights.noData')}</Notification>
 
   const summary: ChartInsight = insights.summary

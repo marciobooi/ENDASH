@@ -1,6 +1,7 @@
 import type Highcharts from 'highcharts'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Skeleton } from '../components/Skeleton'
 import { Button } from '../components/Button'
 import { Notification } from '../components/Notification'
 import { WebtoolsIcon } from '../components/WebtoolsIcon'
@@ -80,7 +81,7 @@ export function WebtoolsChart({ options, lang, ariaLabel, errorMessage, loadingM
 
   return (
     <div className={className ? `webtools-chart ${className}` : 'webtools-chart'} role="group" aria-label={ariaLabel}>
-      {status === 'loading' && <p className="webtools-chart__state" role="status">{loadingMessage}</p>}
+      {status === 'loading' && <Skeleton height={typeof options.chart?.height === 'number' ? options.chart.height : 300} label={loadingMessage} />}
       {status === 'error' && (
         <Notification variant="error" className="webtools-chart__state">
           {errorMessage}{' '}
