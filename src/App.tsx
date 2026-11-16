@@ -34,22 +34,37 @@ function App() {
 
   // Context added to the contact e-mail: what the person had selected when they wrote.
   const emailDetails = useMemo(
-    () => filters.map((definition) => ({
-      label: t(`filters.${definition.id}`),
-      value: describeFilter(definition, values[definition.id], t) || '-',
-    })),
+    () =>
+      filters.map((definition) => ({
+        label: t(`filters.${definition.id}`),
+        value: describeFilter(definition, values[definition.id], t) || '-',
+      })),
     [t, values],
   )
 
   // The steps come from `tourConfig.steps`, their texts from the locale files.
   const tourSteps = useMemo<DriveStep[]>(
-    () => tourConfig.steps.map(({ id, element }) => ({
-      element,
-      popover: { title: t(`tour.${id}Title`), description: t(`tour.${id}Description`) },
-    })),
+    () =>
+      tourConfig.steps.map(({ id, element }) => ({
+        element,
+        popover: {
+          title: t(`tour.${id}Title`),
+          description: t(`tour.${id}Description`),
+        },
+      })),
     [t],
   )
   const { startTour } = useGuidedTour(tourSteps)
+
+  // The chart on screen (its address names it) and its loaded table; without one there is no Excel file.
+  const downloadMenu = (
+    <DownloadMenu
+      getTable={() => {
+        const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
+        return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined
+      }}
+    />
+  )
 
   return (
     <>
@@ -57,54 +72,43 @@ function App() {
 
       <SiteSubNavigation
         title={t('subnav.title')}
-        subtitle={t('subnav.subtitle')}
+        subtitle={expandedChart ? t(`labels.${expandedChart.id}`) : t('subnav.subtitle')}
         actions={
-          <>
-            {!expandedChart && features.insights && (
-              <RoundButton
-                id="insights-button"
-                icon="lightbulb"
-                label={t('insights.open')}
-                aria-haspopup="dialog"
-                onClick={() => setInsightsOpen(true)}
-              />
-            )}
-            {!expandedChart && features.download && (
-              <DownloadMenu
-                getTable={() => {
-                  // The chart on screen (its address names it) and its loaded table; without one there is no Excel file.
-                  const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
-                  return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined
-                }}
-              />
-            )}
-            {!expandedChart && features.share && <ShareMenu emailDetails={emailDetails} />}
-            {!expandedChart && features.tour && <RoundButton id="tour-button" icon="help" label={t('tour.start')} onClick={startTour} />}
-          </>
+          expandedChart ? (
+            <ChartToolbar
+              chart={expandedChart}
+              state={dashState}
+              patch={patchDashboard}
+              onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '' })}
+              download={features.download ? downloadMenu : undefined}
+            />
+          ) : (
+            <>
+              {features.insights && (
+                <RoundButton
+                  id="insights-button"
+                  icon="lightbulb"
+                  label={t('insights.open')}
+                  aria-haspopup="dialog"
+                  onClick={() => setInsightsOpen(true)}
+                />
+              )}
+              {features.download && downloadMenu}
+              {features.share && <ShareMenu emailDetails={emailDetails} />}
+              {features.tour && (
+                <RoundButton id="tour-button" icon="help" label={t('tour.start')} onClick={startTour} />
+              )}
+            </>
+          )
         }
       />
 
-      {expandedChart && (
-        <section className="chart-toolbar-bar" aria-label={t('labels.OPTIONS_GRAPH_TOOLBOX')}>
-          <ChartToolbar
-            chart={expandedChart}
-            state={dashState}
-            patch={patchDashboard}
-            onClose={() => patchDashboard({ chart: '', view: 'line', year: '', month: '' })}
-            download={features.download ? (
-              <DownloadMenu
-                getTable={() => {
-                  const chartId = new URLSearchParams(window.location.search).get('chart') ?? ''
-                  return chartId ? buildChartTable(chartId, String(values.geo), i18n.language, t) : undefined
-                }}
-              />
-            ) : undefined}
-          />
-        </section>
-      )}
-
       <main id="main-content" className="visualization-shell">
-        <ToolContent values={values} filters={<FilterControls values={values} onChange={setFilter} />} dashboard={dashboard} />
+        <ToolContent
+          values={values}
+          filters={<FilterControls values={values} onChange={setFilter} />}
+          dashboard={dashboard}
+        />
       </main>
 
       {features.insights && (

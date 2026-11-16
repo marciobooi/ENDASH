@@ -1800,12 +1800,6 @@
 }
 
 /* Chart toolbar: its own light row under the header, as in the old tool */
-.chart-toolbar-bar {
-  background: #f7f9fc;
-  padding: 0.85rem 1.5rem; /* same side padding as the content, so the buttons line up with the title below */
-  border-bottom: 1px solid #e3e9f2;
-}
-
 .chart-toolbar {
   display: flex;
   flex-wrap: wrap;
