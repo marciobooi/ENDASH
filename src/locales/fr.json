@@ -302,7 +302,8 @@
     "columnSelection": "Sélection",
     "country": "Pays",
     "unit": "Unité",
-    "downloaded": "Téléchargé le"
+    "downloaded": "Téléchargé le",
+    "dataset": "Jeu de données"
   },
   "embed": {
     "menu": "Intégrer",

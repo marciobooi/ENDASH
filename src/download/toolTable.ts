@@ -24,7 +24,8 @@ export function buildChartTable(chartId: string, geo: string, lang: string, t: T
     info: [
       `${t('download.country')}: ${t(`countries.${geo}`, { defaultValue: geo })}`,
       `${t('download.unit')}: ${unit}`,
-      `${t('labels.EXPORT_FOOTER_TITLE')} (${chart.dataset})`,
+      t('labels.EXPORT_FOOTER_TITLE'),
+      `${t('download.dataset')}: ${chart.dataset}`,
       datasetUrl(chart.dataset, lang),
       `${t('download.downloaded')}: ${new Date().toLocaleDateString(lang)}`,
     ],

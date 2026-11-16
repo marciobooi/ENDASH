@@ -302,7 +302,8 @@
     "columnSelection": "Auswahl",
     "country": "Land",
     "unit": "Einheit",
-    "downloaded": "Heruntergeladen am"
+    "downloaded": "Heruntergeladen am",
+    "dataset": "Datensatz"
   },
   "embed": {
     "menu": "Einbetten",

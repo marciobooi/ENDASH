@@ -302,7 +302,8 @@
     "columnSelection": "Selection",
     "country": "Country",
     "unit": "Unit",
-    "downloaded": "Downloaded"
+    "downloaded": "Downloaded",
+    "dataset": "Dataset"
   },
   "embed": {
     "menu": "Embed",

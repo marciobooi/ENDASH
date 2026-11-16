@@ -59,6 +59,9 @@ function App() {
   // The chart on screen (its address names it) and its loaded table; without one there is no Excel file.
   const downloadMenu = (
     <DownloadMenu
+      imageSource={
+        expandedChart ? `${t('labels.EXPORT_FOOTER_TITLE')} (${t('download.dataset')}: ${expandedChart.dataset})` : t('labels.EXPORT_FOOTER_TITLE')
+      }
       imageTitle={
         expandedChart
           ? viewShowsOneCountry(dashState.view)
