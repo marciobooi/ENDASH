@@ -39,9 +39,3 @@ function valueText(value: number | null | { y: number; color: string } | undefin
   if (value === null || value === undefined) return ''
   return typeof value === 'object' ? value.y : value
 }
-
-/** Source line of the download: the dataset of the chart, in the page language. */
-export function sourceOf(chartId: string, lang: string): string | undefined {
-  const chart = chartById[chartId]
-  return chart ? datasetUrl(chart.dataset, lang) : undefined
-}

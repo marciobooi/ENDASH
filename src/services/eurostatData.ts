@@ -71,11 +71,6 @@ export function labelOf(dataset: Dataset, dimension: string, code: string): stri
   return dataset.__tree__?.dimension?.[dimension]?.category?.label?.[code] ?? code
 }
 
-/** Unit label of a dataset, as the API gives it in the request language. */
-export function unitLabelOf(dataset: Dataset, unit: string): string {
-  return dataset.__tree__?.dimension?.unit?.category?.label?.[unit] ?? unit
-}
-
 /* ------------------------------------------------------------------ */
 /* Queries of the views                                                */
 /* ------------------------------------------------------------------ */

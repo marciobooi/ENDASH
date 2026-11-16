@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { chartById, charts, type ChartDefinition } from '../config/toolConfig'
+import { charts } from '../config/toolConfig'
 import { listParam, stringParam, useUrlState, type ParamSet } from './urlState'
 
 /** The views of an expanded chart (old REF.chartType and the view buttons). */
@@ -45,9 +45,4 @@ export function useDashboardState() {
   const [state, update] = useUrlState(dashboardParams)
   const patch = useCallback((changes: Partial<DashboardState>) => update(changes), [update])
   return [state, patch] as const
-}
-
-/** The chart of an id, or undefined when the id is not one of the dashboard's charts. */
-export function chartOf(id: string): ChartDefinition | undefined {
-  return chartById[id]
 }

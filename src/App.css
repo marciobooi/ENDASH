@@ -354,15 +354,6 @@
   text-decoration: underline;
 }
 
-.toolbar-feedback:empty {
-  display: none;
-}
-
-.toolbar-feedback {
-  margin: 0.5rem 0;
-  color: #0d40b7;
-}
-
 .ecl-mark {
   border: 2px solid #0d40b7;
   border-radius: 50%;
@@ -680,78 +671,12 @@
   outline-offset: -2px;
 }
 
-.insights-hero {
-  margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
-  border-left: 4px solid #0e47cb;
-  background: #f3f6fc;
-}
-
-.insights-hero h3 {
-  margin: 0.5rem 0;
-  font-size: 1.75rem;
-  font-weight: 400;
-  line-height: 2rem;
-}
-
-.insights-hero p {
-  margin: 0;
-}
-
 .insights-kicker {
   color: #0e47cb;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-}
-
-.insights-section {
-  margin-bottom: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #cfdaf5;
-}
-
-.insights-section h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 2rem;
-}
-
-.insights-section p {
-  margin: 0 0 1rem;
-}
-
-.insights-kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: 1rem;
-  margin: 1rem 0 0;
-}
-
-.insights-kpis > div {
-  padding: 1rem;
-  border: 1px solid #e9eaeb;
-  border-radius: var(--popover-radius);
-  background: #fff;
-}
-
-.insights-kpis dt {
-  color: #515560;
-  font-size: 0.875rem;
-}
-
-.insights-kpis dd {
-  margin: 0.25rem 0 0;
-  color: #0e47cb;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 2.5rem;
-}
-
-.insights-takeaways {
-  margin-bottom: 0;
 }
 
 /* Webtools icon (WebtoolsIcon.tsx): the SVG Webtools injects fills the sized wrapper and follows the text colour */
@@ -796,71 +721,6 @@
   }
 }
 
-.tool-card {
-  --card-accent: #0e47cb;
-}
-
-/* ECL draws a small tab at the top-left of the card body; it carries the accent colour */
-.tool-card .ecl-card__body::before {
-  background-color: var(--card-accent);
-}
-
-.tool-card__header {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.tool-card__icon {
-  display: flex;
-  width: 2.5rem;
-  height: 2.5rem;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #e7edfa;
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.tool-card__heading {
-  min-width: 0;
-  flex: 1;
-}
-
-.tool-card__title {
-  margin-block: 0 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-}
-
-.tool-card__description {
-  margin-block: 0;
-  color: #515560;
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-}
-
-.tool-card__actions {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.tool-card__content {
-  margin-top: 1rem;
-}
-
-.tool-card__footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e9eaeb;
-  color: #515560;
-  font-size: 0.875rem;
-}
 
 /* Share menu (ShareMenu.tsx): button plus popover of networks */
 .share-menu {
@@ -986,22 +846,6 @@
   box-sizing: border-box;
 }
 
-.tool-content__selection {
-  display: grid;
-  gap: 1rem;
-  margin: 0;
-}
-
-.tool-content__selection dt {
-  color: #515560;
-  font-size: 0.875rem;
-}
-
-.tool-content__selection dd {
-  margin: 0.25rem 0 0;
-  font-size: 1rem;
-}
-
 .tool-content__message {
   margin: 1.5rem;
 }
@@ -1067,7 +911,6 @@
 .share-popover .ecl-spinner {
   margin: 0;
 }
-
 
 /* Direction bars of the global overview (trend and policy), as in the Eurostat overview */
 .direction-bar__track {
@@ -1379,12 +1222,6 @@
   margin: 0 0 0.25rem;
 }
 
-.insight-blocks {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-}
-
 .insight-block {
   background: #fff;
   border: 1px solid #e3e7ed;
@@ -1464,28 +1301,6 @@
 .insight-bar__fill.is-down { background: #b3263a; }
 .insight-bar__fill.is-flat { background: #445766; }
 .insight-bar__fill.is-neutral { background: #1f6fba; }
-
-.insight-theme-summaries {
-  display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.insight-theme-summaries li {
-  background: #f7f9fc;
-  border: 1px solid #e3e7ed;
-  border-radius: 12px;
-  padding: 0.85rem 0.95rem;
-  display: grid;
-  gap: 0.2rem;
-}
-
-.insight-theme-summaries strong {
-  color: #0e47cb;
-}
 
 .insight-list {
   padding-left: 1.25rem;
@@ -1722,10 +1537,6 @@
   text-transform: uppercase;
 }
 
-.insight-evidence table {
-  font-size: 0.85rem;
-}
-
 .sparkline {
   width: 100%;
   height: 3.5rem;
@@ -1741,8 +1552,7 @@
 }
 
 /* Data tables (series table, evidence table): the legacy table look on the ECL table classes (old highchartsTable.css) */
-.series-table table,
-.insight-evidence table {
+.series-table table {
   border-collapse: collapse;
   width: 100%;
   color: #171a22;
@@ -1750,8 +1560,7 @@
   background: #fff;
 }
 
-.series-table .ecl-table__head th,
-.insight-evidence .ecl-table__head th {
+.series-table .ecl-table__head th {
   background-color: #f3f6fc;
   border-bottom: 2px solid #6e91e0;
   color: #171a22;
@@ -1761,15 +1570,12 @@
   vertical-align: bottom;
 }
 
-.series-table .ecl-table__head th[scope='row'],
-.insight-evidence .ecl-table__head th[scope='row'] {
+.series-table .ecl-table__head th[scope='row'] {
   text-align: left;
 }
 
 .series-table .ecl-table__body td,
-.series-table .ecl-table__body th,
-.insight-evidence .ecl-table__body td,
-.insight-evidence .ecl-table__body th {
+.series-table .ecl-table__body th {
   border-bottom: 1px solid #cfdaf5;
   padding: 0.6rem 1rem;
   vertical-align: middle;
@@ -1788,10 +1594,6 @@
 .series-table .ecl-table__body tr:hover td,
 .series-table .ecl-table__body tr:hover th {
   background: #f3f6fc;
-}
-
-.insight-evidence .ecl-table__body td {
-  font-size: 0.88rem;
 }
 
 .series-table table:focus-visible,
@@ -1889,12 +1691,6 @@
 .gi-theme-nav__link:hover {
   background: #e7edfa;
   color: #0e47cb;
-}
-
-.gi-theme-nav__link.is-active {
-  color: #0e47cb;
-  border-bottom-color: #0e47cb;
-  font-weight: 700;
 }
 
 .story-overview-grid {

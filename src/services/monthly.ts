@@ -1,6 +1,6 @@
 import { EU_COUNTRY_CODES, EFTA_COUNTRY_CODES, ENLARGEMENT_COUNTRY_CODES, type ChartDefinition, type DataSource } from '../config/toolConfig'
-import { cell, labelOf, type Dataset } from './eurostatData'
-import { sourceQuery } from './eurostatData'
+import { labelOf, type Dataset } from './eurostatData'
+import { averageColors } from './chartTheme'
 import type { ChartSeries } from './series'
 
 /* Monthly charts (oil stocks, chart_23 to chart_26) and the median-split charts, ported from endash.js. */
@@ -219,7 +219,7 @@ export function monthlyBarData(chart: ChartDefinition, d: Dataset, month: string
           name: labels('MEDIAN'),
           data: codes.map((code) => {
             const value = entryOf(code)?.value ?? 0
-            return { y: value, color: value > threshold.value ? '#E67500' : '#7F9BD9' }
+            return { y: value, color: value > threshold.value ? averageColors.above : averageColors.below }
           }),
         },
       ],
@@ -233,14 +233,4 @@ export function monthlyBarData(chart: ChartDefinition, d: Dataset, month: string
     categories,
     series: [{ name: labelOf(d, chart.indicatorType, chart.indicator[0] ?? ''), data: codes.map((code) => entryOf(code)?.value ?? null) }],
   }
-}
-
-/** The query of a monthly table for every country and the full history (old buildDatasetApiUrl with allGeos). */
-export function allCountriesQuery(source: DataSource, since?: string): ReturnType<typeof sourceQuery> {
-  return sourceQuery(source, { since })
-}
-
-/** The cell value, for a monthly table of one country (null when not published). */
-export function monthlyCell(d: Dataset, code: string, month: string): number | null {
-  return cell(d, { geo: code, time: month })
 }

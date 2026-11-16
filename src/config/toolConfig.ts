@@ -56,8 +56,6 @@ export const site = {
   themeColor: '#082b7a',
 } as const
 
-export type LanguageCode = (typeof site.languages)[number]['code']
-
 /** A link address with `{lang}` replaced by the language code. */
 export function localizedLink(template: string, language: string): string {
   return template.replace('{lang}', language)
@@ -71,31 +69,6 @@ export function shareImageUrl(pageUrl: string = site.url): string {
 /* ------------------------------------------------------------------ */
 /* COLOURS                                                             */
 /* ------------------------------------------------------------------ */
-
-/** Series palette of the dashboard (old `colors`, codes.js). */
-export const seriesColors = [
-  "#06D7FF",
-  "#19FF99",
-  "#4C99FF",
-  "#FFD900",
-  "#C88000",
-  "#33D129",
-  "#FFB800",
-  "#E67500",
-  "#05A0FF",
-  "#2CB523",
-  "#8C4000",
-  "#0033FF",
-  "#00A68C",
-  "#FF8C00",
-  "#00D98C",
-  "#2673FF",
-  "#FFB300",
-  "#FF8A00",
-  "#B35900",
-  "#26A31F",
-  "#0573FF"
-]
 
 /** Neutral colour for everything not highlighted. */
 export const backgroundColor = '#DCDCDC'
@@ -221,8 +194,6 @@ export const countryGroups = [
 /** Real countries of the dashboard (no aggregates): the rankings and medians count only these. */
 /** Countries compared in the bar view (old defaultGeos: the aggregate plus every country of the dashboard). */
 export const defaultQueryGeos: string[] = [...allCountries]
-
-export const realCountryCodes: string[] = [...EU_COUNTRY_CODES, ...EFTA_COUNTRY_CODES, ...ENLARGEMENT_COUNTRY_CODES]
 
 /* ------------------------------------------------------------------ */
 /* CHARTS (the 26 charts of the dashboard)                             */

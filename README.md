@@ -1,16 +1,16 @@
-# Eurostat React starter
+# ENDASH 3.0 - Energy dashboard
 
-A Vite + React + TypeScript foundation for multilingual Eurostat data tools. Everything that depends on the tool lives in **one file, `src/config/toolConfig.ts`**, and in the translation files; the rest is shared code.
+The Eurostat Energy dashboard rebuilt with Vite, React and strict TypeScript. It shows the most important energy indicators for one country at a time (energy efficiency, renewables, import dependency, greenhouse gas emissions, consumption by sector, oil stocks and more) as a gallery of charts grouped by topic, each of which opens into line, bar, pie and table views with a period timeline, insights, download, share and embed.
+
+Everything that depends on the tool lives in **`src/config/toolConfig.ts`** (charts, topics, countries, datasets, features) and in the translation files `src/locales/*.json`; the rest is shared code. The legacy tool is the `main` branch of this repository; a copy can be kept in `old/` for local reference (ignored by the checks, not committed on this branch); `PORT_STATUS.md` lists what was ported.
 
 It includes:
 
-- The Europa Component Library (EU preset 5.4.0) installed from npm (`@ecl/preset-eu`) and the Webtools Smart Loader (GloBan, cookie consent kit, analytics, icons).
-- The shared shell: branded banner, language selector, tool toolbar with menu and filters, footer and an in-app accessibility statement.
-- Shared features, each switchable in the config: download menu (PNG / JPEG image, Excel file), share menu (social networks, contact e-mail with screenshot, copy link, embed code), insights panel, guided tour.
-- Interface translations in separate files (English, French and German to start with).
-- Building blocks: `Select`, `MultiSelect`, `Card`, `Loading`, `RoundButton`, `Tooltip`, `useFocusTrap`.
-- The state of the tool in the address (every link, shared view and embedded `<iframe>` carries it).
-- A shared Axios client for the Eurostat Statistics API.
+- The Europa Component Library (EU preset 5.4.0) from npm (`@ecl/preset-eu`): buttons, select and multiple select, tooltips, in-page navigation, tables, notification, spinner, range. The Webtools Smart Loader (GloBan, cookie consent kit, analytics, icons).
+- Charts drawn by the Webtools charts service (a wrapper of Highcharts: this project does not load or license Highcharts itself).
+- The shared shell: branded banner, language selector, sub-navigation with the tool's actions, footer, and pages for the accessibility statement, the global insights and the embedded view.
+- Interface translations in English, French and German, with the texts of the legacy tool.
+- The state of the tool in the address: every link, shared view and embedded `<iframe>` carries it, and links of the legacy tool are rewritten to it.
 
 ## Run locally
 
@@ -18,6 +18,8 @@ It includes:
 npm install
 npm run dev
 ```
+
+The address of the dev server is `http://localhost:5173`. Try `?language=de&geo=FR`, `?chart=chart_1&view=bar` or `?insights`.
 
 | Command | What it does |
 |---|---|
@@ -30,59 +32,15 @@ npm run dev
 
 Webtools shows GloBan only on `*.europa.eu` hosts. Locally, add `127.0.0.1 localhost.europa.eu` to `C:\Windows\System32\drivers\etc\hosts` (administrator) and open `http://localhost.europa.eu:5173`; `vite.config.ts` already allows that host.
 
-## Porting an existing tool
+## The dashboard
 
-Use this to move an existing Eurostat tool (jQuery, Bootstrap or plain JavaScript pages) onto the template. The rule: **port the tool's data and logic, not its page furniture.** The banner, GloBan, cookie kit, language selector, footer, social sharing, accessibility page and loading indicator already exist.
-
-### What to port, and where it goes
-
-| In the old tool | In the template |
-|---|---|
-| Lookup tables: colours, code dictionaries, datasets, countries and groups, units | `src/config/toolConfig.ts` (typed exports, no globals). Names are **not** in the config, see Translations below |
-| Filter controls (selects, multi-selects) and their default values | `filters` in `toolConfig.ts`. They appear in the menu and are kept in the address (`?unit=..&geo=a,b`) |
-| Menu entries | `menuItems` in `toolConfig.ts` |
-| The main chart, its data loading and transformations | `src/components/ToolContent.tsx` and hooks next to it; data requests with `src/api/eurostat.ts`. Charts that can be embedded on their own are listed in `embedConfig.charts` |
-| Toolbar buttons (download, settings, ...) | `RoundButton` entries in the `actions` of `App.tsx`; icons from `ToolbarIcon.tsx` or Webtools (`WebtoolsIcon`) |
-| "Info" / summary overlay | `InsightsPanel` with your own `InsightsContent` (texts under `insights.*`) |
-| KPI blocks, theme cards | `Card` inside a `<div className="card-grid">` |
-| Share / social namespace (X, Facebook, LinkedIn, e-mail) | Already in `ShareMenu`. Port only the description text (`share.text`) and the mailbox (`contactEmail`) |
-| Embed link with all the parameters in the URL | Already built: the filters are the parameters, `?embed=<chartId>` shows only the chart, "Embed" in the share menu produces the `<iframe>` |
-| Tutorial / intro tour | `tourConfig.steps` + `tour.*` texts |
-| Texts and language switch (JSON files, `data-i18n`) | `src/locales/<code>.json` and `languages` in `toolConfig.ts` |
-| Accessibility statement (Word document) | `src/accessibility/statementConfig.ts` |
-| Spinners | `Loading` |
-
-**Do not port:** jQuery, Bootstrap classes (`d-flex`, `col-*`), Font Awesome, global variables and `window` namespaces, ECL loaded from a CDN, the old header, footer, GloBan and cookie code, and a second copy of the Webtools loader. Rebuild the UI with React state and ECL classes.
-
-### How, step by step
-
-1. **Set up.** Copy the template, rename it (`package.json` name, `brand` in the locale files), `npm install`, `npm run dev`. Copy `.env.example` to `.env.local`; ask the Webtools team for **this tool's** analytics site ID (no analytics runs while it is empty).
-2. **Take stock of the old tool** before writing code: every view and how it is reached, every control and what it does, the state it keeps and whether it is in the URL, every data source and transformation, the chart library and its licence (production charts use an approved Webtools chart embed or an already licensed library), every text and its languages, every export.
-3. **Fill `toolConfig.ts`.** Page identity (`site`: title, description, address, preview image, languages, contact e-mail, links), then colours, datasets, countries, units, `filters`, `menuItems`, `features`, `embedConfig`, `tourConfig`. Replace the `EXAMPLE` entries; remove what the tool does not use.
-4. **Write the translations.** For every code in the config add its name in **every** `src/locales/*.json` file: `countries.<code>`, `countryGroups.<id>`, `units.<code>`, `indicators.<code>`, the filter label `filters.<id>`, the menu texts, `tour.<id>Title` / `Description`, `insights.*`, `share.text`, `toolContent.*`. No text is written in components.
-5. **Port the data and the chart.** Replace the example card in `ToolContent.tsx` with the tool's chart, reading the filters from its `values`. Fetch in a hook per view that returns `{ data, loading, error }`, show `<Loading />` while loading and an `role="alert"` message on error. Give every chart a text alternative or a data table.
-6. **Port the toolbar actions and extras.** Add buttons to `actions`; switch features off with `features` if the tool does not need them.
-7. **Accessibility statement.** Fill `statementConfig.ts` from the tool's Word document (wording, dates, contacts), never from another tool's text. Replace every `<<PLACEHOLDER>>`.
-8. **Social preview.** Put the tool's image in `public/images/share-preview.png` (1200x630 PNG or JPEG under 5 MB) and set `site.url` to the deployed address (see Social sharing preview).
-9. **Quality gate** (all must pass): `npm run typecheck`, `npm run lint`, `npm run build`, `npm run check:release`. Then check in a browser: both views (`/` and `?accessibility`) load without console errors, axe-core reports 0 violations on both, keyboard-only use works (skip link, every control, popovers close with Escape and return focus), the three languages work (`?language=de`), 320 px wide and 200 % zoom are usable, the tour starts on a first visit (clear site data), and the embedded view (`?embed=main`) shows only the chart.
-10. **Deploy** from the fixed Eurostat path (see Deployment).
-
-### Prompt to give Claude
-
-```text
-Port the tool "<<TOOL NAME>>" to this React template, following the "Porting an existing tool" section of README.md.
-
-Source tool: <<path to the existing tool folder>>
-Accessibility statement (Word, source of the statement text): <<path to the .docx>>
-Deployed address: <<https://ec.europa.eu/eurostat/cache/visualisations/<<tool>>/<<tool>>.html>>
-Languages: <<EN, FR, DE>>
-
-Rules: do not copy jQuery, Bootstrap or globals; put everything that depends on the tool in
-src/config/toolConfig.ts and every text in src/locales/*.json; use the shared components; ask before deleting
-anything from the source tool. Start with the inventory of the old tool, then config, data, UI, translations,
-accessibility statement, social preview, quality gate. Finish by listing every file you changed and anything you
-could not verify.
-```
+- **Gallery.** The charts are grouped by topic (`themes` in the config) under a sticky "Energy topics" row built on ECL's in-page navigation: it highlights the topic being read and collapses to a "Page contents" button on narrow screens. Cards load their chart only when they come near the screen and show a skeleton meanwhile. Cards can be reordered by dragging, or with Alt and the arrow keys (announced to screen readers).
+- **Country.** One country at a time, chosen in a grouped select (aggregates, EU, EFTA, enlargement). Every chart of the gallery shows it.
+- **Expanded chart.** The toolbar replaces the page actions in the top band: line, bar, pie and table views (the ones a chart offers, `views` in the config), insights, info links, download, embed and close. Bar and pie views have a **period timeline** under the chart (play, bubble, ticks, keyboard and screen reader support); the year slider is for annual charts and the month slider only for the monthly oil-stock charts.
+- **Oil stocks (charts 23 to 26).** Charts 23 and 25 merge two Eurostat tables (stocks and deliveries): the latest 12 months that both tables share, with the same span of the year before dashed. Charts 24 and 26 draw every country and split them at the average of the last 12 months, shown above or below with a toggle; countries with only zeros are left out, and in the bar view a country that has not yet published the chosen month shows its latest one (at most three months back) with its own month in the name. The rules are in `src/services/monthly.ts` and were checked against the legacy code, value by value.
+- **Insights.** Per chart (the insights view of an expanded chart) and global (`?insights`, a page of its own with a way back to the tool): trends, highest values, top drivers, policy direction and data alerts, computed from the same Eurostat data. The calculations are in `src/insights/`.
+- **Download.** PNG and JPEG images carry the chart title (with the country for the one-country views), the source and dataset and the Eurostat logo at the bottom right. The Excel file starts with the title, country, unit, source, dataset, link and date, then the table.
+- **Legacy links.** `src/state/legacyUrl.ts` rewrites links of the previous tool (`geos`, `chartId`, `chartType`, `chartExpanded`, `medianGroup`, `share`, ...) before anything reads the address.
 
 ## Configuration
 
@@ -111,37 +69,58 @@ Webtools icons are used through `WebtoolsIcon` (`set` + `name`, for example `pho
 
 ## Structure
 
-- `src/config/toolConfig.ts`: everything that depends on the tool. `src/locales/*.json`: every text.
-- `src/App.tsx`: the page (banner, toolbar with menu, filters and actions, content, footer). `src/pages/`: the accessibility statement page and the embedded page.
-- `src/components/`: shell (`Nav`, `SubNav`, `Footer`, `LanguageSelector`), controls (`Select`, `MultiSelect`, `FilterControls`, `RoundButton`), content (`ToolContent`, `Card`, `InsightsPanel`, `Loading`), sharing (`ShareMenu`), icons (`ToolbarIcon`, `WebtoolsIcon`), `Tooltip`.
-- `src/state/`: the address-based state (`urlState.ts`, `filters.ts`). `src/embed/`, `src/share/`: embed and share helpers. `src/accessibility/`: the statement.
-- `src/hooks/`: `useFocusTrap`, `useSiteShell`, `useGuidedTour`, `useNeedsScroll`. `src/tour.ts`: the tour helper.
-- `src/api/eurostat.ts`: Axios client and JSON-stat helpers. `src/services/webtools.ts`: Smart Loader, GloBan, cookie kit, analytics.
-- `plugins/siteMeta.ts` and `scripts/`: build-time tags and the release checks.
+```
+src/
+  config/toolConfig.ts      everything that depends on the tool: page identity, charts, topics, countries, filters, features
+  locales/                  every text, one file per language (en, de, fr)
+  App.tsx, main.tsx         the page; main.tsx picks the page: tool, ?accessibility, ?insights or ?embed
+  pages/                    AccessibilityPage, InsightsPage, EmbedPage (the same shell around different content)
+  components/               shell (Nav, SubNav, Footer, LanguageSelector), controls (Select, MultiSelect, FilterControls, Button,
+                            RoundButton, Tooltip), gallery (Gallery, ChartCard, ThemeNav, Card), expanded chart (ToolView, ChartToolbar,
+                            ChartPanel, PeriodTimeline, SeriesTable, EclTable, SourceNote), chart components (WebChart, LineChart,
+                            ColumnChart, PieChart, NoDataChart), insights (InsightsContent, ChartInsights, StoryCard, InsightCard, Donut,
+                            Sparkline, InfoPopover), menus (ShareMenu, DownloadMenu, EmbedButton, InsightsPanel), feedback (Loading,
+                            Skeleton, Notification), icons (ToolbarIcon, WebtoolsIcon)
+  services/                 data and chart building without React: eurostatData (requests, JSON-stat), chartViews, monthly, perCapita,
+                            series, calculations; chartOptions, chartTheme, plotLines, tooltip, tooltipOptions (Highcharts options);
+                            webtools (Smart Loader, charts service), ecl (ECL widgets)
+  insights/                 the insights: model, storyConfig, text, format, input, theme, useInsightsData, useInsightsPanelState, mode
+  hooks/                    useToolState, useChartViews, useDataset, useInView, useWideLayout, useNeedsScroll, useFocusTrap,
+                            useOutsideClose, useRovingToolbar, useGuidedTour, useSiteShell
+  state/                    the address-based state: urlState, filters, dashboardState, legacyUrl
+  download/, share/, embed/ image and Excel download, share networks and e-mail, embed code
+  accessibility/            the statement (statementConfig.ts) and its page mode
+  tour.ts                   the guided tour helper (driver.js)
+plugins/siteMeta.ts         writes the page identity into the static HTML at build time
+scripts/                    check-statement.mjs, check-share.mjs (release checks)
+old/                        the legacy tool, for reference only (not in Git)
+```
 
 ## Features
 
-**State in the address.** The filters of `toolConfig.ts` are written to the address (`?unit=MIO_T&geo=EU27_2020,NO`), without a history entry, next to `language`. A link, a bookmark and an embedded view therefore show exactly what the person saw. Invalid values fall back to the defaults.
+**State in the address.** The filters of `toolConfig.ts` and the dashboard state (open chart, view, year, month, below-average charts, percentage, aggregates) are written to the address without a history entry, next to `language`. A link, a bookmark and an embedded view show exactly what the person saw. Invalid values fall back to the defaults.
 
-**Embedded view.** `?embed=<chartId>` renders only the chart (no banner, toolbar, footer or Webtools), from the state in the address. The share menu's "Embed" entry shows the `<iframe>` code with the current filters and a copy button. Charts that can be embedded are listed in `embedConfig.charts`; the host page's server must allow framing.
+**Embedded view.** `?embed=<chartId>` renders only the chart (no banner, toolbar, footer or Webtools), from the state in the address. The Embed button shows the `<iframe>` code with the current view and a copy button. Charts that can be embedded are listed in `embedConfig.charts`; the host page's server must allow framing.
 
-**Download menu.** The download button offers the formats of `downloadConfig.formats`. PNG and JPEG are drawn from the chart on screen (the element of `downloadConfig.imageTarget`) with html2canvas, so they work for any chart, including the Webtools wrapper of Highcharts, with no Highcharts export module or licence. The Excel file is written by `write-excel-file` from the table that `App.tsx` passes to `DownloadMenu` (`getTable`, example in `src/download/toolTable.ts`: replace it with the series of your chart; without `getTable` the Excel entry is left out). Both libraries load only when someone downloads. Limit: an image is a picture of the screen, so Webtools-injected icons and cross-origin images without CORS headers may be missing.
+**Download menu.** PNG and JPEG are drawn from the chart on screen (the element of `downloadConfig.imageTarget`) with html2canvas, with a frame added around the capture (`src/share/screenshot.ts`). The Excel file is written by `write-excel-file` from the table that `App.tsx` passes to `DownloadMenu` (`getTable`, built in `src/download/toolTable.ts`); it is offered only while a chart is open. Both libraries load only when someone downloads. Limit: an image is a picture of the screen, so Webtools-injected icons and cross-origin images without CORS headers may be missing.
 
-**Share menu.** X, Facebook and LinkedIn open in a small window. The e-mail goes to `contactEmail` with the tool, address, language, the filters in force, date, window size and browser filled in, and a screenshot of the current view on the clipboard (a `mailto:` link cannot carry an attachment, so the screenshot is pasted into the message; if the clipboard refuses, it is saved as a file). Networks are defined in `src/share/networks.ts`; to add one, add an entry, its `share.networks.<id>` name in every locale file and any `wt-icon-networks--<name>` icon.
+**Share menu.** X, Facebook and LinkedIn open in a small window. The e-mail goes to `contactEmail` with the tool, address, language, the selection, date, window size and browser filled in, and a screenshot of the current view on the clipboard (a `mailto:` link cannot carry an attachment, so the screenshot is pasted into the message; if the clipboard refuses, it is saved as a file). Networks are defined in `src/share/networks.ts`; to add one, add an entry, its `share.networks.<id>` name in every locale file and any `wt-icon-networks--<name>` icon.
 
-**Accessibility statement.** The footer link opens `?accessibility&language=xx`: an English-only statement in ECL classes. Edit only `src/accessibility/statementConfig.ts`, from the tool's Word document; `npm run check:statement` fails while a placeholder is left.
+**Accessibility.** The tool is built for keyboard and screen reader use: one Tab stop per toolbar with arrow-key navigation (`useRovingToolbar`), focus moves to the chart heading when a chart opens and returns to its card when it closes, charts are named regions with one landmark each, the timeline is a native range with a spoken period and a live message, and tooltips (ECL) open on focus. The statement page is `?accessibility&language=xx`: an English-only statement in ECL classes; edit only `src/accessibility/statementConfig.ts`, from the tool's Word document; `npm run check:statement` fails while a placeholder is left.
 
-**Guided tour.** Starts on a first visit (`tourConfig.showOnce`), always with a welcome step, then `tourConfig.steps`; replayed with the help button. Focus is trapped in the popover and the page behind is inert.
+**Guided tour.** Starts on a first visit (`tourConfig.showOnce`), always with a welcome step, then `tourConfig.steps` (the ones of the legacy tutorial); replayed with the help button. Focus is trapped in the popover and the page behind is inert.
 
-**Components.** `Select` (native select, option groups) and `MultiSelect` (checkbox dropdown with search, select all, groups, counter) use ECL form markup, accept `helper`, `error`, `required`, `hideLabel`, `width`, and submit their values with a form when given a `name`. `Card` (ECL card; icon, title, description, actions, content, footer, accent colour). `Loading` (ECL spinner): `size` small, medium or large, `text`, `showText`, `centered`, `overlay`, plus `loading` and `variant`; it is a polite `role="status"` and stops turning for reduced motion. `RoundButton` + `Tooltip`; `useFocusTrap` for popovers; the footer's back-to-top button shows only when the page scrolls.
+**Tooltips.** Every icon button has an ECL tooltip: the trigger only needs `data-ecl-tooltip` (the `Tooltip` component and `RoundButton` set it), and ECL's script (started once by `src/services/ecl.ts`) builds the bubble in the browser's top layer, so it is never hidden behind the header.
 
-**Eurostat API.** `fetchEurostatDataset('nama_10_gdp', { geo: ['BE', 'FR'], sinceTimePeriod: '2020' })` sends repeated keys (`geo=BE&geo=FR`); `getTimeSeries` turns a JSON-stat answer into chart points and throws when a non-time dimension still has several categories (filter the request first). Production charts use an approved Webtools chart embed or an already licensed library.
+**Components.** `Select` (native select, option groups) and `MultiSelect` (ECL's multiple select, started by React) use ECL form markup. `Button`, `RoundButton`, `Card`, `EclTable`, `Notification`, `Skeleton`, `Loading` (ECL spinner) and `PeriodTimeline` are the building blocks; hand-written markup for any of them should be a component first.
+
+**Eurostat data.** `src/services/eurostatData.ts` builds the requests (repeated keys, `geo=BE&geo=FR`), caches the answers and reads JSON-stat through `jsonstat-toolkit`. A chart that needs a second table (per capita, oil stocks) has its own builder in `src/services`.
 
 ## Social sharing preview
 
 Facebook, LinkedIn and X build the post from the `<meta>` tags of the page's **static HTML** (they do not run JavaScript), so the preview is one language whatever `?language=` the link has. The tags are generated from `site` in `toolConfig.ts` at build time: nothing is written in `index.html`.
 
-Per tool: edit `site` (title, description, image alt text, `url` = the **absolute https** address of the deployed page; the image address is derived from it), replace `public/images/share-preview.png` with the tool's own image (**PNG or JPEG, 1200x630, under 5 MB**; SVG and WebP are not supported by all networks), then `npm run build` and `npm run check:release`.
+Per tool: edit `site` (title, description, image alt text, `url` = the **absolute https** address of the deployed page; the image address is derived from it), set `site.image` to the tool's own image in `public/images/` (now `shareico.jpg`, the legacy image, 506x253; networks want **PNG or JPEG, at least 600x315, ideally 1200x630, under 5 MB**, and `npm run check:share` fails below 600x315; SVG and WebP are not supported by all networks), then `npm run build` and `npm run check:release`.
 
 Facebook and LinkedIn read only the tags (title, summary and quote parameters in a share link are ignored); X uses the text of the link plus the Twitter Card image. After deploying, check one real post per network and refresh the previews with the Facebook Sharing Debugger and the LinkedIn Post Inspector; networks cache previews. The shared address is the current page without its `#fragment`.
 

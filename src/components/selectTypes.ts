@@ -15,8 +15,3 @@ export type SelectItem = SelectOption | SelectGroup
 export function isSelectGroup(item: SelectItem): item is SelectGroup {
   return 'options' in item
 }
-
-/** Every option, with the group structure removed. */
-export function flattenOptions(items: SelectItem[]): SelectOption[] {
-  return items.flatMap((item) => (isSelectGroup(item) ? item.options : [item]))
-}

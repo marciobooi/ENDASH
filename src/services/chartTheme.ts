@@ -17,5 +17,3 @@ export const averageColors = { above: '#E67500', below: '#7F9BD9', line: '#55555
 export function datasetUrl(dataset: string, language: string): string {
   return `https://ec.europa.eu/eurostat/databrowser/view/${dataset}/default/table?lang=${language.toUpperCase()}`
 }
-
-export const chartFontFamily = 'arial, sans-serif'

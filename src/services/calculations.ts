@@ -65,8 +65,3 @@ export function offeredViews(chart: ChartDefinition): View[] {
 export function hasBarToggles(chart: ChartDefinition): boolean {
   return !chart.medianSplit && chart.special !== 'perCapita'
 }
-
-/** Whether a chart's country comparison includes the EU aggregate (old defaultGeos filter). */
-export function comparisonCodes(all: readonly string[], aggregates: boolean): string[] {
-  return aggregates ? [...all] : all.filter((code) => code !== 'EU27_2020')
-}
