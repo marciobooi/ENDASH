@@ -32,7 +32,7 @@ export function FilterControls({ values, onChange }: FilterControlsProps) {
   const optionsOf = useMemo(
     () => (definition: FilterDefinition): SelectItem[] => {
       const name = (code: string) => ({ value: code, label: t(`${definition.nameKey}.${code}`) })
-      if (definition.type === 'select') return definition.options.map(name)
+      // Plain codes are options; groups are `<optgroup>`s labelled in the locale files (Aggregates, EU, EFTA, Enlargement).
       return definition.options.map((option) =>
         typeof option === 'string'
           ? name(option)
@@ -51,6 +51,7 @@ export function FilterControls({ values, onChange }: FilterControlsProps) {
             id={`${definition.id}-select`}
             label={t(`filters.${definition.id}`)}
             options={optionsOf(definition)}
+            width="l"
             value={values[definition.id] as string}
             onChange={(value) => onChange(definition.id, value)}
           />

@@ -1106,7 +1106,13 @@ interface FilterBase {
 }
 
 export type FilterDefinition =
-  | (FilterBase & { type: 'select'; options: readonly string[]; default: string })
+  | (FilterBase & {
+      type: 'select'
+      /** Plain codes, or groups of codes (rendered as `<optgroup>`, labelled by `groupKey` in the locale files). */
+      options: readonly string[] | readonly FilterGroup[]
+      groupKey?: string
+      default: string
+    })
   | (FilterBase & {
       type: 'multiselect'
       options: readonly string[] | readonly FilterGroup[]
@@ -1116,7 +1122,7 @@ export type FilterDefinition =
 
 /** The country of the dashboard (old `REF.geos`): every chart of the gallery shows it. */
 export const filters: readonly FilterDefinition[] = [
-  { id: 'geo', type: 'select', nameKey: 'countries', options: allCountries, default: 'BE' },
+  { id: 'geo', type: 'select', nameKey: 'countries', options: countryGroups, groupKey: 'countryGroups', default: 'BE' },
 ]
 
 /* ------------------------------------------------------------------ */

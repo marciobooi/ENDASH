@@ -11,7 +11,6 @@ const isGroupList = (options: readonly string[] | readonly FilterGroup[]): optio
 
 /** Every code a filter accepts, groups flattened. */
 export function filterCodes(definition: FilterDefinition): string[] {
-  if (definition.type === 'select') return [...definition.options]
   return isGroupList(definition.options)
     ? definition.options.flatMap((group) => [...group.codes])
     : [...definition.options]
