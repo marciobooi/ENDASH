@@ -24,6 +24,9 @@ import { ToolbarIcon } from './ToolbarIcon'
 const panelStatus = (status: 'loading' | 'ready' | 'empty' | 'error'): 'loading' | 'empty' | 'ready' =>
   status === 'loading' ? 'loading' : status === 'ready' ? 'ready' : 'empty'
 
+/** Height in pixels of the expanded line and bar charts (the gallery cards are shorter). */
+const EXPANDED_HEIGHT = 560
+
 interface ToolViewProps {
   chart: ChartDefinition
   geo: string
@@ -103,6 +106,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           <ChartPanel status={panelStatus(model.line.status)} title={model.title} loadingText={loading} noDataText={noData}>
             {model.line.status === 'ready' && (
               <LineChart
+                height={EXPANDED_HEIGHT}
                 lang={lang}
                 title={model.title}
                 categories={model.line.categories}
@@ -125,6 +129,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           <ChartPanel status={panelStatus(model.bar.status)} title={model.title} loadingText={loading} noDataText={noData}>
             {model.bar.status === 'ready' && (
               <ColumnChart
+                height={EXPANDED_HEIGHT}
                 lang={lang}
                 title={model.title}
                 categories={model.bar.categories}
