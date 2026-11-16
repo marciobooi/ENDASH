@@ -34,7 +34,9 @@ export function DownloadMenu({ getTable, imageTitle, imageSource }: DownloadMenu
   const wrapperRef = useRef<HTMLDivElement>(null)
   const popoverRef = useRef<HTMLDivElement>(null)
 
-  const formats = downloadConfig.formats.filter((format) => format !== 'excel' || getTable)
+  // The Excel file is the data of the open chart: with no chart open (the gallery) there is nothing to put in it.
+  const hasTable = open && Boolean(getTable?.())
+  const formats = downloadConfig.formats.filter((format) => format !== 'excel' || hasTable)
 
   const close = (returnFocus: boolean) => {
     // Unmount first (releases the focus trap), then move focus back to the download button.
