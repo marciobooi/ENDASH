@@ -3,8 +3,11 @@
 How ENDASH 3.0 was ported, written down so the next tool goes faster and ends up the same way. It has three parts: a
 prompt to paste into Claude Code, the principles behind it, and the traps we already fell into.
 
-Reference implementations (read them before writing anything): this repository (`endash3.0`) and
-`marciobooi/ENPRICES` (branch `enprices3.0`). Same base, same folder structure, same component names.
+Reference implementations (read them before writing anything), both finished ports to copy from:
+- ENDASH, branch `endash3.0`: https://github.com/marciobooi/ENDASH.git (this repository)
+- ENPRICES, branch `enprices3.0`: https://github.com/marciobooi/ENPRICES.git
+  (`git clone -b enprices3.0 https://github.com/marciobooi/ENPRICES.git`)
+ Same base, same folder structure, same component names.
 
 ---
 
@@ -14,7 +17,7 @@ Reference implementations (read them before writing anything): this repository (
 Port the legacy tool in `old/` (also live at <URL>) to this React + Vite + strict TypeScript project, keeping 100% of its
 functionality and matching its look. Read this repository first (README.md, PORTING_PROMPT.md, src/config/toolConfig.ts,
 src/components, src/services) and copy its structure, naming and patterns: `marciobooi/ENDASH` branch `endash3.0` and
-`marciobooi/ENPRICES` branch `enprices3.0` are finished ports of the same kind. Where the same thing exists there, use
+`marciobooi/ENPRICES` branch `enprices3.0` (https://github.com/marciobooi/ENPRICES.git) are finished ports of the same kind. Where the same thing exists there, use
 that file and its name instead of inventing a new one.
 
 Rules
