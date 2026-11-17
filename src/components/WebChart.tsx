@@ -87,7 +87,16 @@ export function WebChart({ options, lang, ariaLabel, errorMessage, loadingMessag
       })
       // Webtools adds a hidden data table under every chart; its rows and sort buttons would be hundreds of Tab stops. The tool
       // has its own table view, so the hidden one is taken out of the Tab order (ECL's script keeps putting its rows back).
-      root.querySelectorAll<HTMLElement>('.highcharts-data-table [tabindex="0"], .highcharts-data-table button, .highcharts-data-table a[href]').forEach((element) => {
+      // The same for the "Skip chart" and "Back to previous chart" links Webtools adds around a chart (the second also writes
+      // #backChart_... into the address): they cost a Tab stop each and give a sighted keyboard user nothing.
+      const unwanted = [
+        '.highcharts-data-table [tabindex="0"]',
+        '.highcharts-data-table button',
+        '.highcharts-data-table a[href]',
+        'a[href^="#backChart_"]',
+        'a[href^="#skipChart_"]',
+      ].join(', ')
+      root.querySelectorAll<HTMLElement>(unwanted).forEach((element) => {
         if (element.getAttribute('tabindex') !== '-1') element.setAttribute('tabindex', '-1')
       })
     }
