@@ -38,7 +38,7 @@ export function RoundButton({
   useEffect(() => {
     const id = ref.current?.getAttribute('aria-describedby')
     const popup = id ? document.getElementById(id) : null
-    if (popup) popup.textContent = tooltip ?? label
+    if (popup) popup.textContent = tooltip === false ? null : (tooltip ?? label)
   }, [label, tooltip])
 
   const content = (
