@@ -2098,7 +2098,10 @@
 /* Tooltip (ECL's, see src/services/ecl.ts): a white bubble with a blue border and a pointer to the button, as in the other
    tools. The dark one (`data-ecl-tooltip-inverted`) keeps ECL's colours. */
 .ecl-tooltip:not(.ecl-tooltip--inverted) {
-  max-width: 20rem;
+  /* Wide enough for the longest label on one line: a two-line tooltip is taller and would not fit above a button near the top
+     of the window (the language button), where ECL then puts it below. */
+  max-width: min(32rem, calc(100vw - 1rem));
+  width: max-content;
   padding: 0.5rem 0.75rem;
   border: 2px solid #0e47cb;
   border-radius: 4px;
