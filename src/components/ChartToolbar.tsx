@@ -1,8 +1,9 @@
-import type { ReactNode } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ChartDefinition } from '../config/toolConfig'
 import { offeredViews } from '../services/calculations'
 import type { DashboardState, View } from '../state/dashboardState'
+import { useOutsideClose } from '../hooks/useOutsideClose'
 import { RoundButton } from './RoundButton'
 import { WebtoolsIcon } from './WebtoolsIcon'
 
@@ -29,6 +30,10 @@ const VIEW_ICON = {
  * chart's views, its info links and close. */
 export function ChartToolbar({ chart, state, patch, onClose, download, embed }: ChartToolbarProps) {
   const { t, i18n } = useTranslation()
+  const infoRef = useRef<HTMLDetailsElement>(null)
+  const [infoOpen, setInfoOpen] = useState(false)
+  // A click anywhere else closes the info menu too.
+  useOutsideClose(infoRef, infoOpen, () => setInfoOpen(false))
   const lang = i18n.language.toLowerCase()
   const viewLabel: Record<View, string> = {
     line: t('labels.SHOW_LINE_CHART'),
@@ -58,7 +63,19 @@ export function ChartToolbar({ chart, state, patch, onClose, download, embed }: 
       <div className="chart-toolbar__group">
         {download}
         {embed}
-        <details className="info-links">
+        <details
+          ref={infoRef}
+          className="info-links"
+          open={infoOpen}
+          onToggle={(event) => setInfoOpen(event.currentTarget.open)}
+          onKeyDown={(event) => {
+            // Escape closes the menu and gives the focus back to its button.
+            if (event.key !== 'Escape' || !infoOpen) return
+            event.stopPropagation()
+            setInfoOpen(false)
+            infoRef.current?.querySelector('summary')?.focus()
+          }}
+        >
         <summary className="round-button ecl-button ecl-button--primary ecl-button--icon-only" aria-label={t('labels.INFO')} title={t('labels.INFO')}>
           <span className="ecl-button__container"><WebtoolsIcon set="phosphor" name="info" /></span>
         </summary>
