@@ -16,6 +16,7 @@ import { RoundButton } from './RoundButton'
 import { SeriesTable } from './SeriesTable'
 import { SourceNote } from './SourceNote'
 import { formatMonth } from '../services/monthly'
+import { useChartHeight } from '../hooks/useChartHeight'
 import { PeriodRange } from './PeriodRange'
 import { PeriodTimeline } from './PeriodTimeline'
 import { ToolbarIcon } from './ToolbarIcon'
@@ -23,9 +24,6 @@ import { ToolbarIcon } from './ToolbarIcon'
 /** The panel state of a loaded chart result: an error counts as "no data". */
 const panelStatus = (status: 'loading' | 'ready' | 'empty' | 'error'): 'loading' | 'empty' | 'ready' =>
   status === 'loading' ? 'loading' : status === 'ready' ? 'ready' : 'empty'
-
-/** Height in pixels of the expanded line and bar charts (the gallery cards are shorter). */
-const EXPANDED_HEIGHT = 560
 
 interface ToolViewProps {
   chart: ChartDefinition
@@ -42,6 +40,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
   const Heading = headingLevel === 1 ? 'h1' : 'h2'
   const { t, i18n } = useTranslation()
   const lang = i18n.language
+  const chartHeight = useChartHeight()
   const model = useToolState(chart, geo, state)
   const noData = t('labels.ERROR2')
   const loading = t('labels.MSG_LOADING')
@@ -106,7 +105,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           <ChartPanel status={panelStatus(model.line.status)} title={model.title} loadingText={loading} noDataText={noData}>
             {model.line.status === 'ready' && (
               <LineChart
-                height={EXPANDED_HEIGHT}
+                height={chartHeight}
                 lang={lang}
                 title={model.title}
                 categories={model.line.categories}
@@ -129,7 +128,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
           <ChartPanel status={panelStatus(model.bar.status)} title={model.title} loadingText={loading} noDataText={noData}>
             {model.bar.status === 'ready' && (
               <ColumnChart
-                height={EXPANDED_HEIGHT}
+                height={chartHeight}
                 lang={lang}
                 title={model.title}
                 categories={model.bar.categories}
