@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/package.mjs",
     "typecheck": "tsc -b --noEmit",
     "lint": "oxlint",
     "check:statement": "node scripts/check-statement.mjs",
     "preview": "vite preview",
     "check:share": "node scripts/check-share.mjs",
-    "check:release": "npm run check:statement && npm run check:share"
+    "check:release": "npm run check:statement && npm run check:share",
+    "build:site": "tsc -b && vite build"
   },
   "dependencies": {
     "@ecl/preset-eu": "^5.4.1",
@@ -29,6 +30,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "fflate": "^0.8.3",
     "highcharts": "^12.6.0",
     "oxlint": "^1.93.0",
     "typescript": "~7.0.2",

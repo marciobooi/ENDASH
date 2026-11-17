@@ -4,9 +4,11 @@ import { LanguageSelector } from './LanguageSelector'
 
 interface SiteNavigationProps {
   title: string
+  /** The language button. Hidden on pages that exist in one language only (the accessibility statement). */
+  showLanguage?: boolean
 }
 
-export function SiteNavigation({ title }: SiteNavigationProps) {
+export function SiteNavigation({ title, showLanguage = true }: SiteNavigationProps) {
   const { t } = useTranslation()
 
   return (
@@ -16,7 +18,7 @@ export function SiteNavigation({ title }: SiteNavigationProps) {
         <div id="euGlobanContainer" />
         <div className="site-header-main">
           <h1 className="site-header-title">{title}</h1>
-          <LanguageSelector />
+          {showLanguage ? <LanguageSelector /> : <span />}
           <img className="header-ribbon" src={images.headerRibbon.src} alt="" />
           <a
             className="eurostat-brand"

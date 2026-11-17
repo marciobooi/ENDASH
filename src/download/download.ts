@@ -32,7 +32,10 @@ export type ImageCaption = Pick<ImageFrame, 'title' | 'source'>
 export async function downloadChartImage(type: 'png' | 'jpeg', caption: ImageCaption): Promise<boolean> {
   const target = document.querySelector<HTMLElement>(downloadConfig.imageTarget)
   if (!target) return false
-  const image = await captureElement(target, type === 'png' ? 'image/png' : 'image/jpeg', { ...caption, logoSrc: images.eurostatLogo.src })
+  // The timeline of a bar or pie is left out of the picture, so the title names the period it shows.
+  const period = target.querySelector('.period-timeline__bubble')?.textContent?.trim()
+  const title = period ? `${caption.title} – ${period}` : caption.title
+  const image = await captureElement(target, type === 'png' ? 'image/png' : 'image/jpeg', { ...caption, title, logoSrc: images.eurostatLogo.src })
   if (!image) return false
   downloadImage(image, fileName(type === 'png' ? 'png' : 'jpg'))
   return true

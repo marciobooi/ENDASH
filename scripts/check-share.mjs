@@ -1,18 +1,15 @@
-// Release check for social sharing: reads the BUILT page (dist/index.html) the way Facebook, LinkedIn and X do
+// Release check for social sharing: reads the BUILT page (dist/index.html, or endash.html inside dist/endash.zip) the way Facebook, LinkedIn and X do
 // (static HTML, no JavaScript) and verifies the preview card tags and the preview image.
 // Run `npm run build` first, then `npm run check:share` (or `npm run check:release`).
-import { existsSync, readFileSync, statSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
+import { readDistFile } from './dist.mjs'
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const htmlPath = path.join(root, 'dist', 'index.html')
-if (!existsSync(htmlPath)) {
-  console.error('dist/index.html not found: run `npm run build` first.')
+const page = readDistFile('index.html')
+if (!page) {
+  console.error('The build was not found (dist/index.html or dist/endash.zip): run `npm run build` first.')
   process.exit(1)
 }
 
-const html = readFileSync(htmlPath, 'utf8')
+const html = page.toString('utf8')
 const problems = []
 const warnings = []
 
@@ -63,13 +60,12 @@ if (required['og:description'] && required['og:description'].length > 200) warni
 const imageUrl = required['og:image']
 if (imageUrl && /^https:\/\//i.test(imageUrl) && !/<<|%VITE_/.test(imageUrl)) {
   const relative = new URL(imageUrl).pathname.split('/').slice(-2).join('/') // images/share-preview.png
-  const file = path.join(root, 'dist', relative)
   if (!/\.(png|jpe?g)$/i.test(relative)) problems.push(`og:image must be PNG or JPEG (SVG and WebP are not supported by all networks): ${relative}`)
-  if (!existsSync(file)) {
-    problems.push(`og:image points to ${relative}, but dist/${relative} does not exist (put the file in public/${relative})`)
+  const buffer = readDistFile(relative)
+  if (!buffer) {
+    problems.push(`og:image points to ${relative}, but the build has no ${relative} (put the file in public/${relative})`)
   } else {
-    const buffer = readFileSync(file)
-    const bytes = statSync(file).size
+    const bytes = buffer.length
     let width
     let height
     if (buffer.subarray(1, 4).toString() === 'PNG') {

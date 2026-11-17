@@ -5,12 +5,13 @@ import { statementConfig } from '../accessibility/statementConfig'
 import { AccessibilityStatement } from '../components/AccessibilityStatement'
 import { SiteFooter } from '../components/Footer'
 import { SiteNavigation } from '../components/Nav'
+import { userLanguage } from '../i18n'
 import { useSiteShell } from '../hooks/useSiteShell'
 import '../App.css'
 
 /** `?accessibility`: the same app shell (banner + footer) with the statement instead of the tool. */
 export function AccessibilityPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   useSiteShell()
 
   useEffect(() => {
@@ -19,9 +20,9 @@ export function AccessibilityPage() {
 
   return (
     <>
-      <SiteNavigation title={t('brand')} />
+      <SiteNavigation title={t('brand')} showLanguage={false} />
       <main id="main-content" className="visualization-shell">
-        <AccessibilityStatement config={statementConfig} backHref={toolHref(i18n.resolvedLanguage ?? 'en')} />
+        <AccessibilityStatement config={statementConfig} backHref={toolHref(userLanguage)} />
       </main>
       <SiteFooter />
     </>

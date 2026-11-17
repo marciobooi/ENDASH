@@ -37,6 +37,7 @@ export function PieChart({ title, data, unitLabel, valueLabel, credits, legend, 
       tooltip: { useHTML: true, pointFormat: `${valueLabel}: <b>{point.y:,.4f}</b> ${unitLabel}`, hideDelay: 0, animation: false },
       plotOptions: {
         pie: {
+          animation: false,
           allowPointSelect: true,
           innerSize: '75%',
           showInLegend: true,

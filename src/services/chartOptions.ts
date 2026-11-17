@@ -80,7 +80,8 @@ export function cartesianOptions(input: CartesianInput, type: 'spline' | 'column
     tooltip: { ...input.tooltip, shared: true, useHTML: true, hideDelay: 0, animation: false },
     plotOptions: {
       column: { stacking: input.stacking },
-      series: { connectNulls: true, cursor: 'pointer', marker: { enabled: input.allLabels ?? false }, point: { events: { click: input.onPointClick } } },
+      // No animation (as in the legacy tool): the picture saved right after a chart appears is never of half-drawn bars.
+      series: { animation: false, connectNulls: true, cursor: 'pointer', marker: { enabled: input.allLabels ?? false }, point: { events: { click: input.onPointClick } } },
     },
     series: input.series,
     credits: input.credits ? { text: input.credits.text, href: input.credits.href, position: { align: 'center' } } : { enabled: false },

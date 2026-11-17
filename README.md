@@ -23,11 +23,12 @@ The address of the dev server is `http://localhost:5173`. Try `?language=de&geo=
 
 | Command | What it does |
 |---|---|
-| `npm run dev` / `npm run preview` | Development server / serve the production build |
-| `npm run build` | Type-check and build into `dist/` |
+| `npm run dev` / `npm run preview` | Development server / serve the plain build (after `npm run build:site`) |
+| `npm run build` | Type-check, build, and package for delivery: `dist/` ends up with one file, `endash.zip`, holding `endash.html` (the page, renamed from `index.html`) and its `assets/` and `images/` |
+| `npm run build:site` | The same build as a plain folder in `dist/` (with `index.html`), for `npm run preview` |
 | `npm run typecheck` / `npm run lint` | TypeScript (strict) / oxlint, both must be clean |
 | `npm run check:statement` | Fails while `<<PLACEHOLDER>>` text is left in the accessibility statement |
-| `npm run check:share` | Reads `dist/index.html` like a social crawler and checks the preview tags and image |
+| `npm run check:share` | Reads the built page (from `dist/endash.zip`, or `dist/index.html` after `build:site`) like a social crawler and checks the preview tags and image |
 | `npm run check:release` | `check:statement` + `check:share`; run it after `npm run build`, before publishing |
 
 Webtools shows GloBan only on `*.europa.eu` hosts. Locally, add `127.0.0.1 localhost.europa.eu` to `C:\Windows\System32\drivers\etc\hosts` (administrator) and open `http://localhost.europa.eu:5173`; `vite.config.ts` already allows that host.
@@ -126,4 +127,4 @@ Facebook and LinkedIn read only the tags (title, summary and quote parameters in
 
 ## Deployment
 
-Tools are served from a fixed Eurostat path such as `/eurostat/cache/visualisations/<tool>/`. The template is ready for it: `vite.config.ts` sets `base: './'` and public files are referenced through `import.meta.env.BASE_URL` (never with a leading `/`). Test the `dist` folder from a sub-folder on a local server. All query-string links (`?language=`, `?accessibility`, `?embed=`) are relative on purpose.
+Tools are served from a fixed Eurostat path such as `/eurostat/cache/visualisations/<tool>/`. The template is ready for it: `vite.config.ts` sets `base: './'` and public files are referenced through `import.meta.env.BASE_URL` (never with a leading `/`). `npm run build` leaves one file to deliver, `dist/endash.zip`: unzip it into the tool's folder on the server and the tool is at `.../endash.html`. To test it from a sub-folder on a local server, unzip it there (or use `npm run build:site` and `npm run preview`). All query-string links (`?language=`, `?accessibility`, `?embed=`) are relative on purpose.

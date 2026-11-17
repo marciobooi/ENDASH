@@ -74,6 +74,36 @@ export function WebChart({ options, lang, ariaLabel, errorMessage, loadingMessag
     }
   }, [lang, attempt])
 
+  // Highcharts builds a button over every legend item (show or hide a series) but keeps them out of the Tab order, and its
+  // own key handling swallows Enter and Space on them. They are real buttons: put them in the Tab order (Highcharts redraws
+  // them after each toggle, hence the observer) and let Enter and Space press them once. All removed with the chart.
+  useEffect(() => {
+    const root = containerRef.current
+    if (!root) return
+    const legendButtons = () => root.querySelectorAll<HTMLElement>('.highcharts-a11y-proxy-group-legend button')
+    const reach = () =>
+      legendButtons().forEach((button) => {
+        if (button.getAttribute('tabindex') !== '0') button.setAttribute('tabindex', '0')
+      })
+    const isLegendButton = (event: Event) => event.target instanceof HTMLElement && event.target.matches('.highcharts-a11y-proxy-group-legend button')
+    const press = (event: KeyboardEvent) => {
+      if (!isLegendButton(event) || (event.key !== 'Enter' && event.key !== ' ')) return
+      event.preventDefault()
+      event.stopPropagation()
+      if (event.type === 'keydown' && !event.repeat) (event.target as HTMLElement).click()
+    }
+    reach()
+    const observer = new MutationObserver(reach)
+    observer.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['tabindex'] })
+    root.addEventListener('keydown', press, true)
+    root.addEventListener('keyup', press, true)
+    return () => {
+      observer.disconnect()
+      root.removeEventListener('keydown', press, true)
+      root.removeEventListener('keyup', press, true)
+    }
+  }, [lang, attempt])
+
   // Later option changes update the live chart.
   useEffect(() => {
     chartRef.current?.update(pruneUndefined(options), true, true)

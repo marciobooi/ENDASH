@@ -126,7 +126,9 @@
 
 .site-subnavigation {
   position: relative;
-  z-index: 1;
+  /* Above the page content (the chart, the timeline, the topic row), so its menus (download, share, info) open over them; the
+     header (30) stays above it for the language panel. */
+  z-index: 25;
 }
 
 .tool-toolbar {
@@ -2314,4 +2316,14 @@
 
 .story-group-section {
   scroll-margin-top: 9rem;
+}
+
+/* Legend items of a chart (show or hide a series): Highcharts draws an invisible button over each one. When one has the
+   keyboard focus it becomes visible as a ring around its legend item. */
+.highcharts-a11y-proxy-group-legend button:focus-visible {
+  opacity: 1;
+  outline: 3px solid #0e47cb;
+  outline-offset: 2px;
+  background: transparent;
+  color: transparent;
 }

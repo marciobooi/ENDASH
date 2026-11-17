@@ -1,12 +1,18 @@
 /**
- * Elements that must not appear in a screenshot: the share and download popovers, the tour overlay, and range sliders
- * (the capture library paints a slider's raw position as text; the label next to it already names the period).
+ * Elements that must not appear in a screenshot: the share and download popovers, the tour overlay, and the period
+ * controls (the range of the line view and the timeline of the bar and pie views are for choosing, not for the picture:
+ * the title says which period a bar or pie shows), the chart's switches and the source line (the frame writes the source). Sliders are always left out: the capture library paints a slider's
+ * raw position as text.
  */
 function isExcluded(element: Element): boolean {
   return (
     element.id === 'share-popover' ||
     element.id === 'download-popover' ||
     element.classList.contains('driver-overlay') ||
+    element.classList.contains('period-range') ||
+    element.classList.contains('period-timeline') ||
+    element.classList.contains('expanded-chart__options') ||
+    element.classList.contains('source-note') ||
     element.matches('input[type="range"]')
   )
 }
