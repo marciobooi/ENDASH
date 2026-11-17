@@ -7,7 +7,7 @@ Reference implementations (read them before writing anything), both finished por
 - ENDASH, branch `endash3.0`: https://github.com/marciobooi/ENDASH.git (this repository)
 - ENPRICES, branch `enprices3.0`: https://github.com/marciobooi/ENPRICES.git
   (`git clone -b enprices3.0 https://github.com/marciobooi/ENPRICES.git`)
- Same base, same folder structure, same component names.
+Both share the same base, folder structure and component names.
 
 ---
 
