@@ -2342,3 +2342,9 @@
 @media (prefers-reduced-motion: reduce) {
   .round-button__icon { animation: none; }
 }
+
+/* Webtools builds a data table under every chart and shows it until its own style sheet arrives (a flash of a long
+ * table while loading). The tool has its own table view behind the table button, so this one is never shown. */
+.webtools-chart .highcharts-data-table {
+  display: none !important;
+}
