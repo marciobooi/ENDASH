@@ -1,6 +1,9 @@
 import { useLayoutEffect, useRef, type KeyboardEvent, type RefObject } from 'react'
 
-const ITEMS = 'button, summary, input[type="checkbox"]'
+/** The controls of the toolbar: buttons, the info summary and links (the insights button is a link to its page). */
+const ITEMS = 'button, summary, a[href], input[type="checkbox"]'
+/** Controls inside an open menu keep their own keys: they are not part of the toolbar's arrow-key row. */
+const OWN_KEYS = '.share-popover, .info-links__list'
 
 /**
  * Keyboard navigation of a toolbar (WAI-ARIA toolbar pattern): the toolbar is one Tab stop, the left and right arrow
@@ -13,7 +16,7 @@ export function useRovingToolbar(ref: RefObject<HTMLElement | null>) {
   const items = (): HTMLElement[] =>
     ref.current
       ? [...ref.current.querySelectorAll<HTMLElement>(ITEMS)].filter(
-          (element) => !element.closest('.share-popover') && !(element as HTMLButtonElement).disabled,
+          (element) => !element.closest(OWN_KEYS) && !(element as HTMLButtonElement).disabled,
         )
       : []
 
@@ -38,7 +41,7 @@ export function useRovingToolbar(ref: RefObject<HTMLElement | null>) {
       }
     },
     onKeyDown: (event: KeyboardEvent<HTMLElement>) => {
-      if ((event.target as Element).closest('.share-popover')) return
+      if ((event.target as Element).closest(OWN_KEYS)) return
       const keys = ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End']
       if (!keys.includes(event.key) || event.altKey || event.ctrlKey || event.metaKey) return
       const list = items()
