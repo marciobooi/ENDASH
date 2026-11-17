@@ -66,7 +66,7 @@ the background (`usePrefetchCharts`, visible cards first), draw a chart only whe
 **Derived, not stored.** State is the address plus a few UI flags. Loading flags and filtered data are derived during
 render (`shown = slice(line, from, to)`), not copied into state and synced in effects.
 
-**Accessible by construction.** One Tab stop per toolbar with arrow keys (`useRovingToolbar`); focus moves to the chart
+**Accessible by construction.** Every toolbar control is a Tab stop and the arrow keys also move along it (`useRovingToolbar`); focus moves to the chart
 heading when a chart opens and back to its card when it closes; every chart is one named region (Highcharts landmark
 verbosity `one`, title hidden visually but kept for screen readers); sliders are native range inputs with
 `aria-valuetext`, a static name and a live message; tooltips open on focus; nothing relies on colour only.
