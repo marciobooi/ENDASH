@@ -81,10 +81,16 @@ export function WebChart({ options, lang, ariaLabel, errorMessage, loadingMessag
     const root = containerRef.current
     if (!root) return
     const legendButtons = () => root.querySelectorAll<HTMLElement>('.highcharts-a11y-proxy-group-legend button')
-    const reach = () =>
+    const reach = () => {
       legendButtons().forEach((button) => {
         if (button.getAttribute('tabindex') !== '0') button.setAttribute('tabindex', '0')
       })
+      // Webtools adds a hidden data table under every chart; its rows and sort buttons would be hundreds of Tab stops. The tool
+      // has its own table view, so the hidden one is taken out of the Tab order (ECL's script keeps putting its rows back).
+      root.querySelectorAll<HTMLElement>('.highcharts-data-table [tabindex="0"], .highcharts-data-table button, .highcharts-data-table a[href]').forEach((element) => {
+        if (element.getAttribute('tabindex') !== '-1') element.setAttribute('tabindex', '-1')
+      })
+    }
     const isLegendButton = (event: Event) => event.target instanceof HTMLElement && event.target.matches('.highcharts-a11y-proxy-group-legend button')
     const press = (event: KeyboardEvent) => {
       if (!isLegendButton(event) || (event.key !== 'Enter' && event.key !== ' ')) return
