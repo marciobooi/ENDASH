@@ -2330,3 +2330,15 @@
   background: transparent;
   color: transparent;
 }
+
+/* The icon of a round button that changes (arrow up/down) turns into place. */
+.round-button__icon {
+  display: inline-flex;
+  animation: round-button-turn 0.3s ease-out;
+}
+@keyframes round-button-turn {
+  from { transform: rotate(180deg) scale(0.6); opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .round-button__icon { animation: none; }
+}

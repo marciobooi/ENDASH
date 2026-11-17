@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
+import { useEffect, useRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes } from 'react'
 import { Tooltip } from './Tooltip'
 import { ToolbarIcon, type ToolbarIconName } from './ToolbarIcon'
 
@@ -33,9 +33,17 @@ export function RoundButton({
   const classes =
     `round-button ecl-button ecl-button--${variant} ecl-button--icon-only ${className}`.trim()
 
+  // ECL copies the tooltip text when it opens; a button that changes its label while its tooltip is open updates it here.
+  const ref = useRef<HTMLButtonElement & HTMLAnchorElement>(null)
+  useEffect(() => {
+    const id = ref.current?.getAttribute('aria-describedby')
+    const popup = id ? document.getElementById(id) : null
+    if (popup) popup.textContent = tooltip ?? label
+  }, [label, tooltip])
+
   const content = (
     <span className="ecl-button__container">
-      <ToolbarIcon name={icon} />
+      <span key={icon} className="round-button__icon"><ToolbarIcon name={icon} /></span>
       <span className="ecl-button__label" data-ecl-label="true">{label}</span>
     </span>
   )
@@ -43,11 +51,11 @@ export function RoundButton({
   // A link has no `disabled`; every other prop (onClick, data-*, aria-*, id) is forwarded.
   const { disabled, ...linkProps } = buttonProps
   const control = href ? (
-    <a {...(linkProps as AnchorHTMLAttributes<HTMLAnchorElement>)} href={href} className={classes} aria-label={label}>
+    <a ref={ref} {...(linkProps as AnchorHTMLAttributes<HTMLAnchorElement>)} href={href} className={classes} aria-label={label}>
       {content}
     </a>
   ) : (
-    <button {...buttonProps} disabled={disabled} type={type} className={classes} aria-label={label}>
+    <button ref={ref} {...buttonProps} disabled={disabled} type={type} className={classes} aria-label={label}>
       {content}
     </button>
   )
