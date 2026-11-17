@@ -85,7 +85,6 @@ export function ChartCard({ chart, geo, state, patch, onExpand, drag }: ChartCar
             <RoundButton
               icon={below ? 'arrow-up' : 'arrow-down'}
               label={t(below ? 'labels.SHOW_ABOVE_MEDIAN' : 'labels.SHOW_BELOW_MEDIAN')}
-              aria-pressed={below}
               onClick={() => patch({ below: below ? state.below.filter((id) => id !== chart.id) : [...state.below, chart.id] })}
             />
           )}

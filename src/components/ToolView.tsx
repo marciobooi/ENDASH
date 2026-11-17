@@ -74,7 +74,7 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
 
       {state.view === 'line' && chart.medianSplit && (
         <div className="expanded-chart__options">
-          <Button variant="secondary" aria-pressed={model.below} onClick={toggleBelow} icon={<ToolbarIcon name={model.below ? 'arrow-up' : 'arrow-down'} />}>
+          <Button variant="secondary" onClick={toggleBelow} icon={<ToolbarIcon name={model.below ? 'arrow-up' : 'arrow-down'} />}>
             {t(model.below ? 'labels.SHOW_ABOVE_MEDIAN' : 'labels.SHOW_BELOW_MEDIAN')}
           </Button>
         </div>
@@ -84,16 +84,14 @@ export function ToolView({ chart, geo, state, patch, headingLevel = 2 }: ToolVie
         <div className="expanded-chart__options">
           <RoundButton
             icon="percent"
-            label={t('labels.SHOW_PERCENTAGE')}
+            label={t(state.percentage === '1' ? 'labels.HIDE_PERCENTAGE' : 'labels.SHOW_PERCENTAGE')}
             variant={state.percentage === '1' ? 'primary' : 'secondary'}
-            aria-pressed={state.percentage === '1'}
             onClick={() => patch({ percentage: state.percentage === '1' ? '0' : '1' })}
           />
           <RoundButton
             icon="swap"
-            label={t('labels.SHOW_AGGREGATES')}
+            label={t(model.aggregatesOn ? 'labels.HIDE_AGGREGATES' : 'labels.SHOW_AGGREGATES')}
             variant={model.aggregatesOn ? 'primary' : 'secondary'}
-            aria-pressed={model.aggregatesOn}
             onClick={() => patch({ aggregates: model.aggregatesOn ? '0' : '1' })}
           />
         </div>

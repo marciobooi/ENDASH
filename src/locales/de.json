@@ -374,6 +374,8 @@
     "ACCESS": "Zugänglichkeit",
     "SHOW_AGGREGATES": "Aggregate anzeigen",
     "SHOW_PERCENTAGE": "Prozentansicht anzeigen",
+    "HIDE_AGGREGATES": "Aggregate ausblenden",
+    "HIDE_PERCENTAGE": "Prozentansicht ausblenden",
     "CTR": "Länder",
     "YEAR": "Jahr",
     "INDICATOR": "Indikator",

@@ -374,6 +374,8 @@
     "ACCESS": "Accessibilité",
     "SHOW_AGGREGATES": "Afficher les agrégats",
     "SHOW_PERCENTAGE": "Afficher la vue en pourcentage",
+    "HIDE_AGGREGATES": "Masquer les agrégats",
+    "HIDE_PERCENTAGE": "Masquer la vue en pourcentage",
     "CTR": "Pays",
     "YEAR": "Année",
     "INDICATOR": "Indicateur",
