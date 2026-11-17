@@ -129,6 +129,15 @@ old/                        the legacy tool, local only (ignored by Git and by o
 - Long rotated category labels need room on the left (`spacingLeft`) and `textOverflow: 'none'`, or they are cut.
 - Wrap long legend names (`itemWidth`) so the plot keeps its width.
 - Webtools pads the chart container by 20px; remove it or a blank band appears under the chart.
+- Webtools builds a long hidden data table (`.highcharts-data-table`) under every chart and shows it until its own style
+  sheet arrives (a flash of a table while loading). Hide it with `display: none !important`; the tool has its own table view.
+- Webtools also adds "Skip chart" / "Back to previous chart" links (`#skipChart_...`, `#backChart_...`; the second writes
+  into the address) and makes table rows Tab stops: set `tabindex="-1"` on them with a MutationObserver (they come back).
+- Highcharts' legend proxy buttons are `tabindex="-1"` and swallow Enter/Space: set `tabindex="0"` and press them from a
+  capture-phase key handler, so a keyboard user can show/hide a series.
+- Turn series `animation` off, or image export captures half-drawn bars.
+- Size the expanded chart to the window (`useChartHeight`: window height minus the surrounding UI, clamped) so the period
+  control and the source line are visible without scrolling.
 
 **ECL**
 - The tooltip needs only `data-ecl-tooltip` on the trigger plus one `ECL.Tooltip.autoInit(document.body)`; it renders
@@ -138,6 +147,14 @@ old/                        the legacy tool, local only (ignored by Git and by o
 - In-page navigation: ECL's script does the scroll spy, the mobile "Page contents" button and keyboard. Mark the first
   link with a data attribute (not a class) until the spy starts, so React never rewrites ECL's class list.
 - ECL buttons are styled by the native `disabled` attribute, not `aria-disabled`.
+- ECL copies the tooltip text only when it opens: a button whose label changes while its tooltip is open must rewrite the
+  open popup (see `RoundButton`).
+- A toggle names its next action ("Show aggregates" / "Hide aggregates") in the tooltip and the accessible name; do not add
+  `aria-pressed` on top of a label that already changes. Add both texts in every language.
+- Tooltips stay above the trigger unless there is no room: keep them to one line (`width: max-content`) so a long text does
+  not make them taller than the space above.
+- Every toolbar icon is a Tab stop (arrows are an extra, `useRovingToolbar`); tooltips open on focus and close with Escape.
+  Menus (`<details>`) close with Escape (focus back on the button) and on an outside click.
 - Range slider: ECL's value bubble shows the position, not the period: use ECL's markup and styles without its script.
 
 **React and the browser**
@@ -161,6 +178,15 @@ old/                        the legacy tool, local only (ignored by Git and by o
 - Use the legacy tool's own labels and chart titles; our first guesses were wrong in several languages.
 - Classify generated sentences by the English title or by the chart id, never by the translated title.
 
+**Build and page**
+- `npm run build` outputs only `dist/endash.zip` (the page renamed to `endash.html` inside it); `npm run build:site` gives a
+  plain `dist/` for local checks. Check scripts read from the zip.
+- The `<html lang>` follows the selected language; the accessibility statement is English only, whatever the language.
+- Menus and popovers of the expanded view need a z-index above the chart; `.site-subnavigation` sits above the content.
+- Image export hides everything that is not the chart (range, timeline, popovers) and adds title, country, period, source
+  and logo (bottom right).
+- Test other languages for long labels (German bar labels clipped until `spacingLeft` was raised).
+
 **Git and files**
 - The legacy copy lives in `old/` and is ignored; the repository's `main` already holds the legacy tool: never push the
   port to `main`, always to `<name>3.0`.
@@ -177,5 +203,6 @@ old/                        the legacy tool, local only (ignored by Git and by o
 - [ ] Keyboard-only and screen reader use of every control; axe clean; reduced motion respected.
 - [ ] `tsc`, `oxlint`, `npm run build` clean; `npm run check:release` passes (social image at least 600x315).
 - [ ] No unused files, exports or CSS (scan before release); README describes the real structure.
+- [ ] Keyboard only: Tab reaches every icon, legend item and chart once; Escape closes tooltips and menus; no hidden table or skip links in the Tab order.
 - [ ] Links of the legacy tool still open the right view (`legacyUrl.ts`).
 - [ ] Branch `<name>3.0` pushed, `main` untouched.
