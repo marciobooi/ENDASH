@@ -2,7 +2,7 @@
 
 The Eurostat Energy dashboard rebuilt with Vite, React and strict TypeScript. It shows the most important energy indicators for one country at a time (energy efficiency, renewables, import dependency, greenhouse gas emissions, consumption by sector, oil stocks and more) as a gallery of charts grouped by topic, each of which opens into line, bar, pie and table views with a period timeline, insights, download, share and embed.
 
-Everything that depends on the tool lives in **`src/config/toolConfig.ts`** (charts, topics, countries, datasets, features) and in the translation files `src/locales/*.json`; the rest is shared code. The legacy tool is the `main` branch of this repository; a copy can be kept in `old/` for local reference (ignored by the checks, not committed on this branch); `PORT_STATUS.md` lists what was ported.
+Everything that depends on the tool lives in **`src/config/toolConfig.ts`** (charts, topics, countries, datasets, features) and in the translation files `src/locales/*.json`; the rest is shared code. The legacy tool is the `main` branch of this repository; a copy can be kept in `old/` for local reference (ignored by the checks, not committed on this branch); `PORT_STATUS.md` lists what was ported, and `PORTING_PROMPT.md` is the prompt, principles and list of traps to start the next port from.
 
 It includes:
 
