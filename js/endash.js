@@ -453,18 +453,13 @@ function monthlyTables(config) {
         if (!parsed) return null;
         tables.push({ ...parsed, d, source });
     }
-    // The slider runs up to the newest month ANY country has published for
-    // every table; the bar/pie views show only the countries that have
-    // published the selected month.
-    const months = tables[0].months.filter((id) =>
-        tables.every((table) => table.countries.some((c) => id in c.byMonth))
-    );
-    if (!months.length) return null;
-    // Default month of the bar/pie views: the newest one in which at least half
-    // of the countries have published (the very newest usually has only a few).
+    // Same rule as the line charts (see quorumMonths): the slider only offers
+    // months in which at least half of the countries have published for every
+    // table - the newest months, with only a few countries, are left out - and
+    // the bar/pie views show just the countries that published the selected month.
     const quorumSets = tables.map((table) => new Set(quorumMonths(table)));
-    const defaultMonth = months.filter((id) => quorumSets.every((set) => set.has(id))).pop() || months[months.length - 1];
-    return { tables, months, defaultMonth };
+    const months = tables[0].months.filter((id) => quorumSets.every((set) => set.has(id)));
+    return months.length ? { tables, months, defaultMonth: months[months.length - 1] } : null;
 }
 
 // The month the bar/pie views show: REF.month if it's available, else the default.
