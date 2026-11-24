@@ -454,39 +454,36 @@ function monthlyTables(config) {
         tables.push({ ...parsed, d, source });
     }
     // The slider runs up to the newest month ANY country has published for
-    // every table; countries that haven't reached it yet fall back to their
-    // own latest earlier month (see latestAtOrBefore).
+    // every table; the bar/pie views show only the countries that have
+    // published the selected month.
     const months = tables[0].months.filter((id) =>
         tables.every((table) => table.countries.some((c) => id in c.byMonth))
     );
-    return months.length ? { tables, months } : null;
+    if (!months.length) return null;
+    // Default month of the bar/pie views: the newest one in which at least half
+    // of the countries have published (the very newest usually has only a few).
+    const quorumSets = tables.map((table) => new Set(quorumMonths(table)));
+    const defaultMonth = months.filter((id) => quorumSets.every((set) => set.has(id))).pop() || months[months.length - 1];
+    return { tables, months, defaultMonth };
 }
 
-// The month the bar/pie views show: REF.month if it's available, else the newest.
-function resolveMonth(months) {
-    if (!months.includes(REF.month)) REF.month = months[months.length - 1];
+// The month the bar/pie views show: REF.month if it's available, else the default.
+function resolveMonth(months, defaultMonth) {
+    if (!months.includes(REF.month)) REF.month = defaultMonth || months[months.length - 1];
     return REF.month;
 }
 
-// How many months a country may lag the selected month and still be shown
-// (with its own month in the label).
-const MAX_MONTHS_BEHIND = 3;
-
-// A country's value for `month`, or - when it hasn't published that month yet -
-// its latest earlier one. { value, month } (month is the one actually used), or
-// null when it has nothing at or before `month`.
+// A country's value for exactly `month`, or null when it hasn't published that
+// month (it is then left out of the bar/pie views - they only show the
+// selected month). { value, month }.
 function latestAtOrBefore(country, month) {
-    if (!country) return null;
-    if (month in country.byMonth) return { value: country.byMonth[month], month };
-    const earlier = Object.keys(country.byMonth).filter((id) => id < month).sort().pop();
-    // A country further behind than MAX_MONTHS_BEHIND isn't padded in with old data.
-    return earlier && earlier >= shiftMonthId(month, -MAX_MONTHS_BEHIND) ? { value: country.byMonth[earlier], month: earlier } : null;
+    if (!country || !(month in country.byMonth)) return null;
+    return { value: country.byMonth[month], month };
 }
 
-// Country name, plus the month it actually reports when that isn't `month`.
-function countryLabelFor(code, geoLabels, used, month) {
-    const name = languageNameSpace.labels[code] || geoLabels[code] || code;
-    return used && used !== month ? `${name} (${formatMonthId(used, { month: "short", year: "numeric" })})` : name;
+// Country name.
+function countryLabelFor(code, geoLabels) {
+    return languageNameSpace.labels[code] || geoLabels[code] || code;
 }
 
 // Bar view of a monthly chart: every country for the selected month, one
@@ -495,7 +492,7 @@ function monthlyBarData() {
     const config = codesDataset[REF.chartId];
     const data = monthlyTables(config);
     if (!data) return null;
-    const month = resolveMonth(data.months);
+    const month = resolveMonth(data.months, data.defaultMonth);
 
     const entryOf = (table, code) => latestAtOrBefore(table.countries.find((c) => c.code === code), month);
     const valueOf = (table, code) => {
@@ -511,15 +508,18 @@ function monthlyBarData() {
     const lineColors = ["#0033FF", "#E67500"];
     const geoLabels = data.tables[0].geoLabels;
     const yAxisTitle = data.tables[0].d.__tree__.dimension.unit.category.label[config.unit];
-    const categories = codes.map((code) => countryLabelFor(code, geoLabels, (entryOf(data.tables[0], code) || {}).month, month));
+    const categories = codes.map((code) => countryLabelFor(code, geoLabels));
 
     // Average-split charts: one bar per country, the ones above the period
     // average highlighted, with the average drawn as a line.
     if (config.medianSplit) {
         const threshold = averageThreshold(data.tables[0], config.months || 12);
         if (!threshold) return null;
+        // The bars are each country's stock, not the average (that's the dashed
+        // line), so the tooltip row is named after the measure ("Closing stocks").
+        const table = data.tables[0];
         chartSeries = [{
-            name: languageNameSpace.labels["MEDIAN"] || "Average",
+            name: table.d.__tree__.dimension[table.source.indicator2_type].category.label[table.source.indicator2[0]],
             data: codes.map((code) => {
                 const y = valueOf(data.tables[0], code);
                 return { y, color: y > threshold.value ? "#E67500" : "#7F9BD9" };
@@ -544,14 +544,14 @@ function monthlyPieData() {
     const config = codesDataset[REF.chartId];
     const data = monthlyTables(config);
     if (!data) return null;
-    const month = resolveMonth(data.months);
+    const month = resolveMonth(data.months, data.defaultMonth);
     const table = data.tables[0];
 
     window.pieChartUnitLabel = table.d.__tree__.dimension.unit.category.label[config.unit] || REF.unit;
     return table.countries
         .map((c) => ({ c, entry: latestAtOrBefore(c, month) }))
         .filter(({ entry }) => entry && entry.value > 0)
-        .map(({ c, entry }) => [countryLabelFor(c.code, table.geoLabels, entry.month, month), entry.value]);
+        .map(({ c, entry }) => [countryLabelFor(c.code, table.geoLabels), entry.value]);
 }
 
 // Threshold of the average-split charts: every country's monthly stock in the

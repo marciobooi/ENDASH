@@ -191,7 +191,7 @@ function showHideTimeLine() {
     // Monthly chart: a month slider over the months with good coverage.
     const data = chartOptionEnabled(REF.chartId, "timeline") ? monthlyTables(codesDataset[REF.chartId]) : null;
     if (data) {
-      resolveMonth(data.months);
+      resolveMonth(data.months, data.defaultMonth);
       this.timeline = new Timeline(timelineContainer, null, { labels: data.months });
       this.timeline.addToDOM();
     }
@@ -500,7 +500,7 @@ tooltip = function () {
       <table class="table_component">
           <thead>
               <tr>
-                  <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : this.x}</th>   
+                  <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : (this.points[0].point.category ?? this.x)}</th>
               </tr>
           </thead>
           <tbody>       
