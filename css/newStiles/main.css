@@ -350,6 +350,12 @@ text.highcharts-axis-title {
   display: none ;
 }
 
+/* Expanded chart: always show the unit. Done in CSS (not a one-off jQuery call)
+   because every line <-> bar switch rebuilds the chart with fresh elements. */
+.highchartsContainerExpand text.highcharts-axis-title {
+  display: initial;
+}
+
 .geo-dropdown-wrapper {
   height: 23rem;
   overflow: hidden;
