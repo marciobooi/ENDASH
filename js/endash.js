@@ -508,7 +508,7 @@ function monthlyBarData() {
     // Average-split charts: one bar per country, the ones above the period
     // average highlighted, with the average drawn as a line.
     if (config.medianSplit) {
-        const threshold = averageThreshold(data.tables[0], config.months || 12);
+        const threshold = averageThreshold(data.tables[0], config.months || 12, month);
         if (!threshold) return null;
         // The bars are each country's stock, not the average (that's the dashed
         // line), so the tooltip row is named after the measure ("Closing stocks").
@@ -552,8 +552,11 @@ function monthlyPieData() {
 // Threshold of the average-split charts: every country's monthly stock in the
 // window, summed, / months / countries. Countries with nothing but zeros or gaps
 // (Albania reports 0 throughout) aren't real stock figures and stay out.
-function averageThreshold(parsed, windowSize) {
-    const anchor = quorumMonths(parsed).pop();
+// `endMonth` (optional) is the last month of the window - the bar view passes the
+// slider's month; without it the window ends at the latest month most countries
+// have published.
+function averageThreshold(parsed, windowSize, endMonth) {
+    const anchor = endMonth || quorumMonths(parsed).pop();
     if (!anchor) return null;
     const windowMonths = Array.from({ length: windowSize }, (_, i) => shiftMonthId(anchor, i - windowSize + 1));
     const withStock = parsed.countries
