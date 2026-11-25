@@ -493,14 +493,16 @@ tooltip = function () {
   // isn't a valid figure - and skip it for a single series, where "Total"
   // is just a duplicate of that one value.
   const totalRow = (REF.chartType !== "pieChart" && tooltipTotalEnabled(REF.chartId) && this.points.length > 1) ?
-  `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</td></tr>` : '';
+  `<tr><td><b>${languageNameSpace.labels['TOTAL']}:</b></td><td><b>${total.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3, useGrouping: true }).replace(/,/g, ' ')}</b></td></tr>` : '';
 
   // Create the HTML table structure
   const html = `  
       <table class="table_component">
           <thead>
               <tr>
-                  <th scope="col" colspan="2">${REF.chartType === "pieChart" ? languageNameSpace.labels[REF.geos] : (this.points[0].point.category ?? this.x)}</th>
+                  ${REF.chartType === "pieChart"
+                    ? `<th scope="col" colspan="2">${languageNameSpace.labels[REF.geos]}</th>`
+                    : `<th scope="col">${this.points[0].point.category ?? this.x}</th><th scope="col">${unit}</th>`}
               </tr>
           </thead>
           <tbody>       
